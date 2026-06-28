@@ -7,23 +7,17 @@ import {
   ProductionIllustration,
   QualityCheckIllustration,
 } from '../components/Illustrations';
-import {
-  QUALITY_COMPLIANCE_DESCRIPTION,
-  QUALITY_COMPLIANCE_FAQ_ITEMS,
-  QUALITY_COMPLIANCE_TITLE,
-  QUALITY_COMPLIANCE_URL,
-} from '../seo/pageSeo';
+import { QUALITY_COMPLIANCE_FAQ_ITEMS } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
 
+const pageMeta = createTopicPageMeta('/quality-compliance');
+
 export const qualityComplianceConfig: TopicPageConfig = {
-  seo: {
-    title: QUALITY_COMPLIANCE_TITLE,
-    description: QUALITY_COMPLIANCE_DESCRIPTION,
-    url: QUALITY_COMPLIANCE_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'QUALITY & COMPLIANCE',
-    title: 'Documentation and quality support for your launch',
+    title: pageMeta.h1,
     description:
       'Compliance needs vary by product type, market, and sales channel. Brandsamor supports quality processes and documentation — including GMP-aligned production, Certificates of Analysis, IFRA certificates, allergen information, and FDA MoCRA guidance where applicable.',
     Illustration: ComplianceDocIllustration,

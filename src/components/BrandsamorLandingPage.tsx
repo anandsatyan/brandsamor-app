@@ -11,6 +11,8 @@ import {
 } from './Illustrations';
 import { SectionLinkButton } from './SectionLinkButton';
 import { SeoHead } from './SeoHead';
+import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
+import { PAGE_METADATA } from '../seo/pageMetadata';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
 import { TrustStrip } from './TrustStrip';
@@ -202,7 +204,7 @@ const testimonials = [{
   quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.'
 }, {
   name: 'Erin S.',
-  quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the bottles is really something else.'
+  quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the products is really something else.'
 }, {
   name: 'Monica M.',
   quote: 'My customers love the travel size and the heavy glass. The finished product feels premium and sells itself.'
@@ -248,12 +250,19 @@ const useActiveStep = (_count: number) => {
 };
 
 export const BrandsamorLandingPage = () => {
+  const homeMeta = PAGE_METADATA['/'];
   const {
     refs: stepRefs,
     activeIndex: activeStepIndex
   } = useActiveStep(howItWorksSteps.length);
   return <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
-      <SeoHead />
+      <SeoHead
+        title={homeMeta.title}
+        description={homeMeta.description}
+        url={homeMeta.canonical}
+        robots={homeMeta.robots}
+        structuredData={buildStructuredDataForPath(homeMeta)}
+      />
       <SiteHeader />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">

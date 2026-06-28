@@ -1,14 +1,6 @@
-import { SITE_URL, type FaqItem } from './siteConfig';
+import type { FaqItem } from './siteConfig';
 
 // ——— Fragrance Products ———
-
-export const FRAGRANCE_PRODUCTS_TITLE =
-  'Private Label Fragrance Products | Bottle, Cap & Packaging Options | Brandsamor';
-
-export const FRAGRANCE_PRODUCTS_DESCRIPTION =
-  'Explore private label fragrance product options with Brandsamor — bottle shapes and sizes, cap and spray hardware, labels, screen printing, color direction, and retail-ready packaging for your branded perfume line.';
-
-export const FRAGRANCE_PRODUCTS_URL = `${SITE_URL}/fragrance-products`;
 
 export const FRAGRANCE_PRODUCTS_FAQ_ITEMS: FaqItem[] = [
   {
@@ -45,14 +37,6 @@ export const FRAGRANCE_PRODUCTS_FAQ_ITEMS: FaqItem[] = [
 
 // ——— Fragrance Sampling ———
 
-export const FRAGRANCE_SAMPLING_TITLE =
-  'Fragrance Sampling for Private Label Perfume | Brandsamor Scent Library';
-
-export const FRAGRANCE_SAMPLING_DESCRIPTION =
-  'Order fragrance samples from the Brandsamor scent library before your first production batch. Compare scent directions, share options with your team, and choose the fragrance that fits your brand.';
-
-export const FRAGRANCE_SAMPLING_URL = `${SITE_URL}/fragrance-sampling`;
-
 export const FRAGRANCE_SAMPLING_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Why should I order fragrance samples before launching my perfume line?',
@@ -87,14 +71,6 @@ export const FRAGRANCE_SAMPLING_FAQ_ITEMS: FaqItem[] = [
 ];
 
 // ——— Packaging & Branding ———
-
-export const PACKAGING_BRANDING_TITLE =
-  'Perfume Packaging & Branding for Private Label | Brandsamor';
-
-export const PACKAGING_BRANDING_DESCRIPTION =
-  'Customize perfume bottles, caps, sprays, labels, boxes, and finishing details with Brandsamor. Built on proven fragrance packaging experience to help your private label product look and feel brand-ready.';
-
-export const PACKAGING_BRANDING_URL = `${SITE_URL}/packaging-branding`;
 
 export const PACKAGING_BRANDING_FAQ_ITEMS: FaqItem[] = [
   {
@@ -131,14 +107,6 @@ export const PACKAGING_BRANDING_FAQ_ITEMS: FaqItem[] = [
 
 // ——— Start a Perfume Line ———
 
-export const START_PERFUME_LINE_TITLE =
-  'Start a Perfume Line Under Your Brand | Private Label Guide | Brandsamor';
-
-export const START_PERFUME_LINE_DESCRIPTION =
-  'Learn why brands add private label perfume to their product line — high-margin sales, giftable products, stronger brand memory, and repeat purchases — and how Brandsamor helps you launch in weeks.';
-
-export const START_PERFUME_LINE_URL = `${SITE_URL}/start-a-perfume-line`;
-
 export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Why should my brand add perfume to its product line?',
@@ -173,14 +141,6 @@ export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
 ];
 
 // ——— Who We Work With ———
-
-export const WHO_WE_WORK_WITH_TITLE =
-  'Who We Work With | Private Label Perfume for Brands & Retailers | Brandsamor';
-
-export const WHO_WE_WORK_WITH_DESCRIPTION =
-  'Brandsamor private label perfume is built for beauty brands, creators, boutiques, hotels, spas, salons, home fragrance brands, and corporate gifting companies ready to launch a branded fragrance line.';
-
-export const WHO_WE_WORK_WITH_URL = `${SITE_URL}/who-we-work-with`;
 
 export const WHO_WE_WORK_WITH_FAQ_ITEMS: FaqItem[] = [
   {
@@ -217,14 +177,6 @@ export const WHO_WE_WORK_WITH_FAQ_ITEMS: FaqItem[] = [
 
 // ——— Why Brandsamor ———
 
-export const WHY_BRANDSAMOR_TITLE =
-  'Why Brandsamor Private Label Perfume | Launch Faster, Start Smaller';
-
-export const WHY_BRANDSAMOR_DESCRIPTION =
-  'See why brands choose Brandsamor for private label perfume — no factory setup, samples before you commit, more bottle and branding options, ready-to-sell batches in weeks, and quality checks handled for you.';
-
-export const WHY_BRANDSAMOR_URL = `${SITE_URL}/why-brandsamor`;
-
 export const WHY_BRANDSAMOR_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Why choose Brandsamor over setting up my own perfume production?',
@@ -259,14 +211,6 @@ export const WHY_BRANDSAMOR_FAQ_ITEMS: FaqItem[] = [
 ];
 
 // ——— Quality & Compliance ———
-
-export const QUALITY_COMPLIANCE_TITLE =
-  'Quality & Compliance for Private Label Perfume | Brandsamor';
-
-export const QUALITY_COMPLIANCE_DESCRIPTION =
-  'Learn how Brandsamor supports quality and compliance for private label fragrance — GMP-compliant production, Certificates of Analysis, IFRA certificates, allergen information, batch records, and FDA MoCRA guidance where applicable.';
-
-export const QUALITY_COMPLIANCE_URL = `${SITE_URL}/quality-compliance`;
 
 export const QUALITY_COMPLIANCE_FAQ_ITEMS: FaqItem[] = [
   {

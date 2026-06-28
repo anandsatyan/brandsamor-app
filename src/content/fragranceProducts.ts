@@ -10,23 +10,19 @@ import {
   ScentSamplesIllustration,
 } from '../components/Illustrations';
 import {
-  FRAGRANCE_PRODUCTS_DESCRIPTION,
   FRAGRANCE_PRODUCTS_FAQ_ITEMS,
-  FRAGRANCE_PRODUCTS_TITLE,
-  FRAGRANCE_PRODUCTS_URL,
 } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
+
+const pageMeta = createTopicPageMeta('/fragrance-products');
 
 export const fragranceProductsConfig: TopicPageConfig = {
   navKey: 'fragrance-products',
-  seo: {
-    title: FRAGRANCE_PRODUCTS_TITLE,
-    description: FRAGRANCE_PRODUCTS_DESCRIPTION,
-    url: FRAGRANCE_PRODUCTS_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'FRAGRANCE PRODUCTS',
-    title: 'Private label fragrance formats for every launch',
+    title: pageMeta.h1,
     description:
       'From full-size eau de parfum to travel sprays, body mists, room sprays, and gift sets — choose the product formats that fit your brand, audience, and price point.',
     Illustration: FlatLayIllustration,

@@ -9,24 +9,18 @@ import {
   PackagingIllustration,
   RigidBoxIllustration,
 } from '../components/Illustrations';
-import {
-  PACKAGING_BRANDING_DESCRIPTION,
-  PACKAGING_BRANDING_FAQ_ITEMS,
-  PACKAGING_BRANDING_TITLE,
-  PACKAGING_BRANDING_URL,
-} from '../seo/pageSeo';
+import { PACKAGING_BRANDING_FAQ_ITEMS } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
+
+const pageMeta = createTopicPageMeta('/packaging-branding');
 
 export const packagingBrandingConfig: TopicPageConfig = {
   navKey: 'packaging',
-  seo: {
-    title: PACKAGING_BRANDING_TITLE,
-    description: PACKAGING_BRANDING_DESCRIPTION,
-    url: PACKAGING_BRANDING_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'PACKAGING & BRANDING',
-    title: 'Packaging that makes your perfume feel like your brand',
+    title: pageMeta.h1,
     description:
       'Shape every detail — bottle, cap, spray, label, printing, color, and boxes — so your private label fragrance looks and feels ready to sell from the first batch.',
     Illustration: PackagingIllustration,

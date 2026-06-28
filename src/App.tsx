@@ -5,6 +5,7 @@ import { FragranceSamplingPage } from './components/FragranceSamplingPage';
 import { HowItWorksPage } from './components/HowItWorksPage';
 import { PackagingBrandingPage } from './components/PackagingBrandingPage';
 import { QualityCompliancePage } from './components/QualityCompliancePage';
+import { NotFoundPage } from './components/NotFoundPage';
 import { ScrollToTop } from './components/ScrollToTop';
 import { StartPerfumeLinePage } from './components/StartPerfumeLinePage';
 import { WhoWeWorkWithPage } from './components/WhoWeWorkWithPage';
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/who-we-work-with" element={<WhoWeWorkWithPage />} />
         <Route path="/why-brandsamor" element={<WhyBrandsamorPage />} />
         <Route path="/quality-compliance" element={<QualityCompliancePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

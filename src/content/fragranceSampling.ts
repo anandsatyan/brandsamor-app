@@ -7,23 +7,17 @@ import {
   ProcessTimelineIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
-import {
-  FRAGRANCE_SAMPLING_DESCRIPTION,
-  FRAGRANCE_SAMPLING_FAQ_ITEMS,
-  FRAGRANCE_SAMPLING_TITLE,
-  FRAGRANCE_SAMPLING_URL,
-} from '../seo/pageSeo';
+import { FRAGRANCE_SAMPLING_FAQ_ITEMS } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
 
+const pageMeta = createTopicPageMeta('/fragrance-sampling');
+
 export const fragranceSamplingConfig: TopicPageConfig = {
-  seo: {
-    title: FRAGRANCE_SAMPLING_TITLE,
-    description: FRAGRANCE_SAMPLING_DESCRIPTION,
-    url: FRAGRANCE_SAMPLING_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'FRAGRANCE SAMPLING',
-    title: 'Find your launch scent before production',
+    title: pageMeta.h1,
     description:
       'Browse the Brandsamor scent library, order samples that fit your brand, and compare fragrance directions with confidence before your first production batch.',
     Illustration: ScentSamplesIllustration,

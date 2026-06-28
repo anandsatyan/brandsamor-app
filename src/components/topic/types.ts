@@ -23,6 +23,7 @@ export type CardItem = {
 export type TopicPageConfig = {
   navKey?: NavKey;
   seo: {
+    path: string;
     title: string;
     description: string;
     url: string;

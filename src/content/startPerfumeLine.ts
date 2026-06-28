@@ -13,23 +13,17 @@ import {
   RepeatOrderIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
-import {
-  START_PERFUME_LINE_DESCRIPTION,
-  START_PERFUME_LINE_FAQ_ITEMS,
-  START_PERFUME_LINE_TITLE,
-  START_PERFUME_LINE_URL,
-} from '../seo/pageSeo';
+import { START_PERFUME_LINE_FAQ_ITEMS } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
 
+const pageMeta = createTopicPageMeta('/start-a-perfume-line');
+
 export const startPerfumeLineConfig: TopicPageConfig = {
-  seo: {
-    title: START_PERFUME_LINE_TITLE,
-    description: START_PERFUME_LINE_DESCRIPTION,
-    url: START_PERFUME_LINE_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'START A PERFUME LINE',
-    title: 'Why and how to launch perfume under your brand',
+    title: pageMeta.h1,
     description:
       'Perfume is a high-margin, giftable product that strengthens brand memory and drives repeat purchases. Learn what it takes to plan your launch — and how Brandsamor helps you go from scent selection to a ready-to-sell first batch in weeks.',
     Illustration: LaunchPlanningIllustration,

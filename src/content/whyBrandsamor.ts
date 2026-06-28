@@ -12,23 +12,17 @@ import {
   RigidBoxIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
-import {
-  WHY_BRANDSAMOR_DESCRIPTION,
-  WHY_BRANDSAMOR_FAQ_ITEMS,
-  WHY_BRANDSAMOR_TITLE,
-  WHY_BRANDSAMOR_URL,
-} from '../seo/pageSeo';
+import { WHY_BRANDSAMOR_FAQ_ITEMS } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
 
+const pageMeta = createTopicPageMeta('/why-brandsamor');
+
 export const whyBrandsamorConfig: TopicPageConfig = {
-  seo: {
-    title: WHY_BRANDSAMOR_TITLE,
-    description: WHY_BRANDSAMOR_DESCRIPTION,
-    url: WHY_BRANDSAMOR_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'WHY BRANDSAMOR',
-    title: 'Launch faster with more control and less setup',
+    title: pageMeta.h1,
     description:
       'Brandsamor handles sourcing, filling, packaging, and quality checks so you do not need a factory, production staff, or months of setup. Sample first, customize your bottle and branding, and receive a ready-to-sell batch in weeks.',
     Illustration: ProcessTimelineIllustration,

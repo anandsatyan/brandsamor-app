@@ -1,18 +1,17 @@
-export const SITE_URL = import.meta.env.VITE_SITE_URL ?? 'https://brandsamor.com';
+import { CANONICAL_ORIGIN, OG_SITE_NAME, PAGE_METADATA } from './pageMetadata';
 
-export const SITE_NAME = 'Brandsamor Launch Studio';
+const envSiteUrl =
+  typeof import.meta !== 'undefined' && import.meta.env
+    ? import.meta.env.VITE_SITE_URL
+    : undefined;
 
-export const DEFAULT_TITLE = 'Start Your Own Perfume Line | Brandsamor Private Label';
+export const SITE_URL = envSiteUrl ?? CANONICAL_ORIGIN;
 
-export const DEFAULT_DESCRIPTION =
-  'Launch a ready-to-sell private label perfume line in weeks. Brandsamor handles scent selection, bottles, packaging, filling, and quality checks for beauty brands, retailers, creators, and hotels.';
+export const SITE_NAME = OG_SITE_NAME;
 
-export const HOW_IT_WORKS_TITLE = 'How It Works | Brandsamor Private Label Process';
+export const DEFAULT_TITLE = PAGE_METADATA['/'].title;
 
-export const HOW_IT_WORKS_DESCRIPTION =
-  'See how Brandsamor helps you launch a private label perfume line — from brand brief and scent samples to bottle selection, packaging design, production, quality checks, and delivery.';
-
-export const HOW_IT_WORKS_URL = `${SITE_URL}/how-it-works`;
+export const DEFAULT_DESCRIPTION = PAGE_METADATA['/'].description;
 
 export const ORGANIZATION = {
   name: 'Brandsamor',

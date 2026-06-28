@@ -12,25 +12,18 @@ import {
   RepeatOrderIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
-import {
-  HOW_IT_WORKS_DESCRIPTION,
-  HOW_IT_WORKS_TITLE,
-  HOW_IT_WORKS_URL,
-  PROCESS_FAQ_ITEMS,
-  SITE_NAME,
-} from '../seo/siteConfig';
+import { PROCESS_FAQ_ITEMS, SITE_NAME } from '../seo/siteConfig';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
+
+const pageMeta = createTopicPageMeta('/how-it-works');
 
 export const howItWorksConfig: TopicPageConfig = {
   navKey: 'how-it-works',
-  seo: {
-    title: HOW_IT_WORKS_TITLE,
-    description: HOW_IT_WORKS_DESCRIPTION,
-    url: HOW_IT_WORKS_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'HOW IT WORKS',
-    title: 'From brand brief to ready-to-sell perfume',
+    title: pageMeta.h1,
     description: `${SITE_NAME} guides you through every step of launching a private label fragrance line — sampling scents, customizing the product, approving production, and receiving finished perfumes under your brand.`,
     Illustration: ProcessTimelineIllustration,
   },

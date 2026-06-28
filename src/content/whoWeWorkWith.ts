@@ -12,23 +12,17 @@ import {
   ProductionIllustration,
   RoomSprayIllustration,
 } from '../components/Illustrations';
-import {
-  WHO_WE_WORK_WITH_DESCRIPTION,
-  WHO_WE_WORK_WITH_FAQ_ITEMS,
-  WHO_WE_WORK_WITH_TITLE,
-  WHO_WE_WORK_WITH_URL,
-} from '../seo/pageSeo';
+import { WHO_WE_WORK_WITH_FAQ_ITEMS } from '../seo/pageSeo';
+import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
 
+const pageMeta = createTopicPageMeta('/who-we-work-with');
+
 export const whoWeWorkWithConfig: TopicPageConfig = {
-  seo: {
-    title: WHO_WE_WORK_WITH_TITLE,
-    description: WHO_WE_WORK_WITH_DESCRIPTION,
-    url: WHO_WE_WORK_WITH_URL,
-  },
+  seo: pageMeta.seo,
   hero: {
     badge: 'WHO WE WORK WITH',
-    title: 'Private label perfume for brands ready to extend',
+    title: pageMeta.h1,
     description:
       'Brandsamor works with beauty brands, creators, boutiques, hotels, spas, salons, home fragrance labels, and gifting companies that want a premium branded fragrance — without building production in-house.',
     Illustration: HeroBottleIllustration,
