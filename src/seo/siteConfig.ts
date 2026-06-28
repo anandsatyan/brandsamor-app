@@ -7,6 +7,13 @@ export const DEFAULT_TITLE = 'Start Your Own Perfume Line | Brandsamor Private L
 export const DEFAULT_DESCRIPTION =
   'Launch a ready-to-sell private label perfume line in weeks. Brandsamor handles scent selection, bottles, packaging, filling, and quality checks for beauty brands, retailers, creators, and hotels.';
 
+export const HOW_IT_WORKS_TITLE = 'How It Works | Brandsamor Private Label Process';
+
+export const HOW_IT_WORKS_DESCRIPTION =
+  'See how Brandsamor helps you launch a private label perfume line — from brand brief and scent samples to bottle selection, packaging design, production, quality checks, and delivery.';
+
+export const HOW_IT_WORKS_URL = `${SITE_URL}/how-it-works`;
+
 export const ORGANIZATION = {
   name: 'Brandsamor',
   legalName: 'Packamor LLC',
@@ -86,5 +93,38 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Does Brandsamor ship private label perfume worldwide?',
     answer:
       'Brandsamor supports brands launching fragrance products with worldwide shipping options. Exact shipping availability and lead times depend on your order details and destination.',
+  },
+];
+
+export const PROCESS_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'How long does the full private label process take?',
+    answer:
+      'Most brands move from initial brief to a ready-to-sell first batch in weeks. Timelines depend on how quickly you choose scents and approve packaging, but Brandsamor is built for faster launches than traditional factory setups.',
+  },
+  {
+    question: 'Do I need to finalize every detail before starting?',
+    answer:
+      'No. You need a clear audience, product idea, and rough quantity range to begin. Logo files, exact label artwork, and packaging preferences can be refined as you move through samples and pre-production approval.',
+  },
+  {
+    question: 'What happens after I approve the production sample?',
+    answer:
+      'Once you sign off on scent, bottle, cap, label, and packaging, Brandsamor moves into filling, finishing, quality checks, and batch documentation before your finished perfumes are packed for delivery.',
+  },
+  {
+    question: 'Can I change bottle or packaging choices later?',
+    answer:
+      'Yes, but changes are easiest before production approval. For repeat orders, you can refine packaging, add new scents, or adjust product formats once you know what customers respond to.',
+  },
+  {
+    question: 'What if I only want to start with scent samples?',
+    answer:
+      'That is the recommended starting point. Samples let you compare fragrance directions, share options with your team or customers, and commit to production with more confidence.',
+  },
+  {
+    question: 'Who approves the final product before shipping?',
+    answer:
+      'You do. Brandsamor prepares a production sample for your review so you can confirm the scent, look, and packaging match your brand before the full batch is filled and shipped.',
   },
 ];

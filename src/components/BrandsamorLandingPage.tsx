@@ -1,23 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ComingSoonLabel } from './ComingSoonLabel';
 import { FaqSection } from './FaqSection';
+import {
+  FlatLayIllustration,
+  HeroBottleIllustration,
+  MarbleBottleIllustration,
+  PackagingIllustration,
+  ScentSamplesIllustration,
+} from './Illustrations';
+import { SectionLinkButton } from './SectionLinkButton';
 import { SeoHead } from './SeoHead';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
+import { TrustStrip } from './TrustStrip';
 
 const STEP_NUMBER_GRADIENT = 'radial-gradient(circle at 75% 115%, #f8b6d3 0%, #dc79e8 24%, transparent 48%), radial-gradient(circle at 82% 30%, #5d37ee 0%, #8958ec 28%, transparent 55%), linear-gradient(115deg, #f3a5a8 0%, #d88bd3 38%, #9365ef 68%, #6142dd 100%)';
 
-const ComingSoonLabel = ({ className = '', variant = 'light' }: { className?: string; variant?: 'light' | 'dark' }) => (
-  <span
-    className={`inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg ${
-      variant === 'dark'
-        ? 'bg-white/10 text-white/90 border border-white/20'
-        : 'bg-[#E7DED2] text-[#2D302B]'
-    } ${className}`}
-  >
-    Coming soon
-  </span>
+const SectionCtaRow = ({ to, label }: { to: string; label: string }) => (
+  <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-center">
+    <ComingSoonLabel />
+    <SectionLinkButton to={to}>{label}</SectionLinkButton>
+  </div>
 );
 
 // ——— Audience ticker icons ———
@@ -193,29 +197,6 @@ const productOptions = [{
   title: 'Retail-Ready Packaging',
   desc: 'Use boxes, inserts, gift packaging, and finishing details to make your perfume feel ready to sell or gift.'
 }];
-const growSmartSteps = [{
-  num: '01',
-  title: 'Start With Samples',
-  desc: 'Begin with scent samples so you can compare options before committing to a full launch.'
-}, {
-  num: '02',
-  title: 'Launch a Focused First Batch',
-  desc: 'Start with one scent or a small set of scents instead of trying to build a large collection on day one.'
-}, {
-  num: '03',
-  title: 'Learn From Customers',
-  desc: 'Use early customer feedback, sales, gifting response, and repeat interest to understand what works.'
-}, {
-  num: '04',
-  title: 'Add More Scents',
-  desc: 'Expand only after you know which scent direction, product format, and packaging style customers respond to.'
-}, {
-  num: '05',
-  title: 'Start With Samples Again',
-  desc: 'Keep the cycle going by sampling new scent ideas before each new drop, seasonal launch, or product extension.'
-}];
-const fitCheckWorks = ['You already have a brand, store, audience, customer base, event, or sales channel.', 'You want to use perfume as a product, gift, retail add-on, merchandise item, event giveaway, or brand extension.', 'You want to start with samples, choose a scent, customize the look, and receive a ready-to-sell or ready-to-gift first batch.'];
-const fitCheckHelps = ['A clear idea of who the perfume is for.', 'A rough quantity range for your first batch.', 'A preferred product type, such as a full-size perfume, travel spray, rollerball, gift set, or event fragrance.', 'Any logo, brand colors, label idea, bottle preference, or packaging direction you already have.'];
 const testimonials = [{
   name: 'Christopher J.',
   quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.'
@@ -229,7 +210,7 @@ const testimonials = [{
 const packagingItems = [{
   num: '01',
   title: 'Perfume Bottles',
-  desc: 'Packamor already helps fragrance brands source bottles in different shapes, capacities, and finishes.'
+  desc: 'Brandsamor already helps fragrance brands source bottles in different shapes, capacities, and finishes.'
 }, {
   num: '02',
   title: 'Caps and Sprays',
@@ -266,127 +247,6 @@ const useActiveStep = (_count: number) => {
   };
 };
 
-// Scandinavian editorial hero image — SVG line composition
-const HeroBottleIllustration = () => <div className="w-full h-full flex items-center justify-center bg-[#F2EDE4] min-h-[250px] sm:min-h-[320px] md:min-h-[400px]">
-  
-    <svg viewBox="0 0 400 440" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[340px] h-auto mx-auto">
-    
-      {/* YOUR BRAND label text */}
-      <text x="200" y="32" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="11" letterSpacing="4" fill="#A8BBBF" fontWeight="600" style={{
-      height: "125px"
-    }}>YOUR BRAND</text>
-      {/* Tall bottle */}
-      <rect x="60" y="60" width="80" height="220" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="88" y="46" width="24" height="18" rx="3" stroke="#2D302B" strokeWidth="1.2" fill="none" style={{
-      width: "300px",
-      maxWidth: "300px",
-      height: "45px"
-    }} />
-      <rect x="94" y="38" width="12" height="12" rx="2" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <line x1="60" y1="120" x2="140" y2="120" stroke="#2D302B" strokeWidth="0.7" strokeDasharray="3 3" />
-      <rect x="75" y="155" width="50" height="30" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="100" y="173" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
-      {/* Rounded bottle */}
-      <ellipse cx="230" cy="260" rx="50" ry="70" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="218" y="182" width="24" height="14" rx="3" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="224" y="172" width="12" height="14" rx="2" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="202" y="238" width="56" height="28" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="230" y="255" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
-      {/* Travel spray */}
-      <rect x="300" y="300" width="44" height="110" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="312" y="288" width="20" height="16" rx="3" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="320" y="278" width="6" height="14" rx="1" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <line x1="300" y1="330" x2="344" y2="330" stroke="#2D302B" strokeWidth="0.7" strokeDasharray="3 3" />
-      {/* Linen texture lines */}
-      <line x1="0" y1="420" x2="400" y2="420" stroke="#D9D1C4" strokeWidth="0.6" />
-      <line x1="0" y1="426" x2="400" y2="426" stroke="#D9D1C4" strokeWidth="0.4" />
-      <line x1="0" y1="432" x2="400" y2="432" stroke="#D9D1C4" strokeWidth="0.3" />
-    </svg>
-  </div>;
-
-// Marble single bottle illustration
-const MarbleBottleIllustration = () => <div className="w-full h-full flex items-center justify-center" style={{
-  background: '#F2EDE4',
-  width: "250px",
-  maxWidth: "250px",
-  height: "250px"
-}}>
-  
-    <svg viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" style={{
-    width: '70%',
-    maxWidth: 180,
-    height: 'auto'
-  }}>
-      {/* marble veins */}
-      <path d="M0 80 Q60 60 110 90 Q160 120 220 100" stroke="#E0D8CE" strokeWidth="1" fill="none" />
-      <path d="M0 140 Q80 120 140 150 Q180 165 220 145" stroke="#E0D8CE" strokeWidth="0.7" fill="none" />
-      {/* bottle body */}
-      <rect x="70" y="80" width="80" height="160" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="90" y="62" width="40" height="22" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="100" y="50" width="20" height="16" rx="2" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <line x1="70" y1="150" x2="150" y2="150" stroke="#A8BBBF" strokeWidth="0.8" strokeDasharray="4 3" />
-      <rect x="83" y="170" width="54" height="26" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="110" y="185" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
-    </svg>
-  </div>;
-
-// Packaging experience illustration
-const PackagingIllustration = () => <div className="w-full h-full flex items-center justify-center" style={{
-  background: '#F2EDE4'
-}}>
-  
-    <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{
-    width: '85%',
-    maxWidth: 280,
-    height: 'auto'
-  }}>
-      {/* Open box */}
-      <rect x="30" y="100" width="120" height="100" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <path d="M30 100 L90 60 L210 60 L150 100Z" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <path d="M150 100 L210 60" stroke="#2D302B" strokeWidth="1.2" />
-      {/* bottle in box */}
-      <rect x="70" y="80" width="40" height="100" rx="4" stroke="#A8BBBF" strokeWidth="1" fill="none" />
-      <rect x="82" y="70" width="16" height="14" rx="2" stroke="#A8BBBF" strokeWidth="1" fill="none" />
-      {/* Gold cap */}
-      <rect x="82" y="64" width="16" height="10" rx="2" stroke="#C9A96E" strokeWidth="1.2" fill="none" />
-      {/* second bottle standalone */}
-      <rect x="200" y="70" width="52" height="130" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="214" y="54" width="24" height="18" rx="3" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="220" y="44" width="12" height="14" rx="2" stroke="#C9A96E" strokeWidth="1.4" fill="none" />
-      <line x1="200" y1="130" x2="252" y2="130" stroke="#A8BBBF" strokeWidth="0.8" strokeDasharray="3 3" />
-    </svg>
-  </div>;
-
-// Product options flat lay
-const FlatLayIllustration = () => <div className="w-full h-full flex items-center justify-center" style={{
-  background: '#F2EDE4'
-}}>
-  
-    <svg viewBox="0 0 360 340" fill="none" xmlns="http://www.w3.org/2000/svg" style={{
-    width: '85%',
-    maxWidth: 300,
-    height: 'auto'
-  }}>
-      {/* stone surface veins */}
-      <path d="M0 160 Q90 140 180 165 Q260 185 360 155" stroke="#E0D8CE" strokeWidth="1" fill="none" />
-      {/* cap */}
-      <ellipse cx="80" cy="100" rx="30" ry="14" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <ellipse cx="80" cy="92" rx="30" ry="14" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="50" y="92" width="60" height="8" stroke="none" fill="#F2EDE4" />
-      {/* box */}
-      <rect x="200" y="60" width="120" height="90" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <line x1="200" y1="80" x2="320" y2="80" stroke="#2D302B" strokeWidth="0.8" />
-      <line x1="260" y1="60" x2="260" y2="150" stroke="#2D302B" strokeWidth="0.6" strokeDasharray="3 3" />
-      <text x="260" y="115" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="8" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
-      {/* bottle */}
-      <rect x="120" y="140" width="70" height="170" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="140" y="120" width="30" height="24" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
-      <rect x="148" y="108" width="14" height="16" rx="2" stroke="#C9A96E" strokeWidth="1.4" fill="none" />
-      <line x1="120" y1="215" x2="190" y2="215" stroke="#A8BBBF" strokeWidth="0.8" strokeDasharray="3 3" />
-      <rect x="133" y="230" width="44" height="22" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="155" y="244" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="6.5" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
-    </svg>
-  </div>;
 export const BrandsamorLandingPage = () => {
   const {
     refs: stepRefs,
@@ -397,70 +257,24 @@ export const BrandsamorLandingPage = () => {
       <SiteHeader />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-        {/* SECTION 1 - HERO */}
+        {/* HERO */}
         <section id="overview" className="py-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-6 sm:space-y-8">
             <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full">PRIVATE LABEL</span>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-[#2D302B]">Start Your Own Perfume Line</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-[#2D302B]">The Easy Way to Start Your Own Perfume Line</h1>
             <p className="text-[#2D302B] text-base sm:text-lg max-w-lg leading-relaxed">
               Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
             </p>
             <ComingSoonLabel />
-            <div className="flex flex-wrap items-center gap-4 pt-2 sm:pt-4">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map(i => <div key={i} className="w-8 h-8 rounded-full bg-[#E7DED2] border-2 border-[#f9f7f2] flex items-center justify-center text-xs font-medium text-[#77736E]">
-                    {String.fromCharCode(64 + i)}
-                  </div>)}
-              </div>
-              <div className="flex items-center gap-2 text-sm text-[#77736E]">
-                <div className="flex text-[#A8BBBF]">
-                  {[0, 1, 2, 3, 4].map(i => <Star key={i} size={14} fill="currentColor" />)}
-                </div>
-                <span>4.8/5</span>
-                <span className="hidden sm:inline"> | Trusted by 4000+ brands.</span>
-              </div>
-            </div>
           </div>
           <div className="relative rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0 h-64 sm:h-80 md:h-[400px]">
-            
             <HeroBottleIllustration />
           </div>
         </section>
 
-        {/* SECTION 2 - AUDIENCE TICKER */}
-        <section className="relative pb-8 sm:pb-12 border-b border-[#f1ece0]">
-          <div className="overflow-hidden">
-            <motion.div animate={{
-          x: ['0%', '-50%']
-        }} transition={{
-          ease: 'linear',
-          duration: 20,
-          repeat: Infinity
-        }} className="flex gap-4 sm:gap-6 pr-4 sm:pr-6">
-            
-            {audienceItems.map(item => <div key={item.label} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
-                <div className="mb-3">{<item.Icon />}</div>
-                <h3 className="font-medium text-base sm:text-lg mb-2 max-w-[220px]">{item.label}</h3>
-                <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
-              </div>)}
-            {audienceItems.map(item => <div key={`dup-${item.label}`} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
-                <div className="mb-3">{<item.Icon />}</div>
-                <h3 className="font-medium text-lg mb-2">{item.label}</h3>
-                <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
-              </div>)}
-          </motion.div>
-          </div>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
-          />
-        </section>
+        <TrustStrip testimonials={testimonials} />
 
-        {/* SECTION 3 - HOW IT WORKS */}
+        {/* HOW IT WORKS */}
         <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
@@ -513,24 +327,112 @@ export const BrandsamorLandingPage = () => {
                   </div>
                 </div>;
           })}
-            {/* Mid-page CTA after How It Works */}
             <div className="pt-4">
-              <ComingSoonLabel />
+              <SectionCtaRow to="/how-it-works" label="Learn more about our process" />
             </div>
           </div>
         </section>
 
-        {/* SECTION 4 - PACKAGING EXPERIENCE */}
+        {/* FRAGRANCE PRODUCTS */}
+        <section id="fragrance-products" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
+          <div>
+            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-[#f1ece0]"></span> FRAGRANCE PRODUCTS
+            </h4>
+            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Bottle, Cap, Spray and Packaging Options That Look Like Your Brand</h2>
+            <div className="rounded-xl overflow-hidden w-full max-w-md h-64 sm:h-80 md:h-[400px] mx-auto md:mx-0">
+              <FlatLayIllustration />
+            </div>
+          </div>
+          <div className="flex flex-col justify-center">
+            <p className="text-base sm:text-lg text-[#2D302B] mb-8 sm:mb-12 border-b border-[#f1ece0] pb-8 sm:pb-12">
+              Your perfume does not have to look like a standard private label product. Brandsamor gives you more ways to shape the bottle, cap, spray, color, label, printing, and packaging direction.
+            </p>
+            <div className="space-y-8 sm:space-y-10">
+              {productOptions.map(item => <div key={item.num} className="flex gap-4 sm:gap-8 group">
+                  <div className="text-3xl sm:text-4xl font-display text-[#A8BBBF] shrink-0">{item.num}</div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <p className="text-[#77736E]">{item.desc}</p>
+                  </div>
+                </div>)}
+            </div>
+            <SectionCtaRow to="/fragrance-products" label="Explore all product formats" />
+          </div>
+        </section>
+
+        {/* FRAGRANCE SAMPLING */}
+        <section id="fragrance-sampling" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div>
+            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-[#f1ece0]"></span> FRAGRANCE SAMPLING
+            </h4>
+            <h2 className="text-3xl sm:text-4xl mb-6">Sample scents before you commit to production</h2>
+            <p className="text-base sm:text-lg text-[#2D302B] mb-8 leading-relaxed">
+              Browse the Brandsamor scent library, order samples that fit your brand, and choose your launch fragrance with confidence before your first batch goes into production.
+            </p>
+            <SectionCtaRow to="/fragrance-sampling" label="Explore fragrance sampling" />
+          </div>
+          <div className="rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0">
+            <ScentSamplesIllustration />
+          </div>
+        </section>
+
+        {/* WHY LAUNCH PERFUME */}
+        <section id="why-perfume" className="py-12 sm:py-24 border-t border-[#f1ece0]">
+          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY LAUNCH PERFUME
+          </h4>
+          <div className="max-w-2xl mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl mb-6">Why Sell Perfume Under Your Own Brand?</h2>
+            <p className="text-lg text-[#2D302B] mb-6">
+              Perfume is a high-margin product that lets your brand create repeat sales, giftable products, and a stronger emotional connection with customers.
+            </p>
+            <div className="border-l-2 border-[#A8BBBF] pl-6 text-[#77736E] italic">
+              For many businesses, fragrance is not the main business. It is a new product category that can extend the brand, increase revenue, and create a more memorable customer experience.
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {whySellCards.map(card => <div key={card.num} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
+                <div className="flex justify-between items-start mb-6">
+                  <h3 className="font-bold text-lg leading-tight w-4/5">{card.title}</h3>
+                  <span className="text-[#A8BBBF] text-sm font-medium">{card.num}</span>
+                </div>
+                <p className="text-[#77736E] text-sm mt-auto">{card.desc}</p>
+              </div>)}
+          </div>
+
+          <SectionCtaRow to="/start-a-perfume-line" label="Start planning your line" />
+        </section>
+        <section id="why-brandsamor" className="py-12 sm:py-24 border-t border-[#f1ece0]">
+          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY BRANDSAMOR
+          </h4>
+          <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
+                <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-[#f1ece0] opacity-50 leading-none pointer-events-none select-none">
+                  {`0${idx + 1}`}
+                </div>
+                <h3 className="font-bold text-xl mb-4 relative z-10">{card.title}</h3>
+                <p className="text-[#77736E] text-sm relative z-10">{card.desc}</p>
+              </div>)}
+          </div>
+
+          <SectionCtaRow to="/why-brandsamor" label="Why choose Brandsamor" />
+        </section>
         <section id="packaging" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16 border-t border-[#f1ece0]">
           <div>
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> PACKAGING EXPERIENCE
+              <span className="w-8 h-px bg-[#f1ece0]"></span> PACKAGING & BRANDING
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">
-              Built on Packamor's <span className="text-[#A8BBBF]">fragrance packaging</span> experience
+              Built on proven <span className="text-[#A8BBBF]">fragrance packaging</span> experience
             </h2>
             <p className="text-lg text-[#2D302B] mb-12">
-              Packamor already works with brands that source perfume bottles, caps, sprays, and packaging. Brandsamor Private Label builds on that experience to help you launch a finished fragrance product more easily.
+              Brandsamor already works with brands that source perfume bottles, caps, sprays, and packaging. Private Label builds on that experience to help you launch a finished fragrance product more easily.
             </p>
             <div className="space-y-8">
               {packagingItems.map(item => <div key={item.num} className="flex gap-6">
@@ -555,92 +457,55 @@ export const BrandsamorLandingPage = () => {
             </div>
           </div>
         </section>
+        <div className="border-t border-[#f1ece0] pb-4">
+          <SectionCtaRow to="/packaging-branding" label="Explore packaging options" />
+        </div>
 
-        {/* SECTION 5 - WHY SELL PERFUME */}
-        <section id="why-perfume" className="py-12 sm:py-24 border-t border-[#f1ece0]">
+        {/* WHO WE WORK WITH */}
+        <section id="who-we-work-with" className="py-12 sm:py-24 border-t border-[#f1ece0]">
           <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY ADD PERFUME
-          </h4>
-          <div className="max-w-2xl mb-8 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl mb-6">Why Sell Perfume Under Your Own Brand?</h2>
-            <p className="text-lg text-[#2D302B] mb-6">
-              Perfume is a high-margin product that lets your brand create repeat sales, giftable products, and a stronger emotional connection with customers.
-            </p>
-            <div className="border-l-2 border-[#A8BBBF] pl-6 text-[#77736E] italic">
-              For many businesses, fragrance is not the main business. It is a new product category that can extend the brand, increase revenue, and create a more memorable customer experience.
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whySellCards.map(card => <div key={card.num} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
-                <div className="flex justify-between items-start mb-6">
-                  <h3 className="font-bold text-lg leading-tight w-4/5">{card.title}</h3>
-                  <span className="text-[#A8BBBF] text-sm font-medium">{card.num}</span>
-                </div>
-                <p className="text-[#77736E] text-sm mt-auto">{card.desc}</p>
-              </div>)}
-          </div>
-
-          {/* Mid-page CTA after Why Sell */}
-          <div className="mt-8 sm:mt-12 flex justify-center">
-            <ComingSoonLabel />
-          </div>
-        </section>
-
-        {/* SECTION 6 - TESTIMONIALS */}
-        <section id="reviews" className="py-12 sm:py-24 border-t border-[#f1ece0]">
-          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> CUSTOMER VOICE
+            <span className="w-8 h-px bg-[#f1ece0]"></span> WHO WE WORK WITH
           </h4>
           <div className="flex flex-col md:flex-row justify-between items-start mb-8 sm:mb-12 gap-6 sm:gap-8">
-            <h2 className="text-3xl sm:text-4xl max-w-sm">What Brandsamor Customers Say</h2>
-            <p className="text-[#77736E] max-w-md">Brands already trust Brandsamor for the packaging pieces that make fragrance products look and feel retail-ready.</p>
+            <h2 className="text-3xl sm:text-4xl max-w-md">Built for brands ready to launch fragrance</h2>
+            <p className="text-[#77736E] max-w-md">From retail and e-commerce to events and gifting — if you have an audience and a brand, private label perfume can be your next product line.</p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map(t => <div key={t.name} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-8">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-[#E7DED2] flex items-center justify-center text-[#2D302B] font-bold">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-sm">{t.name}</h4>
-                    <p className="text-xs text-[#77736E]">Brandsamor customer, United States</p>
-                  </div>
-                </div>
-                <p className="italic text-[#2D302B]">"{t.quote}"</p>
+          <div className="relative">
+            <div className="overflow-hidden">
+              <motion.div animate={{
+          x: ['0%', '-50%']
+        }} transition={{
+          ease: 'linear',
+          duration: 20,
+          repeat: Infinity
+        }} className="flex gap-4 sm:gap-6 pr-4 sm:pr-6">
+            {audienceItems.map(item => <div key={item.label} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
+                <div className="mb-3">{<item.Icon />}</div>
+                <h3 className="font-medium text-base sm:text-lg mb-2 max-w-[220px]">{item.label}</h3>
+                <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
               </div>)}
-          </div>
-        </section>
-
-        {/* SECTION 7 - WHY BRANDSAMOR PRIVATE LABEL */}
-        <section id="why-brandsamor" className="py-12 sm:py-24 border-t border-[#f1ece0]">
-          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY BRANDSAMOR PRIVATE LABEL
-          </h4>
-          <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
-                <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-[#f1ece0] opacity-50 leading-none pointer-events-none select-none">
-                  {`0${idx + 1}`}
-                </div>
-                <h3 className="font-bold text-xl mb-4 relative z-10">{card.title}</h3>
-                <p className="text-[#77736E] text-sm relative z-10">{card.desc}</p>
+            {audienceItems.map(item => <div key={`dup-${item.label}`} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
+                <div className="mb-3">{<item.Icon />}</div>
+                <h3 className="font-medium text-lg mb-2">{item.label}</h3>
+                <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
               </div>)}
+          </motion.div>
+            </div>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+            />
           </div>
-
-          {/* Mid-page CTA after Why Brandsamor */}
-          <div className="mt-8 sm:mt-12 flex justify-center">
-            <ComingSoonLabel />
-          </div>
+          <SectionCtaRow to="/who-we-work-with" label="See who we work with" />
         </section>
-
-        {/* SECTION 8 - COMPLIANCE */}
         <section id="compliance" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-3 gap-8 sm:gap-12">
           <div className="md:col-span-1">
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> COMPLIANCE SUPPORT
+              <span className="w-8 h-px bg-[#f1ece0]"></span> QUALITY & COMPLIANCE
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">Compliance Support for Your Fragrance Line</h2>
             <p className="text-[#77736E]">
@@ -654,117 +519,8 @@ export const BrandsamorLandingPage = () => {
                 <p className="text-xs text-[#77736E] leading-relaxed">{item.desc}</p>
               </div>)}
           </div>
-        </section>
-
-        {/* SECTION 9 - PRODUCT OPTIONS */}
-        <section id="product-options" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
-          <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> PRODUCT OPTIONS
-            </h4>
-            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Bottle, Cap, Spray and Packaging Options That Look Like Your Brand</h2>
-            <div className="rounded-xl overflow-hidden w-full max-w-md h-64 sm:h-80 md:h-[400px] mx-auto md:mx-0">
-              <FlatLayIllustration />
-            </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <p className="text-base sm:text-lg text-[#2D302B] mb-8 sm:mb-12 border-b border-[#f1ece0] pb-8 sm:pb-12">
-              Your perfume does not have to look like a standard private label product. Brandsamor gives you more ways to shape the bottle, cap, spray, color, label, printing, and packaging direction.
-            </p>
-            <div className="space-y-8 sm:space-y-10">
-              {productOptions.map(item => <div key={item.num} className="flex gap-4 sm:gap-8 group">
-                  <div className="text-3xl sm:text-4xl font-display text-[#A8BBBF] shrink-0">{item.num}</div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-[#77736E]">{item.desc}</p>
-                  </div>
-                </div>)}
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 10 - START SMALL GROW SMART */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
-          <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> START SMALL, GROW SMART
-            </h4>
-            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Start Small. Learn Fast. Grow What Works.</h2>
-            <div className="aspect-square bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] flex items-center justify-center p-6 sm:p-12">
-              <div className="relative w-full max-w-[280px] aspect-square rounded-full border border-dashed border-[#A8BBBF] flex items-center justify-center">
-                <div className="w-32 h-32 rounded-full bg-[#2D302B] text-white flex items-center justify-center text-center text-sm p-4 z-10">Keep improving the line</div>
-                <div className="absolute top-0 -translate-y-1/2 w-8 h-8 rounded-full bg-[#A8BBBF] text-white flex items-center justify-center text-xs">1</div>
-                <div className="absolute right-0 translate-x-1/2 w-8 h-8 rounded-full bg-[#A8BBBF] text-white flex items-center justify-center text-xs">2</div>
-                <div className="absolute bottom-0 translate-y-1/2 w-8 h-8 rounded-full bg-[#A8BBBF] text-white flex items-center justify-center text-xs">3</div>
-                <div className="absolute left-0 -translate-x-1/2 w-8 h-8 rounded-full bg-[#A8BBBF] text-white flex items-center justify-center text-xs">4</div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center space-y-10">
-            <p className="text-[#77736E] mb-4">
-              You do not need to launch a large fragrance collection on day one. Start with samples, launch a focused first batch, learn what customers respond to, and keep improving the line.
-            </p>
-            {growSmartSteps.map(step => <div key={step.num} className="flex gap-4 sm:gap-8 group">
-                <div className="text-2xl sm:text-3xl font-display text-[#A8BBBF] font-light shrink-0">{step.num}</div>
-                <div>
-                  <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                  <p className="text-[#77736E] text-sm">{step.desc}</p>
-                </div>
-              </div>)}
-            <div className="border-l-2 border-[#A8BBBF] pl-6 py-2 mt-6">
-              <p className="text-[#77736E] text-sm italic">The goal is to reduce guesswork. Start with a controlled launch, learn from the market, then expand with more confidence.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 11 - FIT CHECK */}
-        <section id="fit-check" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
-          <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> FIT CHECK
-            </h4>
-            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Is This Right for Your Brand?</h2>
-            <div className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-8 sm:p-12 text-center min-h-[320px] sm:min-h-[400px] flex flex-col items-center justify-center">
-              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full border border-[#f1ece0] mx-auto flex items-center justify-center p-4 sm:p-6">
-                <h3 className="text-xl sm:text-2xl font-display leading-tight text-[#A8BBBF]">A Clear<br />Starting<br />Point Helps</h3>
-              </div>
-              <p className="text-xs text-[#77736E] mt-6">You do not need every detail finalized. A clear audience, product idea, and rough quantity range are enough to begin.</p>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <p className="text-[#77736E] mb-12">
-              Brandsamor Private Label is built for businesses that want to add a branded perfume product without getting stuck in sourcing, filling, packaging, and quality checks.
-            </p>
-
-            <div className="space-y-12">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-display flex flex-wrap items-center gap-3 sm:gap-4 mb-6">
-                  <span className="text-[#A8BBBF]">01</span> This Works Well If
-                </h3>
-                <ul className="space-y-4">
-                  {fitCheckWorks.map(item => <li key={item} className="flex gap-3 text-[#2D302B] text-sm">
-                      <Check className="text-[#A8BBBF] shrink-0" size={18} />
-                      <span>{item}</span>
-                    </li>)}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-xl sm:text-2xl font-display flex flex-wrap items-center gap-3 sm:gap-4 mb-6">
-                  <span className="text-[#A8BBBF]">02</span> What Helps Us Get Started
-                </h3>
-                <ul className="space-y-4">
-                  {fitCheckHelps.map(item => <li key={item} className="flex gap-3 text-[#2D302B] text-sm">
-                      <Check className="text-[#A8BBBF] shrink-0" size={18} />
-                      <span>{item}</span>
-                    </li>)}
-                </ul>
-              </div>
-            </div>
-
-            <div className="border-l-2 border-[#A8BBBF] pl-6 mt-12">
-              <p className="text-[#77736E] text-sm italic">The more clearly we understand your audience, launch goal, and product direction, the easier it is to recommend the right scent, bottle, packaging, and first-batch setup.</p>
-            </div>
+          <div className="md:col-span-3 mt-8 sm:mt-4">
+            <SectionCtaRow to="/quality-compliance" label="Learn about quality and compliance" />
           </div>
         </section>
 

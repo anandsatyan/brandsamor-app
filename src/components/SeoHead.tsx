@@ -26,23 +26,35 @@ const upsertLink = (rel: string, href: string) => {
   element.setAttribute('href', href);
 };
 
-export const SeoHead = () => {
-  useEffect(() => {
-    document.title = DEFAULT_TITLE;
+type SeoHeadProps = {
+  title?: string;
+  description?: string;
+  url?: string;
+  structuredData?: object;
+};
 
-    upsertMeta('name', 'description', DEFAULT_DESCRIPTION);
+export const SeoHead = ({
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  url = SITE_URL,
+  structuredData = structuredDataGraph,
+}: SeoHeadProps) => {
+  useEffect(() => {
+    document.title = title;
+
+    upsertMeta('name', 'description', description);
     upsertMeta('name', 'robots', 'index, follow, max-image-preview:large');
     upsertMeta('name', 'author', SITE_NAME);
     upsertMeta('property', 'og:type', 'website');
     upsertMeta('property', 'og:site_name', SITE_NAME);
-    upsertMeta('property', 'og:title', DEFAULT_TITLE);
-    upsertMeta('property', 'og:description', DEFAULT_DESCRIPTION);
-    upsertMeta('property', 'og:url', SITE_URL);
+    upsertMeta('property', 'og:title', title);
+    upsertMeta('property', 'og:description', description);
+    upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:locale', 'en_US');
     upsertMeta('name', 'twitter:card', 'summary_large_image');
-    upsertMeta('name', 'twitter:title', DEFAULT_TITLE);
-    upsertMeta('name', 'twitter:description', DEFAULT_DESCRIPTION);
-    upsertLink('canonical', SITE_URL);
+    upsertMeta('name', 'twitter:title', title);
+    upsertMeta('name', 'twitter:description', description);
+    upsertLink('canonical', url);
 
     const scriptId = 'brandsamor-structured-data';
     let script = document.getElementById(scriptId) as HTMLScriptElement | null;
@@ -54,8 +66,8 @@ export const SeoHead = () => {
       document.head.appendChild(script);
     }
 
-    script.textContent = JSON.stringify(structuredDataGraph);
-  }, []);
+    script.textContent = JSON.stringify(structuredData);
+  }, [title, description, url, structuredData]);
 
   return null;
 };

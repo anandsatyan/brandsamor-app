@@ -1,0 +1,213 @@
+import type { TopicPageConfig } from '../components/topic/types';
+import {
+  ApprovalIllustration,
+  BrandBriefIllustration,
+  FlatLayIllustration,
+  FragranceFamilyIllustration,
+  GiftSetIllustration,
+  HeroBottleIllustration,
+  LaunchPlanningIllustration,
+  MarbleBottleIllustration,
+  PackagingIllustration,
+  ProcessTimelineIllustration,
+  RepeatOrderIllustration,
+  ScentSamplesIllustration,
+} from '../components/Illustrations';
+import {
+  START_PERFUME_LINE_DESCRIPTION,
+  START_PERFUME_LINE_FAQ_ITEMS,
+  START_PERFUME_LINE_TITLE,
+  START_PERFUME_LINE_URL,
+} from '../seo/pageSeo';
+import { sectionBullets, withSteps } from './sectionHelpers';
+
+export const startPerfumeLineConfig: TopicPageConfig = {
+  seo: {
+    title: START_PERFUME_LINE_TITLE,
+    description: START_PERFUME_LINE_DESCRIPTION,
+    url: START_PERFUME_LINE_URL,
+  },
+  hero: {
+    badge: 'START A PERFUME LINE',
+    title: 'Why and how to launch perfume under your brand',
+    description:
+      'Perfume is a high-margin, giftable product that strengthens brand memory and drives repeat purchases. Learn what it takes to plan your launch — and how Brandsamor helps you go from scent selection to a ready-to-sell first batch in weeks.',
+    Illustration: LaunchPlanningIllustration,
+  },
+  sections: withSteps(
+    [
+      {
+        id: 'why-launch-perfume',
+        title: 'Why launch perfume under your brand?',
+        description:
+          'For many businesses, fragrance is not the main product — it is a premium brand extension. A branded perfume gives customers something personal to wear, gift, and remember you by, without requiring you to build manufacturing from scratch.',
+        bullets: sectionBullets(
+          'Extend your brand into a premium product category',
+          'Reach customers beyond your core product line',
+          'Create a tangible product tied to your brand identity',
+          'Launch without factory equipment or in-house production',
+        ),
+        Illustration: LaunchPlanningIllustration,
+      },
+      {
+        id: 'high-margin-product',
+        title: 'Add a high-margin product',
+        description:
+          'Perfume can deliver strong margins relative to many retail categories. With production handled by Brandsamor, you focus on brand, pricing, and sales while avoiding heavy inventory infrastructure or manufacturing overhead.',
+        bullets: sectionBullets(
+          'Premium price points customers expect from fragrance',
+          'No factory setup or production staff required',
+          'Margin shaped by format, packaging, and retail price',
+          'Sell through your existing retail or e-commerce channels',
+        ),
+        Illustration: HeroBottleIllustration,
+      },
+      {
+        id: 'giftable-product',
+        title: 'Create a product customers can gift',
+        description:
+          'Perfume is one of the most giftable product categories. A well-packaged branded fragrance is easy to display, easy to wrap, and gives customers a personal way to share your brand with others.',
+        bullets: sectionBullets(
+          'Natural fit for holidays, events, and special occasions',
+          'Retail-ready packaging makes gifting effortless',
+          'Gift sets can bundle formats for higher order value',
+          'Customers associate your brand with memorable moments',
+        ),
+        Illustration: GiftSetIllustration,
+      },
+      {
+        id: 'brand-experience',
+        title: 'Build a stronger brand experience',
+        description:
+          'Scent is deeply tied to memory. A branded fragrance lets customers carry your brand with them — creating a sensory connection that goes beyond logos, packaging, or a single purchase.',
+        bullets: sectionBullets(
+          'Scent makes your brand more memorable over time',
+          'Customers wear your brand as part of daily life',
+          'Fragrance reinforces your brand story and aesthetic',
+          'Extends the experience of your spa, hotel, or studio',
+        ),
+        Illustration: FragranceFamilyIllustration,
+      },
+      {
+        id: 'repeat-sales',
+        title: 'Create repeat sales',
+        description:
+          'A fragrance people love brings customers back — for refills, gifts, seasonal launches, and new scent drops. Repeat purchases are where a perfume line compounds value beyond the first launch.',
+        bullets: sectionBullets(
+          'Customers reorder when they finish a bottle',
+          'Seasonal or limited editions drive return visits',
+          'Gift buyers often become repeat purchasers',
+          'Expand the line once your hero scent proves demand',
+        ),
+        Illustration: RepeatOrderIllustration,
+      },
+      {
+        id: 'target-customer',
+        title: 'Know your target customer',
+        description:
+          'Before you choose a scent or format, clarify who you are selling to. Your customer shapes fragrance style, price point, packaging feel, and where the product will be worn or gifted.',
+        bullets: sectionBullets(
+          'Define age, lifestyle, and gender positioning',
+          'Consider whether the product is for daily wear or gifting',
+          'Match scent intensity to your planned retail price',
+          'Align packaging with how your customer shops',
+        ),
+        Illustration: BrandBriefIllustration,
+      },
+      {
+        id: 'one-scent-or-collection',
+        title: 'One scent or a small collection?',
+        description:
+          'Most brands launch with one hero scent or a focused set of two to three fragrances. Starting narrow reduces risk, simplifies packaging decisions, and makes it easier to learn what customers respond to.',
+        bullets: sectionBullets(
+          'A single hero scent is the simplest first launch',
+          'Small collections work when you have distinct customer segments',
+          'Order samples before committing to multiple scents',
+          'Add new fragrances once your first batch sells',
+        ),
+        Illustration: ScentSamplesIllustration,
+      },
+      {
+        id: 'choose-format',
+        title: 'Choose your product format',
+        description:
+          'Eau de parfum is the most common starting point, but travel sizes, body mists, and gift sets each serve different audiences and price points. Pick the format that fits your channel and customer.',
+        bullets: sectionBullets(
+          'Eau de parfum for a premium hero product',
+          'Travel sizes for trial, gifting, and lower entry price',
+          'Body mists for lighter, everyday fragrance',
+          'Gift sets to increase perceived value and AOV',
+        ),
+        Illustration: FlatLayIllustration,
+      },
+      {
+        id: 'select-packaging',
+        title: 'Select bottle and packaging',
+        description:
+          'Bottle shape, cap finish, label design, and box packaging all shape how premium your perfume feels. Brandsamor helps you customize these details so the finished product reflects your brand — not a generic template.',
+        bullets: sectionBullets(
+          'Choose bottle shape, size, and glass finish',
+          'Select cap and spray hardware for the right hand feel',
+          'Add labels, printing, and color direction',
+          'Use boxes and gift packaging for retail-ready presentation',
+        ),
+        Illustration: PackagingIllustration,
+      },
+      {
+        id: 'plan-retail-price',
+        title: 'Plan your retail price',
+        description:
+          'Your retail price should reflect your audience, packaging quality, and sales channel. Work backward from what your customer will pay to understand margin, format, and packaging choices that make sense.',
+        bullets: sectionBullets(
+          'Research what similar brands charge in your category',
+          'Factor in bottle, cap, label, and box costs together',
+          'Higher packaging quality supports higher price points',
+          'Start with one price tier before expanding the range',
+        ),
+        Illustration: MarbleBottleIllustration,
+      },
+      {
+        id: 'start-small-validate',
+        title: 'Start small and validate demand',
+        description:
+          'Brandsamor is built for focused first batches. Launch with a manageable quantity, learn what customers like, and refine scent, packaging, or pricing before scaling — rather than overcommitting on day one.',
+        bullets: sectionBullets(
+          'Sample scents before locking in production',
+          'Approve a production sample before the full batch',
+          'Launch with a quantity you can sell through confidently',
+          'Use early sales data to plan repeat orders',
+        ),
+        Illustration: ApprovalIllustration,
+      },
+      {
+        id: 'common-mistakes',
+        title: 'Common mistakes to avoid',
+        description:
+          'New fragrance launches go wrong when brands skip sampling, over-customize before validating demand, or choose packaging that does not match their price point. A sample-first, start-small approach reduces these risks.',
+        bullets: sectionBullets(
+          'Skipping scent samples before bulk production',
+          'Launching too many scents or formats at once',
+          'Choosing packaging that overshoots your price tier',
+          'Not defining your customer before scent selection',
+        ),
+        Illustration: ProcessTimelineIllustration,
+      },
+    ],
+    'PERFUME LINE',
+  ),
+  faq: {
+    id: 'start-perfume-line-faq',
+    eyebrow: 'FAQ',
+    title: 'Starting a perfume line questions',
+    description:
+      'Common questions about why brands add private label perfume and how to plan your first launch with Brandsamor.',
+    items: START_PERFUME_LINE_FAQ_ITEMS,
+  },
+  cta: {
+    eyebrow: 'NEXT STEP',
+    title: 'Start Planning',
+    description:
+      'Ready to explore a branded fragrance for your business? Share your brand direction, order scent samples, and map out bottle and packaging choices for a focused first launch.',
+    Illustration: LaunchPlanningIllustration,
+  },
+};
