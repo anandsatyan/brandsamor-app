@@ -3,6 +3,8 @@ import { Check, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { FaqSection } from './FaqSection';
 import { SeoHead } from './SeoHead';
+import { SiteFooter } from './SiteFooter';
+import { SiteHeader } from './SiteHeader';
 
 const STEP_NUMBER_GRADIENT = 'radial-gradient(circle at 75% 115%, #f8b6d3 0%, #dc79e8 24%, transparent 48%), radial-gradient(circle at 82% 30%, #5d37ee 0%, #8958ec 28%, transparent 55%), linear-gradient(115deg, #f3a5a8 0%, #d88bd3 38%, #9365ef 68%, #6142dd 100%)';
 
@@ -227,7 +229,7 @@ const testimonials = [{
 const packagingItems = [{
   num: '01',
   title: 'Perfume Bottles',
-  desc: 'Brandsamor already helps fragrance brands source bottles in different shapes, capacities, and finishes.'
+  desc: 'Packamor already helps fragrance brands source bottles in different shapes, capacities, and finishes.'
 }, {
   num: '02',
   title: 'Caps and Sprays',
@@ -385,9 +387,6 @@ const FlatLayIllustration = () => <div className="w-full h-full flex items-cente
       <text x="155" y="244" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="6.5" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
     </svg>
   </div>;
-const navItems = ['Welcome', 'Fragrances', 'Packaging', 'Review'] as const;
-const activeNavItem: (typeof navItems)[number] = 'Welcome';
-
 export const BrandsamorLandingPage = () => {
   const {
     refs: stepRefs,
@@ -395,45 +394,14 @@ export const BrandsamorLandingPage = () => {
   } = useActiveStep(howItWorksSteps.length);
   return <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
       <SeoHead />
-      {/* Fixed Navigation Header */}
-      <header className="sticky top-0 z-50 w-full bg-[#f9f7f2] border-b border-[#f1ece0]">
-        <div className="relative flex items-center justify-center px-4 sm:px-6 md:px-12 py-4 sm:py-5">
-          <div className="flex items-center gap-2">
-            <span className="font-display text-[#A8BBBF] text-xl sm:text-2xl font-bold tracking-tight">Brandsamor</span>
-            <span className="text-[#77736E] text-sm">Launch Studio</span>
-          </div>
-          <a href="#" className="absolute right-4 sm:right-6 md:right-12 text-sm text-[#77736E] hover:text-[#2D302B] transition-colors">
-            Login
-          </a>
-        </div>
-
-        <nav className="border-t border-[#f1ece0]">
-          <div className="grid grid-cols-4 max-w-3xl mx-auto">
-            {navItems.map(item => {
-              const isActive = item === activeNavItem;
-              return (
-                <a
-                  key={item}
-                  href="#"
-                  className={`relative py-3 text-center text-[10px] sm:text-xs uppercase tracking-[0.2em] font-medium transition-colors ${
-                    isActive ? 'text-[#2D302B]' : 'text-[#77736E] hover:text-[#2D302B]'
-                  }`}
-                >
-                  {isActive && <span className="absolute top-0 left-0 right-0 h-[3px] bg-[#2D302B]" />}
-                  {item}
-                </a>
-              );
-            })}
-          </div>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         {/* SECTION 1 - HERO */}
-        <section className="py-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <section id="overview" className="py-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-6 sm:space-y-8">
             <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full">PRIVATE LABEL</span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-[#2D302B]">Start Your Own Perfume Line</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-[#2D302B]">Start Your Own Perfume Line</h1>
             <p className="text-[#2D302B] text-base sm:text-lg max-w-lg leading-relaxed">
               Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
             </p>
@@ -448,8 +416,8 @@ export const BrandsamorLandingPage = () => {
                 <div className="flex text-[#A8BBBF]">
                   {[0, 1, 2, 3, 4].map(i => <Star key={i} size={14} fill="currentColor" />)}
                 </div>
-                <span>4.8</span>
-                <span className="hidden sm:inline">Brandsamor customers trust Brandsamor</span>
+                <span>4.8/5</span>
+                <span className="hidden sm:inline"> | Trusted by 4000+ brands.</span>
               </div>
             </div>
           </div>
@@ -460,9 +428,9 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 2 - AUDIENCE TICKER */}
-        <section className="pb-8 sm:pb-12 border-b border-[#f1ece0] overflow-hidden">
-          
-          <motion.div animate={{
+        <section className="relative pb-8 sm:pb-12 border-b border-[#f1ece0]">
+          <div className="overflow-hidden">
+            <motion.div animate={{
           x: ['0%', '-50%']
         }} transition={{
           ease: 'linear',
@@ -481,10 +449,19 @@ export const BrandsamorLandingPage = () => {
                 <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
               </div>)}
           </motion.div>
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+          />
         </section>
 
         {/* SECTION 3 - HOW IT WORKS */}
-        <section className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
+        <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-[#f1ece0]"></span> HOW IT WORKS
@@ -544,16 +521,16 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 4 - PACKAGING EXPERIENCE */}
-        <section className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16 border-t border-[#f1ece0]">
+        <section id="packaging" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16 border-t border-[#f1ece0]">
           <div>
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-[#f1ece0]"></span> PACKAGING EXPERIENCE
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">
-              Built on Brandsamor's <span className="text-[#A8BBBF]">fragrance packaging</span> experience
+              Built on Packamor's <span className="text-[#A8BBBF]">fragrance packaging</span> experience
             </h2>
             <p className="text-lg text-[#2D302B] mb-12">
-              Brandsamor already works with brands that source perfume bottles, caps, sprays, and packaging. Brandsamor Private Label builds on that experience to help you launch a finished fragrance product more easily.
+              Packamor already works with brands that source perfume bottles, caps, sprays, and packaging. Brandsamor Private Label builds on that experience to help you launch a finished fragrance product more easily.
             </p>
             <div className="space-y-8">
               {packagingItems.map(item => <div key={item.num} className="flex gap-6">
@@ -580,7 +557,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 5 - WHY SELL PERFUME */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0]">
+        <section id="why-perfume" className="py-12 sm:py-24 border-t border-[#f1ece0]">
           <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
             <span className="w-8 h-px bg-[#f1ece0]"></span> WHY ADD PERFUME
           </h4>
@@ -611,7 +588,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 6 - TESTIMONIALS */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0]">
+        <section id="reviews" className="py-12 sm:py-24 border-t border-[#f1ece0]">
           <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
             <span className="w-8 h-px bg-[#f1ece0]"></span> CUSTOMER VOICE
           </h4>
@@ -637,7 +614,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 7 - WHY BRANDSAMOR PRIVATE LABEL */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0]">
+        <section id="why-brandsamor" className="py-12 sm:py-24 border-t border-[#f1ece0]">
           <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
             <span className="w-8 h-px bg-[#f1ece0]"></span> WHY BRANDSAMOR PRIVATE LABEL
           </h4>
@@ -660,7 +637,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 8 - COMPLIANCE */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-3 gap-8 sm:gap-12">
+        <section id="compliance" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-3 gap-8 sm:gap-12">
           <div className="md:col-span-1">
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-[#f1ece0]"></span> COMPLIANCE SUPPORT
@@ -680,7 +657,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 9 - PRODUCT OPTIONS */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
+        <section id="product-options" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-[#f1ece0]"></span> PRODUCT OPTIONS
@@ -741,7 +718,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 11 - FIT CHECK */}
-        <section className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
+        <section id="fit-check" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-[#f1ece0]"></span> FIT CHECK
@@ -819,43 +796,6 @@ export const BrandsamorLandingPage = () => {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[#f9f7f2] py-12 sm:py-16 border-t border-[#f1ece0]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 text-[#77736E] text-sm">
-          <div className="space-y-6 sm:col-span-2 md:col-span-1">
-            <div className="font-display text-[#A8BBBF] text-2xl font-bold tracking-tight">Brandsamor</div>
-            <address className="not-italic space-y-2">
-              <p>Wholesale Perfume Bottles</p>
-              <p>11118 S Governors Ave, Dover Delaware<br />19904, U.S.A</p>
-              <p>Contact: +1-848-220-1353</p>
-            </address>
-          </div>
-          <div>
-            <h4 className="font-bold text-[#2D302B] mb-6">Quick links</h4>
-            <ul className="space-y-3">
-              {['Home', 'About us', 'Perfumer Knowledge Hub', 'Send an enquiry', 'Reviews and Ratings', 'Custom Soap Boxes', 'Box for Perfumes', 'AI Fragrance Lab', 'Blog'].map(l => <li key={l}><a href="#" className="hover:text-[#A8BBBF]">{l}</a></li>)}
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-[#2D302B] mb-6">Perfume Bottle Families</h4>
-            <ul className="space-y-3">
-              {['Victor Perfume Bottles', 'Micron Perfume Bottles', 'Senso Perfume Bottles', 'Wim Perfume Bottles', '10ml Tall Sprays', 'Ombre Perfume Bottles', 'Reva Perfume Bottles'].map(l => <li key={l}><a href="#" className="hover:text-[#A8BBBF]">{l}</a></li>)}
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-[#2D302B] mb-6">Wholesale / Bulk</h4>
-            <ul className="space-y-3">
-              {['Refillable Perfume Bottles', 'Black Perfume Bottles', 'Gold Top Perfume Bottles', 'Silver Top Perfume Bottles', 'Square Perfume Bottles', 'Mini Fragrance Bottles'].map(l => <li key={l}><a href="#" className="hover:text-[#A8BBBF]">{l}</a></li>)}
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-[#f1ece0] text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-[#77736E] text-center sm:text-left">
-          <p>© 2025, Brandsamor Packaging.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-[#A8BBBF]">Privacy Policy</a>
-            <a href="#" className="hover:text-[#A8BBBF]">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>;
 };
