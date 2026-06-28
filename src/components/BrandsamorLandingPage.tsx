@@ -134,9 +134,9 @@ const whySellCards = [{
   title: 'Give Your Brand a Premium Extension',
   desc: 'Perfume lets your brand enter a premium product category without having to build the product from scratch.'
 }];
-const whyPackamorCards = [{
+const whyBrandsamorCards = [{
   title: 'No Factory Setup Needed',
-  desc: 'Start with Packamor handling the sourcing, filling, packaging, and quality checks, instead of setting up your own production process.'
+  desc: 'Start with Brandsamor handling the sourcing, filling, packaging, and quality checks, instead of setting up your own production process.'
 }, {
   title: 'Samples Before You Commit',
   desc: 'Order samples first, compare scent options, and choose what feels right before starting your first batch.'
@@ -148,14 +148,14 @@ const whyPackamorCards = [{
   desc: 'Move from scent selection to your first finished batch in weeks, so you can start selling sooner.'
 }, {
   title: 'Quality Checks Handled for You',
-  desc: 'Packamor checks the product details during filling, packing, and finishing so you do not have to manage quality control yourself.'
+  desc: 'Brandsamor checks the product details during filling, packing, and finishing so you do not have to manage quality control yourself.'
 }, {
   title: 'Built to Help You Start Small',
   desc: 'Start with a focused first batch, learn what customers like, and grow your fragrance line step by step.'
 }];
 const complianceItems = [{
   title: 'FDA MoCRA Registration and Product Listing',
-  desc: 'For fragrance products sold as cosmetics in the U.S., Packamor plans to support the required FDA MoCRA facility registration and cosmetic product listing process where applicable.'
+  desc: 'For fragrance products sold as cosmetics in the U.S., Brandsamor plans to support the required FDA MoCRA facility registration and cosmetic product listing process where applicable.'
 }, {
   title: 'GMP-Compliant Production',
   desc: 'Your perfume will be filled and finished through facilities following Good Manufacturing Practice standards for cosmetic products.'
@@ -217,7 +217,7 @@ const testimonials = [{
   quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.'
 }, {
   name: 'Erin S.',
-  quote: 'We are loving the gorgeous upgrade we made by switching to Packamor. The quality of the bottles is really something else.'
+  quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the bottles is really something else.'
 }, {
   name: 'Monica M.',
   quote: 'My customers love the travel size and the heavy glass. The finished product feels premium and sells itself.'
@@ -225,7 +225,7 @@ const testimonials = [{
 const packagingItems = [{
   num: '01',
   title: 'Perfume Bottles',
-  desc: 'Packamor already helps fragrance brands source bottles in different shapes, capacities, and finishes.'
+  desc: 'Brandsamor already helps fragrance brands source bottles in different shapes, capacities, and finishes.'
 }, {
   num: '02',
   title: 'Caps and Sprays',
@@ -281,13 +281,13 @@ const HeroBottleIllustration = () => <div className="w-full h-full flex items-ce
       <rect x="94" y="38" width="12" height="12" rx="2" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <line x1="60" y1="120" x2="140" y2="120" stroke="#2D302B" strokeWidth="0.7" strokeDasharray="3 3" />
       <rect x="75" y="155" width="50" height="30" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="100" y="173" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">PACKAMOR</text>
+      <text x="100" y="173" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
       {/* Rounded bottle */}
       <ellipse cx="230" cy="260" rx="50" ry="70" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="218" y="182" width="24" height="14" rx="3" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="224" y="172" width="12" height="14" rx="2" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="202" y="238" width="56" height="28" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="230" y="255" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">PACKAMOR</text>
+      <text x="230" y="255" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
       {/* Travel spray */}
       <rect x="300" y="300" width="44" height="110" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="312" y="288" width="20" height="16" rx="3" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -322,7 +322,7 @@ const MarbleBottleIllustration = () => <div className="w-full h-full flex items-
       <rect x="100" y="50" width="20" height="16" rx="2" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <line x1="70" y1="150" x2="150" y2="150" stroke="#A8BBBF" strokeWidth="0.8" strokeDasharray="4 3" />
       <rect x="83" y="170" width="54" height="26" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="110" y="185" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">PACKAMOR</text>
+      <text x="110" y="185" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="7" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
     </svg>
   </div>;
 
@@ -373,17 +373,17 @@ const FlatLayIllustration = () => <div className="w-full h-full flex items-cente
       <rect x="200" y="60" width="120" height="90" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <line x1="200" y1="80" x2="320" y2="80" stroke="#2D302B" strokeWidth="0.8" />
       <line x1="260" y1="60" x2="260" y2="150" stroke="#2D302B" strokeWidth="0.6" strokeDasharray="3 3" />
-      <text x="260" y="115" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="8" fill="#A8BBBF" letterSpacing="2">PACKAMOR</text>
+      <text x="260" y="115" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="8" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
       {/* bottle */}
       <rect x="120" y="140" width="70" height="170" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="140" y="120" width="30" height="24" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="148" y="108" width="14" height="16" rx="2" stroke="#C9A96E" strokeWidth="1.4" fill="none" />
       <line x1="120" y1="215" x2="190" y2="215" stroke="#A8BBBF" strokeWidth="0.8" strokeDasharray="3 3" />
       <rect x="133" y="230" width="44" height="22" rx="2" stroke="#A8BBBF" strokeWidth="0.8" fill="none" />
-      <text x="155" y="244" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="6.5" fill="#A8BBBF" letterSpacing="2">PACKAMOR</text>
+      <text x="155" y="244" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="6.5" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
     </svg>
   </div>;
-export const PackamorLandingPage = () => {
+export const BrandsamorLandingPage = () => {
   const {
     refs: stepRefs,
     activeIndex: activeStepIndex
@@ -397,7 +397,7 @@ export const PackamorLandingPage = () => {
         </div>
         <nav className="w-full py-4 sm:py-6 px-4 sm:px-6 md:px-12 flex flex-wrap justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-display text-[#A8BBBF] text-xl sm:text-2xl font-bold tracking-tight">Packamor</span>
+            <span className="font-display text-[#A8BBBF] text-xl sm:text-2xl font-bold tracking-tight">Brandsamor</span>
             <span className="text-[#77736E] text-sm hidden sm:inline">Launch Studio</span>
           </div>
           <div className="hidden md:flex gap-8 text-sm">
@@ -413,7 +413,7 @@ export const PackamorLandingPage = () => {
             <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full">PRIVATE LABEL</span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-[#2D302B]">Start Your Own Perfume Line</h1>
             <p className="text-[#2D302B] text-base sm:text-lg max-w-lg leading-relaxed">
-              Launch a ready-to-sell fragrance product quickly and easily, with Packamor handling the scent, bottle, packaging, filling, and quality checks for you.
+              Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
             </p>
             <ComingSoonLabel />
             <div className="flex flex-wrap items-center gap-4 pt-2 sm:pt-4">
@@ -427,7 +427,7 @@ export const PackamorLandingPage = () => {
                   {[0, 1, 2, 3, 4].map(i => <Star key={i} size={14} fill="currentColor" />)}
                 </div>
                 <span>4.8</span>
-                <span className="hidden sm:inline">Packamor customers trust Packamor</span>
+                <span className="hidden sm:inline">Brandsamor customers trust Brandsamor</span>
               </div>
             </div>
           </div>
@@ -528,10 +528,10 @@ export const PackamorLandingPage = () => {
               <span className="w-8 h-px bg-[#f1ece0]"></span> PACKAGING EXPERIENCE
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">
-              Built on Packamor's <span className="text-[#A8BBBF]">fragrance packaging</span> experience
+              Built on Brandsamor's <span className="text-[#A8BBBF]">fragrance packaging</span> experience
             </h2>
             <p className="text-lg text-[#2D302B] mb-12">
-              Packamor already works with brands that source perfume bottles, caps, sprays, and packaging. Packamor Private Label builds on that experience to help you launch a finished fragrance product more easily.
+              Brandsamor already works with brands that source perfume bottles, caps, sprays, and packaging. Brandsamor Private Label builds on that experience to help you launch a finished fragrance product more easily.
             </p>
             <div className="space-y-8">
               {packagingItems.map(item => <div key={item.num} className="flex gap-6">
@@ -552,7 +552,7 @@ export const PackamorLandingPage = () => {
             <div className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
               <div className="text-4xl text-[#A8BBBF] font-display mb-4">"</div>
               <p className="text-lg font-medium mb-4">Packaging is where a perfume starts to feel like a real product.</p>
-              <p className="text-xs text-[#77736E] uppercase tracking-wider font-semibold">— PACKAMOR PRIVATE LABEL</p>
+              <p className="text-xs text-[#77736E] uppercase tracking-wider font-semibold">— BRANDSAMOR PRIVATE LABEL</p>
             </div>
           </div>
         </section>
@@ -594,8 +594,8 @@ export const PackamorLandingPage = () => {
             <span className="w-8 h-px bg-[#f1ece0]"></span> CUSTOMER VOICE
           </h4>
           <div className="flex flex-col md:flex-row justify-between items-start mb-8 sm:mb-12 gap-6 sm:gap-8">
-            <h2 className="text-3xl sm:text-4xl max-w-sm">What Packamor Customers Say</h2>
-            <p className="text-[#77736E] max-w-md">Brands already trust Packamor for the packaging pieces that make fragrance products look and feel retail-ready.</p>
+            <h2 className="text-3xl sm:text-4xl max-w-sm">What Brandsamor Customers Say</h2>
+            <p className="text-[#77736E] max-w-md">Brands already trust Brandsamor for the packaging pieces that make fragrance products look and feel retail-ready.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -606,7 +606,7 @@ export const PackamorLandingPage = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-sm">{t.name}</h4>
-                    <p className="text-xs text-[#77736E]">Packamor customer, United States</p>
+                    <p className="text-xs text-[#77736E]">Brandsamor customer, United States</p>
                   </div>
                 </div>
                 <p className="italic text-[#2D302B]">"{t.quote}"</p>
@@ -614,15 +614,15 @@ export const PackamorLandingPage = () => {
           </div>
         </section>
 
-        {/* SECTION 7 - WHY PACKAMOR PRIVATE LABEL */}
+        {/* SECTION 7 - WHY BRANDSAMOR PRIVATE LABEL */}
         <section className="py-12 sm:py-24 border-t border-[#f1ece0]">
           <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY PACKAMOR PRIVATE LABEL
+            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY BRANDSAMOR PRIVATE LABEL
           </h4>
-          <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Packamor Private Label?</h2>
+          <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whyPackamorCards.map((card, idx) => <div key={card.title} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
+            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
                 <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-[#f1ece0] opacity-50 leading-none pointer-events-none select-none">
                   {`0${idx + 1}`}
                 </div>
@@ -631,7 +631,7 @@ export const PackamorLandingPage = () => {
               </div>)}
           </div>
 
-          {/* Mid-page CTA after Why Packamor */}
+          {/* Mid-page CTA after Why Brandsamor */}
           <div className="mt-8 sm:mt-12 flex justify-center">
             <ComingSoonLabel />
           </div>
@@ -645,7 +645,7 @@ export const PackamorLandingPage = () => {
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">Compliance Support for Your Fragrance Line</h2>
             <p className="text-[#77736E]">
-              Compliance needs can vary by product type, market, claims, formula, and selling channel. Packamor does not describe perfume products as FDA approved.
+              Compliance needs can vary by product type, market, claims, formula, and selling channel. Brandsamor does not describe perfume products as FDA approved.
             </p>
           </div>
           <div className="md:col-span-2 grid sm:grid-cols-2 gap-6">
@@ -670,7 +670,7 @@ export const PackamorLandingPage = () => {
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-base sm:text-lg text-[#2D302B] mb-8 sm:mb-12 border-b border-[#f1ece0] pb-8 sm:pb-12">
-              Your perfume does not have to look like a standard private label product. Packamor gives you more ways to shape the bottle, cap, spray, color, label, printing, and packaging direction.
+              Your perfume does not have to look like a standard private label product. Brandsamor gives you more ways to shape the bottle, cap, spray, color, label, printing, and packaging direction.
             </p>
             <div className="space-y-8 sm:space-y-10">
               {productOptions.map(item => <div key={item.num} className="flex gap-4 sm:gap-8 group">
@@ -734,7 +734,7 @@ export const PackamorLandingPage = () => {
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-[#77736E] mb-12">
-              Packamor Private Label is built for businesses that want to add a branded perfume product without getting stuck in sourcing, filling, packaging, and quality checks.
+              Brandsamor Private Label is built for businesses that want to add a branded perfume product without getting stuck in sourcing, filling, packaging, and quality checks.
             </p>
 
             <div className="space-y-12">
@@ -799,7 +799,7 @@ export const PackamorLandingPage = () => {
       <footer className="bg-[#f9f7f2] py-12 sm:py-16 border-t border-[#f1ece0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 text-[#77736E] text-sm">
           <div className="space-y-6 sm:col-span-2 md:col-span-1">
-            <div className="font-display text-[#A8BBBF] text-2xl font-bold tracking-tight">Packamor</div>
+            <div className="font-display text-[#A8BBBF] text-2xl font-bold tracking-tight">Brandsamor</div>
             <address className="not-italic space-y-2">
               <p>Wholesale Perfume Bottles</p>
               <p>11118 S Governors Ave, Dover Delaware<br />19904, U.S.A</p>
@@ -826,7 +826,7 @@ export const PackamorLandingPage = () => {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-[#f1ece0] text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-[#77736E] text-center sm:text-left">
-          <p>© 2025, Packamor Packaging.</p>
+          <p>© 2025, Brandsamor Packaging.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-[#A8BBBF]">Privacy Policy</a>
             <a href="#" className="hover:text-[#A8BBBF]">Terms of Service</a>

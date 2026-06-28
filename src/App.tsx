@@ -1,5 +1,5 @@
-import { PackamorLandingPage } from './components/PackamorLandingPage';
+import { BrandsamorLandingPage } from './components/BrandsamorLandingPage';
 
 export default function App() {
-  return <PackamorLandingPage />;
+  return <BrandsamorLandingPage />;
 }
