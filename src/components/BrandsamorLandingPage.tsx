@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { FaqSection } from './FaqSection';
+import { SeoHead } from './SeoHead';
 
 const STEP_NUMBER_GRADIENT = 'radial-gradient(circle at 75% 115%, #f8b6d3 0%, #dc79e8 24%, transparent 48%), radial-gradient(circle at 82% 30%, #5d37ee 0%, #8958ec 28%, transparent 55%), linear-gradient(115deg, #f3a5a8 0%, #d88bd3 38%, #9365ef 68%, #6142dd 100%)';
 
@@ -383,32 +385,52 @@ const FlatLayIllustration = () => <div className="w-full h-full flex items-cente
       <text x="155" y="244" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="6.5" fill="#A8BBBF" letterSpacing="2">BRANDSAMOR</text>
     </svg>
   </div>;
+const navItems = ['Welcome', 'Fragrances', 'Packaging', 'Review'] as const;
+const activeNavItem: (typeof navItems)[number] = 'Welcome';
+
 export const BrandsamorLandingPage = () => {
   const {
     refs: stepRefs,
     activeIndex: activeStepIndex
   } = useActiveStep(howItWorksSteps.length);
   return <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
-      {/* Navigation Header */}
-      <div className="w-full bg-[#f9f7f2]">
-        <div className="w-full py-2 px-4 sm:px-6 flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-center text-xs text-center sm:text-left text-[#77736E] border-b border-[#f1ece0]">
-          <span>Call us at +1-848-220-1353</span>
-          <span>We ship worldwide.</span>
-        </div>
-        <nav className="w-full py-4 sm:py-6 px-4 sm:px-6 md:px-12 flex flex-wrap justify-between items-center gap-4">
+      <SeoHead />
+      {/* Fixed Navigation Header */}
+      <header className="sticky top-0 z-50 w-full bg-[#f9f7f2] border-b border-[#f1ece0]">
+        <div className="relative flex items-center justify-center px-4 sm:px-6 md:px-12 py-4 sm:py-5">
           <div className="flex items-center gap-2">
             <span className="font-display text-[#A8BBBF] text-xl sm:text-2xl font-bold tracking-tight">Brandsamor</span>
-            <span className="text-[#77736E] text-sm hidden sm:inline">Launch Studio</span>
+            <span className="text-[#77736E] text-sm">Launch Studio</span>
           </div>
-          <div className="hidden md:flex gap-8 text-sm">
-            {['Home', 'All Perfume Bottles', 'Bottle Printing', 'Perfume Tops', 'Box for Perfumes', 'Labels', 'Gallery'].map(link => <a key={link} href="#" className="hover:text-[#A8BBBF] transition-colors">{link}</a>)}
+          <a href="#" className="absolute right-4 sm:right-6 md:right-12 text-sm text-[#77736E] hover:text-[#2D302B] transition-colors">
+            Login
+          </a>
+        </div>
+
+        <nav className="border-t border-[#f1ece0]">
+          <div className="grid grid-cols-4 max-w-3xl mx-auto">
+            {navItems.map(item => {
+              const isActive = item === activeNavItem;
+              return (
+                <a
+                  key={item}
+                  href="#"
+                  className={`relative py-3 text-center text-[10px] sm:text-xs uppercase tracking-[0.2em] font-medium transition-colors ${
+                    isActive ? 'text-[#2D302B]' : 'text-[#77736E] hover:text-[#2D302B]'
+                  }`}
+                >
+                  {isActive && <span className="absolute top-0 left-0 right-0 h-[3px] bg-[#2D302B]" />}
+                  {item}
+                </a>
+              );
+            })}
           </div>
         </nav>
-      </div>
+      </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         {/* SECTION 1 - HERO */}
-        <section className="py-10 sm:py-16 md:py-24 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <section className="py-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-6 sm:space-y-8">
             <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full">PRIVATE LABEL</span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-[#2D302B]">Start Your Own Perfume Line</h1>
@@ -438,7 +460,7 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* SECTION 2 - AUDIENCE TICKER */}
-        <section className="py-8 sm:py-12 border-b border-[#f1ece0] overflow-hidden">
+        <section className="pb-8 sm:pb-12 border-b border-[#f1ece0] overflow-hidden">
           
           <motion.div animate={{
           x: ['0%', '-50%']
@@ -768,6 +790,8 @@ export const BrandsamorLandingPage = () => {
             </div>
           </div>
         </section>
+
+        <FaqSection />
       </main>
 
       {/* SECTION 12 - FINAL CTA (Dark Section) */}
