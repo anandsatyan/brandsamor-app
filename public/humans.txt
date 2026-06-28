@@ -1,0 +1,14 @@
+/* TEAM */
+Company: Brandsamor
+Legal entity: Packamor LLC
+Site: https://www.brandsamor.com/
+Contact: info@brandsamor.com
+Phone: +1-848-220-1353
+
+/* ADDRESS */
+11118 S Governors Ave
+Dover, DE 19904
+US
+
+/* THANKS */
+Built for brands launching private label fragrance products.

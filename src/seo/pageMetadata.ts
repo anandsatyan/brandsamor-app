@@ -146,6 +146,8 @@ export const NOT_FOUND_METADATA: PageMetadata = {
 
 export const PUBLIC_ROUTES = Object.keys(PAGE_METADATA);
 
+/** Adding a route to PAGE_METADATA auto-regenerates sitemap, robots.txt, llm.txt, and related crawl files at build time. */
+
 export const getPageMetadata = (pathname: string): PageMetadata =>
   PAGE_METADATA[pathname] ?? NOT_FOUND_METADATA;
 

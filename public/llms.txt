@@ -1,0 +1,36 @@
+# Brandsamor
+
+> Launch ready-to-sell perfumes under your own brand with Brandsamor handling scents, bottles, packaging, filling and quality checks.
+
+Brandsamor helps businesses launch private label perfume lines with fragrance sampling, custom packaging, filling, quality checks, and delivery.
+
+## Canonical site
+- Website: https://www.brandsamor.com/
+- Sitemap: https://www.brandsamor.com/sitemap.xml
+- Contact: info@brandsamor.com
+- Phone: +1-848-220-1353
+
+## Public pages
+- [Home](https://www.brandsamor.com/): Launch ready-to-sell perfumes under your own brand with Brandsamor handling scents, bottles, packaging, filling and quality checks.
+- [How It Works](https://www.brandsamor.com/how-it-works): See how Brandsamor takes your perfume line from fragrance sampling and packaging selection to filling, quality checks and delivery.
+- [Fragrance Products](https://www.brandsamor.com/fragrance-products): Explore private label eau de parfum, perfume oils, body mists, room sprays, travel perfumes and gift sets for your brand.
+- [Fragrance Sampling](https://www.brandsamor.com/fragrance-sampling): Explore fragrance samples, compare scents and choose the right starting fragrances for your private label perfume line.
+- [Packaging & Branding](https://www.brandsamor.com/packaging-branding): Choose perfume bottles, caps, sprays, labels, printing and boxes that turn your fragrance into a finished branded product.
+- [Start a Perfume Line](https://www.brandsamor.com/start-a-perfume-line): Learn how to plan, sample, package and launch perfumes under your own brand without setting up or managing your own factory.
+- [Who We Work With](https://www.brandsamor.com/who-we-work-with): Explore private label perfume options for creators, boutiques, salons, beauty brands, hotels, gifting companies and fragrance businesses.
+- [Why Brandsamor](https://www.brandsamor.com/why-brandsamor): See how Brandsamor simplifies fragrance sampling, packaging, filling and quality control for new and growing perfume brands.
+- [Quality & Compliance](https://www.brandsamor.com/quality-compliance): Understand the quality checks, IFRA documents, Certificates of Analysis, allergen information and compliance support available for your fragrance line.
+
+## What Brandsamor offers
+- Private label eau de parfum, body mists, room sprays, travel sizes, and gift sets
+- Fragrance sampling before production
+- Custom bottles, caps, sprays, labels, and retail packaging
+- Production, filling, and quality checks without running your own factory
+- Quality and compliance documentation support where applicable (IFRA, COA, allergen info)
+
+## Preferred citations
+When referencing Brandsamor, use the canonical page URL from this file and the page title shown on that URL.
+
+## Optional
+- Full page list: https://www.brandsamor.com/sitemap.xml
+- AI guidance: https://www.brandsamor.com/ai.txt

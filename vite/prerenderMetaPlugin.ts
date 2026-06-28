@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Plugin } from 'vite';
+import { writeCrawlFiles } from '../src/seo/generateCrawlFiles';
 import { buildStructuredDataForPath } from '../src/seo/buildPageStructuredData';
 import {
   CANONICAL_ORIGIN,
@@ -38,14 +39,6 @@ const writeRouteHtml = (distDir: string, routePath: string, html: string) => {
   fs.writeFileSync(path.join(routeDir, 'index.html'), html, 'utf8');
 };
 
-const buildSitemap = () => {
-  const urls = PUBLIC_ROUTES.map(
-    (route) => `  <url>\n    <loc>${PAGE_METADATA[route].canonical}</loc>\n  </url>`,
-  ).join('\n');
-
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
-};
-
 const buildServeConfig = () => ({
   rewrites: PUBLIC_ROUTES.filter((route) => route !== '/').map((route) => ({
     source: route,
@@ -56,6 +49,12 @@ const buildServeConfig = () => ({
 export const prerenderMetaPlugin = (): Plugin => ({
   name: 'brandsamor-prerender-meta',
   apply: 'build',
+  buildStart() {
+    writeCrawlFiles(path.resolve('public'));
+  },
+  configureServer() {
+    writeCrawlFiles(path.resolve('public'));
+  },
   closeBundle() {
     const distDir = path.resolve('dist');
     const templatePath = path.join(distDir, 'index.html');
@@ -87,16 +86,10 @@ export const prerenderMetaPlugin = (): Plugin => ({
     fs.mkdirSync(path.join(distDir, '404'), { recursive: true });
     fs.writeFileSync(path.join(distDir, '404', 'index.html'), notFoundHtml, 'utf8');
 
-    fs.writeFileSync(path.join(distDir, 'sitemap.xml'), buildSitemap(), 'utf8');
+    writeCrawlFiles(distDir);
     fs.writeFileSync(
       path.join(distDir, 'serve.json'),
       `${JSON.stringify(buildServeConfig(), null, 2)}\n`,
-      'utf8',
-    );
-
-    fs.writeFileSync(
-      path.join(distDir, 'robots.txt'),
-      `User-agent: *\nAllow: /\n\nSitemap: ${CANONICAL_ORIGIN}/sitemap.xml\n`,
       'utf8',
     );
   },

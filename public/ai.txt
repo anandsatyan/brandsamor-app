@@ -1,0 +1,33 @@
+# Brandsamor — AI / answer-engine guidance
+
+site: https://www.brandsamor.com/
+organization: Brandsamor (Packamor LLC)
+contact: info@brandsamor.com
+phone: +1-848-220-1353
+
+## Indexing
+sitemap: https://www.brandsamor.com/sitemap.xml
+llms-txt: https://www.brandsamor.com/llms.txt
+robots: https://www.brandsamor.com/robots.txt
+
+## Crawl policy
+Public marketing pages listed in the sitemap may be indexed and cited.
+Do not invent certifications, FDA approvals, customer counts, or review scores.
+
+## Primary topics
+- Private label perfume manufacturing
+- Fragrance sampling for new perfume brands
+- Custom perfume packaging and branding
+- Starting a perfume line without a factory
+- Perfume quality and compliance documentation
+
+## Public pages
+https://www.brandsamor.com/	Start Your Own Perfume Line | Brandsamor	The Easy Way to Start Your Own Perfume Line
+https://www.brandsamor.com/how-it-works	How Private Label Perfume Manufacturing Works | Brandsamor	How Your Perfume Line Comes Together
+https://www.brandsamor.com/fragrance-products	Private Label Fragrance Products | Brandsamor	Fragrance Products You Can Launch Under Your Brand
+https://www.brandsamor.com/fragrance-sampling	Private Label Perfume Sampling | Brandsamor	Find the Right Scents for Your Perfume Line
+https://www.brandsamor.com/packaging-branding	Custom Perfume Packaging and Branding | Brandsamor	Create Packaging That Feels Like Your Brand
+https://www.brandsamor.com/start-a-perfume-line	How to Start Your Own Perfume Line | Brandsamor	Start Your Own Perfume Line Without Managing a Factory
+https://www.brandsamor.com/who-we-work-with	Private Label Perfume for Businesses | Brandsamor	Perfume Products for Different Businesses
+https://www.brandsamor.com/why-brandsamor	Why Choose Brandsamor for Private Label Perfume?	Why Brands Choose Brandsamor
+https://www.brandsamor.com/quality-compliance	Perfume Quality and Compliance Support | Brandsamor	Quality and Compliance Support for Your Fragrance Line
