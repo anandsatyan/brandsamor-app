@@ -24,7 +24,7 @@ export const RelatedLinksSection = ({
           <li key={link.to}>
             <Link
               to={link.to}
-              className="text-[#2D302B] font-medium underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF] transition-colors"
+              className="text-[#2D302B] font-medium underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF]"
             >
               {link.label}
             </Link>

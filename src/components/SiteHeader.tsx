@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { SITE_NAV, type NavKey } from '../routes/siteRoutes';
 
@@ -65,7 +64,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         <div className="relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
           <button
             type="button"
-            className="absolute left-4 sm:left-6 lg:hidden p-1 text-[#2D302B] hover:text-[#A8BBBF] transition-colors"
+            className="absolute left-4 sm:left-6 lg:hidden p-1 text-[#2D302B] hover:text-[#A8BBBF]"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav-drawer"
@@ -82,7 +81,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
           <a
             href="#"
-            className="absolute right-4 sm:right-6 lg:right-12 text-sm text-[#77736E] hover:text-[#2D302B] transition-colors"
+            className="absolute right-4 sm:right-6 lg:right-12 text-sm text-[#77736E] hover:text-[#2D302B]"
           >
             Login
           </a>
@@ -94,7 +93,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
               <span key={item.path} className="contents">
                 {renderNavItem(
                   item,
-                  `relative px-2 py-3 text-center text-[10px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium transition-colors duration-200 ${
+                  `relative px-2 py-3 text-center text-[10px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium ${
                     isNavActive(item) ? 'text-[#2D302B]' : 'text-[#77736E] hover:text-[#2D302B]'
                   }`,
                 )}
@@ -106,77 +105,67 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
       <div className="h-[68px] lg:h-[114px]" aria-hidden="true" />
 
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            <motion.button
-              type="button"
-              className="fixed inset-0 z-[60] bg-[#2D302B]/30 backdrop-blur-[2px] lg:hidden"
-              aria-label="Close menu"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setIsMenuOpen(false)}
-            />
+      {isMenuOpen && (
+        <>
+          <button
+            type="button"
+            className="mobile-nav-backdrop fixed inset-0 z-[60] bg-[#2D302B]/30 backdrop-blur-[2px] lg:hidden"
+            aria-label="Close menu"
+            onClick={() => setIsMenuOpen(false)}
+          />
 
-            <motion.nav
-              id="mobile-nav-drawer"
-              className="fixed top-0 left-0 z-[70] h-full w-[min(85vw,320px)] border-r border-[#f1ece0]/70 bg-[#f9f7f2]/95 backdrop-blur-lg lg:hidden"
-              aria-label="Mobile navigation"
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
-            >
-              <div className="flex items-center justify-between px-5 py-4 border-b border-[#f1ece0]/70">
-                <Link
-                  to="/"
-                  onClick={handleNavClick}
-                  className="font-display text-[#A8BBBF] text-lg font-bold tracking-tight"
-                >
-                  Brandsamor
-                </Link>
-                <button
-                  type="button"
-                  className="p-1 text-[#2D302B] hover:text-[#A8BBBF] transition-colors"
-                  aria-label="Close menu"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <X size={22} />
-                </button>
-              </div>
+          <nav
+            id="mobile-nav-drawer"
+            className="mobile-nav-drawer fixed top-0 left-0 z-[70] h-full w-[min(85vw,320px)] border-r border-[#f1ece0]/70 bg-[#f9f7f2]/95 backdrop-blur-lg lg:hidden"
+            aria-label="Mobile navigation"
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#f1ece0]/70">
+              <Link
+                to="/"
+                onClick={handleNavClick}
+                className="font-display text-[#A8BBBF] text-lg font-bold tracking-tight"
+              >
+                Brandsamor
+              </Link>
+              <button
+                type="button"
+                className="p-1 text-[#2D302B] hover:text-[#A8BBBF]"
+                aria-label="Close menu"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <X size={22} />
+              </button>
+            </div>
 
-              <div className="flex flex-col py-2">
-                {SITE_NAV.map((item) => (
-                  <span key={item.path} className="contents">
-                    {renderNavItem(
-                      item,
-                      `relative px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium border-b-[3px] transition-colors ${
-                        isNavActive(item)
-                          ? 'text-[#2D302B] border-[#A8BBBF]'
-                          : 'text-[#77736E] border-transparent hover:text-[#2D302B] hover:border-[#f1ece0]'
-                      }`,
-                      handleNavClick,
-                      false,
-                    )}
-                  </span>
-                ))}
-              </div>
+            <div className="flex flex-col py-2">
+              {SITE_NAV.map((item) => (
+                <span key={item.path} className="contents">
+                  {renderNavItem(
+                    item,
+                    `relative px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium border-b-[3px] ${
+                      isNavActive(item)
+                        ? 'text-[#2D302B] border-[#A8BBBF]'
+                        : 'text-[#77736E] border-transparent hover:text-[#2D302B] hover:border-[#f1ece0]'
+                    }`,
+                    handleNavClick,
+                    false,
+                  )}
+                </span>
+              ))}
+            </div>
 
-              <div className="absolute bottom-0 left-0 right-0 px-5 py-6 border-t border-[#f1ece0]/70">
-                <a
-                  href="#"
-                  onClick={handleNavClick}
-                  className="block text-center text-sm text-[#77736E] hover:text-[#2D302B] transition-colors"
-                >
-                  Login
-                </a>
-              </div>
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
+            <div className="absolute bottom-0 left-0 right-0 px-5 py-6 border-t border-[#f1ece0]/70">
+              <a
+                href="#"
+                onClick={handleNavClick}
+                className="block text-center text-sm text-[#77736E] hover:text-[#2D302B]"
+              >
+                Login
+              </a>
+            </div>
+          </nav>
+        </>
+      )}
     </>
   );
 };

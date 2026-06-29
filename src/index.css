@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes nav-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nav-drawer-in {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.mobile-nav-backdrop {
+  animation: nav-backdrop-in 0.2s ease-out both;
+}
+
+.mobile-nav-drawer {
+  animation: nav-drawer-in 0.25s ease-out both;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-backdrop,
+  .mobile-nav-drawer {
+    animation: none;
+  }
+}
+
 :root {
   --font-body: 'Funnel Sans Variable', system-ui, sans-serif;
   --font-display: 'Funnel Display Variable', system-ui, sans-serif;

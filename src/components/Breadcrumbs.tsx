@@ -23,7 +23,7 @@ export const Breadcrumbs = ({ items }: { items: BreadcrumbItem[] }) => (
                 {item.label}
               </span>
             ) : (
-              <Link to={item.to} className="hover:text-[#2D302B] transition-colors">
+              <Link to={item.to} className="hover:text-[#2D302B]">
                 {item.label}
               </Link>
             )}

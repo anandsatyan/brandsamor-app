@@ -25,7 +25,7 @@ export const NotFoundPage = () => (
       </p>
       <Link
         to="/"
-        className="inline-flex items-center justify-center rounded-full bg-[#2D302B] px-6 py-3 text-white font-medium hover:bg-[#1f221f] transition-colors"
+        className="inline-flex items-center justify-center rounded-full bg-[#2D302B] px-6 py-3 text-white font-medium hover:bg-[#1f221f]"
       >
         Back to Home
       </Link>

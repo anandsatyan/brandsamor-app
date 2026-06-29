@@ -39,11 +39,11 @@ const FooterLinkList = ({
       {links.map((link) => (
         <li key={link.label}>
           {'path' in link ? (
-            <Link to={link.path} className="hover:text-[#A8BBBF] transition-colors">
+            <Link to={link.path} className="hover:text-[#A8BBBF]">
               {link.label}
             </Link>
           ) : (
-            <a href={resolveHref(link)} className="hover:text-[#A8BBBF] transition-colors">
+            <a href={resolveHref(link)} className="hover:text-[#A8BBBF]">
               {link.label}
             </a>
           )}
@@ -77,14 +77,14 @@ export const SiteFooter = () => {
               We have team presence across the US, India, Dubai and China.
             </p>
             <p>
-              <a href={`tel:${ORGANIZATION.phone}`} className="hover:text-[#A8BBBF] transition-colors">
+              <a href={`tel:${ORGANIZATION.phone}`} className="hover:text-[#A8BBBF]">
                 {ORGANIZATION.phone}
               </a>
             </p>
             <p>
               <a
                 href={`mailto:${ORGANIZATION.email}`}
-                className="hover:text-[#A8BBBF] transition-colors"
+                className="hover:text-[#A8BBBF]"
               >
                 {ORGANIZATION.email}
               </a>
@@ -100,19 +100,19 @@ export const SiteFooter = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-[#f1ece0] text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-[#77736E] text-center sm:text-left">
         <p>© {new Date().getFullYear()}, {ORGANIZATION.legalName}</p>
         <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center sm:justify-end">
-          <Link to="/about" className="hover:text-[#A8BBBF] transition-colors">
+          <Link to="/about" className="hover:text-[#A8BBBF]">
             About
           </Link>
-          <Link to="/contact" className="hover:text-[#A8BBBF] transition-colors">
+          <Link to="/contact" className="hover:text-[#A8BBBF]">
             Contact
           </Link>
-          <Link to="/privacy-policy" className="hover:text-[#A8BBBF] transition-colors">
+          <Link to="/privacy-policy" className="hover:text-[#A8BBBF]">
             Privacy
           </Link>
-          <Link to="/terms" className="hover:text-[#A8BBBF] transition-colors">
+          <Link to="/terms" className="hover:text-[#A8BBBF]">
             Terms
           </Link>
-          <Link to="/refund-and-cancellation-policy" className="hover:text-[#A8BBBF] transition-colors">
+          <Link to="/refund-and-cancellation-policy" className="hover:text-[#A8BBBF]">
             Refunds
           </Link>
         </div>

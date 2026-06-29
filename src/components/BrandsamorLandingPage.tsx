@@ -355,7 +355,7 @@ export const BrandsamorLandingPage = () => {
               stepRefs.current[idx] = el;
             }} className="flex gap-4 sm:gap-8 group">
                   
-                  <div className="text-4xl sm:text-5xl font-display transition-all duration-300 shrink-0 w-12 sm:w-16 select-none" style={{
+                  <div className="text-4xl sm:text-5xl font-display shrink-0 w-12 sm:w-16 select-none" style={{
                 ...(isActive ? {
                   background: STEP_NUMBER_GRADIENT,
                   WebkitBackgroundClip: 'text',
@@ -369,13 +369,13 @@ export const BrandsamorLandingPage = () => {
                     {step.num}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 transition-colors duration-300" style={{
+                    <h3 className="text-lg sm:text-xl font-bold mb-2" style={{
                   color: isActive || isPast ? '#2D302B' : '#B8B4AF'
                 }}>
                       
                       {step.title}
                     </h3>
-                    <p className="text-sm sm:text-base leading-relaxed transition-colors duration-300" style={{
+                    <p className="text-sm sm:text-base leading-relaxed" style={{
                   color: isActive || isPast ? '#77736E' : '#C8C4BF'
                 }}>
                       
