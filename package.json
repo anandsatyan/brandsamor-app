@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && vite build --config vite.config.ssr.ts && tsx scripts/prerender-html.ts",
     "preview": "vite preview --host 0.0.0.0 --port ${PORT:-8080}",
-    "start": "serve dist -c serve.json -l tcp://0.0.0.0:${PORT:-8080}"
+    "start": "node server.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
@@ -25,6 +25,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "vite": "^6.0.5"
   }

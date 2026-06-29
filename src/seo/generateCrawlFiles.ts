@@ -51,23 +51,7 @@ ${urls}
 `;
 };
 
-export const buildRobotsTxt = () => `# https://www.robotstxt.org/
-User-agent: *
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
+export const buildRobotsTxt = () => `User-agent: *
 Allow: /
 
 Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml
