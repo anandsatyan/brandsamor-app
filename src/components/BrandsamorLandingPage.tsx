@@ -16,12 +16,13 @@ import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
 import { TrustStrip } from './TrustStrip';
 
-const STEP_NUMBER_GRADIENT = 'radial-gradient(circle at 75% 115%, #f8b6d3 0%, #dc79e8 24%, transparent 48%), radial-gradient(circle at 82% 30%, #5d37ee 0%, #8958ec 28%, transparent 55%), linear-gradient(115deg, #f3a5a8 0%, #d88bd3 38%, #9365ef 68%, #6142dd 100%)';
 
 const SectionCtaRow = ({ to, label }: { to: string; label: string }) => (
   <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-center">
     <ComingSoonLabel />
-    <SectionLinkButton to={to}>{label}</SectionLinkButton>
+    <SectionLinkButton to={to} variant="secondary">
+      {label}
+    </SectionLinkButton>
   </div>
 );
 
@@ -105,7 +106,7 @@ const audienceItems = [{
 type AudienceItem = (typeof audienceItems)[number];
 
 const AudienceCard = ({ item }: { item: AudienceItem }) => (
-  <article className="bg-white/70 border border-border rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
+  <article className="bg-secondary border border-border rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
     <div className="mb-3" aria-hidden="true">
       <item.Icon />
     </div>
@@ -362,30 +363,26 @@ export const BrandsamorLandingPage = () => {
               stepRefs.current[idx] = el;
             }} className="flex gap-4 sm:gap-8 group">
                   
-                  <div className="text-4xl sm:text-5xl font-display shrink-0 w-12 sm:w-16 select-none" style={{
-                ...(isActive ? {
-                  background: STEP_NUMBER_GRADIENT,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                } : {
-                  color: '#E7DED2'
-                })
-              }}>
-                    
+                  <div
+                    className={`text-4xl sm:text-5xl font-display shrink-0 w-12 sm:w-16 select-none ${
+                      isActive ? 'text-accent' : 'text-secondary'
+                    }`}
+                  >
                     {step.num}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg sm:text-xl font-bold mb-2" style={{
-                  color: isActive || isPast ? '#2D302B' : '#B8B4AF'
-                }}>
-                      
+                    <h3
+                      className={`text-lg sm:text-xl font-bold mb-2 ${
+                        isActive || isPast ? 'text-heading' : 'text-body/50'
+                      }`}
+                    >
                       {step.title}
                     </h3>
-                    <p className="text-sm sm:text-base leading-relaxed" style={{
-                  color: isActive || isPast ? '#77736E' : '#C8C4BF'
-                }}>
-                      
+                    <p
+                      className={`text-sm sm:text-base leading-relaxed ${
+                        isActive || isPast ? 'text-body' : 'text-body/50'
+                      }`}
+                    >
                       {step.desc}
                     </p>
                   </div>
@@ -458,7 +455,7 @@ export const BrandsamorLandingPage = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whySellCards.map(card => <div key={card.num} className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
+            {whySellCards.map(card => <div key={card.num} className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
                 <div className="flex justify-between items-start mb-6">
                   <h3 className="font-bold text-lg leading-tight w-4/5">{card.title}</h3>
                   <span className="text-accent text-sm font-medium">{card.num}</span>
@@ -476,7 +473,7 @@ export const BrandsamorLandingPage = () => {
           <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
+            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
                 <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-border opacity-50 leading-none pointer-events-none select-none">
                   {`0${idx + 1}`}
                 </div>
@@ -514,7 +511,7 @@ export const BrandsamorLandingPage = () => {
           }}>
               <PackagingIllustration />
             </div>
-            <div className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
+            <div className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
               <div className="text-4xl text-accent font-display mb-4">"</div>
               <p className="text-lg font-medium mb-4">Packaging is where a perfume starts to feel like a real product.</p>
               <p className="text-xs text-body uppercase tracking-wider font-semibold">— BRANDSAMOR PRIVATE LABEL</p>
@@ -548,7 +545,7 @@ export const BrandsamorLandingPage = () => {
             </p>
           </div>
           <div className="md:col-span-2 grid sm:grid-cols-2 gap-6">
-            {complianceItems.map(item => <div key={item.title} className="bg-white/70 border border-border rounded-[10px] p-6">
+            {complianceItems.map(item => <div key={item.title} className="bg-secondary border border-border rounded-[10px] p-6">
                 <div className="text-accent mb-4 text-lg">✦</div>
                 <h3 className="font-bold text-base mb-2">{item.title}</h3>
                 <p className="text-xs text-body leading-relaxed">{item.desc}</p>
@@ -579,7 +576,7 @@ export const BrandsamorLandingPage = () => {
           <div className="relative aspect-square max-w-md mx-auto w-full rounded-2xl bg-gradient-to-tr from-[#3a3d38] to-[#2D302B] border border-white/10 flex items-center justify-center p-8 sm:p-12">
             <div className="absolute top-1/4 left-4 sm:left-10 px-3 sm:px-4 py-2 rounded-full border border-accent text-xs font-medium text-white/80">Samples first</div>
             <div className="absolute bottom-1/4 right-4 sm:right-10 px-3 sm:px-4 py-2 rounded-full border border-accent text-xs font-medium text-white/80">Ready-to-sell batch</div>
-            <div className="w-32 h-48 bg-white/70/10 backdrop-blur-sm rounded-[10px] border border-white/20 shadow-2xl flex flex-col items-center justify-end p-4">
+            <div className="w-32 h-48 bg-white/10 backdrop-blur-sm rounded-[10px] border border-white/20 shadow-2xl flex flex-col items-center justify-end p-4">
               <div className="w-16 h-4 bg-white/20 rounded-sm mb-2"></div>
               <div className="w-12 h-2 bg-white/10 rounded-sm"></div>
             </div>

@@ -19,7 +19,7 @@ export const TrustStrip = ({
   intro?: string;
   testimonials: Testimonial[];
 }) => (
-  <section id="trust" className="py-10 sm:py-14 border-y border-border bg-white/70/60">
+  <section id="trust" className="py-10 sm:py-14 border-y border-border bg-secondary">
     <div className="grid sm:grid-cols-3 gap-8 sm:gap-6 mb-10 sm:mb-12">
       {trustStats.map((stat) => (
         <div key={stat.label} className="text-center sm:text-left">
@@ -48,7 +48,7 @@ export const TrustStrip = ({
       {testimonials.map((t) => (
         <blockquote
           key={t.name}
-          className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8"
+          className="bg-surface border border-border rounded-[10px] p-6 sm:p-8"
         >
           <p className="italic text-body text-sm leading-relaxed mb-4">"{t.quote}"</p>
           <footer className="text-xs text-body">

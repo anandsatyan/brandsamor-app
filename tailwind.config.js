@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         surface: 'rgb(253, 246, 238)',
+        secondary: 'rgb(240, 230, 220)',
         body: 'rgb(148, 135, 124)',
         heading: 'rgb(43, 24, 10)',
         accent: 'rgb(255, 92, 0)',

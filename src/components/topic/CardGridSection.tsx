@@ -26,7 +26,7 @@ export const CardGridSection = ({
       {cards.map((card) => (
         <div
           key={card.title}
-          className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[180px] relative overflow-hidden"
+          className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[180px] relative overflow-hidden"
         >
           {card.num && (
             <span className="absolute -bottom-4 -right-4 text-[80px] sm:text-[100px] font-display text-border opacity-50 leading-none pointer-events-none select-none">

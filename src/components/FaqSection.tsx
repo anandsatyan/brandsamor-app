@@ -23,7 +23,7 @@ export const FaqSection = () => (
         {FAQ_ITEMS.map((item, index) => (
           <details
             key={item.question}
-            className="group bg-white/70 border border-border rounded-[10px] overflow-hidden"
+            className="group bg-secondary border border-border rounded-[10px] overflow-hidden"
             open={index === 0}
           >
             <summary className="flex items-start justify-between gap-4 p-5 sm:p-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden">

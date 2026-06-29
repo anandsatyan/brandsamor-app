@@ -61,7 +61,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-surface/90 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface/75">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface/75">
         <div className="relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
           <button
             type="button"
@@ -86,7 +86,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
           </a>
         </div>
 
-        <nav className="hidden lg:block border-t border-border/70" aria-label="Main navigation">
+        <nav className="hidden lg:block" aria-label="Main navigation">
           <div className="grid grid-cols-3 xl:grid-cols-6 max-w-6xl mx-auto">
             {SITE_NAV.map((item) => (
               <span key={item.path} className="contents">
