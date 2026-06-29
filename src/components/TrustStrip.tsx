@@ -19,27 +19,27 @@ export const TrustStrip = ({
   intro?: string;
   testimonials: Testimonial[];
 }) => (
-  <section id="trust" className="py-10 sm:py-14 border-y border-[#f1ece0] bg-[#FFFDFC]/60">
+  <section id="trust" className="py-10 sm:py-14 border-y border-border bg-white/70/60">
     <div className="grid sm:grid-cols-3 gap-8 sm:gap-6 mb-10 sm:mb-12">
       {trustStats.map((stat) => (
         <div key={stat.label} className="text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
             {stat.value === '4.8/5' && (
-              <div className="flex text-[#A8BBBF]">
+              <div className="flex text-accent">
                 {[0, 1, 2, 3, 4].map((i) => (
                   <Star key={i} size={14} fill="currentColor" />
                 ))}
               </div>
             )}
-            <p className="font-display text-2xl sm:text-3xl text-[#2D302B]">{stat.value}</p>
+            <p className="font-display text-2xl sm:text-3xl text-heading">{stat.value}</p>
           </div>
-          <p className="text-sm text-[#77736E]">{stat.label}</p>
+          <p className="text-sm text-body">{stat.label}</p>
         </div>
       ))}
     </div>
 
     {intro && (
-      <p className="text-sm sm:text-base text-[#77736E] max-w-3xl mb-8 sm:mb-10 leading-relaxed">
+      <p className="text-sm sm:text-base text-body max-w-3xl mb-8 sm:mb-10 leading-relaxed">
         {intro}
       </p>
     )}
@@ -48,11 +48,11 @@ export const TrustStrip = ({
       {testimonials.map((t) => (
         <blockquote
           key={t.name}
-          className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8"
+          className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8"
         >
-          <p className="italic text-[#2D302B] text-sm leading-relaxed mb-4">"{t.quote}"</p>
-          <footer className="text-xs text-[#77736E]">
-            <span className="font-semibold text-[#2D302B]">{t.name}</span>
+          <p className="italic text-body text-sm leading-relaxed mb-4">"{t.quote}"</p>
+          <footer className="text-xs text-body">
+            <span className="font-semibold text-heading">{t.name}</span>
             <span> · {t.role}</span>
           </footer>
         </blockquote>

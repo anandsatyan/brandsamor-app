@@ -22,7 +22,7 @@ export const InfoPageLayout = ({
   badge?: string;
   children: ReactNode;
 }) => (
-  <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
+  <div className="min-h-screen bg-surface font-sans overflow-x-hidden">
     <SeoHead
       title={meta.title}
       description={meta.description}
@@ -31,20 +31,23 @@ export const InfoPageLayout = ({
     />
     <SiteHeader />
 
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 py-10 sm:py-16 pb-16 sm:pb-24">
-      <Breadcrumbs
-        items={[
-          { label: 'Home', to: '/' },
-          { label: meta.pageName },
-        ]}
-      />
-      {badge && (
-        <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full mb-6">
-          {badge}
-        </span>
-      )}
-      <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">{meta.h1}</h1>
-      <p className="text-base sm:text-lg text-[#2D302B] mb-10 leading-relaxed">{meta.description}</p>
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
+      <section className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl">
+        <Breadcrumbs
+          variant="hero"
+          items={[
+            { label: 'Home', to: '/' },
+            { label: meta.pageName },
+          ]}
+        />
+        {badge && (
+          <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30 mb-6">
+            {badge}
+          </span>
+        )}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 text-white">{meta.h1}</h1>
+        <p className="text-base sm:text-lg mb-0 leading-relaxed max-w-2xl">{meta.description}</p>
+      </section>
       {children}
     </main>
 
@@ -55,15 +58,15 @@ export const InfoPageLayout = ({
 export const InfoSections = ({ sections }: { sections: InfoSection[] }) => (
   <div className="space-y-10 sm:space-y-12">
     {sections.map((section) => (
-      <section key={section.id} id={section.id} className="border-t border-[#f1ece0] pt-8 sm:pt-10">
+      <section key={section.id} id={section.id} className="border-t border-border pt-8 sm:pt-10">
         <h2 className="text-2xl sm:text-3xl mb-4">{section.title}</h2>
         {section.paragraphs.map((paragraph) => (
-          <p key={paragraph} className="text-[#77736E] leading-relaxed mb-4 last:mb-0">
+          <p key={paragraph} className="text-body leading-relaxed mb-4 last:mb-0">
             {paragraph}
           </p>
         ))}
         {section.bullets && section.bullets.length > 0 && (
-          <ul className="mt-4 space-y-2 list-disc pl-5 text-[#77736E]">
+          <ul className="mt-4 space-y-2 list-disc pl-5 text-body">
             {section.bullets.map((bullet) => (
               <li key={bullet}>{bullet}</li>
             ))}

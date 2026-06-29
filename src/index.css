@@ -39,6 +39,10 @@
 :root {
   --font-body: 'Funnel Sans Variable', system-ui, sans-serif;
   --font-display: 'Funnel Display Variable', system-ui, sans-serif;
+  --color-surface: rgb(253, 246, 238);
+  --color-body: rgb(148, 135, 124);
+  --color-heading: rgb(43, 24, 10);
+  --color-accent: rgb(255, 92, 0);
 }
 
 * {
@@ -52,6 +56,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  background: var(--color-surface);
+  color: var(--color-body);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -74,4 +80,44 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
+  color: var(--color-heading);
+}
+
+@layer components {
+  .hero-panel {
+    background-image: url('/hero-background.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+
+  .hero-panel h1,
+  .hero-panel h2,
+  .hero-panel h3,
+  .hero-panel h4,
+  .hero-panel h5,
+  .hero-panel h6 {
+    color: white;
+  }
+
+  .hero-panel p,
+  .hero-panel .text-body {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .hero-panel .text-heading {
+    color: white;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg bg-accent text-white;
+  }
+
+  .btn-hero-cta {
+    @apply inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg bg-white text-heading;
+  }
+
+  .text-link {
+    @apply text-accent hover:opacity-80;
+  }
 }

@@ -14,7 +14,7 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
   const pageMeta = getPageMetadata(config.seo.path);
 
   return (
-  <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
+  <div className="min-h-screen bg-surface font-sans overflow-x-hidden">
     <SeoHead
       title={config.seo.title}
       description={config.seo.description}

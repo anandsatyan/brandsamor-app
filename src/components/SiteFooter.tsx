@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { BrandLogo } from './BrandLogo';
 import { ORGANIZATION } from '../seo/siteConfig';
 import { INTERNAL_PAGES } from '../routes/siteRoutes';
 
@@ -34,16 +35,16 @@ const FooterLinkList = ({
   resolveHref: (link: { hash?: string }) => string;
 }) => (
   <div>
-    <h4 className="font-bold text-[#2D302B] mb-6">{title}</h4>
+    <h4 className="font-bold text-heading mb-6">{title}</h4>
     <ul className="space-y-3">
       {links.map((link) => (
         <li key={link.label}>
           {'path' in link ? (
-            <Link to={link.path} className="hover:text-[#A8BBBF]">
+            <Link to={link.path} className="hover:text-accent">
               {link.label}
             </Link>
           ) : (
-            <a href={resolveHref(link)} className="hover:text-[#A8BBBF]">
+            <a href={resolveHref(link)} className="hover:text-accent">
               {link.label}
             </a>
           )}
@@ -59,11 +60,11 @@ export const SiteFooter = () => {
   const resolveHref = (link: { hash?: string }) => (isHome ? `#${link.hash}` : `/#${link.hash}`);
 
   return (
-    <footer className="bg-[#f9f7f2] py-12 sm:py-16 border-t border-[#f1ece0]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 text-[#77736E] text-sm">
+    <footer className="bg-surface py-12 sm:py-16 border-t border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 text-body text-sm">
         <div className="space-y-6 sm:col-span-2 lg:col-span-1">
-          <Link to="/" className="font-display text-[#A8BBBF] text-2xl font-bold tracking-tight inline-block">
-            Brandsamor
+          <Link to="/" className="inline-block" aria-label="Brandsamor home">
+            <BrandLogo size="lg" />
           </Link>
           <address className="not-italic space-y-2">
             <p>Private Label Fragrance Studio</p>
@@ -73,18 +74,18 @@ export const SiteFooter = () => {
               <br />
               {ORGANIZATION.address.postalCode}, U.S.A
             </p>
-            <p className="text-[#2D302B]/80 leading-relaxed">
+            <p className="text-body/80 leading-relaxed">
               We have team presence across the US, India, Dubai and China.
             </p>
             <p>
-              <a href={`tel:${ORGANIZATION.phone}`} className="hover:text-[#A8BBBF]">
+              <a href={`tel:${ORGANIZATION.phone}`} className="hover:text-accent">
                 {ORGANIZATION.phone}
               </a>
             </p>
             <p>
               <a
                 href={`mailto:${ORGANIZATION.email}`}
-                className="hover:text-[#A8BBBF]"
+                className="hover:text-accent"
               >
                 {ORGANIZATION.email}
               </a>
@@ -97,22 +98,22 @@ export const SiteFooter = () => {
         <FooterLinkList title="Popular questions" links={footerFaqLinks} resolveHref={resolveHref} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-[#f1ece0] text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-[#77736E] text-center sm:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-border text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-body text-center sm:text-left">
         <p>© {new Date().getFullYear()}, {ORGANIZATION.legalName}</p>
         <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center sm:justify-end">
-          <Link to="/about" className="hover:text-[#A8BBBF]">
+          <Link to="/about" className="hover:text-accent">
             About
           </Link>
-          <Link to="/contact" className="hover:text-[#A8BBBF]">
+          <Link to="/contact" className="hover:text-accent">
             Contact
           </Link>
-          <Link to="/privacy-policy" className="hover:text-[#A8BBBF]">
+          <Link to="/privacy-policy" className="hover:text-accent">
             Privacy
           </Link>
-          <Link to="/terms" className="hover:text-[#A8BBBF]">
+          <Link to="/terms" className="hover:text-accent">
             Terms
           </Link>
-          <Link to="/refund-and-cancellation-policy" className="hover:text-[#A8BBBF]">
+          <Link to="/refund-and-cancellation-policy" className="hover:text-accent">
             Refunds
           </Link>
         </div>

@@ -6,7 +6,7 @@ import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
 
 export const NotFoundPage = () => (
-  <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B]">
+  <div className="min-h-screen bg-surface font-sans">
     <SeoHead
       title={NOT_FOUND_METADATA.title}
       description={NOT_FOUND_METADATA.description}
@@ -19,14 +19,11 @@ export const NotFoundPage = () => (
       <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">
         {NOT_FOUND_METADATA.h1}
       </h1>
-      <p className="text-lg text-[#5a5f57] mb-10">
+      <p className="text-lg text-body mb-10">
         The page you requested is not available. Browse our private label perfume resources or return
         to the homepage.
       </p>
-      <Link
-        to="/"
-        className="inline-flex items-center justify-center rounded-full bg-[#2D302B] px-6 py-3 text-white font-medium hover:bg-[#1f221f]"
-      >
+      <Link to="/" className="btn-primary rounded-full">
         Back to Home
       </Link>
     </main>

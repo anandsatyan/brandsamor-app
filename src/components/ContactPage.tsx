@@ -8,22 +8,22 @@ export const ContactPage = () => {
 
   return (
     <InfoPageLayout meta={meta} badge="CONTACT">
-      <section className="border-t border-[#f1ece0] pt-8 sm:pt-10 space-y-6">
+      <section className="border-t border-border pt-8 sm:pt-10 space-y-6">
         <h2 className="text-2xl sm:text-3xl">Get in touch</h2>
-        <p className="text-[#77736E] leading-relaxed">
+        <p className="text-body leading-relaxed">
           Brandsamor is currently in a pre-launch phase. You can reach the team directly while the full onboarding
           application is being built.
         </p>
-        <address className="not-italic space-y-3 text-[#2D302B]">
+        <address className="not-italic space-y-3 text-heading">
           <p>
             <span className="font-semibold">Email: </span>
-            <a href={`mailto:${ORGANIZATION.email}`} className="underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF]">
+            <a href={`mailto:${ORGANIZATION.email}`} className="underline decoration-accent underline-offset-4 hover:text-accent">
               {ORGANIZATION.email}
             </a>
           </p>
           <p>
             <span className="font-semibold">Phone: </span>
-            <a href={`tel:${ORGANIZATION.phone}`} className="underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF]">
+            <a href={`tel:${ORGANIZATION.phone}`} className="underline decoration-accent underline-offset-4 hover:text-accent">
               {ORGANIZATION.phone}
             </a>
           </p>
@@ -40,17 +40,17 @@ export const ContactPage = () => {
             {ORGANIZATION.address.addressCountry}
           </p>
         </address>
-        <p className="text-[#77736E] leading-relaxed">
+        <p className="text-body leading-relaxed">
           For background on the company, see the{' '}
-          <Link to="/about" className="font-medium text-[#2D302B] underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF]">
+          <Link to="/about" className="font-medium text-accent underline decoration-accent underline-offset-4 hover:opacity-80">
             About Brandsamor
           </Link>{' '}
           page. For policy questions, review our{' '}
-          <Link to="/privacy-policy" className="font-medium text-[#2D302B] underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF]">
+          <Link to="/privacy-policy" className="font-medium text-accent underline decoration-accent underline-offset-4 hover:opacity-80">
             Privacy Policy
           </Link>{' '}
           and{' '}
-          <Link to="/terms" className="font-medium text-[#2D302B] underline decoration-[#A8BBBF] underline-offset-4 hover:text-[#A8BBBF]">
+          <Link to="/terms" className="font-medium text-accent underline decoration-accent underline-offset-4 hover:opacity-80">
             Terms of Service
           </Link>
           .

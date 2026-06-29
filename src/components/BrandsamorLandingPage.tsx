@@ -105,12 +105,12 @@ const audienceItems = [{
 type AudienceItem = (typeof audienceItems)[number];
 
 const AudienceCard = ({ item }: { item: AudienceItem }) => (
-  <article className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
+  <article className="bg-white/70 border border-border rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
     <div className="mb-3" aria-hidden="true">
       <item.Icon />
     </div>
     <h3 className="font-medium text-base sm:text-lg mb-2 max-w-[220px]">{item.label}</h3>
-    <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
+    <p className="text-sm text-body whitespace-normal">{item.desc}</p>
   </article>
 );
 
@@ -127,11 +127,11 @@ const AudienceTrack = () => (
     </div>
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+      className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-surface via-surface/60 to-transparent"
     />
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+      className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-surface via-surface/60 to-transparent"
     />
   </div>
 );
@@ -300,7 +300,7 @@ export const BrandsamorLandingPage = () => {
     refs: stepRefs,
     activeIndex: activeStepIndex
   } = useActiveStep(howItWorksSteps.length);
-  return <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
+  return <div className="min-h-screen bg-surface font-sans overflow-x-hidden">
       <SeoHead
         title={homeMeta.title}
         description={homeMeta.description}
@@ -312,16 +312,23 @@ export const BrandsamorLandingPage = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         {/* HERO */}
-        <section id="overview" className="py-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <section
+          id="overview"
+          className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+        >
           <div className="space-y-6 sm:space-y-8">
-            <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full">PRIVATE LABEL</span>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-[#2D302B]">The Easy Way to Start Your Own Perfume Line</h1>
-            <p className="text-[#2D302B] text-base sm:text-lg max-w-lg leading-relaxed">
+            <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
+              PRIVATE LABEL
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-white">
+              The Easy Way to Start Your Own Perfume Line
+            </h1>
+            <p className="text-base sm:text-lg max-w-lg leading-relaxed">
               Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
             </p>
-            <ComingSoonLabel />
+            <ComingSoonLabel variant="hero" />
           </div>
-          <div className="relative rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0 h-64 sm:h-80 md:h-[400px]">
+          <div className="relative rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0 h-64 sm:h-80 md:h-[400px] bg-white/10 backdrop-blur-sm border border-white/20">
             <HeroBottleIllustration />
           </div>
         </section>
@@ -334,13 +341,13 @@ export const BrandsamorLandingPage = () => {
         {/* HOW IT WORKS */}
         <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> HOW IT WORKS
+            <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-border"></span> HOW IT WORKS
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">
               Branded perfumes, <i className="font-normal not-italic font-sans">made simple</i>
             </h2>
-            <p className="text-base sm:text-lg text-[#2D302B] mb-8 sm:mb-12">
+            <p className="text-base sm:text-lg text-body mb-8 sm:mb-12">
               Start with samples, choose the scents you like, customize the look, and launch your first ready-to-sell perfume line in weeks — not months.
             </p>
             <div className="rounded-xl overflow-hidden w-full max-w-[250px] h-[200px] sm:h-[250px]">
@@ -391,10 +398,10 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* FRAGRANCE PRODUCTS */}
-        <section id="fragrance-products" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16">
+        <section id="fragrance-products" className="py-12 sm:py-24 border-t border-border grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> FRAGRANCE PRODUCTS
+            <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-border"></span> FRAGRANCE PRODUCTS
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Fragrance Products You Can Launch Under Your Brand</h2>
             <div className="rounded-xl overflow-hidden w-full max-w-md h-64 sm:h-80 md:h-[400px] mx-auto md:mx-0">
@@ -402,15 +409,15 @@ export const BrandsamorLandingPage = () => {
             </div>
           </div>
           <div className="flex flex-col justify-center">
-            <p className="text-base sm:text-lg text-[#2D302B] mb-8 sm:mb-12 border-b border-[#f1ece0] pb-8 sm:pb-12">
+            <p className="text-base sm:text-lg text-body mb-8 sm:mb-12 border-b border-border pb-8 sm:pb-12">
               Choose from eau de parfum, perfume oils, body mists, room sprays, travel formats and gift sets based on your audience, price point and sales channel.
             </p>
             <div className="space-y-8 sm:space-y-10">
               {productOptions.map(item => <div key={item.num} className="flex gap-4 sm:gap-8 group">
-                  <div className="text-3xl sm:text-4xl font-display text-[#A8BBBF] shrink-0">{item.num}</div>
+                  <div className="text-3xl sm:text-4xl font-display text-accent shrink-0">{item.num}</div>
                   <div>
                     <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-[#77736E]">{item.desc}</p>
+                    <p className="text-body">{item.desc}</p>
                   </div>
                 </div>)}
             </div>
@@ -419,13 +426,13 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* FRAGRANCE SAMPLING */}
-        <section id="fragrance-sampling" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <section id="fragrance-sampling" className="py-12 sm:py-24 border-t border-border grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> FRAGRANCE SAMPLING
+            <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-border"></span> FRAGRANCE SAMPLING
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">Sample scents before you commit to production</h2>
-            <p className="text-base sm:text-lg text-[#2D302B] mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-body mb-8 leading-relaxed">
               Browse the Brandsamor scent library, order samples that fit your brand, and choose your launch fragrance with confidence before your first batch goes into production.
             </p>
             <SectionCtaRow to="/fragrance-sampling" label="Explore fragrance sampling" />
@@ -436,67 +443,67 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* WHY LAUNCH PERFUME */}
-        <section id="why-perfume" className="py-12 sm:py-24 border-t border-[#f1ece0]">
-          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY LAUNCH PERFUME
+        <section id="why-perfume" className="py-12 sm:py-24 border-t border-border">
+          <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+            <span className="w-8 h-px bg-border"></span> WHY LAUNCH PERFUME
           </h4>
           <div className="max-w-2xl mb-8 sm:mb-12">
             <h2 className="text-3xl sm:text-4xl mb-6">Why Sell Perfume Under Your Own Brand?</h2>
-            <p className="text-lg text-[#2D302B] mb-6">
+            <p className="text-lg text-body mb-6">
               Perfume is a high-margin product that lets your brand create repeat sales, giftable products, and a stronger emotional connection with customers.
             </p>
-            <div className="border-l-2 border-[#A8BBBF] pl-6 text-[#77736E] italic">
+            <div className="border-l-2 border-accent pl-6 text-body italic">
               For many businesses, fragrance is not the main business. It is a new product category that can extend the brand, increase revenue, and create a more memorable customer experience.
             </div>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whySellCards.map(card => <div key={card.num} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
+            {whySellCards.map(card => <div key={card.num} className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
                 <div className="flex justify-between items-start mb-6">
                   <h3 className="font-bold text-lg leading-tight w-4/5">{card.title}</h3>
-                  <span className="text-[#A8BBBF] text-sm font-medium">{card.num}</span>
+                  <span className="text-accent text-sm font-medium">{card.num}</span>
                 </div>
-                <p className="text-[#77736E] text-sm mt-auto">{card.desc}</p>
+                <p className="text-body text-sm mt-auto">{card.desc}</p>
               </div>)}
           </div>
 
           <SectionCtaRow to="/start-a-perfume-line" label="Start planning your line" />
         </section>
-        <section id="why-brandsamor" className="py-12 sm:py-24 border-t border-[#f1ece0]">
-          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> WHY BRANDSAMOR
+        <section id="why-brandsamor" className="py-12 sm:py-24 border-t border-border">
+          <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+            <span className="w-8 h-px bg-border"></span> WHY BRANDSAMOR
           </h4>
           <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
-                <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-[#f1ece0] opacity-50 leading-none pointer-events-none select-none">
+            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
+                <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-border opacity-50 leading-none pointer-events-none select-none">
                   {`0${idx + 1}`}
                 </div>
                 <h3 className="font-bold text-xl mb-4 relative z-10">{card.title}</h3>
-                <p className="text-[#77736E] text-sm relative z-10">{card.desc}</p>
+                <p className="text-body text-sm relative z-10">{card.desc}</p>
               </div>)}
           </div>
 
           <SectionCtaRow to="/why-brandsamor" label="Why choose Brandsamor" />
         </section>
-        <section id="packaging" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16 border-t border-[#f1ece0]">
+        <section id="packaging" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16 border-t border-border">
           <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> PACKAGING & BRANDING
+            <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-border"></span> PACKAGING & BRANDING
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">
-              Built on proven <span className="text-[#A8BBBF]">fragrance packaging</span> experience
+              Built on proven <span className="text-accent">fragrance packaging</span> experience
             </h2>
-            <p className="text-lg text-[#2D302B] mb-12">
+            <p className="text-lg text-body mb-12">
               Brandsamor already works with brands that source perfume bottles, caps, sprays, and packaging. Private Label builds on that experience to help you launch a finished fragrance product more easily.
             </p>
             <div className="space-y-8">
               {packagingItems.map(item => <div key={item.num} className="flex gap-6">
-                  <div className="text-xl text-[#A8BBBF] font-medium">{item.num}</div>
+                  <div className="text-xl text-accent font-medium">{item.num}</div>
                   <div>
                     <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-                    <p className="text-[#77736E]">{item.desc}</p>
+                    <p className="text-body">{item.desc}</p>
                   </div>
                 </div>)}
             </div>
@@ -507,44 +514,44 @@ export const BrandsamorLandingPage = () => {
           }}>
               <PackagingIllustration />
             </div>
-            <div className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
-              <div className="text-4xl text-[#A8BBBF] font-display mb-4">"</div>
+            <div className="bg-white/70 border border-border rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
+              <div className="text-4xl text-accent font-display mb-4">"</div>
               <p className="text-lg font-medium mb-4">Packaging is where a perfume starts to feel like a real product.</p>
-              <p className="text-xs text-[#77736E] uppercase tracking-wider font-semibold">— BRANDSAMOR PRIVATE LABEL</p>
+              <p className="text-xs text-body uppercase tracking-wider font-semibold">— BRANDSAMOR PRIVATE LABEL</p>
             </div>
           </div>
         </section>
-        <div className="border-t border-[#f1ece0] pb-4">
+        <div className="border-t border-border pb-4">
           <SectionCtaRow to="/packaging-branding" label="Explore packaging options" />
         </div>
 
         {/* WHO WE WORK WITH */}
-        <section id="who-we-work-with" className="py-12 sm:py-24 border-t border-[#f1ece0]">
-          <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-            <span className="w-8 h-px bg-[#f1ece0]"></span> WHO WE WORK WITH
+        <section id="who-we-work-with" className="py-12 sm:py-24 border-t border-border">
+          <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+            <span className="w-8 h-px bg-border"></span> WHO WE WORK WITH
           </h4>
           <div className="flex flex-col md:flex-row justify-between items-start mb-8 sm:mb-12 gap-6 sm:gap-8">
             <h2 className="text-3xl sm:text-4xl max-w-md">Built for brands ready to launch fragrance</h2>
-            <p className="text-[#77736E] max-w-md">From retail and e-commerce to events and gifting — if you have an audience and a brand, private label perfume can be your next product line.</p>
+            <p className="text-body max-w-md">From retail and e-commerce to events and gifting — if you have an audience and a brand, private label perfume can be your next product line.</p>
           </div>
           <AudienceTrack />
           <SectionCtaRow to="/who-we-work-with" label="See who we work with" />
         </section>
-        <section id="compliance" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-3 gap-8 sm:gap-12">
+        <section id="compliance" className="py-12 sm:py-24 border-t border-border grid md:grid-cols-3 gap-8 sm:gap-12">
           <div className="md:col-span-1">
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#f1ece0]"></span> QUALITY & COMPLIANCE
+            <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-border"></span> QUALITY & COMPLIANCE
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">Compliance Support for Your Fragrance Line</h2>
-            <p className="text-[#77736E]">
+            <p className="text-body">
               Compliance needs can vary by product type, market, claims, formula, and selling channel. Brandsamor does not describe perfume products as FDA approved.
             </p>
           </div>
           <div className="md:col-span-2 grid sm:grid-cols-2 gap-6">
-            {complianceItems.map(item => <div key={item.title} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-6">
-                <div className="text-[#A8BBBF] mb-4 text-lg">✦</div>
+            {complianceItems.map(item => <div key={item.title} className="bg-white/70 border border-border rounded-[10px] p-6">
+                <div className="text-accent mb-4 text-lg">✦</div>
                 <h3 className="font-bold text-base mb-2">{item.title}</h3>
-                <p className="text-xs text-[#77736E] leading-relaxed">{item.desc}</p>
+                <p className="text-xs text-body leading-relaxed">{item.desc}</p>
               </div>)}
           </div>
           <div className="md:col-span-3 mt-8 sm:mt-4">
@@ -556,23 +563,23 @@ export const BrandsamorLandingPage = () => {
       </main>
 
       {/* SECTION 12 - FINAL CTA (Dark Section) */}
-      <section className="bg-[#2D302B] py-12 sm:py-24 text-white">
+      <section className="bg-heading py-12 sm:py-24 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>
-            <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6">READY TO LAUNCH?</h4>
+            <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6">READY TO LAUNCH?</h4>
             <h2 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">Ready to Start Your Own Perfume Line?</h2>
             <p className="text-base sm:text-lg text-white/80 mb-8 sm:mb-10 max-w-md">
               Answer a few questions about your brand, scent direction, quantity, and packaging needs. We'll use that to understand the right starting point for your first fragrance product.
             </p>
             <div className="mb-6">
-              <ComingSoonLabel variant="dark" />
+              <ComingSoonLabel variant="primary" />
             </div>
             <p className="text-sm text-white/60">Start with your idea. The first step is simply telling us what you want to build.</p>
           </div>
           <div className="relative aspect-square max-w-md mx-auto w-full rounded-2xl bg-gradient-to-tr from-[#3a3d38] to-[#2D302B] border border-white/10 flex items-center justify-center p-8 sm:p-12">
-            <div className="absolute top-1/4 left-4 sm:left-10 px-3 sm:px-4 py-2 rounded-full border border-[#A8BBBF] text-xs font-medium text-white/80">Samples first</div>
-            <div className="absolute bottom-1/4 right-4 sm:right-10 px-3 sm:px-4 py-2 rounded-full border border-[#A8BBBF] text-xs font-medium text-white/80">Ready-to-sell batch</div>
-            <div className="w-32 h-48 bg-[#FFFDFC]/10 backdrop-blur-sm rounded-[10px] border border-white/20 shadow-2xl flex flex-col items-center justify-end p-4">
+            <div className="absolute top-1/4 left-4 sm:left-10 px-3 sm:px-4 py-2 rounded-full border border-accent text-xs font-medium text-white/80">Samples first</div>
+            <div className="absolute bottom-1/4 right-4 sm:right-10 px-3 sm:px-4 py-2 rounded-full border border-accent text-xs font-medium text-white/80">Ready-to-sell batch</div>
+            <div className="w-32 h-48 bg-white/70/10 backdrop-blur-sm rounded-[10px] border border-white/20 shadow-2xl flex flex-col items-center justify-end p-4">
               <div className="w-16 h-4 bg-white/20 rounded-sm mb-2"></div>
               <div className="w-12 h-2 bg-white/10 rounded-sm"></div>
             </div>

@@ -1,15 +1,13 @@
 export const ComingSoonLabel = ({
   className = '',
-  variant = 'light',
+  variant = 'primary',
 }: {
   className?: string;
-  variant?: 'light' | 'dark';
+  variant?: 'primary' | 'hero';
 }) => (
   <span
     className={`inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg ${
-      variant === 'dark'
-        ? 'bg-white/10 text-white/90 border border-white/20'
-        : 'bg-[#E7DED2] text-[#2D302B]'
+      variant === 'hero' ? 'btn-hero-cta' : 'btn-primary'
     } ${className}`}
   >
     Coming soon

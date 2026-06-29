@@ -3,6 +3,14 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        surface: 'rgb(253, 246, 238)',
+        body: 'rgb(148, 135, 124)',
+        heading: 'rgb(43, 24, 10)',
+        accent: 'rgb(255, 92, 0)',
+        border: 'rgba(148, 135, 124, 0.22)',
+        'border-strong': 'rgba(148, 135, 124, 0.35)',
+      },
       fontFamily: {
         sans: ['"Funnel Sans Variable"', 'system-ui', 'sans-serif'],
         display: ['"Funnel Display Variable"', 'system-ui', 'sans-serif'],
