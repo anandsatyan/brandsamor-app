@@ -9,6 +9,8 @@ if (!container) {
   throw new Error('Root element not found');
 }
 
+document.getElementById('brandsamor-static-content')?.remove();
+
 const app = (
   <StrictMode>
     <App />

@@ -8,6 +8,7 @@ import {
   PAGE_METADATA,
   PUBLIC_ROUTES,
 } from '../src/seo/pageMetadata';
+import { renderStaticCrawlerContent } from '../src/seo/renderStaticCrawlerContent';
 import { renderHeadTags } from '../src/seo/renderHeadTags';
 import { FAQ_BY_ROUTE } from '../src/seo/routeFaq';
 
@@ -23,6 +24,20 @@ const replaceSeoBlock = (html: string, seoBlock: string) => {
     throw new Error('Missing brandsamor SEO markers in index.html');
   }
   return html.replace(pattern, `${SEO_START}\n    ${seoBlock}\n    ${SEO_END}`);
+};
+
+const STATIC_START = '<!-- brandsamor-static:start -->';
+const STATIC_END = '<!-- brandsamor-static:end -->';
+
+const injectStaticContent = (html: string, staticHtml: string) => {
+  const pattern = new RegExp(`${STATIC_START}[\\s\\S]*?${STATIC_END}`, 'm');
+  if (!pattern.test(html)) {
+    throw new Error('Missing brandsamor static content markers in index.html');
+  }
+  return html.replace(
+    pattern,
+    `${STATIC_START}\n    ${staticHtml}\n    ${STATIC_END}`,
+  );
 };
 
 const injectRootHtml = (html: string, appHtml: string) => {
@@ -66,7 +81,11 @@ for (const routePath of PUBLIC_ROUTES) {
   ).replace(/</g, '\\u003c');
   const seoBlock = renderHeadTags(meta, structuredData);
   const appHtml = renderRoute(routePath);
-  const html = injectRootHtml(replaceSeoBlock(template, seoBlock), appHtml);
+  const staticHtml = renderStaticCrawlerContent(routePath, meta);
+  const html = injectRootHtml(
+    injectStaticContent(replaceSeoBlock(template, seoBlock), staticHtml),
+    appHtml,
+  );
   writeRouteHtml(routePath, html);
 }
 
@@ -74,7 +93,10 @@ const notFoundStructuredData = JSON.stringify(
   buildStructuredDataForPath(NOT_FOUND_METADATA),
 ).replace(/</g, '\\u003c');
 const notFoundHtml = injectRootHtml(
-  replaceSeoBlock(template, renderHeadTags(NOT_FOUND_METADATA, notFoundStructuredData)),
+  injectStaticContent(
+    replaceSeoBlock(template, renderHeadTags(NOT_FOUND_METADATA, notFoundStructuredData)),
+    renderStaticCrawlerContent('/404', NOT_FOUND_METADATA),
+  ),
   renderRoute('/this-page-does-not-exist'),
 );
 fs.mkdirSync(path.join(distDir, '404'), { recursive: true });
