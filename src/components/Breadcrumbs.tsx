@@ -8,9 +8,11 @@ export type BreadcrumbItem = {
 export const Breadcrumbs = ({
   items,
   variant = 'default',
+  centered = false,
 }: {
   items: BreadcrumbItem[];
   variant?: 'default' | 'hero';
+  centered?: boolean;
 }) => {
   const isHero = variant === 'hero';
 
@@ -18,8 +20,8 @@ export const Breadcrumbs = ({
     <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6">
       <ol
         className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-sm list-none m-0 p-0 ${
-          isHero ? 'text-white/80' : 'text-body'
-        }`}
+          centered ? 'justify-center' : ''
+        } ${isHero ? 'text-white/80' : 'text-body'}`}
       >
         {items.map((item, index) => {
           const isLast = index === items.length - 1;

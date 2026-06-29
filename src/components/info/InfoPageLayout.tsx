@@ -32,21 +32,24 @@ export const InfoPageLayout = ({
     <SiteHeader />
 
     <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <section className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl">
-        <Breadcrumbs
-          variant="hero"
-          items={[
-            { label: 'Home', to: '/' },
-            { label: meta.pageName },
-          ]}
-        />
-        {badge && (
-          <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30 mb-6">
-            {badge}
-          </span>
-        )}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 text-white">{meta.h1}</h1>
-        <p className="text-base sm:text-lg mb-0 leading-relaxed max-w-2xl">{meta.description}</p>
+      <section className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl text-center">
+        <div className="mx-auto flex max-w-3xl flex-col items-center">
+          <Breadcrumbs
+            variant="hero"
+            centered
+            items={[
+              { label: 'Home', to: '/' },
+              { label: meta.pageName },
+            ]}
+          />
+          {badge && (
+            <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30 mb-6">
+              {badge}
+            </span>
+          )}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 text-white">{meta.h1}</h1>
+          <p className="text-base sm:text-lg mb-0 leading-relaxed max-w-2xl">{meta.description}</p>
+        </div>
       </section>
       {children}
     </main>

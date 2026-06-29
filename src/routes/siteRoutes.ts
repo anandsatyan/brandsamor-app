@@ -1,4 +1,5 @@
 export type NavKey =
+  | 'home'
   | 'how-it-works'
   | 'fragrance-products'
   | 'fragrance-sampling'
@@ -14,9 +15,10 @@ export type SiteRoute = {
 };
 
 export const SITE_NAV: SiteRoute[] = [
+  { label: 'Home', path: '/', navKey: 'home' },
   { label: 'How It Works', path: '/how-it-works', navKey: 'how-it-works' },
-  { label: 'Fragrance Products', path: '/fragrance-products', navKey: 'fragrance-products' },
-  { label: 'Fragrance Sampling', path: '/fragrance-sampling', navKey: 'fragrance-sampling' },
+  { label: 'Products', path: '/fragrance-products', navKey: 'fragrance-products' },
+  { label: 'Sampling', path: '/fragrance-sampling', navKey: 'fragrance-sampling' },
   { label: 'Branding', path: '/packaging-branding', navKey: 'packaging' },
   { label: 'Start a Perfume Line', path: '/start-a-perfume-line', navKey: 'start-a-perfume-line' },
   { label: 'About', path: '/about', navKey: 'about' },

@@ -36,28 +36,15 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
   const isNavActive = (item: (typeof SITE_NAV)[number]) =>
     item.navKey != null && item.navKey === resolvedActiveKey;
 
-  const activeUnderline = (
-    <span
-      className="absolute bottom-0 left-2 right-2 h-[3px] bg-accent rounded-full"
-      aria-hidden="true"
-    />
-  );
-
   const renderNavItem = (
     item: (typeof SITE_NAV)[number],
     className: string,
     onClick?: () => void,
-    showUnderline = true,
-  ) => {
-    const isActive = isNavActive(item);
-
-    return (
-      <Link to={item.path} onClick={onClick} className={className}>
-        {showUnderline && isActive && activeUnderline}
-        {item.label}
-      </Link>
-    );
-  };
+  ) => (
+    <Link to={item.path} onClick={onClick} className={className}>
+      {item.label}
+    </Link>
+  );
 
   return (
     <>
@@ -87,13 +74,13 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         </div>
 
         <nav className="hidden lg:block" aria-label="Main navigation">
-          <div className="grid grid-cols-3 xl:grid-cols-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-4 xl:grid-cols-7 max-w-7xl mx-auto">
             {SITE_NAV.map((item) => (
               <span key={item.path} className="contents">
                 {renderNavItem(
                   item,
-                  `relative px-2 py-3 text-center text-[10px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium ${
-                    isNavActive(item) ? 'text-heading' : 'text-body hover:text-accent'
+                  `px-2 py-3 text-center text-[10px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium ${
+                    isNavActive(item) ? 'text-accent' : 'text-body hover:text-accent'
                   }`,
                 )}
               </span>
@@ -137,13 +124,10 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
                 <span key={item.path} className="contents">
                   {renderNavItem(
                     item,
-                    `relative px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium border-b-[3px] ${
-                      isNavActive(item)
-                        ? 'text-heading border-accent'
-                        : 'text-body border-transparent hover:text-accent hover:border-border'
+                    `px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium ${
+                      isNavActive(item) ? 'text-accent' : 'text-body hover:text-accent'
                     }`,
                     handleNavClick,
-                    false,
                   )}
                 </span>
               ))}

@@ -32,7 +32,7 @@ export type TopicPageConfig = {
     badge: string;
     title: string;
     description: string;
-    Illustration: IllustrationComponent;
+    Illustration?: IllustrationComponent;
   };
   sections: ContentSectionData[];
   faq?: {

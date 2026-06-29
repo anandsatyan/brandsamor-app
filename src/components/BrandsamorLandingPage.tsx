@@ -3,7 +3,6 @@ import { ComingSoonLabel } from './ComingSoonLabel';
 import { FaqSection } from './FaqSection';
 import {
   FlatLayIllustration,
-  HeroBottleIllustration,
   MarbleBottleIllustration,
   PackagingIllustration,
   ScentSamplesIllustration,
@@ -315,22 +314,19 @@ export const BrandsamorLandingPage = () => {
         {/* HERO */}
         <section
           id="overview"
-          className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+          className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl text-center"
         >
-          <div className="space-y-6 sm:space-y-8">
+          <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
             <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
               PRIVATE LABEL
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-white">
               The Easy Way to Start Your Own Perfume Line
             </h1>
-            <p className="text-base sm:text-lg max-w-lg leading-relaxed">
+            <p className="text-base sm:text-lg max-w-2xl leading-relaxed">
               Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
             </p>
             <ComingSoonLabel variant="hero" />
-          </div>
-          <div className="relative rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0 h-64 sm:h-80 md:h-[400px] bg-white/10 backdrop-blur-sm border border-white/20">
-            <HeroBottleIllustration />
           </div>
         </section>
 
@@ -564,7 +560,7 @@ export const BrandsamorLandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>
             <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6">READY TO LAUNCH?</h4>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">Ready to Start Your Own Perfume Line?</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 text-white">Ready to Start Your Own Perfume Line?</h2>
             <p className="text-base sm:text-lg text-white/80 mb-8 sm:mb-10 max-w-md">
               Answer a few questions about your brand, scent direction, quantity, and packaging needs. We'll use that to understand the right starting point for your first fragrance product.
             </p>

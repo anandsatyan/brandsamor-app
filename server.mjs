@@ -33,6 +33,7 @@ const STATIC_FILES = new Set([
   '/humans.txt',
   '/og-image.jpg',
   '/og-image.png',
+  '/favicon.svg',
   '/vite.svg',
 ]);
 
