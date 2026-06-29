@@ -65,12 +65,14 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
             <BrandLogo />
           </Link>
 
-          <a
-            href="#"
-            className="absolute right-4 sm:right-6 lg:right-12 text-sm text-body hover:text-accent"
+          <Link
+            to="/login"
+            className={`absolute right-4 sm:right-6 lg:right-12 text-sm ${
+              pathname === '/login' ? 'text-accent' : 'text-body hover:text-accent'
+            }`}
           >
             Login
-          </a>
+          </Link>
         </div>
 
         <nav className="hidden lg:block px-4 xl:px-8" aria-label="Main navigation">
@@ -134,13 +136,15 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 px-5 py-6 border-t border-border/70">
-              <a
-                href="#"
+              <Link
+                to="/login"
                 onClick={handleNavClick}
-                className="block text-center text-sm text-body hover:text-accent"
+                className={`block text-center text-sm ${
+                  pathname === '/login' ? 'text-accent' : 'text-body hover:text-accent'
+                }`}
               >
                 Login
-              </a>
+              </Link>
             </div>
           </nav>
         </>

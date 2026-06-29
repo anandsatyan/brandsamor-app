@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Breadcrumbs } from '../Breadcrumbs';
+import { HeroPanel } from '../HeroPanel';
 import { SeoHead } from '../SeoHead';
 import { SiteFooter } from '../SiteFooter';
 import { SiteHeader } from '../SiteHeader';
@@ -32,7 +33,7 @@ export const InfoPageLayout = ({
     <SiteHeader />
 
     <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <section className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl text-center">
+      <HeroPanel className="py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl text-center">
         <div className="mx-auto flex max-w-3xl flex-col items-center">
           <Breadcrumbs
             variant="hero"
@@ -50,7 +51,7 @@ export const InfoPageLayout = ({
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 text-white">{meta.h1}</h1>
           <p className="text-base sm:text-lg mb-0 leading-relaxed max-w-2xl">{meta.description}</p>
         </div>
-      </section>
+      </HeroPanel>
       {children}
     </main>
 

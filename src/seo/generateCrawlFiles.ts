@@ -33,7 +33,8 @@ const routePriority = (route: string) => {
     route === '/privacy-policy' ||
     route === '/terms' ||
     route === '/refund-and-cancellation-policy' ||
-    route === '/contact'
+    route === '/contact' ||
+    route === '/login'
   ) {
     return '0.5';
   }
@@ -43,7 +44,8 @@ const routePriority = (route: string) => {
 const routeChangeFreq = (route: string) => (route === '/' ? 'weekly' : 'monthly');
 
 export const buildSitemapXml = (lastmod = todayIsoDate()) => {
-  const urls = PUBLIC_ROUTES.map((route) => {
+  const urls = PUBLIC_ROUTES.filter((route) => PAGE_METADATA[route].robots !== 'noindex, follow')
+    .map((route) => {
     const meta = PAGE_METADATA[route];
     return `  <url>
     <loc>${meta.canonical}</loc>

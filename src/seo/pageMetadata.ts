@@ -156,6 +156,18 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
     includeServiceSchema: false,
     includeHomeGraph: false,
   },
+  '/login': {
+    path: '/login',
+    pageName: 'Login',
+    title: 'Login | Brandsamor',
+    description:
+      'Sign in to your Brandsamor account to manage private label fragrance projects, samples, and production updates.',
+    canonical: canonical('/login'),
+    h1: 'Sign in to Brandsamor',
+    robots: 'noindex, follow',
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+  },
   '/privacy-policy': {
     path: '/privacy-policy',
     pageName: 'Privacy Policy',

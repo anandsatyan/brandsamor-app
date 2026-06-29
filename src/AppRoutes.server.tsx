@@ -5,6 +5,7 @@ import { ContactPage } from './components/ContactPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
 import { HowItWorksPage } from './components/HowItWorksPage';
+import { LoginPage } from './components/LoginPage';
 import { NotFoundPage } from './components/NotFoundPage';
 import { PackagingBrandingPage } from './components/PackagingBrandingPage';
 import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
@@ -32,6 +33,7 @@ export const AppRoutesServer = () => (
       <Route path="/quality-compliance" element={<QualityCompliancePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/refund-and-cancellation-policy" element={<RefundPolicyPage />} />

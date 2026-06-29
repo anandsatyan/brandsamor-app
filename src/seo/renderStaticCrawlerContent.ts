@@ -109,6 +109,14 @@ export const renderStaticCrawlerContent = (route: string, meta: PageMetadata) =>
 </main>`;
   }
 
+  if (route === '/login') {
+    return `<main id="brandsamor-static-content">
+  <h1>${escapeHtml(meta.h1)}</h1>
+  <p>${escapeHtml(meta.description)}</p>
+  <p>Sign in with your Brandsamor account email and password.</p>
+</main>`;
+  }
+
   const config = TOPIC_ROUTE_CONFIGS[route];
   if (!config) {
     return `<main id="brandsamor-static-content">

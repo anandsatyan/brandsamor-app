@@ -19,6 +19,7 @@ const PUBLIC_ROUTES = new Set([
   '/quality-compliance',
   '/about',
   '/contact',
+  '/login',
   '/privacy-policy',
   '/terms',
   '/refund-and-cancellation-policy',
@@ -76,6 +77,13 @@ const resolveFile = (urlPath) => {
       return { filePath: assetPath, status: 200 };
     }
     return null;
+  }
+
+  if (!normalized.includes('..')) {
+    const rootAssetPath = path.join(distDir, normalized.slice(1));
+    if (normalized !== '/' && fs.existsSync(rootAssetPath) && fs.statSync(rootAssetPath).isFile()) {
+      return { filePath: rootAssetPath, status: 200 };
+    }
   }
 
   if (PUBLIC_ROUTES.has(normalized)) {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ComingSoonLabel } from './ComingSoonLabel';
+import { HeroPanel } from './HeroPanel';
 import { FaqSection } from './FaqSection';
 import {
   FlatLayIllustration,
@@ -312,9 +313,9 @@ export const BrandsamorLandingPage = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         {/* HERO */}
-        <section
+        <HeroPanel
           id="overview"
-          className="hero-panel -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl text-center"
+          className="py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl text-center"
         >
           <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
             <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
@@ -328,7 +329,7 @@ export const BrandsamorLandingPage = () => {
             </p>
             <ComingSoonLabel variant="hero" />
           </div>
-        </section>
+        </HeroPanel>
 
         <TrustStrip
           intro="Trusted by fragrance brands for perfume packaging—the experience Brandsamor is now bringing to complete private-label fragrance launches."
