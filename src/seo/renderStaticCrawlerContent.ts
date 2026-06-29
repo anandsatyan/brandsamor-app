@@ -7,6 +7,9 @@ import {
   refundPolicySections,
   termsSections,
 } from '../content/policies';
+import { KNOWLEDGE_BASE_ARTICLES } from '../content/knowledgeBase/articles';
+import { kbArticlePath } from '../content/knowledgeBase/types';
+import type { KbArticle } from '../content/knowledgeBase/types';
 import { HOMEPAGE_STATIC_SECTIONS, TOPIC_ROUTE_CONFIGS } from './routeContentRegistry';
 
 const escapeHtml = (value: string) =>
@@ -80,6 +83,28 @@ const renderInfoStatic = (meta: PageMetadata, sections: InfoSection[]) => `<main
     .join('\n')}
 </main>`;
 
+const renderKbArticleStatic = (meta: PageMetadata, article: KbArticle) => `<main id="brandsamor-static-content">
+  <h1>${escapeHtml(meta.h1)}</h1>
+  <p>${escapeHtml(article.excerpt)}</p>
+  ${article.sections
+    .map(
+      (section) => `<section id="${escapeHtml(section.id)}">
+  <h2>${escapeHtml(section.title)}</h2>
+  ${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('\n  ')}
+  ${renderBullets(section.bullets)}
+</section>`,
+    )
+    .join('\n')}
+  ${article.faq
+    .map(
+      (item) => `<article>
+  <h3>${escapeHtml(item.question)}</h3>
+  <p>${escapeHtml(item.answer)}</p>
+</article>`,
+    )
+    .join('\n')}
+</main>`;
+
 export const renderStaticCrawlerContent = (route: string, meta: PageMetadata) => {
   if (route === '/') {
     return renderHomeStatic(meta);
@@ -115,6 +140,24 @@ export const renderStaticCrawlerContent = (route: string, meta: PageMetadata) =>
   <p>${escapeHtml(meta.description)}</p>
   <p>Sign in with your Brandsamor account email and password.</p>
 </main>`;
+  }
+
+  if (route === '/knowledge-base') {
+    return `<main id="brandsamor-static-content">
+  <h1>${escapeHtml(meta.h1)}</h1>
+  <p>${escapeHtml(meta.description)}</p>
+  ${KNOWLEDGE_BASE_ARTICLES.map(
+    (article) => `<article>
+  <h2><a href="${escapeHtml(kbArticlePath(article.slug))}">${escapeHtml(article.title)}</a></h2>
+  <p>${escapeHtml(article.excerpt)}</p>
+</article>`,
+  ).join('\n')}
+</main>`;
+  }
+
+  const kbArticle = KNOWLEDGE_BASE_ARTICLES.find((article) => kbArticlePath(article.slug) === route);
+  if (kbArticle) {
+    return renderKbArticleStatic(meta, kbArticle);
   }
 
   const config = TOPIC_ROUTE_CONFIGS[route];

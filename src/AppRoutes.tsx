@@ -18,6 +18,14 @@ const WhyBrandsamorPage = lazyNamed(() => import('./components/WhyBrandsamorPage
 const QualityCompliancePage = lazyNamed(() => import('./components/QualityCompliancePage'), 'QualityCompliancePage');
 const AboutPage = lazyNamed(() => import('./components/AboutPage'), 'AboutPage');
 const LoginPage = lazyNamed(() => import('./components/LoginPage'), 'LoginPage');
+const KnowledgeBaseHubPage = lazyNamed(
+  () => import('./components/knowledgeBase/KnowledgeBaseHubPage'),
+  'KnowledgeBaseHubPage',
+);
+const KnowledgeBaseArticlePage = lazyNamed(
+  () => import('./components/knowledgeBase/KnowledgeBaseArticlePage'),
+  'KnowledgeBaseArticlePage',
+);
 const ContactPage = lazyNamed(() => import('./components/ContactPage'), 'ContactPage');
 const PrivacyPolicyPage = lazyNamed(() => import('./components/PrivacyPolicyPage'), 'PrivacyPolicyPage');
 const TermsPage = lazyNamed(() => import('./components/TermsPage'), 'TermsPage');
@@ -41,6 +49,8 @@ export const AppRoutes = () => (
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
+        <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticlePage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/refund-and-cancellation-policy" element={<RefundPolicyPage />} />

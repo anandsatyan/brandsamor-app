@@ -13,7 +13,7 @@ export const HeroPanel = ({
 }) => (
   <section
     id={id}
-    className={`hero-panel relative overflow-hidden bg-accent text-white ${HERO_BLEED} ${className}`}
+    className={`hero-panel relative overflow-hidden bg-accent text-white min-h-[300px] sm:min-h-[320px] ${HERO_BLEED} ${className}`}
   >
     <img
       src="/hero-background.png"

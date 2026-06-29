@@ -23,6 +23,19 @@ const PUBLIC_ROUTES = new Set([
   '/privacy-policy',
   '/terms',
   '/refund-and-cancellation-policy',
+  '/knowledge-base',
+  '/knowledge-base/how-to-start-a-perfume-line',
+  '/knowledge-base/private-label-vs-white-label-vs-custom-perfume',
+  '/knowledge-base/perfume-brand-startup-cost',
+  '/knowledge-base/private-label-perfume-moq',
+  '/knowledge-base/private-label-perfume-manufacturing-timeline',
+  '/knowledge-base/choose-fragrances-for-target-customer',
+  '/knowledge-base/choose-perfume-bottle-and-packaging',
+  '/knowledge-base/edp-vs-edt-vs-perfume-oil',
+  '/knowledge-base/perfume-manufacturer-documents',
+  '/knowledge-base/import-private-label-perfume-usa',
+  '/knowledge-base/how-ifra-certificates-work',
+  '/knowledge-base/perfume-certificate-of-analysis',
 ]);
 
 const STATIC_FILES = new Set([

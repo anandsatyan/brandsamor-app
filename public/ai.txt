@@ -37,3 +37,16 @@ https://www.brandsamor.com/login	Login | Brandsamor	Sign in to Brandsamor
 https://www.brandsamor.com/privacy-policy	Privacy Policy | Brandsamor	Privacy Policy
 https://www.brandsamor.com/terms	Terms of Service | Brandsamor	Terms of Service
 https://www.brandsamor.com/refund-and-cancellation-policy	Refund and Cancellation Policy | Brandsamor	Refund and Cancellation Policy
+https://www.brandsamor.com/knowledge-base	Private Label Perfume Knowledge Base | Brandsamor	Private Label Perfume Knowledge Base
+https://www.brandsamor.com/knowledge-base/how-to-start-a-perfume-line	How to Start a Perfume Line: Complete Step-by-Step Guide | Brandsamor	How to Start a Perfume Line
+https://www.brandsamor.com/knowledge-base/private-label-vs-white-label-vs-custom-perfume	Private Label vs White Label vs Custom Perfume | Brandsamor	Private Label vs White Label vs Custom Perfume
+https://www.brandsamor.com/knowledge-base/perfume-brand-startup-cost	How Much Does It Cost to Start a Perfume Brand? | Brandsamor	How Much Does It Cost to Start a Perfume Brand?
+https://www.brandsamor.com/knowledge-base/private-label-perfume-moq	What Is the Minimum Order Quantity for Private Label Perfume? | Brandsamor	Private Label Perfume MOQ
+https://www.brandsamor.com/knowledge-base/private-label-perfume-manufacturing-timeline	How Long Does Private Label Perfume Manufacturing Take? | Brandsamor	Private Label Perfume Manufacturing Timeline
+https://www.brandsamor.com/knowledge-base/choose-fragrances-for-target-customer	How to Choose Fragrances for Your Target Customer | Brandsamor	How to Choose Fragrances for Your Target Customer
+https://www.brandsamor.com/knowledge-base/choose-perfume-bottle-and-packaging	How to Choose a Perfume Bottle and Packaging | Brandsamor	How to Choose a Perfume Bottle and Packaging
+https://www.brandsamor.com/knowledge-base/edp-vs-edt-vs-perfume-oil	EDP vs EDT vs Perfume Oil for a New Brand | Brandsamor	EDP vs EDT vs Perfume Oil
+https://www.brandsamor.com/knowledge-base/perfume-manufacturer-documents	What Documents Should a Perfume Manufacturer Provide? | Brandsamor	Perfume Manufacturer Compliance Documents
+https://www.brandsamor.com/knowledge-base/import-private-label-perfume-usa	How to Import Private Label Perfumes Into the United States | Brandsamor	Import Private Label Perfume Into the United States
+https://www.brandsamor.com/knowledge-base/how-ifra-certificates-work	How IFRA Certificates Work | Brandsamor	How IFRA Certificates Work
+https://www.brandsamor.com/knowledge-base/perfume-certificate-of-analysis	What a Perfume Certificate of Analysis Contains | Brandsamor	Perfume Certificate of Analysis (COA)

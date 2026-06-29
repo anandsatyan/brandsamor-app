@@ -21,6 +21,8 @@
     <meta name="twitter:description" content="Launch ready-to-sell perfumes under your own brand with Brandsamor handling scents, bottles, packaging, filling and quality checks." />
     <meta name="twitter:image" content="https://www.brandsamor.com/og-image.jpg" />
     <!-- brandsamor-seo:end -->
+    <link rel="preload" href="/brandsamor-logo.png" as="image" />
+    <link rel="preload" href="/hero-background.png" as="image" />
     <style>
       body {
         margin: 0;
@@ -29,9 +31,74 @@
         color: rgb(148, 135, 124);
         font-family: system-ui, -apple-system, sans-serif;
       }
+      #brandsamor-static-content {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: rgba(253, 246, 238, 0.92);
+      }
+      .site-header__bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 68px;
+        padding: 1rem;
+      }
+      .site-header__menu-btn {
+        position: absolute;
+        left: 1rem;
+        display: block;
+      }
+      .site-header__login {
+        position: absolute;
+        right: 1rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        text-decoration: none;
+        color: rgb(148, 135, 124);
+      }
+      .site-header__nav {
+        display: none;
+      }
+      .site-header-spacer {
+        height: 68px;
+      }
+      @media (min-width: 1024px) {
+        .site-header__bar {
+          min-height: 72px;
+          padding: 1.25rem 3rem;
+        }
+        .site-header__menu-btn {
+          display: none;
+        }
+        .site-header__login {
+          right: 3rem;
+        }
+        .site-header__nav {
+          display: block;
+        }
+        .site-header-spacer {
+          height: 114px;
+        }
+      }
       .hero-panel {
         position: relative;
         overflow: hidden;
+        min-height: 300px;
         background-color: rgb(255, 92, 0);
         color: #fff;
       }

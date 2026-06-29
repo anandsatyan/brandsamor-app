@@ -1,3 +1,6 @@
+import { KNOWLEDGE_BASE_ARTICLES } from '../content/knowledgeBase/articles';
+import { kbArticlePath } from '../content/knowledgeBase/types';
+
 export const CANONICAL_ORIGIN = 'https://www.brandsamor.com';
 
 export const OG_IMAGE = `${CANONICAL_ORIGIN}/og-image.jpg`;
@@ -22,7 +25,7 @@ export type PageMetadata = {
 const canonical = (path: string) =>
   path === '/' ? `${CANONICAL_ORIGIN}/` : `${CANONICAL_ORIGIN}${path}`;
 
-export const PAGE_METADATA: Record<string, PageMetadata> = {
+const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/': {
     path: '/',
     pageName: 'Home',
@@ -205,6 +208,46 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
     includeHomeGraph: false,
   },
 };
+
+const KNOWLEDGE_BASE_HUB: PageMetadata = {
+  path: '/knowledge-base',
+  pageName: 'Knowledge Base',
+  title: 'Private Label Perfume Knowledge Base | Brandsamor',
+  description:
+    'Guides on how to start a perfume line, private label MOQ, manufacturing timelines, fragrance selection, packaging, compliance documents, IFRA certificates, and U.S. imports.',
+  canonical: canonical('/knowledge-base'),
+  h1: 'Private Label Perfume Knowledge Base',
+  robots: DEFAULT_ROBOTS,
+  includeServiceSchema: false,
+  includeHomeGraph: false,
+};
+
+const KNOWLEDGE_BASE_ARTICLE_METADATA: Record<string, PageMetadata> = Object.fromEntries(
+  KNOWLEDGE_BASE_ARTICLES.map((article) => {
+    const path = kbArticlePath(article.slug);
+    const meta: PageMetadata = {
+      path,
+      pageName: article.pageName,
+      title: `${article.title} | Brandsamor`,
+      description: article.description,
+      canonical: canonical(path),
+      h1: article.h1,
+      robots: DEFAULT_ROBOTS,
+      includeServiceSchema: false,
+      includeHomeGraph: false,
+    };
+    return [path, meta];
+  }),
+);
+
+export const PAGE_METADATA: Record<string, PageMetadata> = {
+  ...BASE_PAGE_METADATA,
+  '/knowledge-base': KNOWLEDGE_BASE_HUB,
+  ...KNOWLEDGE_BASE_ARTICLE_METADATA,
+};
+
+export const buildKbArticleMetadata = (slug: string): PageMetadata | null =>
+  PAGE_METADATA[kbArticlePath(slug)] ?? null;
 
 export const NOT_FOUND_METADATA: PageMetadata = {
   path: '/404',

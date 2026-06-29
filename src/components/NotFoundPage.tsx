@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
 import { NOT_FOUND_METADATA } from '../seo/pageMetadata';
+import { homeBreadcrumbs } from './Breadcrumbs';
+import { PageBreadcrumbBar } from './PageBreadcrumbBar';
 import { SeoHead } from './SeoHead';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
@@ -15,7 +17,8 @@ export const NotFoundPage = () => (
       structuredData={buildStructuredDataForPath(NOT_FOUND_METADATA)}
     />
     <SiteHeader />
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 py-24 text-center">
+    <PageBreadcrumbBar items={homeBreadcrumbs(NOT_FOUND_METADATA.pageName)} width="narrow" />
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-24 text-center">
       <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">
         {NOT_FOUND_METADATA.h1}
       </h1>

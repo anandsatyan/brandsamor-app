@@ -5,6 +5,8 @@ import { ContactPage } from './components/ContactPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
 import { HowItWorksPage } from './components/HowItWorksPage';
+import { KnowledgeBaseArticlePage } from './components/knowledgeBase/KnowledgeBaseArticlePage';
+import { KnowledgeBaseHubPage } from './components/knowledgeBase/KnowledgeBaseHubPage';
 import { LoginPage } from './components/LoginPage';
 import { NotFoundPage } from './components/NotFoundPage';
 import { PackagingBrandingPage } from './components/PackagingBrandingPage';
@@ -34,6 +36,8 @@ export const AppRoutesServer = () => (
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
+      <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticlePage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/refund-and-cancellation-policy" element={<RefundPolicyPage />} />

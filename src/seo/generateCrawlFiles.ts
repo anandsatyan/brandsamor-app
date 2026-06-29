@@ -22,6 +22,8 @@ const todayIsoDate = () => new Date().toISOString().slice(0, 10);
 const routePriority = (route: string) => {
   if (route === '/') return '1.0';
   if (route === '/about') return '0.85';
+  if (route === '/knowledge-base') return '0.75';
+  if (route.startsWith('/knowledge-base/')) return '0.7';
   if (
     route === '/how-it-works' ||
     route === '/fragrance-products' ||

@@ -48,11 +48,11 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface/75">
-        <div className="relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
+      <header className="site-header fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface/75">
+        <div className="site-header__bar relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
           <button
             type="button"
-            className="absolute left-4 sm:left-6 lg:hidden p-1 text-heading hover:text-accent"
+            className="site-header__menu-btn absolute left-4 sm:left-6 lg:hidden p-1 text-heading hover:text-accent"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav-drawer"
@@ -67,7 +67,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
           <Link
             to="/login"
-            className={`absolute right-4 sm:right-6 lg:right-12 text-sm ${
+            className={`site-header__login absolute right-4 sm:right-6 lg:right-12 text-sm ${
               pathname === '/login' ? 'text-accent' : 'text-body hover:text-accent'
             }`}
           >
@@ -75,7 +75,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
           </Link>
         </div>
 
-        <nav className="hidden lg:block px-4 xl:px-8" aria-label="Main navigation">
+        <nav className="site-header__nav hidden lg:block px-4 xl:px-8" aria-label="Main navigation">
           <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-center gap-x-3 xl:gap-x-5 2xl:gap-x-7">
             {SITE_NAV.map((item) => (
               <span key={item.path} className="contents">
@@ -91,7 +91,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         </nav>
       </header>
 
-      <div className="h-[68px] lg:h-[114px]" aria-hidden="true" />
+      <div className="site-header-spacer h-[68px] lg:h-[114px]" aria-hidden="true" />
 
       {isMenuOpen && (
         <>

@@ -1,4 +1,6 @@
 import { getPageMetadata } from '../../seo/pageMetadata';
+import { homeBreadcrumbs } from '../Breadcrumbs';
+import { PageBreadcrumbBar } from '../PageBreadcrumbBar';
 import { SeoHead } from '../SeoHead';
 import { SiteFooter } from '../SiteFooter';
 import { SiteHeader } from '../SiteHeader';
@@ -23,8 +25,10 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
     />
     <SiteHeader activeNavKey={config.navKey} />
 
+    <PageBreadcrumbBar items={homeBreadcrumbs(pageMeta.pageName)} />
+
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <PageHero {...config.hero} breadcrumbLabel={pageMeta.pageName} />
+      <PageHero {...config.hero} />
       <ContentSections sections={config.sections} />
       {children}
       {config.beforeFaq}

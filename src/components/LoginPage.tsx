@@ -2,9 +2,11 @@ import { type FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
 import { HeroPanel } from './HeroPanel';
+import { PageBreadcrumbBar } from './PageBreadcrumbBar';
 import { SeoHead } from './SeoHead';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
+import { homeBreadcrumbs } from './Breadcrumbs';
 import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
 import { PAGE_METADATA } from '../seo/pageMetadata';
 
@@ -30,6 +32,8 @@ export const LoginPage = () => {
         structuredData={buildStructuredDataForPath(meta)}
       />
       <SiteHeader />
+
+      <PageBreadcrumbBar items={homeBreadcrumbs(meta.pageName)} width="narrow" />
 
       <HeroPanel className="py-10 sm:py-14 text-center">
         <div className="mx-auto flex max-w-xl flex-col items-center space-y-4 sm:space-y-5">

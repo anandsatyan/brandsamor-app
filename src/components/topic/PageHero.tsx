@@ -1,4 +1,3 @@
-import { Breadcrumbs } from '../Breadcrumbs';
 import { ComingSoonLabel } from '../ComingSoonLabel';
 import { HeroPanel } from '../HeroPanel';
 
@@ -6,23 +5,13 @@ export const PageHero = ({
   badge,
   title,
   description,
-  breadcrumbLabel,
 }: {
   badge: string;
   title: string;
   description: string;
-  breadcrumbLabel: string;
 }) => (
   <HeroPanel className="py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl text-center">
     <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
-      <Breadcrumbs
-        variant="hero"
-        centered
-        items={[
-          { label: 'Home', to: '/' },
-          { label: breadcrumbLabel },
-        ]}
-      />
       <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
         {badge}
       </span>

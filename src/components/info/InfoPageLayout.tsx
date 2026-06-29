@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
-import { Breadcrumbs } from '../Breadcrumbs';
+import { homeBreadcrumbs } from '../Breadcrumbs';
 import { HeroPanel } from '../HeroPanel';
+import { PageBreadcrumbBar } from '../PageBreadcrumbBar';
 import { SeoHead } from '../SeoHead';
 import { SiteFooter } from '../SiteFooter';
 import { SiteHeader } from '../SiteHeader';
@@ -32,17 +33,11 @@ export const InfoPageLayout = ({
     />
     <SiteHeader />
 
+    <PageBreadcrumbBar items={homeBreadcrumbs(meta.pageName)} width="narrow" />
+
     <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
       <HeroPanel className="py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl text-center">
         <div className="mx-auto flex max-w-3xl flex-col items-center">
-          <Breadcrumbs
-            variant="hero"
-            centered
-            items={[
-              { label: 'Home', to: '/' },
-              { label: meta.pageName },
-            ]}
-          />
           {badge && (
             <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30 mb-6">
               {badge}
