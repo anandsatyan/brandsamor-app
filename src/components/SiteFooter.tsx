@@ -64,7 +64,7 @@ export const SiteFooter = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 text-body text-sm">
         <div className="space-y-6 sm:col-span-2 lg:col-span-1">
           <Link to="/" className="inline-block" aria-label="Brandsamor home">
-            <BrandLogo size="lg" />
+            <BrandLogo />
           </Link>
           <address className="not-italic space-y-2">
             <p>Private Label Fragrance Studio</p>

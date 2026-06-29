@@ -73,13 +73,13 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
           </a>
         </div>
 
-        <nav className="hidden lg:block" aria-label="Main navigation">
-          <div className="grid grid-cols-4 xl:grid-cols-7 max-w-7xl mx-auto">
+        <nav className="hidden lg:block px-4 xl:px-8" aria-label="Main navigation">
+          <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-center gap-x-3 xl:gap-x-5 2xl:gap-x-7">
             {SITE_NAV.map((item) => (
               <span key={item.path} className="contents">
                 {renderNavItem(
                   item,
-                  `px-2 py-3 text-center text-[10px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium ${
+                  `shrink-0 whitespace-nowrap px-1 py-3 text-center text-[10px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.1em] 2xl:tracking-[0.12em] font-medium ${
                     isNavActive(item) ? 'text-accent' : 'text-body hover:text-accent'
                   }`,
                 )}
@@ -107,7 +107,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
           >
             <div className="flex items-center justify-between px-5 py-4 border-b border-border/70">
               <Link to="/" onClick={handleNavClick} aria-label="Brandsamor home">
-                <BrandLogo size="sm" />
+                <BrandLogo />
               </Link>
               <button
                 type="button"

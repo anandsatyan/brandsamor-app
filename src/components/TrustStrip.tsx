@@ -19,7 +19,7 @@ export const TrustStrip = ({
   intro?: string;
   testimonials: Testimonial[];
 }) => (
-  <section id="trust" className="py-10 sm:py-14 border-y border-border">
+  <section id="trust" className="py-10 sm:py-14">
     <div className="grid sm:grid-cols-3 gap-8 sm:gap-6 mb-10 sm:mb-12">
       {trustStats.map((stat) => (
         <div key={stat.label} className="text-center sm:text-left">

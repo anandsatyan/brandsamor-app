@@ -16,12 +16,12 @@ export type SiteRoute = {
 
 export const SITE_NAV: SiteRoute[] = [
   { label: 'Home', path: '/', navKey: 'home' },
+  { label: 'About', path: '/about', navKey: 'about' },
   { label: 'How It Works', path: '/how-it-works', navKey: 'how-it-works' },
   { label: 'Products', path: '/fragrance-products', navKey: 'fragrance-products' },
   { label: 'Sampling', path: '/fragrance-sampling', navKey: 'fragrance-sampling' },
   { label: 'Branding', path: '/packaging-branding', navKey: 'packaging' },
   { label: 'Start a Perfume Line', path: '/start-a-perfume-line', navKey: 'start-a-perfume-line' },
-  { label: 'About', path: '/about', navKey: 'about' },
 ];
 
 export const INTERNAL_PAGES: SiteRoute[] = [
