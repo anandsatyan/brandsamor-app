@@ -14,6 +14,7 @@ import { sectionBullets, withSteps } from './sectionHelpers';
 const pageMeta = createTopicPageMeta('/fragrance-sampling');
 
 export const fragranceSamplingConfig: TopicPageConfig = {
+  navKey: 'fragrance-sampling',
   seo: pageMeta.seo,
   hero: {
     badge: 'FRAGRANCE SAMPLING',

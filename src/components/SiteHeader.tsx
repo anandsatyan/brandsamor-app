@@ -4,70 +4,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { SITE_NAV, type NavKey } from '../routes/siteRoutes';
 
-const HOME_SECTION_IDS = SITE_NAV.filter((item) => item.homeSection && item.path === '/').map(
-  (item) => item.homeSection!,
-);
-
-const useActiveNavSection = (sectionIds: readonly string[], enabled: boolean) => {
-  const [activeId, setActiveId] = useState(sectionIds[0]);
-  const sectionIdsKey = sectionIds.join('|');
-
-  useEffect(() => {
-    if (!enabled) return;
-
-    const getHeaderOffset = () =>
-      document.querySelector('header')?.getBoundingClientRect().height ?? 120;
-
-    const updateActiveSection = () => {
-      const scrollPosition = window.scrollY + getHeaderOffset() + 1;
-      let currentId = sectionIds[0];
-
-      for (const id of sectionIds) {
-        const section = document.getElementById(id);
-        if (!section) continue;
-
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        if (sectionTop <= scrollPosition) {
-          currentId = id;
-        }
-      }
-
-      setActiveId((current) => (current === currentId ? current : currentId));
-    };
-
-    updateActiveSection();
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
-    window.addEventListener('resize', updateActiveSection);
-
-    return () => {
-      window.removeEventListener('scroll', updateActiveSection);
-      window.removeEventListener('resize', updateActiveSection);
-    };
-  }, [sectionIdsKey, sectionIds, enabled]);
-
-  return activeId;
-};
-
-const getNavHref = (item: (typeof SITE_NAV)[number], isHome: boolean) => {
-  if (item.path !== '/') return item.path;
-  if (item.homeSection) return isHome ? `#${item.homeSection}` : `/#${item.homeSection}`;
-  return '/';
-};
-
 type SiteHeaderProps = {
   activeNavKey?: NavKey | null;
 };
 
 export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps = {}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === '/';
-  const activeNavId = useActiveNavSection(HOME_SECTION_IDS, isHome && !activeNavKeyProp);
+  const { pathname } = useLocation();
 
   const resolvedActiveKey: NavKey | null =
-    activeNavKeyProp ??
-    SITE_NAV.find((item) => item.path === location.pathname)?.navKey ??
-    null;
+    activeNavKeyProp ?? SITE_NAV.find((item) => item.path === pathname)?.navKey ?? null;
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -87,39 +33,29 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
   const handleNavClick = () => setIsMenuOpen(false);
 
-  const isNavActive = (item: (typeof SITE_NAV)[number]) => {
-    if (item.navKey && resolvedActiveKey) return item.navKey === resolvedActiveKey;
-    if (item.homeSection && isHome) return activeNavId === item.homeSection;
-    return false;
-  };
+  const isNavActive = (item: (typeof SITE_NAV)[number]) =>
+    item.navKey != null && item.navKey === resolvedActiveKey;
 
-  const renderNavItem = (item: (typeof SITE_NAV)[number], className: string, onClick?: () => void) => {
-    const href = getNavHref(item, isHome);
+  const activeUnderline = (
+    <span
+      className="absolute bottom-0 left-2 right-2 h-[3px] bg-[#A8BBBF] rounded-full"
+      aria-hidden="true"
+    />
+  );
+
+  const renderNavItem = (
+    item: (typeof SITE_NAV)[number],
+    className: string,
+    onClick?: () => void,
+    showUnderline = true,
+  ) => {
     const isActive = isNavActive(item);
-    const content = (
-      <>
-        <span
-          className={`absolute top-0 left-0 right-0 h-[3px] bg-[#A8BBBF] transition-opacity duration-200 ${
-            isActive ? 'opacity-100' : 'opacity-0'
-          }`}
-          aria-hidden="true"
-        />
-        {item.label}
-      </>
-    );
-
-    if (item.path !== '/') {
-      return (
-        <Link to={href} onClick={onClick} className={className}>
-          {content}
-        </Link>
-      );
-    }
 
     return (
-      <a href={href} onClick={onClick} className={className}>
-        {content}
-      </a>
+      <Link to={item.path} onClick={onClick} className={className}>
+        {showUnderline && isActive && activeUnderline}
+        {item.label}
+      </Link>
     );
   };
 
@@ -152,16 +88,18 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
           </a>
         </div>
 
-        <nav className="hidden lg:block border-t border-[#f1ece0]/70" aria-label="Page sections">
-          <div className="grid grid-cols-5 max-w-4xl mx-auto">
-            {SITE_NAV.map((item) =>
-              renderNavItem(
-                item,
-                `relative py-3 text-center text-[10px] lg:text-xs uppercase tracking-[0.15em] lg:tracking-[0.2em] font-medium transition-colors duration-200 ${
-                  isNavActive(item) ? 'text-[#2D302B]' : 'text-[#77736E] hover:text-[#2D302B]'
-                }`,
-              ),
-            )}
+        <nav className="hidden lg:block border-t border-[#f1ece0]/70" aria-label="Main navigation">
+          <div className="grid grid-cols-3 xl:grid-cols-6 max-w-6xl mx-auto">
+            {SITE_NAV.map((item) => (
+              <span key={item.path} className="contents">
+                {renderNavItem(
+                  item,
+                  `relative px-2 py-3 text-center text-[10px] xl:text-xs uppercase tracking-[0.12em] xl:tracking-[0.15em] font-medium transition-colors duration-200 ${
+                    isNavActive(item) ? 'text-[#2D302B]' : 'text-[#77736E] hover:text-[#2D302B]'
+                  }`,
+                )}
+              </span>
+            ))}
           </div>
         </nav>
       </header>
@@ -185,7 +123,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
             <motion.nav
               id="mobile-nav-drawer"
               className="fixed top-0 left-0 z-[70] h-full w-[min(85vw,320px)] border-r border-[#f1ece0]/70 bg-[#f9f7f2]/95 backdrop-blur-lg lg:hidden"
-              aria-label="Mobile page sections"
+              aria-label="Mobile navigation"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
@@ -210,17 +148,20 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
               </div>
 
               <div className="flex flex-col py-2">
-                {SITE_NAV.map((item) =>
-                  renderNavItem(
-                    item,
-                    `relative px-5 py-4 text-sm uppercase tracking-[0.15em] font-medium border-l-[3px] transition-colors ${
-                      isNavActive(item)
-                        ? 'text-[#2D302B] border-[#2D302B] bg-[#f1ece0]/40'
-                        : 'text-[#77736E] border-transparent hover:text-[#2D302B] hover:bg-[#f1ece0]/20'
-                    }`,
-                    handleNavClick,
-                  ),
-                )}
+                {SITE_NAV.map((item) => (
+                  <span key={item.path} className="contents">
+                    {renderNavItem(
+                      item,
+                      `relative px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium border-b-[3px] transition-colors ${
+                        isNavActive(item)
+                          ? 'text-[#2D302B] border-[#A8BBBF]'
+                          : 'text-[#77736E] border-transparent hover:text-[#2D302B] hover:border-[#f1ece0]'
+                      }`,
+                      handleNavClick,
+                      false,
+                    )}
+                  </span>
+                ))}
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 px-5 py-6 border-t border-[#f1ece0]/70">

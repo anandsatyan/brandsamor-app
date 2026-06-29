@@ -1,5 +1,12 @@
 import type { TopicPageConfig } from '../components/topic/types';
+import type { InfoSection } from '../components/info/InfoPageLayout';
 import type { PageMetadata } from './pageMetadata';
+import { aboutSections } from '../content/about';
+import {
+  privacyPolicySections,
+  refundPolicySections,
+  termsSections,
+} from '../content/policies';
 import { HOMEPAGE_STATIC_SECTIONS, TOPIC_ROUTE_CONFIGS } from './routeContentRegistry';
 
 const escapeHtml = (value: string) =>
@@ -59,9 +66,47 @@ const renderHomeStatic = (meta: PageMetadata) => `<main id="brandsamor-static-co
   ).join('\n')}
 </main>`;
 
+const renderInfoStatic = (meta: PageMetadata, sections: InfoSection[]) => `<main id="brandsamor-static-content">
+  <h1>${escapeHtml(meta.h1)}</h1>
+  <p>${escapeHtml(meta.description)}</p>
+  ${sections
+    .map(
+      (section) => `<section id="${escapeHtml(section.id)}">
+  <h2>${escapeHtml(section.title)}</h2>
+  ${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('\n  ')}
+  ${renderBullets(section.bullets)}
+</section>`,
+    )
+    .join('\n')}
+</main>`;
+
 export const renderStaticCrawlerContent = (route: string, meta: PageMetadata) => {
   if (route === '/') {
     return renderHomeStatic(meta);
+  }
+
+  if (route === '/about') {
+    return renderInfoStatic(meta, aboutSections);
+  }
+
+  if (route === '/privacy-policy') {
+    return renderInfoStatic(meta, privacyPolicySections);
+  }
+
+  if (route === '/terms') {
+    return renderInfoStatic(meta, termsSections);
+  }
+
+  if (route === '/refund-and-cancellation-policy') {
+    return renderInfoStatic(meta, refundPolicySections);
+  }
+
+  if (route === '/contact') {
+    return `<main id="brandsamor-static-content">
+  <h1>${escapeHtml(meta.h1)}</h1>
+  <p>${escapeHtml(meta.description)}</p>
+  <p>Contact Brandsamor by email or phone for private-label fragrance questions.</p>
+</main>`;
   }
 
   const config = TOPIC_ROUTE_CONFIGS[route];

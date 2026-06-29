@@ -16,6 +16,7 @@ export type PageMetadata = {
   robots: string;
   includeServiceSchema: boolean;
   includeHomeGraph: boolean;
+  includeOrganizationGraph?: boolean;
 };
 
 const canonical = (path: string) =>
@@ -128,6 +129,67 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
     h1: 'Quality and Compliance Support for Your Fragrance Line',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
+    includeHomeGraph: false,
+  },
+  '/about': {
+    path: '/about',
+    pageName: 'About',
+    title: 'About Brandsamor | Private Label Fragrance Studio',
+    description:
+      'Learn what Brandsamor is, its packaging background, private-label model, team regions, and relationship to Packamor LLC.',
+    canonical: canonical('/about'),
+    h1: 'About Brandsamor',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+    includeOrganizationGraph: true,
+  },
+  '/contact': {
+    path: '/contact',
+    pageName: 'Contact',
+    title: 'Contact Brandsamor | Private Label Perfume',
+    description:
+      'Contact Brandsamor for private-label fragrance questions. Email, phone, and U.S. address for Packamor LLC.',
+    canonical: canonical('/contact'),
+    h1: 'Contact Brandsamor',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+  },
+  '/privacy-policy': {
+    path: '/privacy-policy',
+    pageName: 'Privacy Policy',
+    title: 'Privacy Policy | Brandsamor',
+    description:
+      'How Brandsamor and Packamor LLC collect, use, and protect personal information for the marketing site and future onboarding application.',
+    canonical: canonical('/privacy-policy'),
+    h1: 'Privacy Policy',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+  },
+  '/terms': {
+    path: '/terms',
+    pageName: 'Terms of Service',
+    title: 'Terms of Service | Brandsamor',
+    description:
+      'Terms governing use of brandsamor.com and private-label fragrance services from Packamor LLC, including custom production and approvals.',
+    canonical: canonical('/terms'),
+    h1: 'Terms of Service',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+  },
+  '/refund-and-cancellation-policy': {
+    path: '/refund-and-cancellation-policy',
+    pageName: 'Refund & Cancellation Policy',
+    title: 'Refund and Cancellation Policy | Brandsamor',
+    description:
+      'How Brandsamor handles sampling fees, production deposits, cancellations after approval, damaged goods, and custom fragrance orders.',
+    canonical: canonical('/refund-and-cancellation-policy'),
+    h1: 'Refund and Cancellation Policy',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
     includeHomeGraph: false,
   },
 };

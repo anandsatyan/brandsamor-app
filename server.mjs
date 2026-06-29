@@ -17,6 +17,11 @@ const PUBLIC_ROUTES = new Set([
   '/who-we-work-with',
   '/why-brandsamor',
   '/quality-compliance',
+  '/about',
+  '/contact',
+  '/privacy-policy',
+  '/terms',
+  '/refund-and-cancellation-policy',
 ]);
 
 const STATIC_FILES = new Set([

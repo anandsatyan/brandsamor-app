@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Breadcrumbs } from '../Breadcrumbs';
 import { ComingSoonLabel } from '../ComingSoonLabel';
 import type { IllustrationComponent } from './types';
 
@@ -7,20 +7,22 @@ export const PageHero = ({
   title,
   description,
   Illustration,
+  breadcrumbLabel,
 }: {
   badge: string;
   title: string;
   description: string;
   Illustration: IllustrationComponent;
+  breadcrumbLabel: string;
 }) => (
   <section className="py-10 sm:py-16 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
     <div className="space-y-6 sm:space-y-8">
-      <Link
-        to="/"
-        className="inline-flex items-center text-sm text-[#77736E] hover:text-[#2D302B] transition-colors"
-      >
-        ← Back to home
-      </Link>
+      <Breadcrumbs
+        items={[
+          { label: 'Home', to: '/' },
+          { label: breadcrumbLabel },
+        ]}
+      />
       <span className="inline-block px-3 py-1 bg-[#E7DED2] text-[#2D302B] text-xs font-semibold uppercase tracking-wider rounded-full">
         {badge}
       </span>

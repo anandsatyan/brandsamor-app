@@ -151,4 +151,10 @@ export const fragranceProductsConfig: TopicPageConfig = {
       'Before you lock in a product format, compare scent directions from the Brandsamor scent library. Order samples, find your launch fragrance, then match it to the right bottle and format on the fragrance sampling page.',
     Illustration: ScentSamplesIllustration,
   },
+  relatedLinks: {
+    links: [
+      { to: '/fragrance-sampling', label: 'Compare scents through private-label fragrance sampling' },
+      { to: '/how-it-works', label: 'See how each format fits the complete launch process' },
+    ],
+  },
 };

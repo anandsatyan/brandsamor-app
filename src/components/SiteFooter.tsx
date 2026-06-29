@@ -99,12 +99,23 @@ export const SiteFooter = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-[#f1ece0] text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-[#77736E] text-center sm:text-left">
         <p>© {new Date().getFullYear()}, {ORGANIZATION.legalName}</p>
-        <a
-          href={`mailto:${ORGANIZATION.email}`}
-          className="hover:text-[#A8BBBF] transition-colors"
-        >
-          Contact us
-        </a>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center sm:justify-end">
+          <Link to="/about" className="hover:text-[#A8BBBF] transition-colors">
+            About
+          </Link>
+          <Link to="/contact" className="hover:text-[#A8BBBF] transition-colors">
+            Contact
+          </Link>
+          <Link to="/privacy-policy" className="hover:text-[#A8BBBF] transition-colors">
+            Privacy
+          </Link>
+          <Link to="/terms" className="hover:text-[#A8BBBF] transition-colors">
+            Terms
+          </Link>
+          <Link to="/refund-and-cancellation-policy" className="hover:text-[#A8BBBF] transition-colors">
+            Refunds
+          </Link>
+        </div>
       </div>
     </footer>
   );

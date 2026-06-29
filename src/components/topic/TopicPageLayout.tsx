@@ -1,3 +1,4 @@
+import { getPageMetadata } from '../../seo/pageMetadata';
 import { SeoHead } from '../SeoHead';
 import { SiteFooter } from '../SiteFooter';
 import { SiteHeader } from '../SiteHeader';
@@ -5,10 +6,14 @@ import { ContentSections } from './ContentSection';
 import { PageCtaSection } from './PageCtaSection';
 import { PageFaqSection } from './PageFaqSection';
 import { PageHero } from './PageHero';
+import { RelatedLinksSection } from './RelatedLinksSection';
 import { buildTopicStructuredData } from './buildStructuredData';
 import type { TopicPageConfig } from './types';
 
-export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig; children?: React.ReactNode }) => (
+export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig; children?: React.ReactNode }) => {
+  const pageMeta = getPageMetadata(config.seo.path);
+
+  return (
   <div className="min-h-screen bg-[#f9f7f2] font-sans text-[#2D302B] overflow-x-hidden">
     <SeoHead
       title={config.seo.title}
@@ -19,10 +24,13 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
     <SiteHeader activeNavKey={config.navKey} />
 
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <PageHero {...config.hero} />
+      <PageHero {...config.hero} breadcrumbLabel={pageMeta.pageName} />
       <ContentSections sections={config.sections} />
       {children}
       {config.beforeFaq}
+      {config.relatedLinks && (
+        <RelatedLinksSection title={config.relatedLinks.title} links={config.relatedLinks.links} />
+      )}
       {config.faq && (
         <PageFaqSection
           id={config.faq.id}
@@ -37,4 +45,5 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
     <PageCtaSection {...config.cta} />
     <SiteFooter />
   </div>
-);
+  );
+};

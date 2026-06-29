@@ -20,6 +20,7 @@ import { sectionBullets, withSteps } from './sectionHelpers';
 const pageMeta = createTopicPageMeta('/start-a-perfume-line');
 
 export const startPerfumeLineConfig: TopicPageConfig = {
+  navKey: 'start-a-perfume-line',
   seo: pageMeta.seo,
   hero: {
     badge: 'START A PERFUME LINE',
@@ -203,5 +204,12 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     description:
       'Ready to explore a branded fragrance for your business? Share your brand direction, order scent samples, and map out bottle and packaging choices for a focused first launch.',
     Illustration: LaunchPlanningIllustration,
+  },
+  relatedLinks: {
+    links: [
+      { to: '/who-we-work-with', label: 'See who Brandsamor works with' },
+      { to: '/fragrance-products', label: 'Compare the fragrance formats you can launch' },
+      { to: '/fragrance-sampling', label: 'Learn why brands sample before production' },
+    ],
   },
 };

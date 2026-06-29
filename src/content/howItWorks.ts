@@ -178,6 +178,13 @@ export const howItWorksConfig: TopicPageConfig = {
     Illustration: ScentSamplesIllustration,
     footerText: 'Have questions about the process? Visit the FAQ on the homepage.',
   },
+  relatedLinks: {
+    links: [
+      { to: '/fragrance-sampling', label: 'Explore our fragrance sampling process' },
+      { to: '/packaging-branding', label: 'Review your packaging and branding options' },
+      { to: '/quality-compliance', label: 'Understand our quality and compliance support' },
+    ],
+  },
 };
 
 export const howItWorksSplitPanel = {

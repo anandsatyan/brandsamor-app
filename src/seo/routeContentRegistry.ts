@@ -29,7 +29,7 @@ export const HOMEPAGE_STATIC_SECTIONS = [
   {
     title: 'Fragrance Products',
     description:
-      'Launch private label eau de parfum, body mists, room sprays, travel sizes, and gift sets under your brand.',
+      'Choose from eau de parfum, perfume oils, body mists, room sprays, travel formats and gift sets based on your audience, price point and sales channel.',
   },
   {
     title: 'Fragrance Sampling',

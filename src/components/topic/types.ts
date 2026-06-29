@@ -51,4 +51,8 @@ export type TopicPageConfig = {
   };
   structuredDataExtra?: object[];
   beforeFaq?: ReactNode;
+  relatedLinks?: {
+    title?: string;
+    links: { to: string; label: string }[];
+  };
 };

@@ -1,6 +1,7 @@
 import { FAQ_ITEMS, ORGANIZATION } from './siteConfig';
 import {
   CANONICAL_ORIGIN,
+  OG_IMAGE,
   OG_SITE_NAME,
   type PageMetadata,
 } from './pageMetadata';
@@ -37,7 +38,7 @@ const organizationNode = (description: string) => ({
   name: ORGANIZATION.name,
   legalName: ORGANIZATION.legalName,
   url: CANONICAL_ORIGIN,
-  logo: `${CANONICAL_ORIGIN}/vite.svg`,
+  logo: OG_IMAGE,
   description,
   telephone: ORGANIZATION.phone,
   email: ORGANIZATION.email,
@@ -45,6 +46,7 @@ const organizationNode = (description: string) => ({
     '@type': 'PostalAddress',
     ...ORGANIZATION.address,
   },
+  ...(ORGANIZATION.sameAs.length > 0 ? { sameAs: ORGANIZATION.sameAs } : {}),
 });
 
 const websiteNode = (description: string) => ({
@@ -84,6 +86,8 @@ const internalWebPageNode = (meta: PageMetadata) => ({
   url: meta.canonical,
   name: meta.title,
   description: meta.description,
+  isPartOf: { '@id': websiteId },
+  about: { '@id': organizationId },
   inLanguage: 'en-US',
 });
 
@@ -109,10 +113,13 @@ export const buildInternalStructuredData = (
   meta: PageMetadata,
   faqItems?: { question: string; answer: string }[],
 ) => {
-  const graph: object[] = [
-    internalWebPageNode(meta),
-    breadcrumbList(meta),
-  ];
+  const graph: object[] = [];
+
+  if (meta.includeOrganizationGraph) {
+    graph.push(organizationNode(meta.description), websiteNode(meta.description));
+  }
+
+  graph.push(internalWebPageNode(meta), breadcrumbList(meta));
 
   if (meta.includeServiceSchema) {
     graph.push(serviceNode(meta));

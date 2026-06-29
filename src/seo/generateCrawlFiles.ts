@@ -21,12 +21,21 @@ const todayIsoDate = () => new Date().toISOString().slice(0, 10);
 
 const routePriority = (route: string) => {
   if (route === '/') return '1.0';
+  if (route === '/about') return '0.85';
   if (
     route === '/how-it-works' ||
     route === '/fragrance-products' ||
     route === '/start-a-perfume-line'
   ) {
     return '0.9';
+  }
+  if (
+    route === '/privacy-policy' ||
+    route === '/terms' ||
+    route === '/refund-and-cancellation-policy' ||
+    route === '/contact'
+  ) {
+    return '0.5';
   }
   return '0.8';
 };

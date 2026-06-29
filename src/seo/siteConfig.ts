@@ -25,6 +25,8 @@ export const ORGANIZATION = {
     postalCode: '19904',
     addressCountry: 'US',
   },
+  /** Add verified profile URLs here when available for Organization sameAs markup. */
+  sameAs: [] as string[],
 };
 
 export type FaqItem = {

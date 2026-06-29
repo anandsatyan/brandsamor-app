@@ -3,6 +3,7 @@ import { Star } from 'lucide-react';
 type Testimonial = {
   name: string;
   quote: string;
+  role: string;
 };
 
 const trustStats = [
@@ -11,7 +12,13 @@ const trustStats = [
   { value: '4 regions', label: 'Team presence across US, India, Dubai & China' },
 ] as const;
 
-export const TrustStrip = ({ testimonials }: { testimonials: Testimonial[] }) => (
+export const TrustStrip = ({
+  intro,
+  testimonials,
+}: {
+  intro?: string;
+  testimonials: Testimonial[];
+}) => (
   <section id="trust" className="py-10 sm:py-14 border-y border-[#f1ece0] bg-[#FFFDFC]/60">
     <div className="grid sm:grid-cols-3 gap-8 sm:gap-6 mb-10 sm:mb-12">
       {trustStats.map((stat) => (
@@ -31,6 +38,12 @@ export const TrustStrip = ({ testimonials }: { testimonials: Testimonial[] }) =>
       ))}
     </div>
 
+    {intro && (
+      <p className="text-sm sm:text-base text-[#77736E] max-w-3xl mb-8 sm:mb-10 leading-relaxed">
+        {intro}
+      </p>
+    )}
+
     <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
       {testimonials.map((t) => (
         <blockquote
@@ -40,7 +53,7 @@ export const TrustStrip = ({ testimonials }: { testimonials: Testimonial[] }) =>
           <p className="italic text-[#2D302B] text-sm leading-relaxed mb-4">"{t.quote}"</p>
           <footer className="text-xs text-[#77736E]">
             <span className="font-semibold text-[#2D302B]">{t.name}</span>
-            <span> · Brandsamor customer</span>
+            <span> · {t.role}</span>
           </footer>
         </blockquote>
       ))}

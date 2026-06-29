@@ -198,4 +198,11 @@ export const qualityComplianceConfig: TopicPageConfig = {
       'Tell us about your product, target markets, and sales channels. We will help you understand what quality and compliance documentation may apply to your private label fragrance launch.',
     Illustration: ComplianceDocIllustration,
   },
+  relatedLinks: {
+    links: [
+      { to: '/how-it-works#quality-checks', label: 'Review the production and quality-control step on How It Works' },
+      { to: '/quality-compliance#quality-compliance-faq', label: 'Read quality and compliance FAQs' },
+      { to: '/contact', label: 'Contact Brandsamor about your project' },
+    ],
+  },
 };

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { ComingSoonLabel } from './ComingSoonLabel';
 import { FaqSection } from './FaqSection';
 import {
@@ -106,61 +105,36 @@ const audienceItems = [{
 type AudienceItem = (typeof audienceItems)[number];
 
 const AudienceCard = ({ item }: { item: AudienceItem }) => (
-  <div className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
-    <div className="mb-3">
+  <article className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
+    <div className="mb-3" aria-hidden="true">
       <item.Icon />
     </div>
     <h3 className="font-medium text-base sm:text-lg mb-2 max-w-[220px]">{item.label}</h3>
     <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
-  </div>
+  </article>
 );
 
-const AudienceTicker = () => {
-  const [loopReady, setLoopReady] = useState(false);
-
-  useEffect(() => {
-    setLoopReady(true);
-  }, []);
-
-  return (
-    <div className="relative">
-      <div className="overflow-hidden">
-        <motion.div
-          animate={loopReady ? { x: ['0%', '-50%'] } : undefined}
-          transition={
-            loopReady
-              ? {
-                  ease: 'linear',
-                  duration: 20,
-                  repeat: Infinity,
-                }
-              : undefined
-          }
-          className="flex gap-4 sm:gap-6 pr-4 sm:pr-6"
-        >
-          {audienceItems.map((item) => (
-            <AudienceCard key={item.label} item={item} />
-          ))}
-          {loopReady
-            ? audienceItems.map((item) => (
-                <div key={`dup-${item.label}`} aria-hidden="true">
-                  <AudienceCard item={item} />
-                </div>
-              ))
-            : null}
-        </motion.div>
-      </div>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
-      />
+const AudienceTrack = () => (
+  <div className="relative">
+    <div className="overflow-hidden">
+      <ul className="flex gap-4 sm:gap-6 w-max list-none m-0 p-0 pr-4 sm:pr-6 motion-safe:animate-audience-marquee motion-reduce:animate-none">
+        {audienceItems.map((item) => (
+          <li key={item.label} className="shrink-0">
+            <AudienceCard item={item} />
+          </li>
+        ))}
+      </ul>
     </div>
-  );
-};
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+    />
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+    />
+  </div>
+);
 
 const howItWorksSteps = [{
   num: '01',
@@ -244,30 +218,41 @@ const complianceItems = [{
 }];
 const productOptions = [{
   num: '01',
-  title: 'Bottle Options',
-  desc: 'Choose from different bottle shapes, sizes, and styles so your fragrance feels aligned with your brand.'
+  title: 'Eau de Parfum',
+  desc: 'The most common starting point for a branded perfume line — strong longevity and a premium feel in standard spray bottles.'
 }, {
   num: '02',
-  title: 'Cap and Spray Choices',
-  desc: 'Select the cap and spray combination that fits the look, price point, and feel of your perfume product.'
+  title: 'Perfume Oils and Roll-Ons',
+  desc: 'Portable, concentrated formats for purses, pockets, and gifting — ideal for wellness brands and alcohol-free positioning.'
 }, {
   num: '03',
-  title: 'Labels, Printing and Color',
-  desc: 'Add your logo, label design, screen printing, color direction, and finishing details to make the product your own.'
+  title: 'Body Mists',
+  desc: 'Lighter, everyday scents at accessible price points — popular for casual wear, layering, and broader retail distribution.'
 }, {
   num: '04',
-  title: 'Retail-Ready Packaging',
-  desc: 'Use boxes, inserts, gift packaging, and finishing details to make your perfume feel ready to sell or gift.'
+  title: 'Room Sprays',
+  desc: 'Extend your brand fragrance into homes, spas, and hospitality — a natural fit for lifestyle and home fragrance brands.'
+}, {
+  num: '05',
+  title: 'Travel Perfumes',
+  desc: 'Smaller sizes for trial, travel, and gift-with-purchase — a lower-commitment way for customers to discover your scent.'
+}, {
+  num: '06',
+  title: 'Gift Sets',
+  desc: 'Bundle multiple formats into one packaged experience — ideal for holidays, retail, and higher average order value.'
 }];
 const testimonials = [{
   name: 'Christopher J.',
-  quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.'
+  quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.',
+  role: 'Packaging customer',
 }, {
   name: 'Erin S.',
-  quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the products is really something else.'
+  quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the products is really something else.',
+  role: 'Packaging customer',
 }, {
   name: 'Monica M.',
-  quote: 'My customers love the travel size and the heavy glass. The finished product feels premium and sells itself.'
+  quote: 'My customers love the travel size and the heavy glass. The finished product feels premium and sells itself.',
+  role: 'Packaging customer',
 }];
 const packagingItems = [{
   num: '01',
@@ -341,7 +326,10 @@ export const BrandsamorLandingPage = () => {
           </div>
         </section>
 
-        <TrustStrip testimonials={testimonials} />
+        <TrustStrip
+          intro="Trusted by fragrance brands for perfume packaging—the experience Brandsamor is now bringing to complete private-label fragrance launches."
+          testimonials={testimonials}
+        />
 
         {/* HOW IT WORKS */}
         <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
@@ -408,14 +396,14 @@ export const BrandsamorLandingPage = () => {
             <h4 className="text-[#A8BBBF] text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-[#f1ece0]"></span> FRAGRANCE PRODUCTS
             </h4>
-            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Bottle, Cap, Spray and Packaging Options That Look Like Your Brand</h2>
+            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Fragrance Products You Can Launch Under Your Brand</h2>
             <div className="rounded-xl overflow-hidden w-full max-w-md h-64 sm:h-80 md:h-[400px] mx-auto md:mx-0">
               <FlatLayIllustration />
             </div>
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-base sm:text-lg text-[#2D302B] mb-8 sm:mb-12 border-b border-[#f1ece0] pb-8 sm:pb-12">
-              Your perfume does not have to look like a standard private label product. Brandsamor gives you more ways to shape the bottle, cap, spray, color, label, printing, and packaging direction.
+              Choose from eau de parfum, perfume oils, body mists, room sprays, travel formats and gift sets based on your audience, price point and sales channel.
             </p>
             <div className="space-y-8 sm:space-y-10">
               {productOptions.map(item => <div key={item.num} className="flex gap-4 sm:gap-8 group">
@@ -539,7 +527,7 @@ export const BrandsamorLandingPage = () => {
             <h2 className="text-3xl sm:text-4xl max-w-md">Built for brands ready to launch fragrance</h2>
             <p className="text-[#77736E] max-w-md">From retail and e-commerce to events and gifting — if you have an audience and a brand, private label perfume can be your next product line.</p>
           </div>
-          <AudienceTicker />
+          <AudienceTrack />
           <SectionCtaRow to="/who-we-work-with" label="See who we work with" />
         </section>
         <section id="compliance" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-3 gap-8 sm:gap-12">
