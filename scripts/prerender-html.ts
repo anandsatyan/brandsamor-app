@@ -47,6 +47,42 @@ const injectRootHtml = (html: string, appHtml: string) => {
   return html.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
 };
 
+const ASYNC_STYLESHEET_LOADER = String.raw`this.onload=null;this.rel='stylesheet'`;
+
+const optimizeRenderBlockingAssets = (html: string, assetsDir: string) => {
+  let optimized = html.replace(
+    /<link rel="stylesheet" crossorigin href="(\/assets\/[^"]+\.css)">/g,
+    (_, href: string) =>
+      `<link rel="preload" href="${href}" as="style" onload="${ASYNC_STYLESHEET_LOADER}" />\n    <noscript><link rel="stylesheet" href="${href}" /></noscript>`,
+  );
+
+  if (!fs.existsSync(assetsDir)) {
+    return optimized;
+  }
+
+  const latinFontFiles = fs
+    .readdirSync(assetsDir)
+    .filter(
+      (file) =>
+        file.endsWith('.woff2') &&
+        file.includes('-latin-wght-') &&
+        !file.includes('-latin-ext-'),
+    );
+
+  if (latinFontFiles.length === 0) {
+    return optimized;
+  }
+
+  const fontPreloads = latinFontFiles
+    .map(
+      (file) =>
+        `    <link rel="preload" href="/assets/${file}" as="font" type="font/woff2" crossorigin />`,
+    )
+    .join('\n');
+
+  return optimized.replace('</head>', `${fontPreloads}\n  </head>`);
+};
+
 const writeRouteHtml = (routePath: string, html: string) => {
   if (routePath === '/') {
     fs.writeFileSync(path.join(distDir, 'index.html'), html, 'utf8');
@@ -82,9 +118,12 @@ for (const routePath of PUBLIC_ROUTES) {
   const seoBlock = renderHeadTags(meta, structuredData);
   const appHtml = renderRoute(routePath);
   const staticHtml = renderStaticCrawlerContent(routePath, meta);
-  const html = injectRootHtml(
-    injectStaticContent(replaceSeoBlock(template, seoBlock), staticHtml),
-    appHtml,
+  const html = optimizeRenderBlockingAssets(
+    injectRootHtml(
+      injectStaticContent(replaceSeoBlock(template, seoBlock), staticHtml),
+      appHtml,
+    ),
+    path.join(distDir, 'assets'),
   );
   writeRouteHtml(routePath, html);
 }
@@ -92,12 +131,15 @@ for (const routePath of PUBLIC_ROUTES) {
 const notFoundStructuredData = JSON.stringify(
   buildStructuredDataForPath(NOT_FOUND_METADATA),
 ).replace(/</g, '\\u003c');
-const notFoundHtml = injectRootHtml(
-  injectStaticContent(
-    replaceSeoBlock(template, renderHeadTags(NOT_FOUND_METADATA, notFoundStructuredData)),
-    renderStaticCrawlerContent('/404', NOT_FOUND_METADATA),
+const notFoundHtml = optimizeRenderBlockingAssets(
+  injectRootHtml(
+    injectStaticContent(
+      replaceSeoBlock(template, renderHeadTags(NOT_FOUND_METADATA, notFoundStructuredData)),
+      renderStaticCrawlerContent('/404', NOT_FOUND_METADATA),
+    ),
+    renderRoute('/this-page-does-not-exist'),
   ),
-  renderRoute('/this-page-does-not-exist'),
+  path.join(distDir, 'assets'),
 );
 fs.mkdirSync(path.join(distDir, '404'), { recursive: true });
 fs.writeFileSync(path.join(distDir, '404', 'index.html'), notFoundHtml, 'utf8');

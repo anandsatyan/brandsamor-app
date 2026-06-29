@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Funnel Sans"', 'system-ui', 'sans-serif'],
-        display: ['"Funnel Display"', 'system-ui', 'sans-serif'],
+        sans: ['"Funnel Sans Variable"', 'system-ui', 'sans-serif'],
+        display: ['"Funnel Display Variable"', 'system-ui', 'sans-serif'],
       },
     },
   },

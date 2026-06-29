@@ -102,6 +102,66 @@ const audienceItems = [{
   desc: 'Offer premium branded perfume sets for B2B gifting programs.',
   Icon: GiftIcon
 }];
+
+type AudienceItem = (typeof audienceItems)[number];
+
+const AudienceCard = ({ item }: { item: AudienceItem }) => (
+  <div className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
+    <div className="mb-3">
+      <item.Icon />
+    </div>
+    <h3 className="font-medium text-base sm:text-lg mb-2 max-w-[220px]">{item.label}</h3>
+    <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
+  </div>
+);
+
+const AudienceTicker = () => {
+  const [loopReady, setLoopReady] = useState(false);
+
+  useEffect(() => {
+    setLoopReady(true);
+  }, []);
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden">
+        <motion.div
+          animate={loopReady ? { x: ['0%', '-50%'] } : undefined}
+          transition={
+            loopReady
+              ? {
+                  ease: 'linear',
+                  duration: 20,
+                  repeat: Infinity,
+                }
+              : undefined
+          }
+          className="flex gap-4 sm:gap-6 pr-4 sm:pr-6"
+        >
+          {audienceItems.map((item) => (
+            <AudienceCard key={item.label} item={item} />
+          ))}
+          {loopReady
+            ? audienceItems.map((item) => (
+                <div key={`dup-${item.label}`} aria-hidden="true">
+                  <AudienceCard item={item} />
+                </div>
+              ))
+            : null}
+        </motion.div>
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
+      />
+    </div>
+  );
+};
+
 const howItWorksSteps = [{
   num: '01',
   title: 'Sample from our scent library',
@@ -479,36 +539,7 @@ export const BrandsamorLandingPage = () => {
             <h2 className="text-3xl sm:text-4xl max-w-md">Built for brands ready to launch fragrance</h2>
             <p className="text-[#77736E] max-w-md">From retail and e-commerce to events and gifting — if you have an audience and a brand, private label perfume can be your next product line.</p>
           </div>
-          <div className="relative">
-            <div className="overflow-hidden">
-              <motion.div animate={{
-          x: ['0%', '-50%']
-        }} transition={{
-          ease: 'linear',
-          duration: 20,
-          repeat: Infinity
-        }} className="flex gap-4 sm:gap-6 pr-4 sm:pr-6">
-            {audienceItems.map(item => <div key={item.label} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
-                <div className="mb-3">{<item.Icon />}</div>
-                <h3 className="font-medium text-base sm:text-lg mb-2 max-w-[220px]">{item.label}</h3>
-                <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
-              </div>)}
-            {audienceItems.map(item => <div key={`dup-${item.label}`} className="bg-[#FFFDFC] border border-[#f1ece0] rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px]">
-                <div className="mb-3">{<item.Icon />}</div>
-                <h3 className="font-medium text-lg mb-2">{item.label}</h3>
-                <p className="text-sm text-[#77736E] whitespace-normal">{item.desc}</p>
-              </div>)}
-          </motion.div>
-            </div>
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-r from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block w-20 lg:w-36 bg-gradient-to-l from-[#f9f7f2] via-[#f9f7f2]/60 to-transparent"
-            />
-          </div>
+          <AudienceTicker />
           <SectionCtaRow to="/who-we-work-with" label="See who we work with" />
         </section>
         <section id="compliance" className="py-12 sm:py-24 border-t border-[#f1ece0] grid md:grid-cols-3 gap-8 sm:gap-12">

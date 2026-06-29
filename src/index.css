@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-body: 'Funnel Sans', system-ui, sans-serif;
-  --font-display: 'Funnel Display', system-ui, sans-serif;
+  --font-body: 'Funnel Sans Variable', system-ui, sans-serif;
+  --font-display: 'Funnel Display Variable', system-ui, sans-serif;
 }
 
 * {

@@ -30,7 +30,7 @@ export const HeroBottleIllustration = () => (
         x="200"
         y="32"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="11"
         letterSpacing="4"
         fill="#A8BBBF"
@@ -47,7 +47,7 @@ export const HeroBottleIllustration = () => (
         x="100"
         y="173"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="7"
         fill="#A8BBBF"
         letterSpacing="2"
@@ -62,7 +62,7 @@ export const HeroBottleIllustration = () => (
         x="230"
         y="255"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="7"
         fill="#A8BBBF"
         letterSpacing="2"
@@ -94,7 +94,7 @@ export const MarbleBottleIllustration = () => (
         x="110"
         y="185"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="7"
         fill="#A8BBBF"
         letterSpacing="2"
@@ -136,7 +136,7 @@ export const FlatLayIllustration = () => (
         x="260"
         y="115"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="8"
         fill="#A8BBBF"
         letterSpacing="2"
@@ -152,7 +152,7 @@ export const FlatLayIllustration = () => (
         x="155"
         y="244"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="6.5"
         fill="#A8BBBF"
         letterSpacing="2"
@@ -174,7 +174,7 @@ export const ProcessTimelineIllustration = () => (
             x={x}
             y="165"
             textAnchor="middle"
-            fontFamily="Funnel Display, sans-serif"
+            fontFamily="Funnel Display Variable, sans-serif"
             fontSize="9"
             fill="#2D302B"
           >
@@ -192,7 +192,7 @@ export const ProcessTimelineIllustration = () => (
         x="180"
         y="48"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="10"
         letterSpacing="3"
         fill="#A8BBBF"
@@ -231,7 +231,7 @@ export const ScentSamplesIllustration = () => (
         x="150"
         y="210"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="9"
         letterSpacing="3"
         fill="#A8BBBF"
@@ -278,7 +278,7 @@ export const QualityCheckIllustration = () => (
         <g key={label}>
           <rect x="70" y={65 + i * 32} width="16" height="16" rx="2" stroke="#A8BBBF" strokeWidth="1" fill="none" />
           <path d={`M73 ${73 + i * 32} L76 ${76 + i * 32} L82 ${70 + i * 32}`} stroke="#2D302B" strokeWidth="1.2" />
-          <text x="96" y={77 + i * 32} fontFamily="Funnel Sans, sans-serif" fontSize="11" fill="#77736E">
+          <text x="96" y={77 + i * 32} fontFamily="Funnel Sans Variable, sans-serif" fontSize="11" fill="#77736E">
             {label}
           </text>
         </g>
@@ -300,7 +300,7 @@ export const DeliveryIllustration = () => (
         x="215"
         y="125"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="8"
         letterSpacing="2"
         fill="#A8BBBF"
@@ -329,7 +329,7 @@ export const RepeatOrderIllustration = () => (
         x="140"
         y="210"
         textAnchor="middle"
-        fontFamily="Funnel Display, sans-serif"
+        fontFamily="Funnel Display Variable, sans-serif"
         fontSize="9"
         letterSpacing="2"
         fill="#A8BBBF"
@@ -348,7 +348,7 @@ export const GiftSetIllustration = () => (
       <rect x="135" y="55" width="30" height="75" rx="4" stroke="#A8BBBF" strokeWidth="1" fill="none" />
       <rect x="180" y="60" width="24" height="70" rx="4" stroke="#A8BBBF" strokeWidth="1" fill="none" />
       <line x1="60" y1="110" x2="240" y2="110" stroke="#E7DED2" strokeWidth="1" />
-      <text x="150" y="145" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="8" letterSpacing="2" fill="#A8BBBF">GIFT SET</text>
+      <text x="150" y="145" textAnchor="middle" fontFamily="Funnel Display Variable, sans-serif" fontSize="8" letterSpacing="2" fill="#A8BBBF">GIFT SET</text>
     </svg>
   </IllustrationFrame>
 );
@@ -380,7 +380,7 @@ export const LabelIllustration = () => (
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <rect x="80" y="60" width="50" height="140" rx="4" stroke="#2D302B" strokeWidth="1.1" fill="none" />
       <rect x="88" y="120" width="34" height="40" rx="2" stroke="#A8BBBF" strokeWidth="1" fill="none" />
-      <text x="105" y="142" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="6" fill="#A8BBBF" letterSpacing="1">LOGO</text>
+      <text x="105" y="142" textAnchor="middle" fontFamily="Funnel Display Variable, sans-serif" fontSize="6" fill="#A8BBBF" letterSpacing="1">LOGO</text>
       <rect x="160" y="80" width="80" height="100" rx="4" stroke="#2D302B" strokeWidth="1.1" fill="#FFFDFC" />
       <line x1="170" y1="100" x2="230" y2="100" stroke="#E7DED2" strokeWidth="6" strokeLinecap="round" />
       <line x1="170" y1="120" x2="210" y2="120" stroke="#E7DED2" strokeWidth="6" strokeLinecap="round" />
@@ -405,11 +405,11 @@ export const ComplianceDocIllustration = () => (
   <IllustrationFrame>
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <rect x="50" y="30" width="180" height="180" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="#FFFDFC" />
-      <text x="140" y="60" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="10" letterSpacing="2" fill="#A8BBBF">COA / IFRA</text>
+      <text x="140" y="60" textAnchor="middle" fontFamily="Funnel Display Variable, sans-serif" fontSize="10" letterSpacing="2" fill="#A8BBBF">COA / IFRA</text>
       {['Batch', 'Formula', 'Allergens', 'GMP'].map((label, i) => (
         <g key={label}>
           <rect x="70" y={80 + i * 28} width="140" height="18" rx="2" stroke="#E7DED2" strokeWidth="1" fill="none" />
-          <text x="80" y={93 + i * 28} fontFamily="Funnel Sans, sans-serif" fontSize="9" fill="#77736E">{label}</text>
+          <text x="80" y={93 + i * 28} fontFamily="Funnel Sans Variable, sans-serif" fontSize="9" fill="#77736E">{label}</text>
         </g>
       ))}
     </svg>
@@ -422,7 +422,7 @@ export const FragranceFamilyIllustration = () => (
       {['Floral', 'Woody', 'Fresh', 'Oriental'].map((family, i) => (
         <g key={family}>
           <circle cx={70 + i * 70} cy="110" r="36" stroke="#A8BBBF" strokeWidth="1" fill="none" />
-          <text x={70 + i * 70} y="115" textAnchor="middle" fontFamily="Funnel Sans, sans-serif" fontSize="8" fill="#77736E">{family}</text>
+          <text x={70 + i * 70} y="115" textAnchor="middle" fontFamily="Funnel Sans Variable, sans-serif" fontSize="8" fill="#77736E">{family}</text>
         </g>
       ))}
     </svg>
@@ -434,7 +434,7 @@ export const LaunchPlanningIllustration = () => (
     <svg viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[300px] h-auto">
       <circle cx="180" cy="140" r="80" stroke="#E7DED2" strokeWidth="1.5" fill="none" />
       <circle cx="180" cy="140" r="40" stroke="#A8BBBF" strokeWidth="1.2" fill="none" />
-      <text x="180" y="145" textAnchor="middle" fontFamily="Funnel Display, sans-serif" fontSize="10" fill="#2D302B">LAUNCH</text>
+      <text x="180" y="145" textAnchor="middle" fontFamily="Funnel Display Variable, sans-serif" fontSize="10" fill="#2D302B">LAUNCH</text>
       {['Scent', 'Format', 'Price', 'Pack'].map((label, i) => {
         const angle = (i * 90 - 90) * (Math.PI / 180);
         const x = 180 + Math.cos(angle) * 110;
@@ -442,7 +442,7 @@ export const LaunchPlanningIllustration = () => (
         return (
           <g key={label}>
             <circle cx={x} cy={y} r="22" stroke="#2D302B" strokeWidth="1" fill="#FFFDFC" />
-            <text x={x} y={y + 4} textAnchor="middle" fontFamily="Funnel Sans, sans-serif" fontSize="8" fill="#77736E">{label}</text>
+            <text x={x} y={y + 4} textAnchor="middle" fontFamily="Funnel Sans Variable, sans-serif" fontSize="8" fill="#77736E">{label}</text>
           </g>
         );
       })}
