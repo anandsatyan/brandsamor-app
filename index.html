@@ -98,9 +98,20 @@
       .hero-panel {
         position: relative;
         overflow: hidden;
+        isolation: isolate;
         min-height: 300px;
         background-color: rgb(255, 92, 0);
         color: #fff;
+      }
+      .hero-panel--viewport {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100svh - 68px);
+      }
+      @media (min-width: 1024px) {
+        .hero-panel--viewport {
+          min-height: calc(100svh - 114px);
+        }
       }
       .hero-panel > img[aria-hidden='true'] {
         position: absolute;

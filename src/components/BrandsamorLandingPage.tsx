@@ -305,26 +305,22 @@ export const BrandsamorLandingPage = () => {
       />
       <SiteHeader />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-        {/* HERO */}
-        <HeroPanel
-          id="overview"
-          className="py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl text-center"
-        >
-          <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
-            <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
-              PRIVATE LABEL
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-white">
-              The Easy Way to Start Your Own Perfume Line
-            </h1>
-            <p className="text-base sm:text-lg max-w-2xl leading-relaxed">
-              Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
-            </p>
-            <ComingSoonLabel variant="hero" />
-          </div>
-        </HeroPanel>
+      <HeroPanel id="overview" layout="viewport" className="mb-8 sm:mb-12 text-center">
+        <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
+          <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
+            PRIVATE LABEL
+          </span>
+          <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-white">
+            The Easy Way to Start Your Own Perfume Line
+          </h1>
+          <p className="text-base sm:text-lg max-w-2xl leading-relaxed">
+            Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
+          </p>
+          <ComingSoonLabel variant="hero" />
+        </div>
+      </HeroPanel>
 
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         <TrustStrip
           intro="Trusted by fragrance brands for perfume packaging—the experience Brandsamor is now bringing to complete private-label fragrance launches."
           testimonials={testimonials}

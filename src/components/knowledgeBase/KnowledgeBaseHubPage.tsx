@@ -45,7 +45,7 @@ export const KnowledgeBaseHubPage = () => {
               <p className="text-[11px] sm:text-xs uppercase tracking-wider text-accent font-medium mb-3">
                 {article.targetKeyword}
               </p>
-              <h2 className="text-lg sm:text-xl font-medium text-heading leading-snug mb-3 group-hover:text-accent">
+              <h2 className="text-lg sm:text-xl text-heading leading-snug mb-3 group-hover:text-accent">
                 {article.title}
               </h2>
               <p className="text-sm sm:text-base text-body leading-relaxed mb-6 flex-1">{article.excerpt}</p>
