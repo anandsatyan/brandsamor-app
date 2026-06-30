@@ -19,7 +19,7 @@ export const ORGANIZATION = {
   phone: '+1-848-220-1353',
   email: 'info@brandsamor.com',
   address: {
-    streetAddress: '11118 S Governors Ave',
+    streetAddress: '1118 S Governors Ave',
     addressLocality: 'Dover',
     addressRegion: 'DE',
     postalCode: '19904',
