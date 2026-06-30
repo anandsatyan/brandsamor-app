@@ -1,12 +1,8 @@
 import { type FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
-import { HeroPanel } from './HeroPanel';
-import { PageBreadcrumbBar } from './PageBreadcrumbBar';
+import { BrandLogo } from './BrandLogo';
 import { SeoHead } from './SeoHead';
-import { SiteFooter } from './SiteFooter';
-import { SiteHeader } from './SiteHeader';
-import { homeBreadcrumbs } from './Breadcrumbs';
 import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
 import { PAGE_METADATA } from '../seo/pageMetadata';
 
@@ -23,7 +19,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-surface font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-surface font-sans flex flex-col items-center justify-center px-4 py-12 sm:py-16">
       <SeoHead
         title={meta.title}
         description={meta.description}
@@ -31,23 +27,12 @@ export const LoginPage = () => {
         robots={meta.robots}
         structuredData={buildStructuredDataForPath(meta)}
       />
-      <SiteHeader />
 
-      <PageBreadcrumbBar items={homeBreadcrumbs(meta.pageName)} width="narrow" />
+      <Link to="/" className="mb-8 sm:mb-10">
+        <BrandLogo />
+      </Link>
 
-      <HeroPanel className="py-10 sm:py-14 text-center">
-        <div className="mx-auto flex max-w-xl flex-col items-center space-y-4 sm:space-y-5">
-          <span className="inline-block rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
-            Account
-          </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-white">Welcome back</h1>
-          <p className="max-w-md text-base sm:text-lg leading-relaxed">
-            Sign in to manage your private label fragrance projects with Brandsamor.
-          </p>
-        </div>
-      </HeroPanel>
-
-      <main className="relative z-20 mx-auto max-w-md px-4 sm:px-6 -mt-10 sm:-mt-12 pb-16 sm:pb-24">
+      <main className="w-full max-w-md">
         <form
           onSubmit={handleSubmit}
           className="space-y-5 rounded-2xl border border-border bg-secondary p-6 sm:p-8 shadow-sm"
@@ -128,8 +113,6 @@ export const LoginPage = () => {
           </p>
         </form>
       </main>
-
-      <SiteFooter />
     </div>
   );
 };

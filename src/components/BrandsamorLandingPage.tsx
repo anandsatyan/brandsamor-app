@@ -2,12 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { ComingSoonLabel } from './ComingSoonLabel';
 import { HeroPanel } from './HeroPanel';
 import { FaqSection } from './FaqSection';
-import {
-  FlatLayIllustration,
-  MarbleBottleIllustration,
-  PackagingIllustration,
-  ScentSamplesIllustration,
-} from './Illustrations';
 import { SectionLinkButton } from './SectionLinkButton';
 import { SeoHead } from './SeoHead';
 import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
@@ -348,8 +342,13 @@ export const BrandsamorLandingPage = () => {
             <p className="text-base sm:text-lg text-body mb-8 sm:mb-12">
               Start with samples, choose the scents you like, customize the look, and launch your first ready-to-sell perfume line in weeks — not months.
             </p>
-            <div className="rounded-xl overflow-hidden w-full max-w-[250px] h-[200px] sm:h-[250px]">
-              <MarbleBottleIllustration />
+            <div className="rounded-xl overflow-hidden w-full max-w-lg">
+              <img
+                src="/ill-filling-machine.png"
+                alt="Automated perfume filling line with bottles on a conveyor"
+                className="w-full h-auto"
+                loading="lazy"
+              />
             </div>
           </div>
           <div className="space-y-8 sm:space-y-12">
@@ -398,8 +397,13 @@ export const BrandsamorLandingPage = () => {
               <span className="w-8 h-px bg-border"></span> FRAGRANCE PRODUCTS
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Fragrance Products You Can Launch Under Your Brand</h2>
-            <div className="rounded-xl overflow-hidden w-full max-w-md h-64 sm:h-80 md:h-[400px] mx-auto md:mx-0">
-              <FlatLayIllustration />
+            <div className="rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0">
+              <img
+                src="/ill-product-types.png"
+                alt="Private label fragrance product types including perfume, oils, mists, and gift sets"
+                className="w-full h-auto"
+                loading="lazy"
+              />
             </div>
           </div>
           <div className="flex flex-col justify-center">
@@ -432,7 +436,12 @@ export const BrandsamorLandingPage = () => {
             <SectionCtaRow to="/fragrance-sampling" label="Explore fragrance sampling" />
           </div>
           <div className="rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0">
-            <ScentSamplesIllustration />
+            <img
+              src="/ill-sample-fragrance.png"
+              alt="Fragrance sample vials and scent tester strips"
+              className="w-full h-auto"
+              loading="lazy"
+            />
           </div>
         </section>
 
@@ -503,10 +512,13 @@ export const BrandsamorLandingPage = () => {
             </div>
           </div>
           <div className="flex flex-col gap-6 relative">
-            <div className="aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center" style={{
-            background: '#F2EDE4'
-          }}>
-              <PackagingIllustration />
+            <div className="rounded-xl overflow-hidden w-full">
+              <img
+                src="/ill-packaging.png"
+                alt="Perfume bottles, caps, sprayers, and branded packaging options"
+                className="w-full h-auto"
+                loading="lazy"
+              />
             </div>
             <div className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
               <div className="text-4xl text-accent font-display mb-4">"</div>
@@ -570,13 +582,13 @@ export const BrandsamorLandingPage = () => {
             </div>
             <p className="text-sm text-white/60">Start with your idea. The first step is simply telling us what you want to build.</p>
           </div>
-          <div className="relative aspect-square max-w-md mx-auto w-full rounded-2xl bg-gradient-to-tr from-[#3a3d38] to-[#2D302B] border border-white/10 flex items-center justify-center p-8 sm:p-12">
-            <div className="absolute top-1/4 left-4 sm:left-10 px-3 sm:px-4 py-2 rounded-full border border-accent text-xs font-medium text-white/80">Samples first</div>
-            <div className="absolute bottom-1/4 right-4 sm:right-10 px-3 sm:px-4 py-2 rounded-full border border-accent text-xs font-medium text-white/80">Ready-to-sell batch</div>
-            <div className="w-32 h-48 bg-white/10 backdrop-blur-sm rounded-[10px] border border-white/20 shadow-2xl flex flex-col items-center justify-end p-4">
-              <div className="w-16 h-4 bg-white/20 rounded-sm mb-2"></div>
-              <div className="w-12 h-2 bg-white/10 rounded-sm"></div>
-            </div>
+          <div className="max-w-md mx-auto w-full">
+            <img
+              src="/ill-sample-wizard.png"
+              alt="Product wizard for configuring fragrance samples and launch options"
+              className="w-full h-auto rounded-[24px]"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
