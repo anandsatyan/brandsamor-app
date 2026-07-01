@@ -340,8 +340,8 @@ export const BrandsamorLandingPage = () => {
             </p>
             <div className="rounded-xl overflow-hidden w-full max-w-lg">
               <img
-                src="/ill-filling-machine.png"
-                alt="Automated perfume filling line with bottles on a conveyor"
+                src="/private-label-perfume-manufacturing-1.png"
+                alt="Private label perfume bottle mockup with your brand name"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -433,8 +433,8 @@ export const BrandsamorLandingPage = () => {
           </div>
           <div className="rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0">
             <img
-              src="/ill-sample-fragrance.png"
-              alt="Fragrance sample vials and scent tester strips"
+              src="/img-sample-kit.png"
+              alt="Brandsamor fragrance selection kit with sample vials"
               className="w-full h-auto"
               loading="lazy"
             />
