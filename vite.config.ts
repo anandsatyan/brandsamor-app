@@ -1,9 +1,19 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { prerenderMetaPlugin } from './vite/prerenderMetaPlugin';
+import { handleLeadRequest } from './server/leadHandler.mjs';
+
+const leadApiPlugin = (): Plugin => ({
+  name: 'lead-api',
+  configureServer(server) {
+    server.middlewares.use('/api/lead', (req, res) => {
+      void handleLeadRequest(req, res);
+    });
+  },
+});
 
 export default defineConfig({
-  plugins: [react(), prerenderMetaPlugin()],
+  plugins: [react(), prerenderMetaPlugin(), leadApiPlugin()],
   build: {
     rollupOptions: {
       output: {
