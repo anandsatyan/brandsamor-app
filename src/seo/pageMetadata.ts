@@ -159,6 +159,18 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     includeServiceSchema: false,
     includeHomeGraph: false,
   },
+  '/get-started': {
+    path: '/get-started',
+    pageName: 'Get Started',
+    title: 'Start Your Private Label Perfume Project | Brandsamor',
+    description:
+      'Tell Brandsamor about your brand, scent direction, packaging needs, and launch timeline so we can guide your private label fragrance project.',
+    canonical: canonical('/get-started'),
+    h1: 'Tell Us About Your Perfume Project',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+  },
   '/login': {
     path: '/login',
     pageName: 'Login',

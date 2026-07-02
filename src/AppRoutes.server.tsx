@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AboutPage } from './components/AboutPage';
 import { BrandsamorLandingPage } from './components/BrandsamorLandingPage';
 import { ContactPage } from './components/ContactPage';
+import { LeadFormPage } from './components/LeadFormPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
 import { HowItWorksPage } from './components/HowItWorksPage';
@@ -35,6 +36,7 @@ export const AppRoutesServer = () => (
       <Route path="/quality-compliance" element={<QualityCompliancePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/get-started" element={<LeadFormPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
       <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticlePage />} />

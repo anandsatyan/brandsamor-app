@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { handleLeadRequest } from './server/leadHandler.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, 'dist');
@@ -19,6 +20,7 @@ const PUBLIC_ROUTES = new Set([
   '/quality-compliance',
   '/about',
   '/contact',
+  '/get-started',
   '/login',
   '/privacy-policy',
   '/terms',
@@ -117,8 +119,14 @@ const resolveFile = (urlPath) => {
   return null;
 };
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+
+  if (url.pathname === '/api/lead') {
+    await handleLeadRequest(req, res);
+    return;
+  }
+
   const resolved = resolveFile(url.pathname);
 
   if (!resolved) {

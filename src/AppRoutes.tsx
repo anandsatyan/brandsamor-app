@@ -27,6 +27,7 @@ const KnowledgeBaseArticlePage = lazyNamed(
   'KnowledgeBaseArticlePage',
 );
 const ContactPage = lazyNamed(() => import('./components/ContactPage'), 'ContactPage');
+const LeadFormPage = lazyNamed(() => import('./components/LeadFormPage'), 'LeadFormPage');
 const PrivacyPolicyPage = lazyNamed(() => import('./components/PrivacyPolicyPage'), 'PrivacyPolicyPage');
 const TermsPage = lazyNamed(() => import('./components/TermsPage'), 'TermsPage');
 const RefundPolicyPage = lazyNamed(() => import('./components/RefundPolicyPage'), 'RefundPolicyPage');
@@ -48,6 +49,7 @@ export const AppRoutes = () => (
         <Route path="/quality-compliance" element={<QualityCompliancePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/get-started" element={<LeadFormPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
         <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticlePage />} />
