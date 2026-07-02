@@ -1,4 +1,4 @@
-import { type FormEvent, type ReactNode, useState } from 'react';
+import { type FormEvent, type ReactNode, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Building2,
@@ -27,6 +27,14 @@ import {
   TARGET_MARKETS,
   type LeadFormPayload,
 } from '../routes/leadForm';
+import { useLeadFormAnalytics } from '../analytics/leadFormAnalytics';
+
+const SELECT_FIELDS = new Set([
+  'businessType',
+  'launchTimeline',
+  'orderQuantity',
+  'targetMarket',
+]);
 
 const inputClassName =
   'w-full rounded-lg border border-border bg-surface px-4 py-3 text-heading placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-accent/35 focus:border-accent';
@@ -86,14 +94,36 @@ export const LeadFormPage = () => {
   const [form, setForm] = useState<LeadFormPayload>(initialForm);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const {
+    trackFieldFocus,
+    trackFieldComplete,
+    trackSelectChange,
+    trackProductInterestChange,
+    trackSubmitStart,
+    trackSubmitSuccess,
+    trackSubmitError,
+    trackSuccessView,
+    trackSuccessHomeClick,
+  } = useLeadFormAnalytics();
+
+  useEffect(() => {
+    if (status === 'success') {
+      trackSuccessView();
+    }
+  }, [status, trackSuccessView]);
 
   const updateField = <K extends keyof LeadFormPayload>(key: K, value: LeadFormPayload[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
+
+    if (typeof value === 'string' && SELECT_FIELDS.has(key)) {
+      trackSelectChange(key, value);
+    }
   };
 
   const toggleProductInterest = (interest: string) => {
     setForm((current) => {
       const selected = current.productInterests.includes(interest);
+      trackProductInterestChange(interest, selected ? 'remove' : 'add');
       return {
         ...current,
         productInterests: selected
@@ -105,8 +135,11 @@ export const LeadFormPage = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    trackSubmitStart();
     setStatus('submitting');
     setErrorMessage('');
+
+    const productInterestCount = form.productInterests.length;
 
     try {
       const response = await fetch('/api/lead', {
@@ -120,11 +153,14 @@ export const LeadFormPage = () => {
         throw new Error(data?.error || 'Something went wrong. Please try again.');
       }
 
+      trackSubmitSuccess(productInterestCount);
       setStatus('success');
       setForm(initialForm);
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      trackSubmitError(message);
       setStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+      setErrorMessage(message);
     }
   };
 
@@ -166,7 +202,11 @@ export const LeadFormPage = () => {
               Our team will review your brief and reach out shortly to discuss scent sampling, packaging options, and
               a realistic path to your first ready-to-sell batch.
             </p>
-            <Link to="/" className="btn-primary rounded-lg">
+            <Link
+              to="/"
+              className="btn-primary rounded-lg"
+              onClick={trackSuccessHomeClick}
+            >
               Back to home
             </Link>
           </div>
@@ -190,6 +230,10 @@ export const LeadFormPage = () => {
                     autoComplete="name"
                     value={form.fullName}
                     onChange={(event) => updateField('fullName', event.target.value)}
+                    onFocus={() => trackFieldFocus('fullName')}
+                    onBlur={(event) => {
+                      if (event.target.value.trim()) trackFieldComplete('fullName');
+                    }}
                     placeholder="Alex Rivera"
                     className={inputClassName}
                   />
@@ -212,6 +256,10 @@ export const LeadFormPage = () => {
                       autoComplete="email"
                       value={form.email}
                       onChange={(event) => updateField('email', event.target.value)}
+                      onFocus={() => trackFieldFocus('email')}
+                      onBlur={(event) => {
+                        if (event.target.value.trim()) trackFieldComplete('email');
+                      }}
                       placeholder="you@yourbrand.com"
                       className={`${inputClassName} pl-11`}
                     />
@@ -234,6 +282,10 @@ export const LeadFormPage = () => {
                       autoComplete="tel"
                       value={form.phone}
                       onChange={(event) => updateField('phone', event.target.value)}
+                      onFocus={() => trackFieldFocus('phone')}
+                      onBlur={(event) => {
+                        if (event.target.value.trim()) trackFieldComplete('phone');
+                      }}
                       placeholder="+1 (555) 000-0000"
                       className={`${inputClassName} pl-11`}
                     />
@@ -259,6 +311,10 @@ export const LeadFormPage = () => {
                     required
                     value={form.brandName}
                     onChange={(event) => updateField('brandName', event.target.value)}
+                    onFocus={() => trackFieldFocus('brandName')}
+                    onBlur={(event) => {
+                      if (event.target.value.trim()) trackFieldComplete('brandName');
+                    }}
                     placeholder="Your brand name"
                     className={inputClassName}
                   />
@@ -273,6 +329,10 @@ export const LeadFormPage = () => {
                     type="url"
                     value={form.website}
                     onChange={(event) => updateField('website', event.target.value)}
+                    onFocus={() => trackFieldFocus('website')}
+                    onBlur={(event) => {
+                      if (event.target.value.trim()) trackFieldComplete('website');
+                    }}
                     placeholder="https://yourbrand.com"
                     className={inputClassName}
                   />
@@ -288,6 +348,10 @@ export const LeadFormPage = () => {
                     required
                     value={form.country}
                     onChange={(event) => updateField('country', event.target.value)}
+                    onFocus={() => trackFieldFocus('country')}
+                    onBlur={(event) => {
+                      if (event.target.value.trim()) trackFieldComplete('country');
+                    }}
                     placeholder="United States"
                     className={inputClassName}
                   />
@@ -302,6 +366,7 @@ export const LeadFormPage = () => {
                     required
                     value={form.businessType}
                     onChange={(event) => updateField('businessType', event.target.value)}
+                    onFocus={() => trackFieldFocus('businessType')}
                     className={selectClassName}
                   >
                     <option value="">Select one</option>
@@ -338,6 +403,7 @@ export const LeadFormPage = () => {
                           type="checkbox"
                           checked={checked}
                           onChange={() => toggleProductInterest(interest)}
+                          onFocus={() => trackFieldFocus('productInterests')}
                           className="h-4 w-4 rounded border-border text-accent focus:ring-accent/40"
                         />
                         <span className="text-sm font-medium">{interest}</span>
@@ -358,6 +424,7 @@ export const LeadFormPage = () => {
                     required
                     value={form.launchTimeline}
                     onChange={(event) => updateField('launchTimeline', event.target.value)}
+                    onFocus={() => trackFieldFocus('launchTimeline')}
                     className={selectClassName}
                   >
                     <option value="">Select one</option>
@@ -378,6 +445,7 @@ export const LeadFormPage = () => {
                     required
                     value={form.orderQuantity}
                     onChange={(event) => updateField('orderQuantity', event.target.value)}
+                    onFocus={() => trackFieldFocus('orderQuantity')}
                     className={selectClassName}
                   >
                     <option value="">Select one</option>
@@ -406,6 +474,7 @@ export const LeadFormPage = () => {
                   required
                   value={form.targetMarket}
                   onChange={(event) => updateField('targetMarket', event.target.value)}
+                  onFocus={() => trackFieldFocus('targetMarket')}
                   className={selectClassName}
                 >
                   <option value="">Select one</option>
@@ -428,6 +497,10 @@ export const LeadFormPage = () => {
                   rows={4}
                   value={form.scentDirection}
                   onChange={(event) => updateField('scentDirection', event.target.value)}
+                  onFocus={() => trackFieldFocus('scentDirection')}
+                  onBlur={(event) => {
+                    if (event.target.value.trim()) trackFieldComplete('scentDirection');
+                  }}
                   placeholder="Describe the mood, notes, audience, and what you want this fragrance to achieve for your brand..."
                   className={`${inputClassName} resize-y min-h-[120px]`}
                 />
@@ -443,6 +516,10 @@ export const LeadFormPage = () => {
                   rows={3}
                   value={form.packagingNotes}
                   onChange={(event) => updateField('packagingNotes', event.target.value)}
+                  onFocus={() => trackFieldFocus('packagingNotes')}
+                  onBlur={(event) => {
+                    if (event.target.value.trim()) trackFieldComplete('packagingNotes');
+                  }}
                   placeholder="Bottle style, label ideas, gift packaging, price positioning, or existing brand assets..."
                   className={`${inputClassName} resize-y min-h-[96px]`}
                 />
@@ -458,6 +535,10 @@ export const LeadFormPage = () => {
                   rows={3}
                   value={form.additionalNotes}
                   onChange={(event) => updateField('additionalNotes', event.target.value)}
+                  onFocus={() => trackFieldFocus('additionalNotes')}
+                  onBlur={(event) => {
+                    if (event.target.value.trim()) trackFieldComplete('additionalNotes');
+                  }}
                   placeholder="Budget range, compliance needs, prior fragrance experience, or questions for our team..."
                   className={`${inputClassName} resize-y min-h-[96px]`}
                 />
