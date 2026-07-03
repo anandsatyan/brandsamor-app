@@ -214,27 +214,27 @@ const complianceItems = [{
 const productOptions = [{
   num: '01',
   title: 'Eau de Parfum',
-  desc: 'The most common starting point for a branded perfume line — strong longevity and a premium feel in standard spray bottles.'
+  tagline: 'Premium sprays with lasting presence.',
 }, {
   num: '02',
-  title: 'Perfume Oils and Roll-Ons',
-  desc: 'Portable, concentrated formats for purses, pockets, and gifting — ideal for wellness brands and alcohol-free positioning.'
+  title: 'Perfume Oils & Roll-Ons',
+  tagline: 'Portable, concentrated, alcohol-free.',
 }, {
   num: '03',
   title: 'Body Mists',
-  desc: 'Lighter, everyday scents at accessible price points — popular for casual wear, layering, and broader retail distribution.'
+  tagline: 'Light everyday scents for broader reach.',
 }, {
   num: '04',
   title: 'Room Sprays',
-  desc: 'Extend your brand fragrance into homes, spas, and hospitality — a natural fit for lifestyle and home fragrance brands.'
+  tagline: 'Home, spa, and hospitality extensions.',
 }, {
   num: '05',
   title: 'Travel Perfumes',
-  desc: 'Smaller sizes for trial, travel, and gift-with-purchase — a lower-commitment way for customers to discover your scent.'
+  tagline: 'Trial sizes and gift-with-purchase.',
 }, {
   num: '06',
   title: 'Gift Sets',
-  desc: 'Bundle multiple formats into one packaged experience — ideal for holidays, retail, and higher average order value.'
+  tagline: 'Bundled formats for retail and holidays.',
 }];
 const testimonials = [{
   name: 'Christopher J.',
@@ -387,34 +387,56 @@ export const BrandsamorLandingPage = () => {
         </section>
 
         {/* FRAGRANCE PRODUCTS */}
-        <section id="fragrance-products" className="py-12 sm:py-24 border-t border-border grid md:grid-cols-2 gap-10 md:gap-16">
-          <div>
+        <section id="fragrance-products" className="py-12 sm:py-24 border-t border-border">
+          <div className="mb-10 sm:mb-14">
             <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-border"></span> FRAGRANCE PRODUCTS
             </h4>
-            <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12">Fragrance Products You Can Launch Under Your Brand</h2>
-            <div className="rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0">
-              <img
-                src="/ill-product-types.png"
-                alt="Private label fragrance product types including perfume, oils, mists, and gift sets"
-                className="w-full h-auto"
-                loading="lazy"
-              />
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <h2 className="text-3xl sm:text-4xl max-w-2xl">
+                Fragrance Products You Can Launch Under Your Brand
+              </h2>
+              <p className="text-base sm:text-lg text-body max-w-md lg:pb-1 lg:text-right">
+                Eau de parfum, oils, mists, room sprays, travel formats, and gift sets — matched to your audience and channel.
+              </p>
             </div>
           </div>
-          <div className="flex flex-col justify-center">
-            <p className="text-base sm:text-lg text-body mb-8 sm:mb-12 border-b border-border pb-8 sm:pb-12">
-              Choose from eau de parfum, perfume oils, body mists, room sprays, travel formats and gift sets based on your audience, price point and sales channel.
-            </p>
-            <div className="space-y-8 sm:space-y-10">
-              {productOptions.map(item => <div key={item.num} className="flex gap-4 sm:gap-8 group">
-                  <div className="text-3xl sm:text-4xl font-display text-accent shrink-0">{item.num}</div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-body">{item.desc}</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-5">
+            {productOptions.map((item, index) => {
+              const spanClass =
+                index === 0
+                  ? 'sm:col-span-2 lg:col-span-3'
+                  : index === 1
+                    ? 'sm:col-span-2 lg:col-span-3'
+                    : index === 5
+                      ? 'sm:col-span-2 lg:col-span-6'
+                      : 'lg:col-span-2';
+
+              return (
+                <div
+                  key={item.num}
+                  className={`group relative overflow-hidden rounded-2xl border border-border bg-secondary/50 p-6 sm:p-7 transition-colors hover:border-accent/35 hover:bg-secondary ${spanClass}`}
+                >
+                  <span
+                    className="pointer-events-none absolute -right-1 -top-2 font-display text-6xl sm:text-7xl leading-none text-accent/10 transition-colors group-hover:text-accent/20"
+                    aria-hidden="true"
+                  >
+                    {item.num}
+                  </span>
+                  <div className="relative">
+                    <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-accent">
+                      {item.num}
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold text-heading mb-2 pr-8">{item.title}</h3>
+                    <p className="text-sm sm:text-base text-body leading-relaxed">{item.tagline}</p>
                   </div>
-                </div>)}
-            </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 sm:mt-14">
             <SectionCtaRow to="/fragrance-products" label="Explore all product formats" />
           </div>
         </section>
