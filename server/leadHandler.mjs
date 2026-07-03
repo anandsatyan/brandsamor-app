@@ -10,8 +10,6 @@ const REQUIRED_FIELDS = [
   'businessType',
   'launchTimeline',
   'orderQuantity',
-  'targetMarket',
-  'scentDirection',
 ];
 
 const escapeHtml = (value) =>
@@ -44,14 +42,6 @@ const buildEmailContent = (payload) => {
     `Product interests: ${formatList(payload.productInterests)}`,
     `Launch timeline: ${payload.launchTimeline}`,
     `First order quantity: ${payload.orderQuantity}`,
-    `Primary market: ${payload.targetMarket}`,
-    '',
-    'CREATIVE DIRECTION',
-    `Scent direction & goals:\n${payload.scentDirection}`,
-    '',
-    `Packaging notes:\n${payload.packagingNotes || '—'}`,
-    '',
-    `Additional notes:\n${payload.additionalNotes || '—'}`,
   ].join('\n');
 
   const html = `
@@ -70,12 +60,7 @@ const buildEmailContent = (payload) => {
       <h3>Product & launch</h3>
       <p><strong>Product interests:</strong> ${escapeHtml(formatList(payload.productInterests))}<br/>
       <strong>Launch timeline:</strong> ${escapeHtml(payload.launchTimeline)}<br/>
-      <strong>First order quantity:</strong> ${escapeHtml(payload.orderQuantity)}<br/>
-      <strong>Primary market:</strong> ${escapeHtml(payload.targetMarket)}</p>
-      <h3>Creative direction</h3>
-      <p><strong>Scent direction & goals</strong><br/>${escapeHtml(payload.scentDirection).replace(/\n/g, '<br/>')}</p>
-      <p><strong>Packaging notes</strong><br/>${escapeHtml(payload.packagingNotes || '—').replace(/\n/g, '<br/>')}</p>
-      <p><strong>Additional notes</strong><br/>${escapeHtml(payload.additionalNotes || '—').replace(/\n/g, '<br/>')}</p>
+      <strong>First order quantity:</strong> ${escapeHtml(payload.orderQuantity)}</p>
     </div>
   `;
 
@@ -137,10 +122,6 @@ export const handleLeadSubmission = async (payload) => {
       : [],
     launchTimeline: String(payload.launchTimeline).trim(),
     orderQuantity: String(payload.orderQuantity).trim(),
-    targetMarket: String(payload.targetMarket).trim(),
-    scentDirection: String(payload.scentDirection).trim(),
-    packagingNotes: String(payload.packagingNotes ?? '').trim(),
-    additionalNotes: String(payload.additionalNotes ?? '').trim(),
   };
 
   const { subject, text, html } = buildEmailContent(normalized);

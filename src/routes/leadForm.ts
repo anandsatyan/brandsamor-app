@@ -37,18 +37,6 @@ export const ORDER_QUANTITIES = [
   'Not sure yet',
 ] as const;
 
-export const TARGET_MARKETS = [
-  'United States',
-  'Canada',
-  'United Kingdom',
-  'European Union',
-  'Middle East',
-  'India',
-  'Asia Pacific',
-  'Global / multiple markets',
-  'Other',
-] as const;
-
 export type LeadFormPayload = {
   fullName: string;
   email: string;
@@ -60,8 +48,4 @@ export type LeadFormPayload = {
   productInterests: string[];
   launchTimeline: string;
   orderQuantity: string;
-  targetMarket: string;
-  scentDirection: string;
-  packagingNotes?: string;
-  additionalNotes?: string;
 };

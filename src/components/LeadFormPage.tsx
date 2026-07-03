@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Building2,
   CheckCircle2,
-  Globe2,
   Loader2,
   Mail,
   Package,
@@ -24,17 +23,11 @@ import {
   LAUNCH_TIMELINES,
   ORDER_QUANTITIES,
   PRODUCT_INTERESTS,
-  TARGET_MARKETS,
   type LeadFormPayload,
 } from '../routes/leadForm';
 import { useLeadFormAnalytics } from '../analytics/leadFormAnalytics';
 
-const SELECT_FIELDS = new Set([
-  'businessType',
-  'launchTimeline',
-  'orderQuantity',
-  'targetMarket',
-]);
+const SELECT_FIELDS = new Set(['businessType', 'launchTimeline', 'orderQuantity']);
 
 const inputClassName =
   'w-full rounded-lg border border-border bg-surface px-4 py-3 text-heading placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-accent/35 focus:border-accent';
@@ -58,10 +51,6 @@ const initialForm: LeadFormPayload = {
   productInterests: [],
   launchTimeline: '',
   orderQuantity: '',
-  targetMarket: '',
-  scentDirection: '',
-  packagingNotes: '',
-  additionalNotes: '',
 };
 
 const FormSection = ({
@@ -185,7 +174,7 @@ export const LeadFormPage = () => {
           </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-white">{meta.h1}</h1>
           <p className="text-base sm:text-lg leading-relaxed max-w-2xl">
-            Tell us about your brand, scent direction, and launch goals. We will review your project and follow up
+            Tell us about your brand and launch goals. We will review your project and follow up
             with the right next steps for your private label fragrance line.
           </p>
         </div>
@@ -456,92 +445,6 @@ export const LeadFormPage = () => {
                     ))}
                   </select>
                 </div>
-              </div>
-            </FormSection>
-
-            <FormSection
-              icon={Globe2}
-              title="Creative direction"
-              description="The more context you share, the better we can guide your first fragrance launch."
-            >
-              <div>
-                <label htmlFor="targetMarket" className={labelClassName}>
-                  Primary market <span className="text-accent">*</span>
-                </label>
-                <select
-                  id="targetMarket"
-                  name="targetMarket"
-                  required
-                  value={form.targetMarket}
-                  onChange={(event) => updateField('targetMarket', event.target.value)}
-                  onFocus={() => trackFieldFocus('targetMarket')}
-                  className={selectClassName}
-                >
-                  <option value="">Select one</option>
-                  {TARGET_MARKETS.map((market) => (
-                    <option key={market} value={market}>
-                      {market}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="scentDirection" className={labelClassName}>
-                  Scent direction & project goals <span className="text-accent">*</span>
-                </label>
-                <textarea
-                  id="scentDirection"
-                  name="scentDirection"
-                  required
-                  rows={4}
-                  value={form.scentDirection}
-                  onChange={(event) => updateField('scentDirection', event.target.value)}
-                  onFocus={() => trackFieldFocus('scentDirection')}
-                  onBlur={(event) => {
-                    if (event.target.value.trim()) trackFieldComplete('scentDirection');
-                  }}
-                  placeholder="Describe the mood, notes, audience, and what you want this fragrance to achieve for your brand..."
-                  className={`${inputClassName} resize-y min-h-[120px]`}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="packagingNotes" className={labelClassName}>
-                  Packaging & branding notes
-                </label>
-                <textarea
-                  id="packagingNotes"
-                  name="packagingNotes"
-                  rows={3}
-                  value={form.packagingNotes}
-                  onChange={(event) => updateField('packagingNotes', event.target.value)}
-                  onFocus={() => trackFieldFocus('packagingNotes')}
-                  onBlur={(event) => {
-                    if (event.target.value.trim()) trackFieldComplete('packagingNotes');
-                  }}
-                  placeholder="Bottle style, label ideas, gift packaging, price positioning, or existing brand assets..."
-                  className={`${inputClassName} resize-y min-h-[96px]`}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="additionalNotes" className={labelClassName}>
-                  Anything else we should know?
-                </label>
-                <textarea
-                  id="additionalNotes"
-                  name="additionalNotes"
-                  rows={3}
-                  value={form.additionalNotes}
-                  onChange={(event) => updateField('additionalNotes', event.target.value)}
-                  onFocus={() => trackFieldFocus('additionalNotes')}
-                  onBlur={(event) => {
-                    if (event.target.value.trim()) trackFieldComplete('additionalNotes');
-                  }}
-                  placeholder="Budget range, compliance needs, prior fragrance experience, or questions for our team..."
-                  className={`${inputClassName} resize-y min-h-[96px]`}
-                />
               </div>
             </FormSection>
 

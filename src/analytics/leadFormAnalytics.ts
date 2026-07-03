@@ -1,12 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { trackEvent } from './gtag';
 
-const CATEGORICAL_FIELDS = new Set([
-  'businessType',
-  'launchTimeline',
-  'orderQuantity',
-  'targetMarket',
-]);
+const CATEGORICAL_FIELDS = new Set(['businessType', 'launchTimeline', 'orderQuantity']);
 
 export const useLeadFormAnalytics = () => {
   const hasEngaged = useRef(false);

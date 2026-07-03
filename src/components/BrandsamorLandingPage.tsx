@@ -510,8 +510,8 @@ export const BrandsamorLandingPage = () => {
           <div className="flex flex-col gap-6 relative">
             <div className="rounded-xl overflow-hidden w-full">
               <img
-                src="/ill-packaging.png"
-                alt="Perfume bottles, caps, sprayers, and branded packaging options"
+                src="/packamor-fragrance-packaging.png"
+                alt="Fragrance packaging with branded bottles, boxes, and labels"
                 className="w-full h-auto"
                 loading="lazy"
               />
