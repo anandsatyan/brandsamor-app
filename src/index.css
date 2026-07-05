@@ -39,6 +39,7 @@
 :root {
   --font-body: 'Funnel Sans Variable', system-ui, sans-serif;
   --font-display: 'Funnel Display Variable', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --color-surface: rgb(253, 246, 238);
   --color-secondary: rgb(240, 230, 220);
   --color-body: rgb(148, 135, 124);
@@ -75,15 +76,15 @@ body {
 }
 
 h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   color: var(--color-heading);
-  font-weight: 800;
+  font-weight: 400;
 }
 
 h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   color: var(--color-heading);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h3,
@@ -122,11 +123,19 @@ h6 {
   }
 
   .hero-panel h1,
-  .hero-panel h2,
+  .hero-panel h2 {
+    color: white;
+  }
+
+  .hero-panel h1 {
+    text-shadow: 1px 1px 2px #A5472C;
+  }
+
   .hero-panel h3,
   .hero-panel h4,
   .hero-panel h5,
   .hero-panel h6 {
+    font-family: var(--font-display);
     color: white;
   }
 
@@ -136,6 +145,21 @@ h6 {
   }
 
   .hero-panel .text-heading {
+    color: white;
+  }
+
+  .bg-heading h1,
+  .bg-heading h2,
+  .bg-heading h3,
+  .bg-heading h4,
+  .bg-heading h5,
+  .bg-heading h6,
+  .surface-dark h1,
+  .surface-dark h2,
+  .surface-dark h3,
+  .surface-dark h4,
+  .surface-dark h5,
+  .surface-dark h6 {
     color: white;
   }
 

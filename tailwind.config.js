@@ -15,6 +15,7 @@ export default {
       fontFamily: {
         sans: ['"Funnel Sans Variable"', 'system-ui', 'sans-serif'],
         display: ['"Funnel Display Variable"', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'Times New Roman', 'serif'],
       },
       keyframes: {
         'audience-marquee': {

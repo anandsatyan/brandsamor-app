@@ -309,7 +309,7 @@ export const BrandsamorLandingPage = () => {
       <HeroPanel
         id="overview"
         layout="viewport"
-        backgroundSrc="/perfume-bottle-silhouette-bg-2.jpeg"
+        backgroundSrc="/perfume-bottle-silhouette-bg-3.png"
         backgroundPosition="50% 60%"
         className="mb-8 sm:mb-12 text-center"
       >
@@ -317,10 +317,12 @@ export const BrandsamorLandingPage = () => {
           <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
             PRIVATE LABEL
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight text-white">
+          <h1
+            className="text-3xl sm:text-4xl md:text-6xl leading-tight text-white"
+          >
             The Easy Way to Start Your Own Perfume Line
           </h1>
-          <p className="text-base sm:text-lg max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg max-w-2xl leading-relaxed" style={{ textShadow: '1px 1px 2px #A5472C' }}>
             Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
           </p>
           <ComingSoonLabel variant="hero" trackingLocation="homepage_hero" />

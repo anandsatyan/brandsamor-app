@@ -23,7 +23,7 @@ export const SplitPanelSection = ({
     <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-2xl">{title}</h2>
     <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
       <div className="surface-soft p-6 sm:p-8">
-        <h3 className="font-display text-xl sm:text-2xl mb-6">{leftTitle}</h3>
+        <h3 className="font-display text-xl sm:text-2xl mb-6 text-heading">{leftTitle}</h3>
         <ul className="space-y-4">
           {leftItems.map((item) => (
             <li key={item} className="flex gap-3 text-sm sm:text-base text-body">
@@ -34,13 +34,13 @@ export const SplitPanelSection = ({
         </ul>
       </div>
       <div
-        className={`rounded-2xl p-6 sm:p-8 ${
+        className={`rounded-2xl p-6 sm:p-8 surface-dark ${
           rightDark
             ? 'bg-heading text-white'
             : 'surface-soft'
         }`}
       >
-        <h3 className="font-display text-xl sm:text-2xl mb-6">{rightTitle}</h3>
+        <h3 className={`font-display text-xl sm:text-2xl mb-6 ${rightDark ? 'text-white' : 'text-heading'}`}>{rightTitle}</h3>
         <ul className="space-y-4">
           {rightItems.map((item) => (
             <li

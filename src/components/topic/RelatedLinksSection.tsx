@@ -20,7 +20,7 @@ export const RelatedLinksSection = ({
 
   return (
     <section className="py-10 sm:py-12 border-t border-border">
-      <h2 className="text-xl sm:text-2xl font-display mb-4">{title}</h2>
+      <h2 className="text-xl sm:text-2xl mb-4">{title}</h2>
       <ul className="space-y-3">
         {links.map((link) => (
           <li key={link.to}>
