@@ -337,7 +337,7 @@ export const BrandsamorLandingPage = () => {
               <span className="w-8 h-px bg-border"></span> HOW IT WORKS
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">
-              Branded perfumes, <i className="font-normal not-italic font-sans">made simple</i>
+              Branded perfumes, made simple.
             </h2>
             <p className="text-base sm:text-lg text-body mb-8 sm:mb-12">
               Start with samples, choose the scents you like, customize the look, and launch your first ready-to-sell perfume line in weeks — not months.
