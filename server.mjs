@@ -21,6 +21,7 @@ const PUBLIC_ROUTES = new Set([
   '/about',
   '/contact',
   '/get-started',
+  '/curated-sampling',
   '/login',
   '/privacy-policy',
   '/terms',
@@ -39,6 +40,9 @@ const PUBLIC_ROUTES = new Set([
   '/knowledge-base/how-ifra-certificates-work',
   '/knowledge-base/perfume-certificate-of-analysis',
 ]);
+
+/** Client-rendered routes without prerendered HTML — serve root SPA shell. */
+const SPA_ONLY_ROUTES = new Set(['/curated-sampling']);
 
 const STATIC_FILES = new Set([
   '/robots.txt',
@@ -130,6 +134,12 @@ const resolveFile = (urlPath) => {
         : path.join(distDir, normalized.slice(1), 'index.html');
     if (fs.existsSync(htmlPath)) {
       return { filePath: htmlPath, status: 200 };
+    }
+    if (SPA_ONLY_ROUTES.has(normalized)) {
+      const spaIndex = path.join(distDir, 'index.html');
+      if (fs.existsSync(spaIndex)) {
+        return { filePath: spaIndex, status: 200 };
+      }
     }
   }
 

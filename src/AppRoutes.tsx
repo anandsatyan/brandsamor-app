@@ -32,6 +32,10 @@ const PrivacyPolicyPage = lazyNamed(() => import('./components/PrivacyPolicyPage
 const TermsPage = lazyNamed(() => import('./components/TermsPage'), 'TermsPage');
 const RefundPolicyPage = lazyNamed(() => import('./components/RefundPolicyPage'), 'RefundPolicyPage');
 const NotFoundPage = lazyNamed(() => import('./components/NotFoundPage'), 'NotFoundPage');
+const CuratedSamplingPage = lazyNamed(
+  () => import('./components/CuratedSamplingPage'),
+  'CuratedSamplingPage',
+);
 
 export const AppRoutes = () => (
   <>
@@ -50,6 +54,7 @@ export const AppRoutes = () => (
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/get-started" element={<LeadFormPage />} />
+        <Route path="/curated-sampling" element={<CuratedSamplingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
         <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticlePage />} />

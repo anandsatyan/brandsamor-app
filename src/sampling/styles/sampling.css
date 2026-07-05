@@ -1,0 +1,53 @@
+.sampling-experience {
+  --sampling-cream: #fef7ed;
+  --sampling-orange: #ff600a;
+  --sampling-heading: #2b1809;
+  --sampling-surface: #fffdfc;
+  --sampling-border: #eadfd3;
+  --sampling-muted: #725f52;
+  --sampling-yellow: #ffd43b;
+  --sampling-success: #137a3a;
+  --sampling-error: #b42318;
+  --sampling-orange-tint: rgba(255, 96, 10, 0.08);
+
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: var(--sampling-heading);
+  background: var(--sampling-cream);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.sampling-experience h1,
+.sampling-experience h2,
+.sampling-experience h3,
+.sampling-experience h4 {
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: var(--sampling-heading);
+  font-weight: 700;
+}
+
+.sampling-experience *:focus-visible {
+  outline: 2px solid var(--sampling-orange);
+  outline-offset: 2px;
+}
+
+.sampling-chip-selected {
+  background: var(--sampling-orange-tint);
+  border-color: var(--sampling-orange);
+}
+
+.sampling-option-selected {
+  background: var(--sampling-orange-tint);
+  border-color: var(--sampling-orange);
+  transform: scale(1.01);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sampling-experience *,
+  .sampling-experience *::before,
+  .sampling-experience *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
