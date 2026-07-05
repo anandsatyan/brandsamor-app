@@ -12,6 +12,7 @@ import {
   ProductionIllustration,
   RoomSprayIllustration,
 } from '../components/Illustrations';
+import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { WHO_WE_WORK_WITH_FAQ_ITEMS } from '../seo/pageSeo';
 import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
@@ -24,7 +25,8 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
     badge: 'WHO WE WORK WITH',
     title: pageMeta.h1,
     description:
-      'Brandsamor works with beauty brands, creators, boutiques, hotels, spas, salons, home fragrance labels, and gifting companies that want a premium branded fragrance — without building production in-house.',
+      'Brandsamor works with beauty brands, creators, boutiques, hotels, spas, salons, home fragrance labels, and gifting companies that want a premium branded fragrance — without building production in-house. ' +
+      COMMERCIAL_COPY.suitabilityNote,
     Illustration: HeroBottleIllustration,
   },
   sections: withSteps(
@@ -33,7 +35,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'creators-influencers',
         title: 'Creators and influencers',
         description:
-          'A signature perfume gives creators a tangible product their audience can buy, gift, and associate with their personal brand. Sampling, production, and quality checks are handled so you can focus on your community.',
+          'A signature perfume gives creators a tangible product their audience can buy, gift, and associate with their personal brand. Fragrance suits creators because it extends brand memory beyond content into a wearable product. Typical formats include eau de parfum and travel sizes. Start with [fragrance sampling](/fragrance-sampling), then explore [product formats](/fragrance-products).',
         bullets: sectionBullets(
           'Launch a fragrance your audience can wear and gift',
           'Sample scents before committing to production',
@@ -46,7 +48,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'boutiques',
         title: 'Boutiques and retail stores',
         description:
-          'A well-packaged private label perfume can become a high-margin product on your retail floor or online store — especially when it aligns with the aesthetic and price point your customers already expect.',
+          'A well-packaged private label perfume can become a high-margin product on your retail floor or online store. Fragrance suits boutiques because it is giftable, display-friendly, and complements existing assortments. Eau de parfum and gift sets are common starting formats. Launch with [fragrance sampling](/fragrance-sampling) and [packaging options](/packaging-branding).',
         bullets: sectionBullets(
           'Add a branded fragrance that sells itself in-store',
           'Retail-ready packaging for shelf and gift presentation',
@@ -59,7 +61,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'salons-spas',
         title: 'Salons and spas',
         description:
-          'Spas and salons can extend the in-visit experience with a branded fragrance clients take home. Perfume reinforces your treatment environment and gives clients a daily reminder of your studio.',
+          'Spas and salons can extend the in-visit experience with a branded fragrance clients take home. Body mists and eau de parfum work well for wellness positioning. Start with sampling, then choose packaging that matches your studio aesthetic via [packaging and branding](/packaging-branding).',
         bullets: sectionBullets(
           'Let clients take your scent experience home',
           'Pair fragrance with existing wellness or beauty services',
@@ -72,7 +74,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'beauty-skincare',
         title: 'Beauty and skincare brands',
         description:
-          'Fragrance extends your scent world into a personal, wearable product your customers can buy, gift, and come back for — without adding heavy inventory or in-house fragrance production.',
+          'Fragrance extends your scent world into a personal, wearable product your customers can buy, gift, and come back for. Eau de parfum and body mists are common extensions for skincare brands. See [fragrance products](/fragrance-products) and the [launch process](/how-it-works).',
         bullets: sectionBullets(
           'Extend your brand into a premium fragrance category',
           'Align scent direction with your existing product line',
@@ -85,7 +87,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'candle-home-fragrance',
         title: 'Candle and home fragrance brands',
         description:
-          'If you already sell candles, diffusers, or room sprays, personal fragrance is a natural extension. Move into wearable scent with your existing fragrance expertise and customer base.',
+          'If you already sell candles, diffusers, or room sprays, personal fragrance is a natural extension. Room sprays and eau de parfum help you offer a complete scent world. Explore [product formats](/fragrance-products) and [sampling](/fragrance-sampling).',
         bullets: sectionBullets(
           'Extend home scent into personal perfume',
           'Leverage your existing scent direction and audience',
@@ -98,7 +100,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'hotels-hospitality',
         title: 'Hotels and hospitality',
         description:
-          'A branded perfume lets guests take home the scent of your property, spa, or resort — reinforcing your brand long after checkout. Hospitality fragrance becomes a souvenir customers actively want.',
+          'A branded perfume lets guests take home the scent of your property, spa, or resort. Travel sizes and room sprays suit hospitality retail and amenities. See [packaging and branding](/packaging-branding) for gift-ready presentation.',
         bullets: sectionBullets(
           'Guests take your property scent home with them',
           'Amenity, retail, and gift shop revenue opportunity',
@@ -111,7 +113,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'lifestyle-wellness',
         title: 'Lifestyle and wellness brands',
         description:
-          'Wellness and lifestyle labels can offer fragrance as part of a holistic brand experience — clean scents, mindful gifting, and products that fit a daily ritual without feeling mass-market.',
+          'Wellness and lifestyle labels can offer fragrance as part of a holistic brand experience. Body mists and perfume oils suit lighter everyday positioning. Start with [fragrance sampling](/fragrance-sampling) to find a scent direction.',
         bullets: sectionBullets(
           'Fragrance as part of a broader wellness story',
           'Formats like body mists for lighter everyday wear',
@@ -124,7 +126,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'corporate-gifting',
         title: 'Corporate gifting companies',
         description:
-          'Premium branded perfume sets are a strong fit for B2B gifting programs — client appreciation, employee rewards, and event giveaways where a tangible, luxurious product makes an impression.',
+          'Premium branded perfume sets are a strong fit for B2B gifting programs. Gift sets and travel formats work well for corporate events. Explore [product formats](/fragrance-products) and [packaging options](/packaging-branding).',
         bullets: sectionBullets(
           'Offer custom-branded perfume for corporate programs',
           'Gift sets and travel sizes for event and client gifting',
@@ -163,7 +165,9 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         id: 'is-brandsamor-right',
         title: 'Is Brandsamor right for you?',
         description:
-          'If you have an audience, a brand, and a reason to offer a premium product — retail, e-commerce, events, or gifting — private label perfume may be a strong next line. Start with scent samples and a brief conversation to explore the fit.',
+          'If you have an audience, a brand, and a reason to offer a premium product — retail, e-commerce, events, or gifting — private label perfume may be a strong next line. ' +
+          COMMERCIAL_COPY.suitabilityNote +
+          ' Start with [fragrance sampling](/fragrance-sampling) and a brief conversation to explore the fit.',
         bullets: sectionBullets(
           'You have a brand and customers who would buy fragrance',
           'You want production handled without factory setup',

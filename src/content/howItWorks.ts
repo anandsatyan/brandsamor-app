@@ -12,6 +12,7 @@ import {
   RepeatOrderIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
+import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { PROCESS_FAQ_ITEMS, SITE_NAME } from '../seo/siteConfig';
 import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
@@ -24,7 +25,7 @@ export const howItWorksConfig: TopicPageConfig = {
   hero: {
     badge: 'HOW IT WORKS',
     title: pageMeta.h1,
-    description: `${SITE_NAME} guides you through every step of launching a private label fragrance line — sampling scents, customizing the product, approving production, and receiving finished perfumes under your brand.`,
+    description: `${SITE_NAME} guides you through every step of launching a private label fragrance line — from [fragrance sampling](/fragrance-sampling) and [product formats](/fragrance-products) to [packaging](/packaging-branding), production approval, and delivery.`,
     Illustration: ProcessTimelineIllustration,
   },
   sections: withSteps(
@@ -46,7 +47,7 @@ export const howItWorksConfig: TopicPageConfig = {
         id: 'explore-fragrance-samples',
         title: 'Explore fragrance samples',
         description:
-          'Browse the Brandsamor scent library and order samples that fit your brand personality. Compare how each fragrance feels before committing to production.',
+          'Browse the Brandsamor scent library and order samples that fit your brand personality. Compare how each fragrance feels before committing to production. See the [fragrance sampling](/fragrance-sampling) page for dispatch and evaluation details.',
         bullets: sectionBullets(
           'Access a curated library of ready-to-launch scents',
           'Order samples to compare notes and wearability',
@@ -72,7 +73,7 @@ export const howItWorksConfig: TopicPageConfig = {
         id: 'select-bottles-caps-sprays',
         title: 'Select bottles, caps and sprays',
         description:
-          'Choose the bottle shape, size, cap finish, and spray hardware that fit your brand look and price point.',
+          'Choose the bottle shape, size, cap finish, and spray hardware that fit your brand look and price point. Explore [packaging and branding](/packaging-branding) options in detail.',
         bullets: sectionBullets(
           'Bottle shapes, capacities, and glass finishes',
           'Cap styles including metal, wood, and ABS options',
@@ -124,7 +125,7 @@ export const howItWorksConfig: TopicPageConfig = {
         id: 'quality-checks',
         title: 'Quality checks',
         description:
-          'Each batch goes through checks for fill level, spray performance, label alignment, packaging integrity, and batch documentation.',
+          'Each batch goes through checks for fill level, spray performance, label alignment, packaging integrity, and batch documentation. Read more on [quality and compliance](/quality-compliance).',
         bullets: sectionBullets(
           'Fill level, leak, and spray performance checks',
           'Label, cap, and packaging inspection',
@@ -137,7 +138,7 @@ export const howItWorksConfig: TopicPageConfig = {
         id: 'delivery-finished-perfumes',
         title: 'Delivery of finished perfumes',
         description:
-          'Your finished perfumes are packed and shipped ready to sell, gift, or place on shelf within weeks of approving the production sample.',
+          `Your finished perfumes are packed and shipped ready to sell, gift, or place on shelf. ${COMMERCIAL_COPY.productionTimeline}`,
         bullets: sectionBullets(
           'Finished products packed for your sales channel',
           'Worldwide shipping options based on your order',
@@ -181,6 +182,7 @@ export const howItWorksConfig: TopicPageConfig = {
   relatedLinks: {
     links: [
       { to: '/fragrance-sampling', label: 'Explore our fragrance sampling process' },
+      { to: '/fragrance-products', label: 'Compare fragrance product formats' },
       { to: '/packaging-branding', label: 'Review your packaging and branding options' },
       { to: '/quality-compliance', label: 'Understand our quality and compliance support' },
     ],
@@ -205,5 +207,27 @@ export const howItWorksSplitPanel = {
     'Production sample preparation',
     'Quality checks and batch documentation',
     'Packing and delivery of finished perfumes',
+  ],
+};
+
+export const howItWorksTimelineSummary = {
+  title: 'Timeline summary',
+  items: [
+    {
+      phase: 'Sample dispatch',
+      detail: COMMERCIAL_COPY.sampleDispatch,
+    },
+    {
+      phase: 'Evaluation',
+      detail: 'Compare samples on skin, share with your team, and choose your launch scent or small set.',
+    },
+    {
+      phase: 'Production',
+      detail: COMMERCIAL_COPY.productionTimeline,
+    },
+    {
+      phase: 'Delivery',
+      detail: 'Finished perfumes packed and shipped worldwide, subject to destination, product and logistics requirements.',
+    },
   ],
 };

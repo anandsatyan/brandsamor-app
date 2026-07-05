@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { BrandLogo } from './BrandLogo';
 import { ORGANIZATION } from '../seo/siteConfig';
+import { trackEmailClick, trackPhoneClick } from '../analytics/siteAnalytics';
 import { INTERNAL_PAGES } from '../routes/siteRoutes';
 
 const footerExploreLinks = [
@@ -78,7 +79,11 @@ export const SiteFooter = () => {
               We have team presence across the US, India, Dubai and China.
             </p>
             <p>
-              <a href={`tel:${ORGANIZATION.phone}`} className="hover:text-accent">
+              <a
+                href={`tel:${ORGANIZATION.phone}`}
+                className="hover:text-accent"
+                onClick={() => trackPhoneClick('footer')}
+              >
                 {ORGANIZATION.phone}
               </a>
             </p>
@@ -86,6 +91,7 @@ export const SiteFooter = () => {
               <a
                 href={`mailto:${ORGANIZATION.email}`}
                 className="hover:text-accent"
+                onClick={() => trackEmailClick('footer')}
               >
                 {ORGANIZATION.email}
               </a>

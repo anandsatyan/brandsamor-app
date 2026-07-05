@@ -9,7 +9,7 @@ import {
 } from '../content/policies';
 import { KNOWLEDGE_BASE_ARTICLES } from '../content/knowledgeBase/articles';
 import { kbArticlePath } from '../content/knowledgeBase/types';
-import type { KbArticle } from '../content/knowledgeBase/types';
+import type { KbArticleBase } from '../content/knowledgeBase/types';
 import { HOMEPAGE_STATIC_SECTIONS, TOPIC_ROUTE_CONFIGS } from './routeContentRegistry';
 
 const escapeHtml = (value: string) =>
@@ -83,7 +83,7 @@ const renderInfoStatic = (meta: PageMetadata, sections: InfoSection[]) => `<main
     .join('\n')}
 </main>`;
 
-const renderKbArticleStatic = (meta: PageMetadata, article: KbArticle) => `<main id="brandsamor-static-content">
+const renderKbArticleStatic = (meta: PageMetadata, article: KbArticleBase) => `<main id="brandsamor-static-content">
   <h1>${escapeHtml(meta.h1)}</h1>
   <p>${escapeHtml(article.excerpt)}</p>
   ${article.sections

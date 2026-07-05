@@ -1,4 +1,5 @@
 import type { FaqItem } from './siteConfig';
+import { COMMERCIAL_COPY } from './businessFacts';
 
 // ——— Fragrance Products ———
 
@@ -41,7 +42,10 @@ export const FRAGRANCE_SAMPLING_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Why should I order fragrance samples before launching my perfume line?',
     answer:
-      'Samples let you compare how different scents feel on skin, in the bottle, and in the context of your brand before committing to a full production batch. It is the recommended first step for a confident launch.',
+      'Samples let you compare how different scents wear on skin and fit your brand before committing to production — the recommended first step for a confident launch. ' +
+      COMMERCIAL_COPY.sampleDispatch +
+      ' ' +
+      COMMERCIAL_COPY.sampleDeliveryNote,
   },
   {
     question: 'How does the Brandsamor scent library work?',
@@ -121,7 +125,8 @@ export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How long does it take to launch my first branded perfume?',
     answer:
-      'Most brands move from scent selection to a ready-to-sell first batch in weeks, not months. Timelines depend on how quickly you choose scents and approve packaging, but Brandsamor is designed for faster launches.',
+      COMMERCIAL_COPY.productionTimeline +
+      ' Sampling and packaging approvals happen before that production window.',
   },
   {
     question: 'What is the first step to starting a private label perfume line?',
@@ -131,7 +136,8 @@ export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I start small and grow my fragrance line over time?',
     answer:
-      'Yes. Brandsamor is built to help you launch with a focused first batch, learn what customers like, and add new scents, sizes, or packaging updates as demand grows.',
+      COMMERCIAL_COPY.minimumOrderValue +
+      ' Start with a focused first batch, learn what customers like, and add new scents, sizes, or packaging updates as demand grows.',
   },
   {
     question: 'Is perfume a good fit if fragrance is not my core business?',
@@ -171,7 +177,8 @@ export const WHO_WE_WORK_WITH_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What if I am not sure whether my business is the right fit?',
     answer:
-      'If you have an audience, a brand, and a reason to offer a premium product — retail, e-commerce, events, or gifting — private label perfume may be a strong next line. Start with a brief and scent samples to explore the fit.',
+      COMMERCIAL_COPY.suitabilityNote +
+      ' If you have an audience, a brand, and a reason to offer a premium product, start with a brief and scent samples to explore the fit.',
   },
 ];
 
@@ -206,7 +213,8 @@ export const WHY_BRANDSAMOR_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How quickly can I get a ready-to-sell perfume batch from Brandsamor?',
     answer:
-      'Most brands move from scent selection to a finished, packed first batch in weeks. Exact timing depends on scent choice, packaging customization, and batch size, but speed is a core part of the Brandsamor workflow.',
+      COMMERCIAL_COPY.productionTimeline +
+      ' Earlier steps such as sampling and packaging approval affect your overall schedule.',
   },
 ];
 
@@ -216,7 +224,7 @@ export const QUALITY_COMPLIANCE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What compliance support does Brandsamor provide for fragrance products?',
     answer:
-      'Compliance needs vary by product type, market, and sales channel. Where applicable, Brandsamor can support documentation such as FDA MoCRA registration guidance, GMP-compliant production, Certificates of Analysis, IFRA certificates, allergen information, and batch records.',
+      'Brandsamor may support IFRA certificates, Certificates of Analysis, allergen information and batch records where applicable — confirmed per project. The brand owner remains responsible for final product, claims, labelling and sales compliance.',
   },
   {
     question: 'Are Brandsamor perfume products FDA approved?',

@@ -28,7 +28,7 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
     <PageBreadcrumbBar items={homeBreadcrumbs(pageMeta.pageName)} />
 
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <PageHero {...config.hero} />
+      <PageHero {...config.hero} trackingLocation={`topic_hero${config.seo.path}`} />
       <ContentSections sections={config.sections} />
       {children}
       {config.beforeFaq}

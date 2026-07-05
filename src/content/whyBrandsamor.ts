@@ -24,7 +24,7 @@ export const whyBrandsamorConfig: TopicPageConfig = {
     badge: 'WHY BRANDSAMOR',
     title: pageMeta.h1,
     description:
-      'Brandsamor handles sourcing, filling, packaging, and quality checks so you do not need a factory, production staff, or months of setup. Sample first, customize your bottle and branding, and receive a ready-to-sell batch in weeks.',
+      'Brandsamor handles sourcing, filling, packaging, and quality checks so you do not need a factory, production staff, or months of setup. Sample first via [fragrance sampling](/fragrance-sampling), customize your bottle and branding, and receive a ready-to-sell batch in weeks.',
     Illustration: ProcessTimelineIllustration,
   },
   sections: withSteps(
@@ -176,5 +176,13 @@ export const whyBrandsamorConfig: TopicPageConfig = {
     description:
       'Ready to launch a branded fragrance without factory setup? Order scent samples, explore bottle and packaging options, and plan your first ready-to-sell batch with Brandsamor.',
     Illustration: ProcessTimelineIllustration,
+  },
+  relatedLinks: {
+    links: [
+      { to: '/about', label: 'About Brandsamor and Packamor LLC' },
+      { to: 'https://www.packamor.com/pages/about-us', label: 'Packamor About page', external: true },
+      { to: '/quality-compliance', label: 'Quality and compliance support' },
+      { to: '/contact', label: 'Contact Brandsamor' },
+    ],
   },
 };

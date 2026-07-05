@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { InfoPageLayout } from '../components/info/InfoPageLayout';
+import { trackContactCta, trackEmailClick, trackPhoneClick } from '../analytics/siteAnalytics';
 import { ORGANIZATION } from '../seo/siteConfig';
 import { PAGE_METADATA } from '../seo/pageMetadata';
 
@@ -17,13 +18,27 @@ export const ContactPage = () => {
         <address className="not-italic space-y-3 text-heading">
           <p>
             <span className="font-semibold">Email: </span>
-            <a href={`mailto:${ORGANIZATION.email}`} className="underline decoration-accent underline-offset-4 hover:text-accent">
+            <a
+              href={`mailto:${ORGANIZATION.email}`}
+              className="underline decoration-accent underline-offset-4 hover:text-accent"
+              onClick={() => {
+                trackEmailClick('contact_page');
+                trackContactCta('contact_page', 'email');
+              }}
+            >
               {ORGANIZATION.email}
             </a>
           </p>
           <p>
             <span className="font-semibold">Phone: </span>
-            <a href={`tel:${ORGANIZATION.phone}`} className="underline decoration-accent underline-offset-4 hover:text-accent">
+            <a
+              href={`tel:${ORGANIZATION.phone}`}
+              className="underline decoration-accent underline-offset-4 hover:text-accent"
+              onClick={() => {
+                trackPhoneClick('contact_page');
+                trackContactCta('contact_page', 'phone');
+              }}
+            >
               {ORGANIZATION.phone}
             </a>
           </p>

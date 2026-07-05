@@ -1,3 +1,4 @@
+import { PACKAMOR_URL } from './businessFacts';
 import { CANONICAL_ORIGIN, OG_SITE_NAME, PAGE_METADATA } from './pageMetadata';
 
 const envSiteUrl =
@@ -19,14 +20,13 @@ export const ORGANIZATION = {
   phone: '+1-848-220-1353',
   email: 'info@brandsamor.com',
   address: {
-    streetAddress: '1118 S Governors Ave',
+    streetAddress: '1111B S Governors Ave',
     addressLocality: 'Dover',
     addressRegion: 'DE',
     postalCode: '19904',
     addressCountry: 'US',
   },
-  /** Add verified profile URLs here when available for Organization sameAs markup. */
-  sameAs: [] as string[],
+  sameAs: [PACKAMOR_URL],
 };
 
 export type FaqItem = {
@@ -53,7 +53,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How long does it take to launch a branded perfume?',
     answer:
-      'Most brands can move from scent selection to a ready-to-sell first batch in weeks, not months. Timelines depend on scent choice, packaging customization, and batch size, but Brandsamor is built for faster launches than traditional private label setups.',
+      'Typical production takes approximately 3-6 weeks after fragrance, packaging, artwork and production details have been approved. Earlier steps such as sampling and packaging decisions happen before that window begins.',
   },
   {
     question: 'Do I need my own perfume factory to sell under my brand?',
@@ -63,7 +63,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I order perfume samples before placing a bulk order?',
     answer:
-      'Yes. Brandsamor is designed so you can order samples first, compare scent options, and confirm the direction that fits your brand before committing to your first production batch.',
+      'Yes — available fragrance samples are normally dispatched within 2-3 business days. Delivery timing depends on destination and shipping service selected.',
   },
   {
     question: 'What packaging options are available for private label perfume?',
@@ -78,7 +78,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What is the minimum order quantity for a private label perfume launch?',
     answer:
-      'Minimum order quantities depend on the bottle, packaging, and scent you choose. Brandsamor is built to help brands start with a focused first batch, test customer demand, and expand the line over time rather than requiring a large factory-scale launch on day one.',
+      'Production orders start from a minimum project value of USD $2,000. Exact unit quantities depend on product format, bottle, decoration, box, fragrance, destination and project requirements.',
   },
   {
     question: 'How is private label perfume different from white label fragrance?',
@@ -93,7 +93,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Does Brandsamor ship private label perfume worldwide?',
     answer:
-      'Brandsamor supports brands launching fragrance products with worldwide shipping options. Exact shipping availability and lead times depend on your order details and destination.',
+      'Yes — Brandsamor initially serves customers worldwide, subject to destination, product, logistics and compliance requirements.',
   },
 ];
 
@@ -101,7 +101,7 @@ export const PROCESS_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How long does the full private label process take?',
     answer:
-      'Most brands move from initial brief to a ready-to-sell first batch in weeks. Timelines depend on how quickly you choose scents and approve packaging, but Brandsamor is built for faster launches than traditional factory setups.',
+      'Typical production takes approximately 3-6 weeks after fragrance, packaging, artwork and production details have been approved. Sampling and approvals before production can add time depending on your pace.',
   },
   {
     question: 'Do I need to finalize every detail before starting?',

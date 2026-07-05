@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { BodyCopy } from '../BodyCopy';
 import { homeBreadcrumbs } from '../Breadcrumbs';
 import { HeroPanel } from '../HeroPanel';
 import { PageBreadcrumbBar } from '../PageBreadcrumbBar';
@@ -61,7 +62,7 @@ export const InfoSections = ({ sections }: { sections: InfoSection[] }) => (
         <h2 className="text-2xl sm:text-3xl mb-4">{section.title}</h2>
         {section.paragraphs.map((paragraph) => (
           <p key={paragraph} className="text-body leading-relaxed mb-4 last:mb-0">
-            {paragraph}
+            <BodyCopy>{paragraph}</BodyCopy>
           </p>
         ))}
         {section.bullets && section.bullets.length > 0 && (

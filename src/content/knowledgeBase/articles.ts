@@ -1,6 +1,6 @@
-import type { KbArticle } from './types';
+import type { KbArticleBase } from './types';
 
-export const KNOWLEDGE_BASE_ARTICLES: KbArticle[] = [
+export const KNOWLEDGE_BASE_ARTICLES: KbArticleBase[] = [
   {
     slug: 'how-to-start-a-perfume-line',
     title: 'How to Start a Perfume Line: Complete Step-by-Step Guide',

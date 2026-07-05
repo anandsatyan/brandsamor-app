@@ -64,7 +64,10 @@ ${urls}
 `;
 };
 
-export const buildRobotsTxt = () => `User-agent: *
+export const buildRobotsTxt = () => `User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: *
 Allow: /
 
 Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml
