@@ -306,7 +306,13 @@ export const BrandsamorLandingPage = () => {
       />
       <SiteHeader />
 
-      <HeroPanel id="overview" layout="viewport" className="mb-8 sm:mb-12 text-center">
+      <HeroPanel
+        id="overview"
+        layout="viewport"
+        backgroundSrc="/perfume-bottle-silhouette-bg-2.jpeg"
+        backgroundPosition="50% 60%"
+        className="mb-8 sm:mb-12 text-center"
+      >
         <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
           <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
             PRIVATE LABEL

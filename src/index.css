@@ -113,6 +113,10 @@ h6 {
     }
   }
 
+  .hero-panel__background {
+    object-fit: cover;
+  }
+
   .hero-panel__mist {
     opacity: 0.92;
   }

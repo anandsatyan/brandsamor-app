@@ -8,11 +8,15 @@ export const HeroPanel = ({
   className = '',
   id,
   layout = 'default',
+  backgroundSrc = '/hero-background.png',
+  backgroundPosition = 'center center',
 }: {
   children: ReactNode;
   className?: string;
   id?: string;
   layout?: 'default' | 'viewport';
+  backgroundSrc?: string;
+  backgroundPosition?: string;
 }) => {
   const isViewport = layout === 'viewport';
 
@@ -26,10 +30,11 @@ export const HeroPanel = ({
       ].join(' ')}
     >
       <img
-        src="/hero-background.png"
+        src={backgroundSrc}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
+        className="hero-panel__background pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+        style={{ objectPosition: backgroundPosition }}
         fetchPriority="high"
         decoding="async"
       />
