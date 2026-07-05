@@ -52,6 +52,8 @@ const articleNode = (meta: PageMetadata, article: KbArticle) => ({
   name: article.title,
   description: article.description,
   keywords: article.targetKeyword,
+  datePublished: article.meta.publishedDate,
+  dateModified: article.meta.updatedDate,
   inLanguage: 'en-US',
   isPartOf: { '@id': `${meta.canonical}#webpage` },
   author: {

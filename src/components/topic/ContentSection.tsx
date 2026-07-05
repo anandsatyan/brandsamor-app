@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react';
+import { BodyCopy } from '../BodyCopy';
 import { SectionEyebrow } from './SectionEyebrow';
 import { MarbleBottleIllustration } from '../Illustrations';
 import type { ContentSectionData } from './types';
@@ -24,7 +25,9 @@ export const ContentSection = ({
         </SectionEyebrow>
       )}
       <h2 className="text-3xl sm:text-4xl mb-6">{title}</h2>
-      <p className="text-base sm:text-lg text-body mb-6 leading-relaxed">{description}</p>
+      <p className="text-base sm:text-lg text-body mb-6 leading-relaxed">
+        <BodyCopy>{description}</BodyCopy>
+      </p>
       {bullets && bullets.length > 0 && (
         <ul className="space-y-3">
           {bullets.map((bullet) => (

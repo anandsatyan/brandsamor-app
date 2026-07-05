@@ -7,6 +7,7 @@ import {
   ProcessTimelineIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
+import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { FRAGRANCE_SAMPLING_FAQ_ITEMS } from '../seo/pageSeo';
 import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
@@ -20,7 +21,10 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     badge: 'FRAGRANCE SAMPLING',
     title: pageMeta.h1,
     description:
-      'Browse the Brandsamor scent library, order samples that fit your brand, and compare fragrance directions with confidence before your first production batch.',
+      'Browse the Brandsamor scent library, order samples that fit your brand, and compare fragrance directions with confidence before your first production batch. ' +
+      COMMERCIAL_COPY.sampleDispatch +
+      ' ' +
+      COMMERCIAL_COPY.sampleDeliveryNote,
     Illustration: ScentSamplesIllustration,
   },
   sections: withSteps(
@@ -29,7 +33,8 @@ export const fragranceSamplingConfig: TopicPageConfig = {
         id: 'how-scent-library-works',
         title: 'How the scent library works',
         description:
-          'The Brandsamor scent library is a curated collection of ready-to-launch fragrances organized for private label brands. Browse by style, compare notes, and order the samples you want to evaluate on skin and in context.',
+          'The Brandsamor scent library is a curated collection of ready-to-launch fragrances organized for private label brands. Browse by style, compare notes, and order the samples you want to evaluate on skin and in context. ' +
+          COMMERCIAL_COPY.sampleDispatch,
         bullets: sectionBullets(
           'Access a curated library of launch-ready fragrances',
           'Browse scent directions that match your brand personality',
@@ -146,7 +151,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
         id: 'after-approval',
         title: 'What happens after approval',
         description:
-          'After you approve your fragrance selection, the launch path continues through bottle and packaging customization, production sample review, filling, quality checks, and delivery of your ready-to-sell batch.',
+          'After you approve your fragrance selection, the launch path continues through bottle and packaging customization, production sample review, filling, quality checks, and delivery of your ready-to-sell batch. See [how it works](/how-it-works), explore [fragrance products](/fragrance-products), or [start planning your line](/start-a-perfume-line).',
         bullets: sectionBullets(
           'Customize bottle, cap, label, and packaging',
           'Review and approve a production sample',
@@ -172,5 +177,12 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     description:
       'Start with the scents that fit your brand. Order samples from the Brandsamor scent library, compare directions on skin, and choose the fragrance you want to build your private label line around.',
     Illustration: ScentSamplesIllustration,
+  },
+  relatedLinks: {
+    links: [
+      { to: '/how-it-works', label: 'See the full private-label launch process' },
+      { to: '/fragrance-products', label: 'Compare fragrance product formats' },
+      { to: '/start-a-perfume-line', label: 'Start planning your perfume line' },
+    ],
   },
 };

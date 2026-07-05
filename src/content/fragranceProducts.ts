@@ -9,6 +9,7 @@ import {
   RoomSprayIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
+import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import {
   FRAGRANCE_PRODUCTS_FAQ_ITEMS,
 } from '../seo/pageSeo';
@@ -24,7 +25,8 @@ export const fragranceProductsConfig: TopicPageConfig = {
     badge: 'FRAGRANCE PRODUCTS',
     title: pageMeta.h1,
     description:
-      'From full-size eau de parfum to travel sprays, body mists, room sprays, and gift sets — choose the product formats that fit your brand, audience, and price point.',
+      'From full-size eau de parfum to travel sprays, body mists, room sprays, and gift sets — choose the product formats that fit your brand, audience, and price point. ' +
+      COMMERCIAL_COPY.formatMinimumNote,
     Illustration: FlatLayIllustration,
   },
   sections: withSteps(
@@ -33,7 +35,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
         id: 'product-formats-overview',
         title: 'Product formats overview',
         description:
-          'Private label fragrance is not one-size-fits-all. Brandsamor helps you launch in the format that matches how your customers buy, gift, and use scent — whether that is a hero perfume, a lighter mist, or a curated gift set.',
+          'Private label fragrance is not one-size-fits-all. Brandsamor helps you launch in the format that matches how your customers buy, gift, and use scent — whether that is a hero perfume, a lighter mist, or a curated gift set. Order [fragrance samples](/fragrance-sampling) before locking in a format.',
         bullets: sectionBullets(
           'Compare core formats before you commit to production',
           'Match concentration and size to your price point and channel',
@@ -154,6 +156,8 @@ export const fragranceProductsConfig: TopicPageConfig = {
   relatedLinks: {
     links: [
       { to: '/fragrance-sampling', label: 'Compare scents through private-label fragrance sampling' },
+      { to: '/packaging-branding', label: 'Explore packaging and branding options' },
+      { to: '/who-we-work-with', label: 'See which businesses launch fragrance with Brandsamor' },
       { to: '/how-it-works', label: 'See how each format fits the complete launch process' },
     ],
   },

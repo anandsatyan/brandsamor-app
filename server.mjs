@@ -76,8 +76,30 @@ const normalizePath = (urlPath) => {
   return urlPath;
 };
 
+const LEGACY_ROUTE_PREFIXES = [
+  '/products/',
+  '/collections/',
+  '/account/',
+  '/cart',
+  '/checkout',
+  '/blogs/news',
+];
+
+const isLegacyRoute = (routePath) =>
+  LEGACY_ROUTE_PREFIXES.some((prefix) =>
+    prefix.endsWith('/') ? routePath.startsWith(prefix) : routePath === prefix || routePath.startsWith(`${prefix}/`),
+  );
+
 const resolveFile = (urlPath) => {
   const normalized = normalizePath(urlPath);
+
+  if (isLegacyRoute(normalized)) {
+    const notFoundPath = path.join(distDir, '404', 'index.html');
+    if (fs.existsSync(notFoundPath)) {
+      return { filePath: notFoundPath, status: 404 };
+    }
+    return null;
+  }
 
   if (STATIC_FILES.has(normalized)) {
     const staticPath = path.join(distDir, normalized.slice(1));

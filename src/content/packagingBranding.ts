@@ -202,4 +202,11 @@ export const packagingBrandingConfig: TopicPageConfig = {
     Illustration: PackagingIllustration,
   },
   beforeFaq: null,
+  relatedLinks: {
+    links: [
+      { to: '/why-brandsamor', label: 'Why brands choose Brandsamor' },
+      { to: '/how-it-works', label: 'See the full private-label launch process' },
+      { to: '/quality-compliance', label: 'Quality and compliance documentation' },
+    ],
+  },
 };

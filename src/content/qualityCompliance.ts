@@ -25,6 +25,39 @@ export const qualityComplianceConfig: TopicPageConfig = {
   sections: withSteps(
     [
       {
+        id: 'important-compliance-information',
+        title: 'Important Compliance Information',
+        description:
+          'Compliance requirements vary by product, formula, destination, claims and sales channel. Brandsamor may support IFRA certificates, Certificates of Analysis, allergen information and batch records where applicable, but availability must be confirmed per project.',
+        bullets: sectionBullets(
+          'Requirements differ by market, product type, formula and how you sell',
+          'Documentation such as IFRA, COA and allergen info is confirmed per project',
+          'Brandsamor does not guarantee regulatory acceptance in every market',
+          'The brand owner remains responsible for final product, claims, labelling and sales compliance',
+        ),
+        Illustration: ComplianceDocIllustration,
+      },
+      {
+        id: 'official-resources',
+        title: 'Official regulatory resources',
+        description:
+          'Use primary sources when reviewing requirements for your market. Helpful starting points include [FDA cosmetics guidance](https://www.fda.gov/cosmetics), [FDA MoCRA information](https://www.fda.gov/cosmetics/cosmetics-laws-regulations/modernization-cosmetics-regulation-act-2022-mocra) and [IFRA Standards](https://ifrafragrance.org/safe-use/library).',
+        bullets: sectionBullets(
+          'FDA cosmetics overview for U.S. cosmetic products',
+          'MoCRA facility registration and product listing where applicable',
+          'IFRA Standards for fragrance ingredient safe-use guidance',
+          'Confirm destination-market rules with qualified advisors',
+        ),
+        Illustration: ComplianceDocIllustration,
+      },
+      {
+        id: 'last-reviewed',
+        title: 'Page review',
+        description:
+          'Last reviewed: July 2026. Reviewed for operational accuracy by the Brandsamor team.',
+        Illustration: ComplianceDocIllustration,
+      },
+      {
         id: 'production-quality-controls',
         title: 'Production quality controls',
         description:
@@ -200,6 +233,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
   },
   relatedLinks: {
     links: [
+      { to: '/why-brandsamor', label: 'Why brands choose Brandsamor for private label fragrance' },
       { to: '/how-it-works#quality-checks', label: 'Review the production and quality-control step on How It Works' },
       { to: '/quality-compliance#quality-compliance-faq', label: 'Read quality and compliance FAQs' },
       { to: '/contact', label: 'Contact Brandsamor about your project' },

@@ -8,6 +8,8 @@ import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
 import { PAGE_METADATA } from '../seo/pageMetadata';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
+import { AtAGlanceSection } from './AtAGlanceSection';
+import { CommercialFactsStrip } from './CommercialFactsStrip';
 import { TrustStrip } from './TrustStrip';
 
 
@@ -239,15 +241,15 @@ const productOptions = [{
 const testimonials = [{
   name: 'Christopher J.',
   quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.',
-  role: 'Packaging customer',
+  role: 'Customer of the Packamor Group',
 }, {
   name: 'Erin S.',
   quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the products is really something else.',
-  role: 'Packaging customer',
+  role: 'Packamor packaging customer',
 }, {
   name: 'Monica M.',
   quote: 'My customers love the travel size and the heavy glass. The finished product feels premium and sells itself.',
-  role: 'Packaging customer',
+  role: 'Packamor packaging customer',
 }];
 const packagingItems = [{
   num: '01',
@@ -316,15 +318,14 @@ export const BrandsamorLandingPage = () => {
           <p className="text-base sm:text-lg max-w-2xl leading-relaxed">
             Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
           </p>
-          <ComingSoonLabel variant="hero" />
+          <ComingSoonLabel variant="hero" trackingLocation="homepage_hero" />
         </div>
       </HeroPanel>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-        <TrustStrip
-          intro="Trusted by fragrance brands for perfume packaging—the experience Brandsamor is now bringing to complete private-label fragrance launches."
-          testimonials={testimonials}
-        />
+        <CommercialFactsStrip />
+        <AtAGlanceSection />
+        <TrustStrip testimonials={testimonials} />
 
         {/* HOW IT WORKS */}
         <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">

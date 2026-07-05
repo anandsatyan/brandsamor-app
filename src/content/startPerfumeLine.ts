@@ -13,6 +13,7 @@ import {
   RepeatOrderIllustration,
   ScentSamplesIllustration,
 } from '../components/Illustrations';
+import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { START_PERFUME_LINE_FAQ_ITEMS } from '../seo/pageSeo';
 import { createTopicPageMeta } from '../seo/topicPageMeta';
 import { sectionBullets, withSteps } from './sectionHelpers';
@@ -26,7 +27,8 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     badge: 'START A PERFUME LINE',
     title: pageMeta.h1,
     description:
-      'Perfume is a high-margin, giftable product that strengthens brand memory and drives repeat purchases. Learn what it takes to plan your launch — and how Brandsamor helps you go from scent selection to a ready-to-sell first batch in weeks.',
+      'Perfume is a high-margin, giftable product that strengthens brand memory and drives repeat purchases. Learn what it takes to plan your launch — and how Brandsamor helps you go from [fragrance sampling](/fragrance-sampling) to a ready-to-sell first batch. ' +
+      COMMERCIAL_COPY.unitQuantityNote,
     Illustration: LaunchPlanningIllustration,
   },
   sections: withSteps(
@@ -165,7 +167,8 @@ export const startPerfumeLineConfig: TopicPageConfig = {
         id: 'start-small-validate',
         title: 'Start small and validate demand',
         description:
-          'Brandsamor is built for focused first batches. Launch with a manageable quantity, learn what customers like, and refine scent, packaging, or pricing before scaling — rather than overcommitting on day one.',
+          'Brandsamor is built for focused first batches. Launch with a manageable quantity, learn what customers like, and refine scent, packaging, or pricing before scaling. ' +
+          COMMERCIAL_COPY.minimumOrderValue,
         bullets: sectionBullets(
           'Sample scents before locking in production',
           'Approve a production sample before the full batch',
@@ -207,9 +210,10 @@ export const startPerfumeLineConfig: TopicPageConfig = {
   },
   relatedLinks: {
     links: [
-      { to: '/who-we-work-with', label: 'See who Brandsamor works with' },
+      { to: '/how-it-works', label: 'See the full private-label launch process' },
       { to: '/fragrance-products', label: 'Compare the fragrance formats you can launch' },
       { to: '/fragrance-sampling', label: 'Learn why brands sample before production' },
+      { to: '/who-we-work-with', label: 'See who Brandsamor works with' },
     ],
   },
 };

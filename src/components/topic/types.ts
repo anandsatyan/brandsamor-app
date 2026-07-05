@@ -53,6 +53,6 @@ export type TopicPageConfig = {
   beforeFaq?: ReactNode;
   relatedLinks?: {
     title?: string;
-    links: { to: string; label: string }[];
+    links: { to: string; label: string; external?: boolean }[];
   };
 };

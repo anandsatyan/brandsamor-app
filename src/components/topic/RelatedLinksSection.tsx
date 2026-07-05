@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import { trackPackamorTrustLink } from '../../analytics/siteAnalytics';
 
 export type RelatedLink = {
   to: string;
   label: string;
+  external?: boolean;
 };
 
 export const RelatedLinksSection = ({
@@ -22,12 +24,23 @@ export const RelatedLinksSection = ({
       <ul className="space-y-3">
         {links.map((link) => (
           <li key={link.to}>
-            <Link
-              to={link.to}
-              className="text-accent font-medium underline decoration-accent underline-offset-4 hover:opacity-80"
-            >
-              {link.label}
-            </Link>
+            {link.external || link.to.startsWith('http') ? (
+              <a
+                href={link.to}
+                className="text-accent font-medium underline decoration-accent underline-offset-4 hover:opacity-80"
+                rel="noopener noreferrer"
+                onClick={() => trackPackamorTrustLink(link.label, link.to)}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                to={link.to}
+                className="text-accent font-medium underline decoration-accent underline-offset-4 hover:opacity-80"
+              >
+                {link.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
