@@ -47,7 +47,7 @@ export const howItWorksConfig: TopicPageConfig = {
         id: 'explore-fragrance-samples',
         title: 'Explore fragrance samples',
         description:
-          'Browse the Brandsamor scent library and order samples that fit your brand personality. Compare how each fragrance feels before committing to production. See the [fragrance sampling](/fragrance-sampling) page for dispatch and evaluation details.',
+          'Start your project and our team will help you explore the Brandsamor scent library and order samples that fit your brand personality. Compare how each fragrance feels before committing to production. See the [fragrance sampling](/fragrance-sampling) page for dispatch and evaluation details.',
         bullets: sectionBullets(
           'Access a curated library of ready-to-launch scents',
           'Order samples to compare notes and wearability',

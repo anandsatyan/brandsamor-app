@@ -28,7 +28,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
         id: 'important-compliance-information',
         title: 'Important Compliance Information',
         description:
-          'Compliance requirements vary by product, formula, destination, claims and sales channel. Brandsamor may support IFRA certificates, Certificates of Analysis, allergen information and batch records where applicable, but availability must be confirmed per project.',
+          'Compliance requirements vary by product, formula, destination, claims and sales channel. Brandsamor supports IFRA certificates, Certificates of Analysis, allergen information and batch records where applicable to your project.',
         bullets: sectionBullets(
           'Requirements differ by market, product type, formula and how you sell',
           'Documentation such as IFRA, COA and allergen info is confirmed per project',
@@ -87,7 +87,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
         id: 'certificate-of-analysis',
         title: 'Certificate of Analysis',
         description:
-          'A Certificate of Analysis can be provided for your selected fragrance batch. It supports transparency with retailers, distributors, or internal quality review and becomes part of your product documentation.',
+          'Brandsamor provides a Certificate of Analysis for your selected fragrance batch. It supports transparency with retailers, distributors, or internal quality review and becomes part of your product documentation.',
         bullets: sectionBullets(
           'Batch-specific analysis for your records',
           'Supports retailer and distributor due diligence',
@@ -100,7 +100,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
         id: 'ifra-documentation',
         title: 'IFRA documentation',
         description:
-          'An IFRA certificate supports safe fragrance use according to applicable fragrance-use standards. It can help with formulation review, label planning, and market-specific documentation needs.',
+          'Brandsamor provides IFRA certificates to support safe fragrance use according to applicable fragrance-use standards, helping with formulation review, label planning, and market-specific documentation needs.',
         bullets: sectionBullets(
           'Supports safe fragrance use standards',
           'Useful for formulation and label review',
@@ -165,7 +165,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
         id: 'fda-mocra',
         title: 'FDA MoCRA guidance',
         description:
-          'For fragrance products sold as cosmetics in the U.S., FDA MoCRA facility registration and cosmetic product listing may apply. Brandsamor plans to support this process where applicable to your product and sales channel.',
+          'For fragrance products sold as cosmetics in the U.S., FDA MoCRA facility registration and cosmetic product listing may apply. Brandsamor supports facility registration and product listing where applicable to your product and sales channel.',
         bullets: sectionBullets(
           'Guidance on MoCRA requirements where applicable',
           'Support for facility registration and product listing',
@@ -178,7 +178,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
         id: 'export-docs',
         title: 'Export and market documentation',
         description:
-          'Selling in multiple markets may require additional documentation beyond your home country. Brandsamor can help you understand what records may apply and what your team remains responsible for.',
+          'Selling in multiple markets may require additional documentation beyond your home country. Brandsamor supports the documentation your project needs and clarifies what your team remains responsible for in each market.',
         bullets: sectionBullets(
           'Documentation needs vary by destination market',
           'IFRA, allergen, and batch records support export review',
@@ -204,7 +204,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
         id: 'compliance-disclaimer',
         title: 'Compliance disclaimer',
         description:
-          'Brandsamor does not describe perfume products as FDA approved. Compliance requirements depend on product type, market, claims, formula, and selling channel. Documentation support varies — discuss your specific needs before launch.',
+          'Brandsamor does not describe perfume products as FDA approved. Compliance requirements depend on product type, market, claims, formula, and selling channel. Brandsamor provides documentation support where applicable to your product and sales channel.',
         bullets: sectionBullets(
           'Compliance needs vary by product and market',
           'Documentation support is provided where applicable',
@@ -228,7 +228,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
     eyebrow: 'COMPLIANCE SUPPORT',
     title: 'Discuss Compliance Requirements',
     description:
-      'Tell us about your product, target markets, and sales channels. We will help you understand what quality and compliance documentation may apply to your private label fragrance launch.',
+      'Tell us about your product, target markets, and sales channels. We will identify the quality and compliance documentation Brandsamor provides for your private label fragrance launch.',
     Illustration: ComplianceDocIllustration,
   },
   relatedLinks: {

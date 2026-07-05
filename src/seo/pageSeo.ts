@@ -49,8 +49,7 @@ export const FRAGRANCE_SAMPLING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: 'How does the Brandsamor scent library work?',
-    answer:
-      'Browse the scent library and use the online guide to choose samples that match your brand personality, customer, and use case. Order the fragrances you want to compare, then narrow down your direction before production.',
+    answer: COMMERCIAL_COPY.scentLibrarySummary,
   },
   {
     question: 'Can I share fragrance samples with my team or customers before deciding?',
@@ -131,7 +130,7 @@ export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What is the first step to starting a private label perfume line?',
     answer:
-      'Start by sampling scents from the Brandsamor scent library. Compare fragrance directions, choose one or a small set to launch with, then customize bottle and packaging before your first production batch.',
+      'Start your project to explore the Brandsamor scent library with our team. Compare fragrance directions, choose one or a small set to launch with, then customize bottle and packaging before your first production batch.',
   },
   {
     question: 'Can I start small and grow my fragrance line over time?',
@@ -193,7 +192,7 @@ export const WHY_BRANDSAMOR_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I order samples before committing to a full production batch?',
     answer:
-      'Yes. Brandsamor is designed so you order samples first, compare scent options, and choose what feels right before starting your first batch — reducing risk on your launch scent.',
+      'Yes. Brandsamor is designed so you start with samples first. Our team helps you compare scent options and choose what feels right before starting your first batch — reducing risk on your launch scent.',
   },
   {
     question: 'How is Brandsamor different from standard private label fragrance suppliers?',
@@ -224,7 +223,7 @@ export const QUALITY_COMPLIANCE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What compliance support does Brandsamor provide for fragrance products?',
     answer:
-      'Brandsamor may support IFRA certificates, Certificates of Analysis, allergen information and batch records where applicable — confirmed per project. The brand owner remains responsible for final product, claims, labelling and sales compliance.',
+      'Brandsamor supports IFRA certificates, Certificates of Analysis, allergen information and batch records where applicable to your project. The brand owner remains responsible for final product, claims, labelling and sales compliance.',
   },
   {
     question: 'Are Brandsamor perfume products FDA approved?',
@@ -239,12 +238,12 @@ export const QUALITY_COMPLIANCE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I get a Certificate of Analysis for my fragrance batch?',
     answer:
-      'Yes. A Certificate of Analysis can be provided for your selected fragrance batch for your records and product documentation, supporting transparency with retailers, distributors, or internal quality review.',
+      'Yes. Brandsamor provides a Certificate of Analysis for your selected fragrance batch for your records and product documentation, supporting transparency with retailers, distributors, or internal quality review.',
   },
   {
     question: 'What is an IFRA certificate and do I need one?',
     answer:
-      'An IFRA certificate supports safe fragrance use according to applicable fragrance-use standards. It can be provided to help with formulation review, label planning, and market-specific documentation needs.',
+      'Brandsamor provides IFRA certificates to support safe fragrance use according to applicable fragrance-use standards, helping with formulation review, label planning, and market-specific documentation needs.',
   },
   {
     question: 'Does Brandsamor help with allergen information and batch records?',

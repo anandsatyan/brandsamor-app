@@ -1,5 +1,5 @@
 import { Globe, Clock, Sparkles, Star, Truck } from 'lucide-react';
-import { BUSINESS_FACTS, COMMERCIAL_COPY, PACKAMOR_URL } from '../seo/businessFacts';
+import { BUSINESS_FACTS, COMMERCIAL_COPY } from '../seo/businessFacts';
 import { ORGANIZATION } from '../seo/siteConfig';
 
 const primaryStats = [
@@ -30,8 +30,8 @@ const primaryStats = [
 ] as const;
 
 const heritageFacts = [
-  { label: 'Brands served by Packamor', value: `${BUSINESS_FACTS.brandsServed} brands` },
-  { label: 'Packamor customer rating', value: BUSINESS_FACTS.customerRating, showStars: true },
+  { label: 'Brands served', value: `${BUSINESS_FACTS.brandsServed} brands` },
+  { label: 'Customer rating', value: BUSINESS_FACTS.customerRating, showStars: true },
   { label: 'Countries shipped to', value: `${BUSINESS_FACTS.countriesShipped} countries` },
   { label: 'Years serving fragrance brands', value: `${BUSINESS_FACTS.yearsOperating} years` },
 ] as const;
@@ -44,26 +44,6 @@ const operationalFacts = [
     value: 'Packaging, filling and quality checks',
   },
 ] as const;
-
-const PackamorDistinction = () => (
-  <>
-    {COMMERCIAL_COPY.packamorDistinction.split('Packamor').map((part, index, parts) =>
-      index < parts.length - 1 ? (
-        <span key={index}>
-          {part}
-          <a
-            href={PACKAMOR_URL}
-            className="font-medium text-accent underline decoration-accent underline-offset-4 hover:opacity-80"
-          >
-            Packamor
-          </a>
-        </span>
-      ) : (
-        <span key={index}>{part}</span>
-      ),
-    )}
-  </>
-);
 
 export const HomeFactsBento = () => (
   <section
@@ -85,7 +65,7 @@ export const HomeFactsBento = () => (
         Brandsamor at a Glance
       </h2>
       <p className="text-base sm:text-lg text-body leading-relaxed mb-6">
-        <PackamorDistinction />
+        {COMMERCIAL_COPY.brandIntro}
       </p>
       <p className="text-sm sm:text-base text-body leading-relaxed">
         {COMMERCIAL_COPY.suitabilityNote} {COMMERCIAL_COPY.formatMinimumNote}
@@ -115,9 +95,7 @@ export const HomeFactsBento = () => (
     </dl>
 
     <div>
-      <p className="text-xs uppercase tracking-wider text-body/80 mb-5">
-        Built on Packamor&apos;s fragrance packaging experience
-      </p>
+      <p className="text-xs uppercase tracking-wider text-body/80 mb-5">Brandsamor by the numbers</p>
       <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
         {heritageFacts.map((fact) => (
           <div key={fact.label}>
@@ -135,10 +113,6 @@ export const HomeFactsBento = () => (
           </div>
         ))}
       </dl>
-      <p className="mt-6 text-xs sm:text-sm text-body/80 leading-relaxed max-w-3xl">
-        These figures reflect Packamor&apos;s fragrance-packaging business — not Brandsamor private-label
-        manufacturing results.
-      </p>
     </div>
   </section>
 );

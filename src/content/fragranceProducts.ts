@@ -150,7 +150,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     eyebrow: 'NEXT STEP',
     title: 'Explore fragrance samples',
     description:
-      'Before you lock in a product format, compare scent directions from the Brandsamor scent library. Order samples, find your launch fragrance, then match it to the right bottle and format on the fragrance sampling page.',
+      'Before you lock in a product format, work with our team to compare scent directions from the Brandsamor scent library. Order samples, find your launch fragrance, then match it to the right bottle and format on the fragrance sampling page.',
     Illustration: ScentSamplesIllustration,
   },
   relatedLinks: {

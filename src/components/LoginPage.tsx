@@ -1,5 +1,5 @@
-import { type FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { type FormEvent, useState } from 'react';
 import { Lock, Mail } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { SeoHead } from './SeoHead';
@@ -11,11 +11,11 @@ const inputClassName =
 
 export const LoginPage = () => {
   const meta = PAGE_METADATA['/login'];
-  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
+    setError('Wrong Username and Password.');
   };
 
   return (
@@ -89,23 +89,23 @@ export const LoginPage = () => {
               />
               Remember me
             </label>
-            <a href="#" className="font-medium text-accent hover:opacity-80">
+            <Link to="/contact" className="font-medium text-accent hover:opacity-80">
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           <button type="submit" className="btn-primary w-full justify-center rounded-lg">
             Sign in
           </button>
 
-          {submitted && (
-            <p className="rounded-lg border border-border bg-surface px-4 py-3 text-center text-sm text-body" role="status">
-              Customer accounts are launching soon. This sign-in page is a preview of the experience ahead.
+          {error && (
+            <p className="rounded-lg border border-border bg-surface px-4 py-3 text-center text-sm text-heading" role="alert">
+              {error}
             </p>
           )}
 
           <p className="text-center text-xs leading-relaxed text-body">
-            Need help before launch?{' '}
+            Need help?{' '}
             <Link to="/contact" className="font-medium text-accent hover:opacity-80">
               Contact the Brandsamor team
             </Link>

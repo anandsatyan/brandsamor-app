@@ -21,7 +21,8 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     badge: 'FRAGRANCE SAMPLING',
     title: pageMeta.h1,
     description:
-      'Browse the Brandsamor scent library, order samples that fit your brand, and compare fragrance directions with confidence before your first production batch. ' +
+      COMMERCIAL_COPY.sampleOrderPath +
+      ' ' +
       COMMERCIAL_COPY.sampleDispatch +
       ' ' +
       COMMERCIAL_COPY.sampleDeliveryNote,
@@ -32,12 +33,10 @@ export const fragranceSamplingConfig: TopicPageConfig = {
       {
         id: 'how-scent-library-works',
         title: 'How the scent library works',
-        description:
-          'The Brandsamor scent library is a curated collection of ready-to-launch fragrances organized for private label brands. Browse by style, compare notes, and order the samples you want to evaluate on skin and in context. ' +
-          COMMERCIAL_COPY.sampleDispatch,
+        description: `${COMMERCIAL_COPY.scentLibrarySummary} ${COMMERCIAL_COPY.sampleDispatch}`,
         bullets: sectionBullets(
           'Access a curated library of launch-ready fragrances',
-          'Browse scent directions that match your brand personality',
+          'Work with our team to compare scent directions for your brand',
           'Order individual samples without committing to bulk production',
           'Move from exploration to selection at your own pace',
         ),
@@ -175,7 +174,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     eyebrow: 'GET STARTED',
     title: 'Build Your Sample Kit',
     description:
-      'Start with the scents that fit your brand. Order samples from the Brandsamor scent library, compare directions on skin, and choose the fragrance you want to build your private label line around.',
+      COMMERCIAL_COPY.sampleOrderPath,
     Illustration: ScentSamplesIllustration,
   },
   relatedLinks: {

@@ -188,7 +188,7 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     pageName: 'Privacy Policy',
     title: 'Privacy Policy | Brandsamor',
     description:
-      'How Brandsamor and Packamor LLC collect, use, and protect personal information for the marketing site and future onboarding application.',
+      'How Brandsamor and Packamor LLC collect, use, and protect personal information for the website, customer accounts, and private-label fragrance services.',
     canonical: canonical('/privacy-policy'),
     h1: 'Privacy Policy',
     robots: DEFAULT_ROBOTS,

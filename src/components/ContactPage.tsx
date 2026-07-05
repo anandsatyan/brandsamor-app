@@ -12,8 +12,7 @@ export const ContactPage = () => {
       <section className="border-t border-border pt-8 sm:pt-10 space-y-6">
         <h2 className="text-2xl sm:text-3xl">Get in touch</h2>
         <p className="text-body leading-relaxed">
-          Brandsamor is currently in a pre-launch phase. You can reach the team directly while the full onboarding
-          application is being built.
+          Reach the Brandsamor team for private-label fragrance questions, project inquiries, and customer support.
         </p>
         <address className="not-italic space-y-3 text-heading">
           <p>

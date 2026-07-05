@@ -76,7 +76,7 @@ export const SiteFooter = () => {
               {ORGANIZATION.address.postalCode}, U.S.A
             </p>
             <p className="text-body/80 leading-relaxed">
-              We have team presence across the US, India, Dubai and China.
+              We have team presence across the US, India, China and the UAE.
             </p>
             <p>
               <a

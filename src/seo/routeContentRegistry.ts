@@ -7,6 +7,7 @@ import { qualityComplianceConfig } from '../content/qualityCompliance';
 import { startPerfumeLineConfig } from '../content/startPerfumeLine';
 import { whoWeWorkWithConfig } from '../content/whoWeWorkWith';
 import { whyBrandsamorConfig } from '../content/whyBrandsamor';
+import { COMMERCIAL_COPY } from './businessFacts';
 import { PAGE_METADATA } from './pageMetadata';
 
 export const TOPIC_ROUTE_CONFIGS: Record<string, TopicPageConfig> = {
@@ -24,7 +25,7 @@ export const HOMEPAGE_STATIC_SECTIONS = [
   {
     title: 'How It Works',
     description:
-      'Sample from the scent library, pick your starting scents, choose bottle and branding, then receive ready-to-sell perfumes.',
+      'Start your project, explore the scent library with our team, pick your starting scents, choose bottle and branding, then receive ready-to-sell perfumes.',
   },
   {
     title: 'Fragrance Products',
@@ -33,8 +34,7 @@ export const HOMEPAGE_STATIC_SECTIONS = [
   },
   {
     title: 'Fragrance Sampling',
-    description:
-      'Compare fragrance samples from the Brandsamor scent library before committing to your first production batch.',
+    description: COMMERCIAL_COPY.sampleOrderPath,
   },
   {
     title: 'Packaging and Branding',

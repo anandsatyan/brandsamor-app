@@ -1,4 +1,4 @@
-import { COMMERCIAL_COPY, PACKAMOR_ABOUT_URL } from '../seo/businessFacts';
+import { COMMERCIAL_COPY, CUSTOMER_REVIEWS_URL } from '../seo/businessFacts';
 import { trackPackamorTrustLink } from '../analytics/siteAnalytics';
 
 type Testimonial = {
@@ -15,22 +15,17 @@ export const TrustStrip = ({ testimonials }: { testimonials: Testimonial[] }) =>
         TRUST
       </h4>
       <h2 className="text-3xl sm:text-4xl text-heading mb-4">{COMMERCIAL_COPY.trustHeading}</h2>
-      <p className="text-base sm:text-lg text-body leading-relaxed">{COMMERCIAL_COPY.trustCopy}</p>
+      <p className="text-base sm:text-lg text-body leading-relaxed mb-4">{COMMERCIAL_COPY.trustCopy}</p>
+      <p>
+        <a
+          href={CUSTOMER_REVIEWS_URL}
+          className="inline-flex items-center text-sm font-semibold text-accent underline decoration-accent underline-offset-4 hover:opacity-80"
+          onClick={() => trackPackamorTrustLink(COMMERCIAL_COPY.reviewsLinkLabel, CUSTOMER_REVIEWS_URL)}
+        >
+          {COMMERCIAL_COPY.reviewsLinkLabel}
+        </a>
+      </p>
     </div>
-
-    <p className="mb-8 sm:mb-10">
-      <a
-        href={PACKAMOR_ABOUT_URL}
-        className="inline-flex items-center text-sm font-semibold text-accent underline decoration-accent underline-offset-4 hover:opacity-80"
-        onClick={() => trackPackamorTrustLink('Learn about Packamor', PACKAMOR_ABOUT_URL)}
-      >
-        Learn about Packamor
-      </a>
-    </p>
-
-    <p className="text-sm sm:text-base text-body max-w-3xl mb-8 sm:mb-10 leading-relaxed">
-      {COMMERCIAL_COPY.reviewsIntro}
-    </p>
 
     <div className="grid md:grid-cols-3 gap-8 sm:gap-10">
       {testimonials.map((t) => (

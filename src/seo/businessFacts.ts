@@ -1,6 +1,7 @@
 /** Single source of truth for confirmed Brandsamor / Packamor business facts. */
 export const PACKAMOR_URL = 'https://www.packamor.com/';
 export const PACKAMOR_ABOUT_URL = 'https://www.packamor.com/pages/about-us';
+export const CUSTOMER_REVIEWS_URL = 'https://www.packamor.com/';
 
 export const BUSINESS_FACTS = {
   brandsServed: '4,000+',
@@ -19,7 +20,11 @@ export const COMMERCIAL_COPY = {
   startingPathLabel: 'Start with samples',
   startingPathValue: 'Explore first',
   startingPathDetail:
-    'Browse the scent library, order samples, and choose your direction before planning a production batch — no large upfront production commitment required.',
+    'Tell us about your brand to get started. Our team will guide you through the scent library, help you order samples, and plan your first production batch — without a large upfront production commitment.',
+  scentLibrarySummary:
+    'The Brandsamor scent library is a curated collection of ready-to-launch fragrances for private-label brands. After you start your project, our team helps you compare scent directions and order the samples you want to evaluate.',
+  sampleOrderPath:
+    'Start your project and our team will help you select and order fragrance samples that fit your brand before production begins.',
   productionTimeline:
     'Typical production takes approximately 3-6 weeks after fragrance, packaging, artwork and production details have been approved.',
   sampleDispatch:
@@ -36,13 +41,12 @@ export const COMMERCIAL_COPY = {
     'Brandsamor is built for brands exploring fragrance — sample scents first, then scale your line when you are ready.',
   minimumOrderValue:
     'There is no minimum to start with samples. For production, order size depends on your product format, packaging, and launch plan — we help you plan a focused first batch that fits your goals.',
-  packamorDistinction:
-    'Brandsamor is the private-label fragrance service operated by Packamor LLC, the team behind Packamor’s perfume-packaging business.',
+  brandIntro:
+    'Brandsamor is the private-label fragrance service operated by Packamor LLC, helping businesses launch ready-to-sell fragrance products under their own brand.',
   legalEntity:
     'Brandsamor is a service brand operated by Packamor LLC, a company registered in Delaware, United States. Packamor LLC is the legal entity responsible for Brandsamor customer agreements, billing and business operations.',
-  reviewsIntro:
-    'Brandsamor is built by the team behind Packamor. The reviews below reflect customers’ experience with the Packamor Group’s fragrance-packaging products and service.',
-  trustHeading: 'Built on Packamor’s Fragrance Packaging Experience',
+  trustHeading: 'Trusted by Fragrance Brands',
   trustCopy:
-    'Brandsamor is operated by Packamor LLC, the team behind Packamor. Packamor has served more than 4,000 brands, earned a 4.8/5 customer rating and shipped fragrance packaging to more than 25 countries.',
+    'Brandsamor has served more than 4,000 brands, earned a 4.8/5 customer rating, and shipped fragrance products to more than 25 countries worldwide.',
+  reviewsLinkLabel: 'See verified customer reviews',
 } as const;

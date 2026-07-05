@@ -48,7 +48,7 @@ export const whyBrandsamorConfig: TopicPageConfig = {
         description:
           'Order fragrance samples first, compare scent options on skin, and choose what feels right before starting your first production batch. A sample-first workflow reduces risk on your launch scent.',
         bullets: sectionBullets(
-          'Browse the Brandsamor scent library',
+          'Start your project to explore the Brandsamor scent library with our team',
           'Compare fragrances with your team or test audience',
           'Choose confidently before bulk production',
           'Add extra samples if you need more directions',
@@ -150,9 +150,9 @@ export const whyBrandsamorConfig: TopicPageConfig = {
         id: 'customer-proof',
         title: 'Trusted by fragrance brands',
         description:
-          'Brandsamor customers describe heavy glass bottles, premium atomizers, and packaging that feels ready for retail. That quality bar is what your customers will experience when they hold your finished product.',
+          'Brandsamor focuses on heavy glass bottles, premium atomizers, and packaging that feels ready for retail — the quality bar your customers notice when they hold the finished product.',
         bullets: sectionBullets(
-          'Bottles described as heavy and high quality',
+          'Heavy, high-quality glass bottles',
           'Atomizers and hardware that feel premium in hand',
           'Boxes and finishing that match the bottle quality',
           'Finished products customers are proud to gift',
@@ -174,7 +174,7 @@ export const whyBrandsamorConfig: TopicPageConfig = {
     eyebrow: 'GET STARTED',
     title: 'Start Your Project',
     description:
-      'Ready to launch a branded fragrance without factory setup? Order scent samples, explore bottle and packaging options, and plan your first ready-to-sell batch with Brandsamor.',
+      'Ready to launch a branded fragrance without factory setup? Start your project to request scent samples, explore bottle and packaging options, and plan your first ready-to-sell batch with Brandsamor.',
     Illustration: ProcessTimelineIllustration,
   },
   relatedLinks: {

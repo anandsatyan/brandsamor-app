@@ -43,7 +43,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How do I start my own perfume line with Brandsamor?',
     answer:
-      'Start by sampling scents from the Brandsamor scent library, choose one or a small set of fragrances to launch with, customize your bottle and packaging, then receive a finished batch within weeks. Brandsamor handles sourcing, filling, packaging, and quality checks so you can focus on selling.',
+      'Start your project to explore the Brandsamor scent library with our team. Choose one or a small set of fragrances to launch with, customize your bottle and packaging, then receive a finished batch within weeks. Brandsamor handles sourcing, filling, packaging, and quality checks so you can focus on selling.',
   },
   {
     question: 'Who is private label perfume best for?',
@@ -73,7 +73,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What compliance support does Brandsamor provide for fragrance products?',
     answer:
-      'Compliance needs vary by product type, market, and sales channel. Where applicable, Brandsamor can support documentation such as FDA MoCRA registration guidance, GMP-compliant production, Certificates of Analysis, IFRA certificates, allergen information, and batch records.',
+      'Compliance needs vary by product type, market, and sales channel. Where applicable, Brandsamor supports documentation such as FDA MoCRA registration, GMP-compliant production, Certificates of Analysis, IFRA certificates, allergen information, and batch records.',
   },
   {
     question: 'What is the minimum order quantity for a private label perfume launch?',

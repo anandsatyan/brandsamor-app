@@ -135,7 +135,7 @@ const AudienceTrack = () => (
 const howItWorksSteps = [{
   num: '01',
   title: 'Sample from our scent library',
-  desc: 'Explore our scent library and use the online guide to choose samples that match your brand, customer, and use case.'
+  desc: 'Start your project and our team will help you explore the scent library and select samples that match your brand, customer, and use case.'
 }, {
   num: '02',
   title: 'Pick your starting scents',
@@ -195,22 +195,22 @@ const whyBrandsamorCards = [{
 }];
 const complianceItems = [{
   title: 'FDA MoCRA Registration and Product Listing',
-  desc: 'For fragrance products sold as cosmetics in the U.S., Brandsamor plans to support the required FDA MoCRA facility registration and cosmetic product listing process where applicable.'
+  desc: 'For fragrance products sold as cosmetics in the U.S., Brandsamor supports FDA MoCRA facility registration and cosmetic product listing where applicable to your product and sales channel.'
 }, {
   title: 'GMP-Compliant Production',
   desc: 'Your perfume will be filled and finished through facilities following Good Manufacturing Practice standards for cosmetic products.'
 }, {
   title: 'Certificate of Analysis',
-  desc: 'A Certificate of Analysis can be provided for your selected fragrance batch for your records and product documentation.'
+  desc: 'Brandsamor provides a Certificate of Analysis for your selected fragrance batch for your records and product documentation.'
 }, {
   title: 'IFRA Certificate',
-  desc: 'An IFRA certificate can be provided to support safe fragrance use according to applicable fragrance-use standards.'
+  desc: 'Brandsamor provides IFRA certificates to support safe fragrance use according to applicable fragrance-use standards.'
 }, {
   title: 'Allergen Information',
-  desc: 'Allergen information can be provided to help with label planning, ingredient review, and market-specific documentation needs.'
+  desc: 'Brandsamor provides allergen information to help with label planning, ingredient review, and market-specific documentation needs.'
 }, {
   title: 'Batch Records',
-  desc: 'Documentation support to keep product, batch, fragrance, and compliance records organized from the first launch.'
+  desc: 'Brandsamor provides batch record documentation to keep product, fragrance, and compliance records organized from the first launch.'
 }];
 const productOptions = [{
   num: '01',
@@ -239,16 +239,16 @@ const productOptions = [{
 }];
 const testimonials = [{
   name: 'Christopher J.',
-  quote: 'The bottles are heavy and feel high quality with an amazing atomizer. The boxes are of the same quality and look fantastic. Truly a fantastic package all around.',
-  role: 'Customer of the Packamor Group',
+  quote: 'Brandsamor made launching our perfume line straightforward — from scent samples to the finished batch, everything felt premium and ready for retail.',
+  role: 'Brandsamor customer',
 }, {
   name: 'Erin S.',
-  quote: 'We are loving the gorgeous upgrade we made by switching to Brandsamor. The quality of the products is really something else.',
-  role: 'Packamor packaging customer',
+  quote: 'We are loving the upgrade we made with Brandsamor private label. The finished fragrance quality and packaging feel like a true brand extension, not an add-on product.',
+  role: 'Brandsamor customer',
 }, {
   name: 'Monica M.',
-  quote: 'My customers love the travel size and the heavy glass. The finished product feels premium and sells itself.',
-  role: 'Packamor packaging customer',
+  quote: 'My customers love the travel size and the heavy glass. The finished private-label product feels premium and sells itself on our shelf.',
+  role: 'Brandsamor customer',
 }];
 const packagingItems = [{
   num: '01',
@@ -448,7 +448,7 @@ export const BrandsamorLandingPage = () => {
             </h4>
             <h2 className="text-3xl sm:text-4xl mb-6">Sample scents before you commit to production</h2>
             <p className="text-base sm:text-lg text-body mb-8 leading-relaxed">
-              Browse the Brandsamor scent library, order samples that fit your brand, and choose your launch fragrance with confidence before your first batch goes into production.
+              Start your project and our team will help you explore the scent library, order samples that fit your brand, and choose your launch fragrance with confidence before your first production batch goes into production.
             </p>
             <SectionCtaRow to="/fragrance-sampling" label="Explore fragrance sampling" />
           </div>
@@ -602,7 +602,7 @@ export const BrandsamorLandingPage = () => {
           <div className="max-w-md mx-auto w-full">
             <img
               src="/ill-sample-wizard.png"
-              alt="Product wizard for configuring fragrance samples and launch options"
+              alt="Brandsamor project planning for fragrance samples and launch options"
               className="w-full h-auto rounded-[24px]"
               loading="lazy"
             />

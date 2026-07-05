@@ -8,8 +8,7 @@ export const privacyPolicySections: InfoSection[] = [
     id: 'overview',
     title: 'Overview',
     paragraphs: [
-      `This Privacy Policy explains how ${legalEntity} ("Brandsamor," "we," "us") collects, uses, and protects personal information when you visit brandsamor.com, contact us, or use future onboarding and account features related to private-label fragrance services.`,
-      'Brandsamor is currently in a pre-launch phase. This policy describes our intended practices for the marketing site and the onboarding application as it becomes available.',
+      `This Privacy Policy explains how ${legalEntity} ("Brandsamor," "we," "us") collects, uses, and protects personal information when you visit brandsamor.com, contact us, place orders, or use onboarding and account features related to private-label fragrance services.`,
     ],
   },
   {
@@ -20,8 +19,8 @@ export const privacyPolicySections: InfoSection[] = [
       'Contact details such as name, email address, phone number, and company name',
       'Project information you provide about your brand, product ideas, quantities, and packaging preferences',
       'Billing and shipping details when you place sample or production orders',
-      'Account credentials when the onboarding application launches',
-      'Communications you send by email, phone, or future in-app messaging',
+      'Account credentials for your Brandsamor customer account',
+      'Communications you send by email, phone, or in-app messaging',
       'Technical data such as IP address, browser type, device information, and pages visited',
       'Cookie or similar analytics data where permitted by law',
     ],
@@ -33,7 +32,7 @@ export const privacyPolicySections: InfoSection[] = [
     bullets: [
       'Respond to inquiries and provide customer support',
       'Process fragrance sampling and production requests',
-      'Create and manage accounts in the future onboarding application',
+      'Create and manage customer accounts and project profiles',
       'Send service-related email or SMS updates you request or that are necessary for your order',
       'Improve website performance, security, and user experience',
       'Comply with legal, tax, and regulatory obligations',
@@ -81,14 +80,7 @@ export const termsSections: InfoSection[] = [
     id: 'services',
     title: 'Services',
     paragraphs: [
-      'Brandsamor provides private-label fragrance services including scent sampling, product format guidance, packaging customization support, production coordination, filling, quality checks, and delivery of finished fragrance products under your brand. Specific scope, pricing, and timelines are confirmed in project communications and order documents.',
-    ],
-  },
-  {
-    id: 'pre-launch',
-    title: 'Pre-launch status',
-    paragraphs: [
-      'Some features, including full online onboarding and checkout, may not yet be available. Service details, lead times, and commercial terms may be updated as operations are finalized. Published marketing content is informational and does not by itself create a binding production agreement.',
+      'Brandsamor provides private-label fragrance services including scent sampling, product format guidance, packaging customization support, production coordination, filling, quality checks, and delivery of finished fragrance products under your brand. Specific scope, pricing, and timelines are confirmed in project communications and order documents. Binding terms for each project are defined in order confirmations and production agreements.',
     ],
   },
   {
