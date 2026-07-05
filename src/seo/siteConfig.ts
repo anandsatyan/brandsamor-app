@@ -78,7 +78,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What is the minimum order quantity for a private label perfume launch?',
     answer:
-      'Production orders start from a minimum project value of USD $2,000. Exact unit quantities depend on product format, bottle, decoration, box, fragrance, destination and project requirements.',
+      'Start with samples — there is no production minimum to explore scents and packaging direction. When you are ready for your first batch, quantity depends on product format, bottle, decoration, box, fragrance, and destination. Brandsamor helps you plan a focused first run rather than over-ordering upfront.',
   },
   {
     question: 'How is private label perfume different from white label fragrance?',

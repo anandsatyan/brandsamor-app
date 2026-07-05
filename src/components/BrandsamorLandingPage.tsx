@@ -8,8 +8,7 @@ import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
 import { PAGE_METADATA } from '../seo/pageMetadata';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
-import { AtAGlanceSection } from './AtAGlanceSection';
-import { CommercialFactsStrip } from './CommercialFactsStrip';
+import { HomeFactsBento } from './HomeFactsBento';
 import { TrustStrip } from './TrustStrip';
 
 
@@ -102,7 +101,7 @@ const audienceItems = [{
 type AudienceItem = (typeof audienceItems)[number];
 
 const AudienceCard = ({ item }: { item: AudienceItem }) => (
-  <article className="bg-secondary border border-border rounded-[10px] p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
+  <article className="surface-soft p-4 sm:p-6 flex flex-col justify-center min-w-[260px] sm:min-w-[280px] min-h-[140px] sm:min-h-[150px] h-full">
     <div className="mb-3" aria-hidden="true">
       <item.Icon />
     </div>
@@ -323,10 +322,6 @@ export const BrandsamorLandingPage = () => {
       </HeroPanel>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-        <CommercialFactsStrip />
-        <AtAGlanceSection />
-        <TrustStrip testimonials={testimonials} />
-
         {/* HOW IT WORKS */}
         <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
@@ -387,6 +382,9 @@ export const BrandsamorLandingPage = () => {
           </div>
         </section>
 
+        <HomeFactsBento />
+        <TrustStrip testimonials={testimonials} />
+
         {/* FRAGRANCE PRODUCTS */}
         <section id="fragrance-products" className="py-12 sm:py-24 border-t border-border">
           <div className="mb-10 sm:mb-14">
@@ -417,7 +415,7 @@ export const BrandsamorLandingPage = () => {
               return (
                 <div
                   key={item.num}
-                  className={`group relative overflow-hidden rounded-2xl border border-border bg-secondary/50 p-6 sm:p-7 transition-colors hover:border-accent/35 hover:bg-secondary ${spanClass}`}
+                  className={`group relative overflow-hidden surface-soft p-6 sm:p-7 transition-colors hover:bg-secondary/55 ${spanClass}`}
                 >
                   <span
                     className="pointer-events-none absolute -right-1 -top-2 font-display text-6xl sm:text-7xl leading-none text-accent/10 transition-colors group-hover:text-accent/20"
@@ -480,7 +478,7 @@ export const BrandsamorLandingPage = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whySellCards.map(card => <div key={card.num} className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 flex flex-col h-full min-h-[200px]">
+            {whySellCards.map(card => <div key={card.num} className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-6">
                   <h3 className="font-bold text-lg leading-tight w-4/5">{card.title}</h3>
                   <span className="text-accent text-sm font-medium">{card.num}</span>
@@ -498,7 +496,7 @@ export const BrandsamorLandingPage = () => {
           <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 relative overflow-hidden min-h-[200px] sm:min-h-[240px]">
+            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="relative overflow-hidden min-h-[180px] sm:min-h-[200px]">
                 <div className="absolute -bottom-4 -right-4 text-[80px] sm:text-[120px] font-display text-border opacity-50 leading-none pointer-events-none select-none">
                   {`0${idx + 1}`}
                 </div>
@@ -539,9 +537,9 @@ export const BrandsamorLandingPage = () => {
                 loading="lazy"
               />
             </div>
-            <div className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8 max-w-sm shadow-sm">
-              <div className="text-4xl text-accent font-display mb-4">"</div>
-              <p className="text-lg font-medium mb-4">Packaging is where a perfume starts to feel like a real product.</p>
+            <div className="quote-accent max-w-sm">
+              <div className="text-4xl text-accent font-display mb-4 leading-none">&ldquo;</div>
+              <p className="text-lg font-medium mb-4 text-heading">Packaging is where a perfume starts to feel like a real product.</p>
               <p className="text-xs text-body uppercase tracking-wider font-semibold">— BRANDSAMOR PRIVATE LABEL</p>
             </div>
           </div>
@@ -573,7 +571,7 @@ export const BrandsamorLandingPage = () => {
             </p>
           </div>
           <div className="md:col-span-2 grid sm:grid-cols-2 gap-6">
-            {complianceItems.map(item => <div key={item.title} className="bg-secondary border border-border rounded-[10px] p-6">
+            {complianceItems.map(item => <div key={item.title} className="py-2">
                 <div className="text-accent mb-4 text-lg">✦</div>
                 <h3 className="font-bold text-base mb-2">{item.title}</h3>
                 <p className="text-xs text-body leading-relaxed">{item.desc}</p>

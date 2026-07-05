@@ -168,7 +168,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
         title: 'Start small and validate demand',
         description:
           'Brandsamor is built for focused first batches. Launch with a manageable quantity, learn what customers like, and refine scent, packaging, or pricing before scaling. ' +
-          COMMERCIAL_COPY.minimumOrderValue,
+          COMMERCIAL_COPY.startingPathDetail,
         bullets: sectionBullets(
           'Sample scents before locking in production',
           'Approve a production sample before the full batch',

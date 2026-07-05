@@ -40,7 +40,7 @@ export const ArticleFaq = ({ items }: { items: KbFaqItem[] }) => (
       {items.map((item) => (
         <details
           key={item.question}
-          className="group rounded-xl border border-border bg-secondary overflow-hidden"
+          className="group border-b border-border/70 py-1"
         >
           <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-5 sm:p-6 [&::-webkit-details-marker]:hidden">
             <span className="font-medium text-heading pr-2">{item.question}</span>
@@ -72,7 +72,7 @@ export const RelatedKbArticles = ({ slugs, currentSlug }: { slugs: string[]; cur
             key={article.slug}
             to={kbArticlePath(article.slug)}
             onClick={() => trackKnowledgeBaseArticleClick(article.slug, article.title, 'kb_article_related')}
-            className="rounded-xl border border-border bg-secondary p-5 sm:p-6 hover:border-accent/40"
+            className="surface-soft p-5 sm:p-6 hover:bg-secondary/55"
           >
             <p className="text-xs uppercase tracking-wider text-accent mb-2">{article.targetKeyword}</p>
             <h3 className="font-medium text-heading leading-snug mb-2">{article.title}</h3>

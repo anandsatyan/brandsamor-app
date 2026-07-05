@@ -16,8 +16,10 @@ export const BUSINESS_FACTS = {
 } as const;
 
 export const COMMERCIAL_COPY = {
-  minimumOrderValue:
-    'Production orders start from a minimum project value of USD $2,000.',
+  startingPathLabel: 'Start with samples',
+  startingPathValue: 'Explore first',
+  startingPathDetail:
+    'Browse the scent library, order samples, and choose your direction before planning a production batch — no large upfront production commitment required.',
   productionTimeline:
     'Typical production takes approximately 3-6 weeks after fragrance, packaging, artwork and production details have been approved.',
   sampleDispatch:
@@ -29,9 +31,11 @@ export const COMMERCIAL_COPY = {
   unitQuantityNote:
     'Unit quantity depends on product format, bottle, decoration, box, fragrance, destination and project requirements.',
   formatMinimumNote:
-    'Exact minimum quantities vary by format and packaging, while projects begin from a $2,000 minimum production order value.',
+    'First-batch quantities depend on product format, packaging, and how you plan to launch — we help you size a practical starting order.',
   suitabilityNote:
-    'Brandsamor is best suited to businesses planning a production project of approximately $2,000 or more.',
+    'Brandsamor is built for brands exploring fragrance — sample scents first, then scale your line when you are ready.',
+  minimumOrderValue:
+    'There is no minimum to start with samples. For production, order size depends on your product format, packaging, and launch plan — we help you plan a focused first batch that fits your goals.',
   packamorDistinction:
     'Brandsamor is the private-label fragrance service operated by Packamor LLC, the team behind Packamor’s perfume-packaging business.',
   legalEntity:

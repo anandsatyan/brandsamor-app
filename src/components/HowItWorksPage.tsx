@@ -10,7 +10,7 @@ const TimelineSummary = () => (
       {howItWorksTimelineSummary.items.map((item, index) => (
         <li
           key={item.phase}
-          className="rounded-xl border border-border bg-secondary/50 p-5 sm:p-6 flex gap-4"
+          className="surface-soft p-5 sm:p-6 flex gap-4"
         >
           <span className="font-display text-2xl text-accent shrink-0" aria-hidden="true">
             {String(index + 1).padStart(2, '0')}

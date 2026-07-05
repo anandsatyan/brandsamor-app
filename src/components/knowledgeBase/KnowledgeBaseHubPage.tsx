@@ -29,7 +29,7 @@ const ArticleCard = ({
   <Link
     to={kbArticlePath(slug)}
     onClick={() => trackKnowledgeBaseArticleClick(slug, title, source)}
-    className="group rounded-2xl border border-border bg-secondary p-6 sm:p-8 hover:border-accent/40 flex flex-col h-full"
+    className="group surface-soft p-6 sm:p-8 hover:bg-secondary/55 flex flex-col h-full"
   >
     <p className="text-[11px] sm:text-xs uppercase tracking-wider text-accent font-medium mb-3">
       {targetKeyword}

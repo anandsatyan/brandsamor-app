@@ -136,7 +136,7 @@ export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I start small and grow my fragrance line over time?',
     answer:
-      COMMERCIAL_COPY.minimumOrderValue +
+      COMMERCIAL_COPY.startingPathDetail +
       ' Start with a focused first batch, learn what customers like, and add new scents, sizes, or packaging updates as demand grows.',
   },
   {

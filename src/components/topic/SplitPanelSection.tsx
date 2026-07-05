@@ -22,7 +22,7 @@ export const SplitPanelSection = ({
     {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
     <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-2xl">{title}</h2>
     <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-      <div className="bg-secondary border border-border rounded-[10px] p-6 sm:p-8">
+      <div className="surface-soft p-6 sm:p-8">
         <h3 className="font-display text-xl sm:text-2xl mb-6">{leftTitle}</h3>
         <ul className="space-y-4">
           {leftItems.map((item) => (
@@ -34,10 +34,10 @@ export const SplitPanelSection = ({
         </ul>
       </div>
       <div
-        className={`rounded-[10px] p-6 sm:p-8 border ${
+        className={`rounded-2xl p-6 sm:p-8 ${
           rightDark
-            ? 'bg-heading text-white border-heading'
-            : 'bg-secondary border-border'
+            ? 'bg-heading text-white'
+            : 'surface-soft'
         }`}
       >
         <h3 className="font-display text-xl sm:text-2xl mb-6">{rightTitle}</h3>

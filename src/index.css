@@ -150,4 +150,16 @@ h6 {
   .text-link {
     @apply text-accent hover:opacity-80;
   }
+
+  .surface-soft {
+    @apply rounded-2xl bg-secondary/35;
+  }
+
+  .surface-item {
+    @apply py-5 sm:py-6 border-b border-border/60 last:border-b-0;
+  }
+
+  .quote-accent {
+    @apply border-l-2 border-accent pl-6 sm:pl-8;
+  }
 }
