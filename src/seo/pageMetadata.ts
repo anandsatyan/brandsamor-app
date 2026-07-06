@@ -137,7 +137,7 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/about': {
     path: '/about',
     pageName: 'About',
-    title: 'About Brandsamor | Private Label Fragrance Studio',
+    title: 'About Brandsamor | Private Label Fragrance Manufacturer',
     description:
       'Learn what Brandsamor is, its packaging background, private-label model, team regions, and relationship to Packamor LLC.',
     canonical: canonical('/about'),
@@ -226,7 +226,7 @@ const KNOWLEDGE_BASE_HUB: PageMetadata = {
   pageName: 'Knowledge Base',
   title: 'Private Label Perfume Knowledge Base | Brandsamor',
   description:
-    'Guides on how to start a perfume line, private label MOQ, manufacturing timelines, fragrance selection, packaging, compliance documents, IFRA certificates, and U.S. imports.',
+    'Guides on starting a perfume line, choosing a manufacturer, pricing and profitability, fragrance sampling, packaging, discovery sets, custom development, compliance (IFRA, COA, FDA MoCRA), and U.S. imports.',
   canonical: canonical('/knowledge-base'),
   h1: 'Private Label Perfume Knowledge Base',
   robots: DEFAULT_ROBOTS,

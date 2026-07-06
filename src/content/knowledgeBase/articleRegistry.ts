@@ -5,7 +5,7 @@ const defaultArticleMeta: KbArticleMeta = {
   author: 'Brandsamor Editorial Team',
   authorRole: 'Private label fragrance specialists',
   publishedDate: '2026-01-15',
-  updatedDate: '2026-07-05',
+  updatedDate: '2026-07-06',
   reviewer: 'Brandsamor team',
 };
 
@@ -67,6 +67,87 @@ const articleEnhancements: Record<
   'perfume-certificate-of-analysis': {
     category: 'quality-and-compliance',
     relatedCommercialPages: ['/quality-compliance'],
+  },
+  'choose-private-label-perfume-manufacturer': {
+    category: 'manufacturing',
+    relatedCommercialPages: ['/how-it-works', '/why-brandsamor', '/get-started'],
+  },
+  'is-private-label-perfume-profitable': {
+    category: 'business-and-pricing',
+    relatedCommercialPages: ['/start-a-perfume-line', '/fragrance-products'],
+  },
+  'how-to-price-private-label-perfume': {
+    category: 'business-and-pricing',
+    relatedCommercialPages: ['/start-a-perfume-line', '/fragrance-products'],
+  },
+  'launch-one-scent-or-several': {
+    category: 'starting-a-perfume-line',
+    relatedCommercialPages: ['/start-a-perfume-line', '/fragrance-sampling'],
+  },
+  'how-to-evaluate-perfume-samples': {
+    category: 'fragrance-sampling',
+    relatedCommercialPages: ['/fragrance-sampling', '/curated-sampling'],
+  },
+  'boutique-perfume-line-launch': {
+    category: 'starting-a-perfume-line',
+    relatedCommercialPages: ['/who-we-work-with', '/start-a-perfume-line'],
+  },
+  'private-label-perfume-fashion-brands': {
+    category: 'starting-a-perfume-line',
+    relatedCommercialPages: ['/who-we-work-with', '/packaging-branding'],
+  },
+  'questions-perfume-manufacturer-before-ordering': {
+    category: 'manufacturing',
+    relatedCommercialPages: ['/how-it-works', '/quality-compliance'],
+  },
+  'how-many-fragrance-samples-to-test': {
+    category: 'fragrance-sampling',
+    relatedCommercialPages: ['/fragrance-sampling', '/curated-sampling'],
+  },
+  'test-demand-before-perfume-inventory': {
+    category: 'business-and-pricing',
+    relatedCommercialPages: ['/start-a-perfume-line', '/get-started'],
+  },
+  'calculate-retail-price-perfume': {
+    category: 'business-and-pricing',
+    relatedCommercialPages: ['/start-a-perfume-line', '/fragrance-products'],
+  },
+  'fda-mocra-requirements-perfume-brands': {
+    category: 'quality-and-compliance',
+    relatedCommercialPages: ['/quality-compliance', '/contact'],
+    sources: ['https://www.fda.gov/cosmetics/cosmetics-laws-regulations/modernization-cosmetics-regulation-act-mocra'],
+  },
+  'beauty-brand-add-fragrance-category': {
+    category: 'starting-a-perfume-line',
+    relatedCommercialPages: ['/who-we-work-with', '/fragrance-products'],
+  },
+  'launch-perfume-discovery-set': {
+    category: 'packaging-and-branding',
+    relatedCommercialPages: ['/fragrance-products', '/packaging-branding'],
+  },
+  'custom-fragrance-development': {
+    category: 'manufacturing',
+    relatedCommercialPages: ['/fragrance-sampling', '/how-it-works'],
+  },
+  'how-to-write-fragrance-brief': {
+    category: 'fragrance-sampling',
+    relatedCommercialPages: ['/fragrance-sampling', '/get-started'],
+  },
+  'perfume-stability-testing': {
+    category: 'quality-and-compliance',
+    relatedCommercialPages: ['/quality-compliance', '/how-it-works'],
+  },
+  'balanced-first-fragrance-collection': {
+    category: 'starting-a-perfume-line',
+    relatedCommercialPages: ['/fragrance-products', '/start-a-perfume-line'],
+  },
+  'perfume-manufacturing-india-usa-europe': {
+    category: 'manufacturing',
+    relatedCommercialPages: ['/how-it-works', '/why-brandsamor'],
+  },
+  'sell-private-label-perfume-boutique': {
+    category: 'business-and-pricing',
+    relatedCommercialPages: ['/who-we-work-with', '/start-a-perfume-line'],
   },
 };
 

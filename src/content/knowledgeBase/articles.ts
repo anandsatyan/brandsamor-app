@@ -1,4 +1,5 @@
 import type { KbArticleBase } from './types';
+import { KNOWLEDGE_BASE_ARTICLES_BATCH2 } from './articlesBatch2';
 
 export const KNOWLEDGE_BASE_ARTICLES: KbArticleBase[] = [
   {
@@ -881,6 +882,7 @@ export const KNOWLEDGE_BASE_ARTICLES: KbArticleBase[] = [
       },
     ],
   },
+  ...KNOWLEDGE_BASE_ARTICLES_BATCH2,
 ];
 
 export const getKbArticle = (slug: string) =>

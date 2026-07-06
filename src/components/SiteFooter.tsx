@@ -68,7 +68,7 @@ export const SiteFooter = () => {
             <BrandLogo />
           </Link>
           <address className="not-italic space-y-2">
-            <p>Private Label Fragrance Studio</p>
+            <p>Private Label Fragrance Manufacturer</p>
             <p>
               {ORGANIZATION.address.streetAddress}, {ORGANIZATION.address.addressLocality}{' '}
               {ORGANIZATION.address.addressRegion}
