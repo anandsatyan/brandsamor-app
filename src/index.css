@@ -141,7 +141,7 @@ h6 {
   }
 
   .type-display-watermark {
-    @apply type-display-lg absolute -bottom-4 -right-4 leading-none pointer-events-none select-none text-heading/25;
+    @apply type-display-lg absolute right-2 bottom-1 leading-none pointer-events-none select-none text-accent/10;
   }
 
   .type-num-label {

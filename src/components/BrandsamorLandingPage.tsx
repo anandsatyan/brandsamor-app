@@ -501,14 +501,37 @@ export const BrandsamorLandingPage = () => {
           </h4>
           <h2 className="type-h2 mb-8 sm:mb-12 max-w-sm">Why Start With Brandsamor Private Label?</h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="relative overflow-hidden min-h-[180px] sm:min-h-[200px]">
-                <div className="type-display-watermark">
-                  {`0${idx + 1}`}
-                </div>
+          <div className="grid gap-4 sm:gap-6 lg:grid-cols-12 lg:auto-rows-fr lg:items-stretch">
+            {whyBrandsamorCards.slice(0, 2).map((card, idx) => (
+              <div
+                key={card.title}
+                className="relative surface-soft p-6 sm:p-8 min-h-[180px] sm:min-h-[200px] lg:col-span-4"
+              >
+                <div className="type-display-watermark">{`0${idx + 1}`}</div>
                 <h3 className="type-h3 mb-4 relative z-10">{card.title}</h3>
                 <p className="type-body-sm relative z-10">{card.desc}</p>
-              </div>)}
+              </div>
+            ))}
+
+            <div className="surface-soft overflow-hidden lg:col-span-4 max-h-[14rem]">
+              <img
+                src="/brandsamor-manufacturing-lab.png"
+                alt="Brandsamor manufacturing lab for private label perfume production"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            {whyBrandsamorCards.slice(2).map((card, idx) => (
+              <div
+                key={card.title}
+                className="relative surface-soft p-6 sm:p-8 min-h-[180px] sm:min-h-[200px] lg:col-span-3"
+              >
+                <div className="type-display-watermark">{`0${idx + 3}`}</div>
+                <h3 className="type-h3 mb-4 relative z-10">{card.title}</h3>
+                <p className="type-body-sm relative z-10">{card.desc}</p>
+              </div>
+            ))}
           </div>
 
           <SectionCtaRow to="/why-brandsamor" label="Why choose Brandsamor" />
@@ -592,7 +615,7 @@ export const BrandsamorLandingPage = () => {
       </main>
 
       {/* SECTION 12 - FINAL CTA (Dark Section) */}
-      <section className="bg-heading py-12 sm:py-24 text-white">
+      <section className="surface-dark bg-[#010100] py-12 sm:py-24 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>
             <h4 className="type-eyebrow mb-6">READY TO LAUNCH?</h4>
@@ -607,9 +630,9 @@ export const BrandsamorLandingPage = () => {
           </div>
           <div className="max-w-md mx-auto w-full">
             <img
-              src="/ill-sample-wizard.png"
-              alt="Brandsamor project planning for fragrance samples and launch options"
-              className="w-full h-auto rounded-[24px]"
+              src="/branded-private-label-perfumes.png"
+              alt="Private label perfume bottle branded with your name"
+              className="w-full h-auto"
               loading="lazy"
             />
           </div>

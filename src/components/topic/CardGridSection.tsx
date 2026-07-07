@@ -26,7 +26,7 @@ export const CardGridSection = ({
       {cards.map((card) => (
         <div
           key={card.title}
-          className="surface-soft p-6 sm:p-8 flex flex-col h-full min-h-[180px] relative overflow-hidden"
+          className="surface-soft p-6 sm:p-8 flex flex-col h-full min-h-[180px] relative"
         >
           {card.num && (
             <span className="type-display-watermark">
