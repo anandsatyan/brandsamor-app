@@ -29,7 +29,7 @@ export const CardGridSection = ({
           className="surface-soft p-6 sm:p-8 flex flex-col h-full min-h-[180px] relative overflow-hidden"
         >
           {card.num && (
-            <span className="absolute -bottom-4 -right-4 type-display-lg text-border opacity-50 leading-none pointer-events-none select-none">
+            <span className="type-display-watermark">
               {card.num}
             </span>
           )}

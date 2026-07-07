@@ -430,7 +430,7 @@ export const BrandsamorLandingPage = () => {
                     {item.num}
                   </span>
                   <div className="relative">
-                    <span className="mb-3 inline-block type-caption font-semibold uppercase tracking-widest text-accent">
+                    <span className="mb-3 inline-block type-num-label text-accent">
                       {item.num}
                     </span>
                     <h3 className="type-h3 mb-2 pr-8">{item.title}</h3>
@@ -487,7 +487,7 @@ export const BrandsamorLandingPage = () => {
             {whySellCards.map(card => <div key={card.num} className="flex flex-col h-full">
                 <div className="flex justify-between items-start mb-6">
                   <h3 className="type-h3 leading-tight w-4/5">{card.title}</h3>
-                  <span className="text-accent type-body-sm font-medium">{card.num}</span>
+                  <span className="text-accent type-num-inline">{card.num}</span>
                 </div>
                 <p className="type-body-sm mt-auto">{card.desc}</p>
               </div>)}
@@ -503,7 +503,7 @@ export const BrandsamorLandingPage = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {whyBrandsamorCards.map((card, idx) => <div key={card.title} className="relative overflow-hidden min-h-[180px] sm:min-h-[200px]">
-                <div className="absolute -bottom-4 -right-4 type-display-lg text-border opacity-50 leading-none pointer-events-none select-none">
+                <div className="type-display-watermark">
                   {`0${idx + 1}`}
                 </div>
                 <h3 className="type-h3 mb-4 relative z-10">{card.title}</h3>

@@ -133,11 +133,23 @@ h6 {
   }
 
   .type-display {
-    @apply font-display text-phi-2xl sm:text-phi-3xl leading-none;
+    @apply font-serif text-phi-2xl sm:text-phi-3xl leading-none tabular-nums;
   }
 
   .type-display-lg {
-    @apply font-display text-phi-4xl sm:text-phi-5xl leading-none;
+    @apply font-serif text-phi-4xl sm:text-phi-5xl leading-none tabular-nums;
+  }
+
+  .type-display-watermark {
+    @apply type-display-lg absolute -bottom-4 -right-4 leading-none pointer-events-none select-none text-heading/25;
+  }
+
+  .type-num-label {
+    @apply font-serif text-phi-xs uppercase tracking-widest font-medium tabular-nums;
+  }
+
+  .type-num-inline {
+    @apply font-serif text-phi-sm font-medium tabular-nums;
   }
 
   .hero-panel {
@@ -244,7 +256,7 @@ h6 {
   }
 
   .surface-soft {
-    @apply rounded-2xl bg-secondary/35;
+    @apply rounded-[2px] bg-secondary/35;
   }
 
   .surface-item {
