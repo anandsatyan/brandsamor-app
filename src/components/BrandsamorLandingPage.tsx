@@ -5,6 +5,7 @@ import { FaqSection } from './FaqSection';
 import { SectionLinkButton } from './SectionLinkButton';
 import { SeoHead } from './SeoHead';
 import { buildStructuredDataForPath } from '../seo/buildPageStructuredData';
+import { IMAGE_ALT } from '../seo/imageAlt';
 import { PAGE_METADATA } from '../seo/pageMetadata';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
@@ -343,9 +344,10 @@ export const BrandsamorLandingPage = () => {
             <div className="rounded-xl overflow-hidden w-full max-w-lg">
               <img
                 src="/private-label-perfume-manufacturing-1.png"
-                alt="Private label perfume bottle mockup with your brand name"
+                alt={IMAGE_ALT.homepage.manufacturing}
                 className="w-full h-auto"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -461,9 +463,10 @@ export const BrandsamorLandingPage = () => {
           <div className="rounded-xl overflow-hidden w-full max-w-lg mx-auto md:mx-0">
             <img
               src="/img-sample-kit.png"
-              alt="Brandsamor fragrance selection kit with sample vials"
+              alt={IMAGE_ALT.homepage.sampleKit}
               className="w-full h-auto"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </section>
@@ -516,9 +519,10 @@ export const BrandsamorLandingPage = () => {
             <div className="surface-soft overflow-hidden lg:col-span-4 max-h-[14rem]">
               <img
                 src="/brandsamor-manufacturing-lab.png"
-                alt="Brandsamor manufacturing lab for private label perfume production"
+                alt={IMAGE_ALT.homepage.manufacturingLab}
                 className="h-full w-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -561,9 +565,10 @@ export const BrandsamorLandingPage = () => {
             <div className="rounded-xl overflow-hidden w-full">
               <img
                 src="/packamor-fragrance-packaging.png"
-                alt="Fragrance packaging with branded bottles, boxes, and labels"
+                alt={IMAGE_ALT.homepage.packaging}
                 className="w-full h-auto"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="quote-accent max-w-sm">
@@ -631,9 +636,10 @@ export const BrandsamorLandingPage = () => {
           <div className="max-w-md mx-auto w-full">
             <img
               src="/branded-private-label-perfumes.png"
-              alt="Private label perfume bottle branded with your name"
+              alt={IMAGE_ALT.homepage.finalCta}
               className="w-full h-auto"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

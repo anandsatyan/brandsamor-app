@@ -1,13 +1,14 @@
 import type { TopicPageConfig } from '../components/topic/types';
 import {
-  FlatLayIllustration,
-  GiftSetIllustration,
-  HeroBottleIllustration,
-  BodyMistIllustration,
-  LaunchPlanningIllustration,
-  MarbleBottleIllustration,
-  RoomSprayIllustration,
-  ScentSamplesIllustration,
+  BodyMistsImage,
+  ChoosingProductFormatImage,
+  EauDeParfumImage,
+  FragranceProductTypesImage,
+  FragranceSampleKitImage,
+  GiftSetImage,
+  PerfumeOilsImage,
+  RoomSpraysImage,
+  TravelPerfumesImage,
 } from '../components/Illustrations';
 import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import {
@@ -27,7 +28,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     description:
       'From full-size eau de parfum to travel sprays, body mists, room sprays, and gift sets — choose the product formats that fit your brand, audience, and price point. ' +
       COMMERCIAL_COPY.formatMinimumNote,
-    Illustration: FlatLayIllustration,
+    Illustration: FragranceProductTypesImage,
   },
   sections: withSteps(
     [
@@ -42,7 +43,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Start focused with one format or a small launch set',
           'Expand into new formats once you see what sells',
         ),
-        Illustration: FlatLayIllustration,
+        Illustration: FragranceProductTypesImage,
       },
       {
         id: 'eau-de-parfum',
@@ -55,7 +56,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Pairs with a wide range of bottle shapes and capacities',
           'Familiar format customers expect from a perfume brand',
         ),
-        Illustration: HeroBottleIllustration,
+        Illustration: EauDeParfumImage,
       },
       {
         id: 'perfume-oils-roll-ons',
@@ -68,7 +69,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Strong fit for clean beauty and wellness positioning',
           'Can complement a spray fragrance in the same line',
         ),
-        Illustration: MarbleBottleIllustration,
+        Illustration: PerfumeOilsImage,
       },
       {
         id: 'body-mists',
@@ -81,7 +82,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Popular in beauty, lifestyle, and creator-led brands',
           'Easy to pair with full-size perfume in a collection',
         ),
-        Illustration: BodyMistIllustration,
+        Illustration: BodyMistsImage,
       },
       {
         id: 'room-sprays',
@@ -94,7 +95,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Complements personal perfume in a scent collection',
           'Giftable format for housewarming and corporate gifting',
         ),
-        Illustration: RoomSprayIllustration,
+        Illustration: RoomSpraysImage,
       },
       {
         id: 'travel-perfumes',
@@ -107,7 +108,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Popular add-on for hotels, spas, and retail sets',
           'Helps customers discover your scent before upsizing',
         ),
-        Illustration: HeroBottleIllustration,
+        Illustration: TravelPerfumesImage,
       },
       {
         id: 'gift-sets',
@@ -120,7 +121,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Introduce customers to more than one product type',
           'Retail-ready presentation under your brand name',
         ),
-        Illustration: GiftSetIllustration,
+        Illustration: GiftSetImage,
       },
       {
         id: 'choosing-right-format',
@@ -133,7 +134,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
           'Start with one scent in one format before expanding',
           'Use samples to confirm scent direction before format decisions',
         ),
-        Illustration: LaunchPlanningIllustration,
+        Illustration: ChoosingProductFormatImage,
       },
     ],
     'PRODUCT FORMAT',
@@ -151,7 +152,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     title: 'Explore fragrance samples',
     description:
       'Before you lock in a product format, work with our team to compare scent directions from the Brandsamor scent library. Order samples, find your launch fragrance, then match it to the right bottle and format on the fragrance sampling page.',
-    Illustration: ScentSamplesIllustration,
+    Illustration: FragranceSampleKitImage,
   },
   relatedLinks: {
     links: [

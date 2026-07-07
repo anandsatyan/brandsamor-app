@@ -39,7 +39,7 @@ export const ContentSection = ({
         </ul>
       )}
     </div>
-    <div className={`rounded-xl overflow-hidden ${reverse ? 'md:order-1' : ''}`}>
+    <div className={reverse ? 'md:order-1' : ''}>
       <Illustration />
     </div>
   </section>

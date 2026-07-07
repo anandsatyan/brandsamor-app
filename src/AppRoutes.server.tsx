@@ -5,6 +5,7 @@ import { ContactPage } from './components/ContactPage';
 import { LeadFormPage } from './components/LeadFormPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
+import { HowYourBatchIsMadePage } from './components/HowYourBatchIsMadePage';
 import { HowItWorksPage } from './components/HowItWorksPage';
 import { KnowledgeBaseArticlePage } from './components/knowledgeBase/KnowledgeBaseArticlePage';
 import { KnowledgeBaseHubPage } from './components/knowledgeBase/KnowledgeBaseHubPage';
@@ -34,6 +35,7 @@ export const AppRoutesServer = () => (
       <Route path="/who-we-work-with" element={<WhoWeWorkWithPage />} />
       <Route path="/why-brandsamor" element={<WhyBrandsamorPage />} />
       <Route path="/quality-compliance" element={<QualityCompliancePage />} />
+      <Route path="/how-your-batch-is-made" element={<HowYourBatchIsMadePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/get-started" element={<LeadFormPage />} />

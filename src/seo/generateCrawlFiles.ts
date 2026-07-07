@@ -26,6 +26,7 @@ const routePriority = (route: string) => {
   if (route.startsWith('/knowledge-base/')) return '0.7';
   if (
     route === '/how-it-works' ||
+    route === '/how-your-batch-is-made' ||
     route === '/fragrance-products' ||
     route === '/start-a-perfume-line'
   ) {

@@ -2,16 +2,16 @@ import type { TopicPageConfig } from '../components/topic/types';
 import {
   ApprovalIllustration,
   BrandBriefIllustration,
-  FlatLayIllustration,
+  FragranceProductTypesImage,
   FragranceFamilyIllustration,
-  GiftSetIllustration,
+  FragranceSampleKitImage,
+  GiftSetImage,
   HeroBottleIllustration,
   LaunchPlanningIllustration,
   MarbleBottleIllustration,
   PackagingIllustration,
   ProcessTimelineIllustration,
   RepeatOrderIllustration,
-  ScentSamplesIllustration,
 } from '../components/Illustrations';
 import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { START_PERFUME_LINE_FAQ_ITEMS } from '../seo/pageSeo';
@@ -70,7 +70,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Gift sets can bundle formats for higher order value',
           'Customers associate your brand with memorable moments',
         ),
-        Illustration: GiftSetIllustration,
+        Illustration: GiftSetImage,
       },
       {
         id: 'brand-experience',
@@ -122,7 +122,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Order samples before committing to multiple scents',
           'Add new fragrances once your first batch sells',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: FragranceSampleKitImage,
       },
       {
         id: 'choose-format',
@@ -135,7 +135,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Body mists for lighter, everyday fragrance',
           'Gift sets to increase perceived value and AOV',
         ),
-        Illustration: FlatLayIllustration,
+        Illustration: FragranceProductTypesImage,
       },
       {
         id: 'select-packaging',

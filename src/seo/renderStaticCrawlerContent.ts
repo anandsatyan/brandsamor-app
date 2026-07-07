@@ -1,3 +1,4 @@
+import { batchProcessStages, BATCH_PROCESS_FAQ } from '../content/batchProcess';
 import type { TopicPageConfig } from '../components/topic/types';
 import type { InfoSection } from '../components/info/InfoPageLayout';
 import type { PageMetadata } from './pageMetadata';
@@ -124,6 +125,28 @@ export const renderStaticCrawlerContent = (route: string, meta: PageMetadata) =>
 
   if (route === '/refund-and-cancellation-policy') {
     return renderInfoStatic(meta, refundPolicySections);
+  }
+
+  if (route === '/how-your-batch-is-made') {
+    return `<main id="brandsamor-static-content">
+  <h1>${escapeHtml(meta.h1)}</h1>
+  <p>${escapeHtml(meta.description)}</p>
+  ${batchProcessStages
+    .map(
+      (stage) => `<section id="${escapeHtml(stage.id)}">
+  <h2>${escapeHtml(stage.title)}</h2>
+  <p>${escapeHtml(stage.summary)}</p>
+  ${renderBullets(stage.details)}
+</section>`,
+    )
+    .join('\n')}
+  ${BATCH_PROCESS_FAQ.map(
+    (item) => `<article>
+  <h3>${escapeHtml(item.question)}</h3>
+  <p>${escapeHtml(item.answer)}</p>
+</article>`,
+  ).join('\n')}
+</main>`;
   }
 
   if (route === '/contact') {

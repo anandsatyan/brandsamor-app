@@ -1,25 +1,155 @@
 import type { ReactNode } from 'react';
+import { IMAGE_ALT } from '../seo/imageAlt';
 
 type IllustrationFrameProps = {
   children: ReactNode;
   className?: string;
   minHeight?: string;
+  ariaLabel: string;
 };
 
 const IllustrationFrame = ({
   children,
   className = '',
   minHeight = 'min-h-[220px] sm:min-h-[280px]',
+  ariaLabel,
 }: IllustrationFrameProps) => (
   <div
-    className={`w-full h-full flex items-center justify-center bg-[#F2EDE4] rounded-xl overflow-hidden ${minHeight} ${className}`}
+    role="img"
+    aria-label={ariaLabel}
+    className={`w-full h-full flex items-center justify-center bg-[#F2EDE4] rounded-[2px] overflow-hidden ${minHeight} ${className}`}
   >
     {children}
   </div>
 );
 
+const ProductImage = ({ src, alt }: { src: string; alt: string }) => (
+  <img
+    src={src}
+    alt={alt}
+    className="block h-auto w-full"
+    loading="lazy"
+    decoding="async"
+  />
+);
+
+const createProductImage = (src: string, alt: string) => {
+  const ProductImageIllustration = () => <ProductImage src={src} alt={alt} />;
+  return ProductImageIllustration;
+};
+
+export const FragranceProductTypesImage = createProductImage(
+  '/fragrance-product-types.png',
+  IMAGE_ALT.fragranceProducts.productTypes,
+);
+
+export const EauDeParfumImage = createProductImage(
+  '/eau-de-parfum.png',
+  IMAGE_ALT.fragranceProducts.eauDeParfum,
+);
+
+export const PerfumeOilsImage = createProductImage(
+  '/perfume-oils.png',
+  IMAGE_ALT.fragranceProducts.perfumeOils,
+);
+
+export const BodyMistsImage = createProductImage(
+  '/body-mists.png',
+  IMAGE_ALT.fragranceProducts.bodyMists,
+);
+
+export const RoomSpraysImage = createProductImage(
+  '/room-sprays.png',
+  IMAGE_ALT.fragranceProducts.roomSprays,
+);
+
+export const TravelPerfumesImage = createProductImage(
+  '/travel-perfumes.png',
+  IMAGE_ALT.fragranceProducts.travelPerfumes,
+);
+
+export const GiftSetImage = createProductImage(
+  '/gift-set.png',
+  IMAGE_ALT.fragranceProducts.giftSet,
+);
+
+export const ChoosingProductFormatImage = createProductImage(
+  '/choosing-the-right-product-format.png',
+  IMAGE_ALT.fragranceProducts.choosingFormat,
+);
+
+export const FragranceSampleKitImage = createProductImage(
+  '/fragrance-sample-kit.png',
+  IMAGE_ALT.fragranceProducts.sampleKit,
+);
+
+export const PerfumeBottleSelectionImage = createProductImage(
+  '/perfume-bottle-selection.png',
+  IMAGE_ALT.packagingBranding.bottleSelection,
+);
+
+export const PerfumeBottleSizesImage = createProductImage(
+  '/perfume-bottle-sizes.png',
+  IMAGE_ALT.packagingBranding.bottleSizes,
+);
+
+export const CapsAndSpraysImage = createProductImage(
+  '/caps-and-sprays.png',
+  IMAGE_ALT.packagingBranding.capsAndSprays,
+);
+
+export const PerfumeBottleLabelsImage = createProductImage(
+  '/perfume-bottle-labels.png',
+  IMAGE_ALT.packagingBranding.labels,
+);
+
+export const ScreenPrintingPerfumeBottlesImage = createProductImage(
+  '/screen-printing-perfume-bottles.png',
+  IMAGE_ALT.packagingBranding.screenPrinting,
+);
+
+export const PerfumeBottleColoringCoatingImage = createProductImage(
+  '/perfume-bottle-coloring-coating.png',
+  IMAGE_ALT.packagingBranding.coloringCoating,
+);
+
+export const PerfumeBottleDecorationsImage = createProductImage(
+  '/perfume-bottle-decorations.png',
+  IMAGE_ALT.packagingBranding.decorations,
+);
+
+export const PerfumeCartonImage = createProductImage(
+  '/perfume-carton.png',
+  IMAGE_ALT.packagingBranding.carton,
+);
+
+export const PerfumeRigidBoxImage = createProductImage(
+  '/perfume-rigid-box.png',
+  IMAGE_ALT.packagingBranding.rigidBox,
+);
+
+export const CustomVsStockPackagingImage = createProductImage(
+  '/custom-vs-stock-packaging.png',
+  IMAGE_ALT.packagingBranding.stockVsCustom,
+);
+
+export const ArtworkRequirementsImage = createProductImage(
+  '/artwork-requirements.png',
+  IMAGE_ALT.packagingBranding.artworkRequirements,
+);
+
+export const PackagingApprovalProcessImage = createProductImage(
+  '/packaging-approval-process.png',
+  IMAGE_ALT.packagingBranding.approvalProcess,
+);
+
+export const StartDesigningImage = createProductImage(
+  '/start-designing.png',
+  IMAGE_ALT.packagingBranding.startDesigning,
+);
+
 export const HeroBottleIllustration = () => (
-  <IllustrationFrame minHeight="min-h-[250px] sm:min-h-[320px] md:min-h-[400px]">
+  <IllustrationFrame minHeight="min-h-[250px] sm:min-h-[320px] md:min-h-[400px]" ariaLabel={IMAGE_ALT.illustrations.heroBottle}>
     <svg
       viewBox="0 0 400 440"
       fill="none"
@@ -81,7 +211,7 @@ export const HeroBottleIllustration = () => (
 );
 
 export const MarbleBottleIllustration = () => (
-  <IllustrationFrame className="w-[250px] max-w-[250px] h-[250px]">
+  <IllustrationFrame className="w-[250px] max-w-[250px] h-[250px]" ariaLabel={IMAGE_ALT.illustrations.marbleBottle}>
     <svg viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[70%] max-w-[180px] h-auto">
       <path d="M0 80 Q60 60 110 90 Q160 120 220 100" stroke="#E0D8CE" strokeWidth="1" fill="none" />
       <path d="M0 140 Q80 120 140 150 Q180 165 220 145" stroke="#E0D8CE" strokeWidth="0.7" fill="none" />
@@ -106,7 +236,7 @@ export const MarbleBottleIllustration = () => (
 );
 
 export const PackagingIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.packaging}>
     <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[280px] h-auto">
       <rect x="30" y="100" width="120" height="100" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <path d="M30 100 L90 60 L210 60 L150 100Z" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -123,7 +253,7 @@ export const PackagingIllustration = () => (
 );
 
 export const FlatLayIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.flatLay}>
     <svg viewBox="0 0 360 340" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[300px] h-auto">
       <path d="M0 160 Q90 140 180 165 Q260 185 360 155" stroke="#E0D8CE" strokeWidth="1" fill="none" />
       <ellipse cx="80" cy="100" rx="30" ry="14" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -164,7 +294,7 @@ export const FlatLayIllustration = () => (
 );
 
 export const ProcessTimelineIllustration = () => (
-  <IllustrationFrame minHeight="min-h-[280px] sm:min-h-[360px]">
+  <IllustrationFrame minHeight="min-h-[280px] sm:min-h-[360px]" ariaLabel={IMAGE_ALT.illustrations.processTimeline}>
     <svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[320px] h-auto">
       <path d="M40 160 H320" stroke="#E7DED2" strokeWidth="2" />
       {[40, 110, 180, 250, 320].map((x, i) => (
@@ -204,7 +334,7 @@ export const ProcessTimelineIllustration = () => (
 );
 
 export const BrandBriefIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.brandBrief}>
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <rect x="40" y="30" width="200" height="180" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="#FFFDFC" />
       <line x1="70" y1="70" x2="210" y2="70" stroke="#E7DED2" strokeWidth="8" strokeLinecap="round" />
@@ -218,7 +348,7 @@ export const BrandBriefIllustration = () => (
 );
 
 export const ScentSamplesIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.scentSamples}>
     <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[260px] h-auto">
       {[0, 1, 2, 3, 4].map((i) => (
         <g key={i} transform={`translate(${40 + i * 44}, ${60 + (i % 2) * 12})`}>
@@ -243,7 +373,7 @@ export const ScentSamplesIllustration = () => (
 );
 
 export const ApprovalIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.approval}>
     <svg viewBox="0 0 240 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[70%] max-w-[180px] h-auto">
       <rect x="70" y="60" width="80" height="160" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="90" y="42" width="40" height="22" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -256,7 +386,7 @@ export const ApprovalIllustration = () => (
 );
 
 export const ProductionIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.production}>
     <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[280px] h-auto">
       <rect x="20" y="40" width="280" height="140" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="50" y="80" width="36" height="70" rx="4" stroke="#A8BBBF" strokeWidth="1" fill="none" />
@@ -271,7 +401,7 @@ export const ProductionIllustration = () => (
 );
 
 export const QualityCheckIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.qualityCheck}>
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <rect x="50" y="40" width="180" height="160" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="#FFFDFC" />
       {['Fill level', 'Spray test', 'Label align', 'Batch record'].map((label, i) => (
@@ -288,7 +418,7 @@ export const QualityCheckIllustration = () => (
 );
 
 export const DeliveryIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.delivery}>
     <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[280px] h-auto">
       <rect x="40" y="80" width="100" height="80" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <path d="M40 80 L90 50 L190 50 L140 80Z" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -312,7 +442,7 @@ export const DeliveryIllustration = () => (
 );
 
 export const RepeatOrderIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.repeatOrder}>
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <path
         d="M140 40 A80 80 0 1 1 60 120"
@@ -341,7 +471,7 @@ export const RepeatOrderIllustration = () => (
 );
 
 export const GiftSetIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.giftSet}>
     <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[260px] h-auto">
       <rect x="60" y="80" width="180" height="120" rx="6" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="90" y="50" width="30" height="80" rx="4" stroke="#A8BBBF" strokeWidth="1" fill="none" />
@@ -354,7 +484,7 @@ export const GiftSetIllustration = () => (
 );
 
 export const BodyMistIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.bodyMist}>
     <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[70%] max-w-[160px] h-auto">
       <rect x="60" y="70" width="80" height="160" rx="20" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="85" y="50" width="30" height="24" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -365,7 +495,7 @@ export const BodyMistIllustration = () => (
 );
 
 export const RoomSprayIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.roomSpray}>
     <svg viewBox="0 0 240 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[75%] max-w-[180px] h-auto">
       <rect x="70" y="90" width="100" height="140" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <rect x="100" y="70" width="40" height="24" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
@@ -376,7 +506,7 @@ export const RoomSprayIllustration = () => (
 );
 
 export const LabelIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.label}>
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <rect x="80" y="60" width="50" height="140" rx="4" stroke="#2D302B" strokeWidth="1.1" fill="none" />
       <rect x="88" y="120" width="34" height="40" rx="2" stroke="#A8BBBF" strokeWidth="1" fill="none" />
@@ -390,7 +520,7 @@ export const LabelIllustration = () => (
 );
 
 export const RigidBoxIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.rigidBox}>
     <svg viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[240px] h-auto">
       <rect x="60" y="60" width="160" height="120" rx="4" stroke="#2D302B" strokeWidth="1.2" fill="none" />
       <line x1="60" y1="60" x2="140" y2="20" stroke="#2D302B" strokeWidth="1.2" />
@@ -402,7 +532,7 @@ export const RigidBoxIllustration = () => (
 );
 
 export const ComplianceDocIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.complianceDoc}>
     <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[80%] max-w-[240px] h-auto">
       <rect x="50" y="30" width="180" height="180" rx="8" stroke="#2D302B" strokeWidth="1.2" fill="#FFFDFC" />
       <text x="140" y="60" textAnchor="middle" fontFamily="Funnel Display Variable, sans-serif" fontSize="10" letterSpacing="2" fill="#A8BBBF">COA / IFRA</text>
@@ -417,7 +547,7 @@ export const ComplianceDocIllustration = () => (
 );
 
 export const FragranceFamilyIllustration = () => (
-  <IllustrationFrame>
+  <IllustrationFrame ariaLabel={IMAGE_ALT.illustrations.fragranceFamily}>
     <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[280px] h-auto">
       {['Floral', 'Woody', 'Fresh', 'Oriental'].map((family, i) => (
         <g key={family}>
@@ -430,7 +560,7 @@ export const FragranceFamilyIllustration = () => (
 );
 
 export const LaunchPlanningIllustration = () => (
-  <IllustrationFrame minHeight="min-h-[280px] sm:min-h-[320px]">
+  <IllustrationFrame minHeight="min-h-[280px] sm:min-h-[320px]" ariaLabel={IMAGE_ALT.illustrations.launchPlanning}>
     <svg viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[85%] max-w-[300px] h-auto">
       <circle cx="180" cy="140" r="80" stroke="#E7DED2" strokeWidth="1.5" fill="none" />
       <circle cx="180" cy="140" r="40" stroke="#A8BBBF" strokeWidth="1.2" fill="none" />

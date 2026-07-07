@@ -1,13 +1,19 @@
 import type { TopicPageConfig } from '../components/topic/types';
 import {
-  ApprovalIllustration,
-  BrandBriefIllustration,
-  FlatLayIllustration,
-  HeroBottleIllustration,
-  LabelIllustration,
-  MarbleBottleIllustration,
+  ArtworkRequirementsImage,
+  CapsAndSpraysImage,
+  CustomVsStockPackagingImage,
+  PackagingApprovalProcessImage,
   PackagingIllustration,
-  RigidBoxIllustration,
+  PerfumeBottleColoringCoatingImage,
+  PerfumeBottleDecorationsImage,
+  PerfumeBottleLabelsImage,
+  PerfumeBottleSelectionImage,
+  PerfumeBottleSizesImage,
+  PerfumeCartonImage,
+  PerfumeRigidBoxImage,
+  ScreenPrintingPerfumeBottlesImage,
+  StartDesigningImage,
 } from '../components/Illustrations';
 import { PACKAGING_BRANDING_FAQ_ITEMS } from '../seo/pageSeo';
 import { createTopicPageMeta } from '../seo/topicPageMeta';
@@ -38,7 +44,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Pair bottle style with your brand aesthetic',
           'See how your scent looks in bottle before bulk production',
         ),
-        Illustration: MarbleBottleIllustration,
+        Illustration: PerfumeBottleSelectionImage,
       },
       {
         id: 'bottle-sizes',
@@ -51,7 +57,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Size choices that affect unit cost and perceived value',
           'Plan a size range once your hero format proves demand',
         ),
-        Illustration: HeroBottleIllustration,
+        Illustration: PerfumeBottleSizesImage,
       },
       {
         id: 'caps-sprays',
@@ -64,7 +70,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Crimp and fit combinations tested for your bottle',
           'Hardware choices that affect shelf presence and hand feel',
         ),
-        Illustration: FlatLayIllustration,
+        Illustration: CapsAndSpraysImage,
       },
       {
         id: 'labels',
@@ -77,7 +83,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Material and finish options for premium presentation',
           'Label layouts that meet your market’s information requirements',
         ),
-        Illustration: LabelIllustration,
+        Illustration: PerfumeBottleLabelsImage,
       },
       {
         id: 'screen-printing',
@@ -90,7 +96,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Combine screen printing with labels for layered branding',
           'Preview print placement on a production sample',
         ),
-        Illustration: LabelIllustration,
+        Illustration: ScreenPrintingPerfumeBottlesImage,
       },
       {
         id: 'bottle-colouring',
@@ -103,7 +109,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Color direction aligned with your brand palette',
           'See color and coating on a sample before bulk runs',
         ),
-        Illustration: MarbleBottleIllustration,
+        Illustration: PerfumeBottleColoringCoatingImage,
       },
       {
         id: 'decorative-finishes',
@@ -116,7 +122,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Finishing choices that support premium positioning',
           'Combine finishes for a cohesive brand expression',
         ),
-        Illustration: FlatLayIllustration,
+        Illustration: PerfumeBottleDecorationsImage,
       },
       {
         id: 'folding-cartons',
@@ -129,7 +135,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Print finishes including matte, gloss, and soft-touch',
           'Retail-ready outer packaging from the first batch',
         ),
-        Illustration: PackagingIllustration,
+        Illustration: PerfumeCartonImage,
       },
       {
         id: 'rigid-boxes',
@@ -142,7 +148,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Ideal for gift sets and limited-edition launches',
           'Elevated unboxing that supports higher price points',
         ),
-        Illustration: RigidBoxIllustration,
+        Illustration: PerfumeRigidBoxImage,
       },
       {
         id: 'stock-vs-custom',
@@ -155,7 +161,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Mix stock bottles with custom labels and boxes',
           'Upgrade packaging on repeat orders as you learn',
         ),
-        Illustration: PackagingIllustration,
+        Illustration: CustomVsStockPackagingImage,
       },
       {
         id: 'artwork-requirements',
@@ -168,7 +174,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Box artwork with bleed and dieline specifications',
           'Refine artwork during the pre-production proof stage',
         ),
-        Illustration: BrandBriefIllustration,
+        Illustration: ArtworkRequirementsImage,
       },
       {
         id: 'packaging-approval',
@@ -181,7 +187,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
           'Request adjustments before the full batch runs',
           'Move to production only when the sample feels right',
         ),
-        Illustration: ApprovalIllustration,
+        Illustration: PackagingApprovalProcessImage,
       },
     ],
     'PACKAGING',
@@ -199,7 +205,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
     title: 'Start Designing',
     description:
       'Share your brand direction and packaging goals. Brandsamor helps you shape bottle, label, and box choices into a finished product that looks and feels ready to sell.',
-    Illustration: PackagingIllustration,
+    Illustration: StartDesigningImage,
   },
   beforeFaq: null,
   relatedLinks: {

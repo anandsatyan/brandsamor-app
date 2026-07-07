@@ -18,6 +18,7 @@ const PUBLIC_ROUTES = new Set([
   '/who-we-work-with',
   '/why-brandsamor',
   '/quality-compliance',
+  '/how-your-batch-is-made',
   '/about',
   '/contact',
   '/get-started',

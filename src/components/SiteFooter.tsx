@@ -110,6 +110,9 @@ export const SiteFooter = () => {
           <Link to="/about" className="hover:text-accent">
             About
           </Link>
+          <Link to="/how-your-batch-is-made" className="hover:text-accent">
+            How Your Batch Is Made
+          </Link>
           <Link to="/knowledge-base" className="hover:text-accent">
             Knowledge Base
           </Link>

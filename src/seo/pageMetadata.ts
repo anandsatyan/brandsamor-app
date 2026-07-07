@@ -134,6 +134,18 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     includeServiceSchema: true,
     includeHomeGraph: false,
   },
+  '/how-your-batch-is-made': {
+    path: '/how-your-batch-is-made',
+    pageName: 'How Your Batch Is Made',
+    title: 'How Private Label Perfume Is Made | Brandsamor',
+    description:
+      'See how Brandsamor coordinates fragrance preparation, filling, crimping, labelling, quality checks, packing and batch documentation.',
+    canonical: canonical('/how-your-batch-is-made'),
+    h1: 'How Your Fragrance Batch Is Made',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: true,
+    includeHomeGraph: false,
+  },
   '/about': {
     path: '/about',
     pageName: 'About',

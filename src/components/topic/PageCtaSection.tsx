@@ -26,11 +26,7 @@ export const PageCtaSection = ({
         <ComingSoonLabel variant="primary" />
         {footerText && <p className="type-body-sm text-white/65 mt-6">{footerText}</p>}
       </div>
-      {Illustration && (
-        <div className="rounded-xl overflow-hidden">
-          <Illustration />
-        </div>
-      )}
+      {Illustration && <Illustration />}
     </div>
   </section>
 );
