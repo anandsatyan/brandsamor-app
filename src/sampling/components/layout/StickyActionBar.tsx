@@ -29,7 +29,7 @@ export const PrimaryButton = ({
     type={type}
     onClick={onClick}
     disabled={disabled}
-    className="w-full rounded-xl bg-[#FF600A] px-6 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto sm:min-w-[200px]"
+    className="w-full rounded-[2px] bg-heading px-6 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto sm:min-w-[200px]"
   >
     {children}
   </button>

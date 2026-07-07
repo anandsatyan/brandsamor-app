@@ -94,7 +94,7 @@ export const LoginPage = () => {
             </Link>
           </div>
 
-          <button type="submit" className="btn-primary w-full justify-center rounded-lg">
+          <button type="submit" className="btn-primary w-full justify-center">
             Sign in
           </button>
 

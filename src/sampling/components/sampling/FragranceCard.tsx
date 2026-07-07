@@ -19,11 +19,11 @@ export const FragranceCard = ({ profile, recommendation, index }: FragranceCardP
       transition={{ delay: index * 0.08, duration: 0.25 }}
       className="rounded-2xl border-2 border-[#EADFD3] bg-[#FFFDFC] p-5"
     >
-      <p className="text-xs font-bold uppercase tracking-wider text-[#FF600A]">
+      <p className="type-eyebrow">
         Fragrance No. {profile.fragranceNumber}
       </p>
-      <h3 className="mt-1 text-xl font-bold text-[#2B1809]">{profile.customerName}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-[#725F52]">{profile.description}</p>
+      <h3 className="mt-1 type-h3">{profile.customerName}</h3>
+      <p className="mt-2 type-body-sm text-[#725F52]">{profile.description}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {profile.tags.map((tag) => (
           <span

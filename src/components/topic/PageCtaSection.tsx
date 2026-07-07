@@ -20,11 +20,11 @@ export const PageCtaSection = ({
       className={`max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid ${Illustration ? 'md:grid-cols-2' : ''} gap-10 md:gap-16 items-center`}
     >
       <div>
-        <h4 className="text-accent text-sm uppercase tracking-widest font-semibold mb-6">{eyebrow}</h4>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 text-white">{title}</h2>
-        <p className="text-base sm:text-lg text-white/85 mb-8 sm:mb-10 max-w-md">{description}</p>
+        <h4 className="type-eyebrow mb-6">{eyebrow}</h4>
+        <h2 className="type-h1 mb-6 text-white">{title}</h2>
+        <p className="type-body-lg text-white/85 mb-8 sm:mb-10 max-w-md">{description}</p>
         <ComingSoonLabel variant="primary" />
-        {footerText && <p className="text-sm text-white/65 mt-6">{footerText}</p>}
+        {footerText && <p className="type-body-sm text-white/65 mt-6">{footerText}</p>}
       </div>
       {Illustration && (
         <div className="rounded-xl overflow-hidden">

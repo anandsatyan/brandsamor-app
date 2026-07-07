@@ -154,17 +154,17 @@ export const SamplingExperience = () => {
 
   const renderWelcome = () => (
     <div className="flex min-h-screen flex-col items-center justify-center px-4 py-12 text-center">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF600A]">
+      <p className="type-eyebrow tracking-[0.2em]">
         Curated fragrance sampling
       </p>
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className="mt-4 max-w-2xl text-[34px] font-bold leading-tight text-[#2B1809] sm:text-5xl"
+        className="mt-4 max-w-2xl type-h1"
       >
         Five fragrance directions, selected for your brand.
       </h1>
-      <p className="mt-4 max-w-xl text-base leading-relaxed text-[#725F52] sm:text-lg">
+      <p className="mt-4 max-w-xl type-body-lg text-[#725F52]">
         Tell us about your brand, audience and the kind of fragrance experience you want to create.
         Brandsamor will use your brief to curate exactly five fragrance samples for you.
       </p>
@@ -196,10 +196,10 @@ export const SamplingExperience = () => {
   const renderContact = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={1} onBack={() => goToStep(STEP_WELCOME)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold leading-tight sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         First, where should we send your sample recommendations?
       </h1>
-      <p className="mt-3 text-base text-[#725F52]">
+      <p className="mt-3 type-body text-[#725F52]">
         We will use these details to save your brief and contact you about your Brandsamor sample kit.
       </p>
       <div className="mt-8 space-y-5">
@@ -278,12 +278,12 @@ export const SamplingExperience = () => {
   const renderBrand = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={2} onBack={() => goToStep(STEP_CONTACT)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         Tell us what you are building.
       </h1>
       <div className="mt-8 space-y-8">
         <fieldset>
-          <legend className="mb-4 text-base font-semibold text-[#2B1809]">Where are you in the process?</legend>
+          <legend className="mb-4 type-h5">Where are you in the process?</legend>
           <div className="space-y-3">
             {BRAND_STAGE_OPTIONS.map((opt) => (
               <OptionCard
@@ -296,7 +296,7 @@ export const SamplingExperience = () => {
           </div>
         </fieldset>
         <fieldset>
-          <legend className="mb-4 text-base font-semibold text-[#2B1809]">
+          <legend className="mb-4 type-h5">
             What best describes your business?
           </legend>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -340,12 +340,12 @@ export const SamplingExperience = () => {
   const renderAudience = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={3} onBack={() => goToStep(STEP_BRAND)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         Who should these fragrances connect with?
       </h1>
       <div className="mt-8 space-y-8">
         <fieldset>
-          <legend className="mb-4 text-base font-semibold text-[#2B1809]">
+          <legend className="mb-4 type-h5">
             Who is the collection mainly intended for?
           </legend>
           <div className="space-y-3">
@@ -372,10 +372,10 @@ export const SamplingExperience = () => {
           )}
         </fieldset>
         <fieldset>
-          <legend className="mb-4 text-base font-semibold text-[#2B1809]">
+          <legend className="mb-4 type-h5">
             How should the fragrance collection feel?
           </legend>
-          <p className="mb-4 text-sm text-[#725F52]">
+          <p className="mb-4 type-body-sm text-[#725F52]">
             This describes the scent style and marketing direction, not the gender identity of the person
             wearing it.
           </p>
@@ -410,10 +410,10 @@ export const SamplingExperience = () => {
   const renderPersonality = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={4} onBack={() => goToStep(STEP_AUDIENCE)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         What should the fragrance say about your brand?
       </h1>
-      <p className="mt-3 text-base text-[#725F52]">Choose up to three. There are no wrong answers.</p>
+      <p className="mt-3 type-body text-[#725F52]">Choose up to three. There are no wrong answers.</p>
       <p className="mt-2 text-sm font-semibold text-[#FF600A]">
         {answers.brandPersonalities.length} of 3 selected
       </p>
@@ -451,10 +451,10 @@ export const SamplingExperience = () => {
   const renderScent = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={5} onBack={() => goToStep(STEP_PERSONALITY)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         Which scent directions feel closest to your brand?
       </h1>
-      <p className="mt-3 text-base text-[#725F52]">
+      <p className="mt-3 type-body text-[#725F52]">
         Choose up to three, or let Brandsamor recommend the mix.
       </p>
       <div className="mt-6 space-y-3">
@@ -499,12 +499,12 @@ export const SamplingExperience = () => {
     return (
       <ScreenTransition>
         <ProgressHeader currentQuestionStep={6} onBack={() => goToStep(STEP_SCENT)} saved={saveFlash} />
-        <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+        <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
           How should the fragrances feel when worn?
         </h1>
         <div className="mt-8 space-y-8">
           <fieldset className={experienceSubStep >= 0 ? 'opacity-100' : 'opacity-40'}>
-            <legend className="mb-4 text-base font-semibold">Preferred intensity</legend>
+            <legend className="mb-4 type-h5">Preferred intensity</legend>
             <div className="space-y-3">
               {INTENSITY_OPTIONS.map((opt) => (
                 <OptionCard
@@ -521,7 +521,7 @@ export const SamplingExperience = () => {
           </fieldset>
           {answers.intensity && (
             <fieldset>
-              <legend className="mb-4 text-base font-semibold">
+              <legend className="mb-4 type-h5">
                 Where do you imagine customers wearing or using them most?
               </legend>
               <div className="space-y-3">
@@ -541,7 +541,7 @@ export const SamplingExperience = () => {
           )}
           {answers.useCase && (
             <fieldset>
-              <legend className="mb-4 text-base font-semibold">How adventurous should the selection be?</legend>
+              <legend className="mb-4 type-h5">How adventurous should the selection be?</legend>
               <div className="space-y-3">
                 {ADVENTURE_OPTIONS.map((opt) => (
                   <OptionCard
@@ -569,12 +569,12 @@ export const SamplingExperience = () => {
   const renderExclusions = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={7} onBack={() => goToStep(STEP_EXPERIENCE)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         Help us avoid the wrong directions.
       </h1>
       <div className="mt-8 space-y-8">
         <fieldset>
-          <legend className="mb-4 text-base font-semibold">
+          <legend className="mb-4 type-h5">
             Are there any scent styles or notes you definitely want to avoid?
           </legend>
           <div className="flex flex-wrap gap-3">
@@ -622,10 +622,10 @@ export const SamplingExperience = () => {
   const renderPackaging = () => (
     <ScreenTransition>
       <ProgressHeader currentQuestionStep={8} onBack={() => goToStep(STEP_EXCLUSIONS)} saved={saveFlash} />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         What should the sample packaging direction feel like?
       </h1>
-      <p className="mt-3 text-base text-[#725F52]">
+      <p className="mt-3 type-body text-[#725F52]">
         Your sample kit includes one bottle-and-box packaging direction.
       </p>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -640,7 +640,7 @@ export const SamplingExperience = () => {
         ))}
       </div>
       <fieldset className="mt-8">
-        <legend className="mb-4 text-base font-semibold">Preferred bottle size for the eventual product</legend>
+        <legend className="mb-4 type-h5">Preferred bottle size for the eventual product</legend>
         <div className="flex flex-wrap gap-3">
           {BOTTLE_SIZE_OPTIONS.map((opt) => (
             <MultiSelectChip
@@ -673,7 +673,7 @@ export const SamplingExperience = () => {
         onBack={() => goToStep(STEP_PACKAGING)}
         saved={saveFlash}
       />
-      <h1 ref={headingRef} tabIndex={-1} className="mt-8 text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="mt-8 type-h1">
         Review your fragrance brief.
       </h1>
       <div className="mt-8 space-y-4">
@@ -780,7 +780,7 @@ export const SamplingExperience = () => {
 
   const renderResults = () => (
     <ScreenTransition>
-      <h1 ref={headingRef} tabIndex={-1} className="text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="type-h1">
         Your five fragrance directions are ready.
       </h1>
       <p className="mt-3 text-base leading-relaxed text-[#725F52]">
@@ -816,13 +816,13 @@ export const SamplingExperience = () => {
 
   const renderComplete = () => (
     <ScreenTransition>
-      <h1 ref={headingRef} tabIndex={-1} className="text-[28px] font-bold sm:text-[38px]">
+      <h1 ref={headingRef} tabIndex={-1} className="type-h1">
         Your Brandsamor sample brief is complete.
       </h1>
       <div className="mt-8 space-y-6">
         <section className="rounded-2xl border border-[#EADFD3] bg-[#FFFDFC] p-5">
-          <h2 className="text-lg font-bold">Your sample kit includes</h2>
-          <ul className="mt-4 space-y-2 text-sm text-[#725F52]">
+          <h2 className="type-h3">Your sample kit includes</h2>
+          <ul className="mt-4 space-y-2 type-body-sm text-[#725F52]">
             <li>Five curated fragrance samples</li>
             <li>One packaging direction: {getLabel(answers.packagingDirection)}</li>
             <li>Tester strips</li>
@@ -830,8 +830,8 @@ export const SamplingExperience = () => {
           </ul>
         </section>
         <section className="rounded-2xl border border-[#EADFD3] bg-[#FFFDFC] p-5">
-          <h2 className="text-lg font-bold">Contact details</h2>
-          <p className="mt-2 text-sm text-[#725F52]">
+          <h2 className="type-h3">Contact details</h2>
+          <p className="mt-2 type-body-sm text-[#725F52]">
             {lead.fullName} · {lead.email} · {lead.phone}
           </p>
           {lead.brandName && (
@@ -839,7 +839,7 @@ export const SamplingExperience = () => {
           )}
         </section>
         <section>
-          <h2 className="mb-3 text-lg font-bold">Your five fragrance directions</h2>
+          <h2 className="mb-3 type-h3">Your five fragrance directions</h2>
           <div className="space-y-3">
             {recommendations.map((rec) => {
               const profile = getFragranceById(rec.fragranceId);
@@ -855,7 +855,7 @@ export const SamplingExperience = () => {
             })}
           </div>
         </section>
-        <p className="rounded-xl border border-[#EADFD3] bg-[#FEF7ED] p-4 text-sm text-[#725F52]">
+        <p className="rounded-xl border border-[#EADFD3] bg-[#FEF7ED] p-4 type-body-sm text-[#725F52]">
           This is a frontend prototype. Checkout and final order processing will be connected after the
           application architecture is finalised.
         </p>
@@ -873,14 +873,14 @@ export const SamplingExperience = () => {
         <button
           type="button"
           onClick={downloadBrief}
-          className="rounded-xl border border-[#EADFD3] px-6 py-3.5 text-base font-semibold text-[#2B1809]"
+          className="rounded-[2px] border border-[#EADFD3] px-6 py-3.5 text-base font-semibold text-[#2B1809]"
         >
           Download brief
         </button>
         <button
           type="button"
           onClick={printBrief}
-          className="rounded-xl border border-[#EADFD3] px-6 py-3.5 text-base font-semibold text-[#2B1809]"
+          className="rounded-[2px] border border-[#EADFD3] px-6 py-3.5 text-base font-semibold text-[#2B1809]"
         >
           Print brief
         </button>

@@ -18,10 +18,10 @@ export const PageFaqSection = ({
   <section id={id} className="py-12 sm:py-24 border-t border-border" aria-labelledby={`${id}-heading`}>
     <div className="max-w-3xl mx-auto">
       <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <h2 id={`${id}-heading`} className="text-3xl sm:text-4xl mb-4">
+      <h2 id={`${id}-heading`} className="type-h2 mb-4">
         {title}
       </h2>
-      <p className="text-body text-base sm:text-lg mb-8 sm:mb-12">{description}</p>
+      <p className="type-body-lg mb-8 sm:mb-12">{description}</p>
       <div className="space-y-3">
         {items.map((item, index) => (
           <details
@@ -30,7 +30,7 @@ export const PageFaqSection = ({
             open={index === 0}
           >
             <summary className="flex items-start justify-between gap-4 p-5 sm:p-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-              <h3 className="font-display text-base sm:text-lg font-semibold text-heading">
+              <h3 className="type-h4">
                 {item.question}
               </h3>
               <ChevronDown
@@ -39,7 +39,7 @@ export const PageFaqSection = ({
                 aria-hidden="true"
               />
             </summary>
-            <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-body leading-relaxed">
+            <div className="px-5 sm:px-6 pb-5 sm:pb-6 type-body-sm">
               <p>{item.answer}</p>
             </div>
           </details>

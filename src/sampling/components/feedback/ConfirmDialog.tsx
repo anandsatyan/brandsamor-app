@@ -27,22 +27,22 @@ export const ConfirmDialog = ({
       aria-labelledby="confirm-title"
     >
       <div className="w-full max-w-md rounded-2xl bg-[#FFFDFC] p-6 shadow-xl">
-        <h2 id="confirm-title" className="text-lg font-bold text-[#2B1809]">
+        <h2 id="confirm-title" className="type-h3">
           {title}
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-[#725F52]">{message}</p>
+        <p className="mt-2 type-body-sm text-[#725F52]">{message}</p>
         <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-xl border border-[#EADFD3] px-5 py-2.5 text-sm font-semibold text-[#2B1809]"
+            className="rounded-[2px] border border-[#EADFD3] px-5 py-2.5 text-sm font-semibold text-[#2B1809]"
           >
             {cancelLabel}
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className="rounded-xl bg-[#FF600A] px-5 py-2.5 text-sm font-semibold text-white"
+            className="rounded-[2px] bg-heading px-5 py-2.5 text-sm font-semibold text-white"
           >
             {confirmLabel}
           </button>

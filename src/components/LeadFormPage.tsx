@@ -35,7 +35,7 @@ const inputClassName =
 const selectClassName =
   'w-full rounded-lg border border-border bg-surface px-4 py-3 text-heading focus:outline-none focus:ring-2 focus:ring-accent/35 focus:border-accent';
 
-const labelClassName = 'block text-sm font-medium text-heading mb-2';
+const labelClassName = 'block type-body-sm font-medium text-heading mb-2';
 
 const sectionClassName =
   'rounded-2xl border border-border bg-secondary/60 p-6 sm:p-8 shadow-sm space-y-6';
@@ -70,8 +70,8 @@ const FormSection = ({
         <Icon size={22} aria-hidden="true" />
       </div>
       <div className="min-w-0 flex-1">
-        <h2 className="text-xl sm:text-2xl mb-2">{title}</h2>
-        <p className="text-body text-sm sm:text-base leading-relaxed mb-6">{description}</p>
+        <h2 className="type-h2-sm mb-2">{title}</h2>
+        <p className="type-body-sm mb-6">{description}</p>
         <div className="space-y-5">{children}</div>
       </div>
     </div>
@@ -168,12 +168,12 @@ export const LeadFormPage = () => {
 
       <HeroPanel className="py-10 sm:py-14 mb-10 sm:mb-12 rounded-none sm:rounded-2xl text-center">
         <div className="mx-auto flex max-w-3xl flex-col items-center space-y-5">
-          <span className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 text-white text-xs font-semibold uppercase tracking-wider rounded-full border border-white/30">
+          <span className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 text-white type-caption font-semibold uppercase tracking-wider rounded-full border border-white/30">
             <Sparkles size={14} aria-hidden="true" />
             Start your project
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-white">{meta.h1}</h1>
-          <p className="text-base sm:text-lg leading-relaxed max-w-2xl">
+          <h1 className="type-h1 text-white">{meta.h1}</h1>
+          <p className="type-body-lg max-w-2xl">
             Tell us about your brand and launch goals. We will review your project and follow up
             with the right next steps for your private label fragrance line.
           </p>
@@ -186,14 +186,14 @@ export const LeadFormPage = () => {
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
               <CheckCircle2 size={36} aria-hidden="true" />
             </div>
-            <h2 className="text-2xl sm:text-3xl mb-4">Thank you — we received your project details</h2>
-            <p className="text-body leading-relaxed max-w-lg mx-auto mb-8">
+            <h2 className="type-h2-sm mb-4">Thank you — we received your project details</h2>
+            <p className="type-body max-w-lg mx-auto mb-8">
               Our team will review your brief and reach out shortly to discuss scent sampling, packaging options, and
               a realistic path to your first ready-to-sell batch.
             </p>
             <Link
               to="/"
-              className="btn-primary rounded-lg"
+              className="btn-primary"
               onClick={trackSuccessHomeClick}
             >
               Back to home
@@ -469,7 +469,7 @@ export const LeadFormPage = () => {
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="btn-primary w-full sm:w-auto justify-center rounded-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                className="btn-primary w-full sm:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {status === 'submitting' ? (
                   <>

@@ -10,8 +10,8 @@ export const ContactPage = () => {
   return (
     <InfoPageLayout meta={meta} badge="CONTACT">
       <section className="border-t border-border pt-8 sm:pt-10 space-y-6">
-        <h2 className="text-2xl sm:text-3xl">Get in touch</h2>
-        <p className="text-body leading-relaxed">
+        <h2 className="type-h2-sm">Get in touch</h2>
+        <p className="type-body">
           Reach the Brandsamor team for private-label fragrance questions, project inquiries, and customer support.
         </p>
         <address className="not-italic space-y-3 text-heading">
@@ -54,7 +54,7 @@ export const ContactPage = () => {
             {ORGANIZATION.address.addressCountry}
           </p>
         </address>
-        <p className="text-body leading-relaxed">
+        <p className="type-body">
           For background on the company, see the{' '}
           <Link to="/about" className="font-medium text-accent underline decoration-accent underline-offset-4 hover:opacity-80">
             About Brandsamor

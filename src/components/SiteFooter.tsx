@@ -36,7 +36,7 @@ const FooterLinkList = ({
   resolveHref: (link: { hash?: string }) => string;
 }) => (
   <div>
-    <h4 className="font-bold text-heading mb-6">{title}</h4>
+    <h4 className="type-h5 mb-6">{title}</h4>
     <ul className="space-y-3">
       {links.map((link) => (
         <li key={link.label}>
@@ -62,7 +62,7 @@ export const SiteFooter = () => {
 
   return (
     <footer className="bg-surface py-12 sm:py-16 border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 text-body text-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 text-body type-body-sm">
         <div className="space-y-6 sm:col-span-2 lg:col-span-1">
           <Link to="/" className="inline-block" aria-label="Brandsamor home">
             <BrandLogo />
@@ -104,7 +104,7 @@ export const SiteFooter = () => {
         <FooterLinkList title="Popular questions" links={footerFaqLinks} resolveHref={resolveHref} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-border text-xs flex flex-col sm:flex-row gap-4 justify-between items-center text-body text-center sm:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-border type-caption flex flex-col sm:flex-row gap-4 justify-between items-center text-body text-center sm:text-left">
         <p>© {new Date().getFullYear()}, {ORGANIZATION.legalName}</p>
         <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center sm:justify-end">
           <Link to="/about" className="hover:text-accent">

@@ -75,27 +75,71 @@ body {
   }
 }
 
-h1 {
-  font-family: var(--font-serif);
-  color: var(--color-heading);
-  font-weight: 400;
-}
-
-h2 {
-  font-family: var(--font-serif);
-  color: var(--color-heading);
-  font-weight: 400;
-}
-
+h1,
+h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   color: var(--color-heading);
+  font-weight: 400;
 }
 
 @layer components {
+  /* Golden-ratio typography — headings: Instrument Serif, body: Funnel Sans */
+  .type-h1 {
+    @apply font-serif text-phi-3xl sm:text-phi-4xl leading-tight font-normal text-heading;
+  }
+
+  .type-h2 {
+    @apply font-serif text-phi-2xl sm:text-phi-3xl leading-snug font-normal text-heading;
+  }
+
+  .type-h2-sm {
+    @apply font-serif text-phi-xl sm:text-phi-2xl leading-snug font-normal text-heading;
+  }
+
+  .type-h3 {
+    @apply font-serif text-phi-lg sm:text-phi-xl leading-snug font-normal text-heading;
+  }
+
+  .type-h4 {
+    @apply font-serif text-phi-md sm:text-phi-lg leading-snug font-normal text-heading;
+  }
+
+  .type-h5 {
+    @apply font-serif text-phi-sm sm:text-phi-md leading-normal font-normal text-heading;
+  }
+
+  .type-eyebrow {
+    @apply font-sans text-phi-xs uppercase tracking-widest font-medium text-accent;
+  }
+
+  .type-body {
+    @apply font-sans text-phi-base leading-relaxed text-body;
+  }
+
+  .type-body-lg {
+    @apply font-sans text-phi-md leading-relaxed text-body;
+  }
+
+  .type-body-sm {
+    @apply font-sans text-phi-sm leading-relaxed text-body;
+  }
+
+  .type-caption {
+    @apply font-sans text-phi-xs leading-normal;
+  }
+
+  .type-display {
+    @apply font-display text-phi-2xl sm:text-phi-3xl leading-none;
+  }
+
+  .type-display-lg {
+    @apply font-display text-phi-4xl sm:text-phi-5xl leading-none;
+  }
+
   .hero-panel {
     isolation: isolate;
   }
@@ -139,6 +183,20 @@ h6 {
     color: white;
   }
 
+  .hero-panel .type-eyebrow {
+    font-family: var(--font-body);
+    color: var(--color-accent);
+  }
+
+  .hero-panel a.btn-hero-cta {
+    color: var(--color-heading);
+    background-color: white;
+  }
+
+  .hero-panel a.btn-hero-cta:hover {
+    opacity: 0.9;
+  }
+
   .hero-panel p,
   .hero-panel .text-body {
     color: rgba(255, 255, 255, 0.92);
@@ -164,15 +222,21 @@ h6 {
   }
 
   .btn-primary {
-    @apply inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg bg-accent text-white;
+    @apply inline-flex items-center px-5 py-3 text-phi-sm font-semibold uppercase tracking-wider rounded-[2px] text-white;
+    background-color: var(--color-heading);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg bg-secondary text-heading;
+    @apply inline-flex items-center px-5 py-3 text-phi-sm font-semibold uppercase tracking-wider rounded-[2px] bg-secondary text-heading;
   }
 
   .btn-hero-cta {
-    @apply inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg bg-white text-accent;
+    @apply inline-flex items-center px-5 py-3 text-phi-sm font-semibold uppercase tracking-wider rounded-[2px] bg-white text-heading;
+  }
+
+  .bg-heading .btn-primary,
+  .surface-dark .btn-primary {
+    @apply bg-white text-heading;
   }
 
   .text-link {

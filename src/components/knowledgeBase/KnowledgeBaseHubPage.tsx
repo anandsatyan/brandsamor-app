@@ -31,14 +31,14 @@ const ArticleCard = ({
     onClick={() => trackKnowledgeBaseArticleClick(slug, title, source)}
     className="group surface-soft p-6 sm:p-8 hover:bg-secondary/55 flex flex-col h-full"
   >
-    <p className="text-[11px] sm:text-xs uppercase tracking-wider text-accent font-medium mb-3">
+    <p className="type-caption uppercase tracking-wider text-accent font-medium mb-3">
       {targetKeyword}
     </p>
-    <h3 className="text-lg sm:text-xl text-heading leading-snug mb-3 group-hover:text-accent">
+    <h3 className="type-h3 leading-snug mb-3 group-hover:text-accent">
       {title}
     </h3>
-    <p className="text-sm sm:text-base text-body leading-relaxed mb-6 flex-1">{excerpt}</p>
-    <span className="text-sm font-medium text-heading">Read guide · {readTimeMinutes} min</span>
+    <p className="type-body-sm mb-6 flex-1">{excerpt}</p>
+    <span className="type-body-sm font-medium text-heading">Read guide · {readTimeMinutes} min</span>
   </Link>
 );
 
@@ -59,8 +59,8 @@ export const KnowledgeBaseHubPage = () => {
 
       <div className="border-b border-border bg-secondary/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-12 py-10 sm:py-14 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-heading mb-5">{meta.h1}</h1>
-          <p className="text-base sm:text-lg text-body max-w-2xl mx-auto leading-relaxed">
+          <h1 className="type-h1 mb-5">{meta.h1}</h1>
+          <p className="type-body-lg max-w-2xl mx-auto">
             Practical guides organized by topic — from starting a perfume line and sampling to packaging,
             manufacturing, compliance, and pricing.
           </p>
@@ -75,8 +75,8 @@ export const KnowledgeBaseHubPage = () => {
           return (
             <section key={category.id} id={category.id} className="scroll-mt-28">
               <div className="mb-6 sm:mb-8">
-                <h2 className="text-2xl sm:text-3xl text-heading mb-2">{category.title}</h2>
-                <p className="text-body leading-relaxed">{category.description}</p>
+                <h2 className="type-h2-sm mb-2">{category.title}</h2>
+                <p className="type-body">{category.description}</p>
               </div>
               <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
                 {articles.map((article) => (
@@ -96,7 +96,7 @@ export const KnowledgeBaseHubPage = () => {
         })}
 
         <section className="border-t border-border pt-10">
-          <h2 className="text-xl sm:text-2xl text-heading mb-4">All guides</h2>
+          <h2 className="type-h2-sm mb-4">All guides</h2>
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
             {ENRICHED_KB_ARTICLES.map((article) => (
               <ArticleCard

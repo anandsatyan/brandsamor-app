@@ -24,14 +24,14 @@ export const ContentSection = ({
           {step ? `${eyebrow} · ${step}` : eyebrow}
         </SectionEyebrow>
       )}
-      <h2 className="text-3xl sm:text-4xl mb-6">{title}</h2>
-      <p className="text-base sm:text-lg text-body mb-6 leading-relaxed">
+      <h2 className="type-h2 mb-6">{title}</h2>
+      <p className="type-body-lg mb-6">
         <BodyCopy>{description}</BodyCopy>
       </p>
       {bullets && bullets.length > 0 && (
         <ul className="space-y-3">
           {bullets.map((bullet) => (
-            <li key={bullet} className="flex gap-3 text-sm sm:text-base text-body">
+            <li key={bullet} className="flex gap-3 type-body-sm">
               <Check className="text-accent shrink-0 mt-0.5" size={18} aria-hidden="true" />
               <span>{bullet}</span>
             </li>

@@ -19,14 +19,14 @@ export const NotFoundPage = () => (
     <SiteHeader />
     <PageBreadcrumbBar items={homeBreadcrumbs(NOT_FOUND_METADATA.pageName)} width="narrow" />
     <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-24 text-center">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">
+      <h1 className="type-h1 mb-6">
         {NOT_FOUND_METADATA.h1}
       </h1>
-      <p className="text-lg text-body mb-10">
+      <p className="type-body-lg mb-10">
         The page you requested is not available. Browse our private label perfume resources or return
         to the homepage.
       </p>
-      <Link to="/" className="btn-primary rounded-full">
+      <Link to="/" className="btn-primary">
         Back to Home
       </Link>
     </main>

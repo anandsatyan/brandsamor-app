@@ -7,7 +7,7 @@ interface ReviewSectionProps {
 export const ReviewSection = ({ title, items, onEdit }: ReviewSectionProps) => (
   <section className="rounded-2xl border border-[#EADFD3] bg-[#FFFDFC] p-5">
     <div className="mb-3 flex items-center justify-between">
-      <h3 className="text-base font-bold text-[#2B1809]">{title}</h3>
+      <h3 className="type-h4">{title}</h3>
       {onEdit && (
         <button
           type="button"

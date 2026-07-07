@@ -10,7 +10,7 @@
   --sampling-error: #b42318;
   --sampling-orange-tint: rgba(255, 96, 10, 0.08);
 
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-body);
   color: var(--sampling-heading);
   background: var(--sampling-cream);
   min-height: 100vh;
@@ -20,10 +20,11 @@
 .sampling-experience h1,
 .sampling-experience h2,
 .sampling-experience h3,
-.sampling-experience h4 {
-  font-family: 'Manrope', system-ui, sans-serif;
+.sampling-experience h4,
+.sampling-experience h5 {
+  font-family: var(--font-serif);
   color: var(--sampling-heading);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .sampling-experience *:focus-visible {

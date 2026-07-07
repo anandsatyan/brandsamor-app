@@ -16,7 +16,7 @@ export const ComingSoonLabel = ({
   <Link
     to={LEAD_FORM_PATH}
     onClick={() => trackComingSoonCta(trackingLocation)}
-    className={`inline-flex items-center px-5 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg transition-opacity hover:opacity-90 ${
+    className={`inline-flex items-center px-5 py-3 font-semibold uppercase tracking-wider transition-opacity hover:opacity-90 ${
       variant === 'hero' ? 'btn-hero-cta' : 'btn-primary'
     } ${className}`}
   >

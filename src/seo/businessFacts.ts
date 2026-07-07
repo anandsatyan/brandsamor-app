@@ -11,7 +11,7 @@ export const BUSINESS_FACTS = {
   minimumProductionOrderValueUsd: 2000,
   minimumProductionOrderValueLabel: 'USD $2,000',
   productionTimeline: '3-6 weeks',
-  sampleDispatch: '2-3 business days',
+  sampleDispatch: '2-3 days',
   serviceArea: 'Worldwide',
   teamRegions: 'the US, India, China and the UAE',
 } as const;

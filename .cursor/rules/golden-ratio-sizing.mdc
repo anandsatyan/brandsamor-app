@@ -1,0 +1,33 @@
+---
+description: Use golden-ratio (φ) scale for all size decisions in UI
+alwaysApply: true
+---
+
+# Golden ratio sizing
+
+When choosing font sizes, spacing, or proportional layout values, use the project's φ-based scale — do not pick arbitrary Tailwind defaults or one-off pixel values.
+
+## Typography
+
+Use semantic classes from `src/index.css`:
+
+- `type-h1` … `type-h5`, `type-h2-sm`, `type-eyebrow`
+- `type-body`, `type-body-lg`, `type-body-sm`, `type-caption`
+- `type-display`, `type-display-lg`
+
+Underlying tokens: `text-phi-xs` through `text-phi-5xl` in `tailwind.config.js` (base 16px, ratio φ ≈ 1.618).
+
+## Spacing
+
+Prefer `phi-*` spacing tokens (`phi-1` … `phi-6`) when adding padding, gaps, or margins that should relate to the type scale.
+
+## Fonts
+
+- Headings (h1–h5): Instrument Serif (`font-serif` / `type-h*`)
+- Body: Funnel Sans (`font-sans` / `type-body*`)
+- Eyebrows: Funnel Sans (`type-eyebrow`)
+
+## Buttons
+
+- Non-hero: `btn-primary` (dark background, white text, `rounded-[2px]`)
+- Hero / dark sections: `btn-hero-cta` or `btn-primary` on `bg-heading` (auto-inverts to white)

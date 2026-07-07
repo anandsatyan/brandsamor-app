@@ -68,7 +68,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
           <Link
             to="/login"
             className={`site-header__login absolute right-4 sm:right-6 lg:right-12 text-sm ${
-              pathname === '/login' ? 'text-accent' : 'text-body hover:text-accent'
+              pathname === '/login' ? 'text-accent' : 'text-heading hover:text-accent'
             }`}
           >
             Login
@@ -82,7 +82,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
                 {renderNavItem(
                   item,
                   `shrink-0 whitespace-nowrap px-1 py-3 text-center text-[10px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.1em] 2xl:tracking-[0.12em] font-medium ${
-                    isNavActive(item) ? 'text-accent' : 'text-body hover:text-accent'
+                    isNavActive(item) ? 'text-accent' : 'text-heading hover:text-accent'
                   }`,
                 )}
               </span>
@@ -127,7 +127,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
                   {renderNavItem(
                     item,
                     `px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium ${
-                      isNavActive(item) ? 'text-accent' : 'text-body hover:text-accent'
+                      isNavActive(item) ? 'text-accent' : 'text-heading hover:text-accent'
                     }`,
                     handleNavClick,
                   )}
@@ -140,7 +140,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
                 to="/login"
                 onClick={handleNavClick}
                 className={`block text-center text-sm ${
-                  pathname === '/login' ? 'text-accent' : 'text-body hover:text-accent'
+                  pathname === '/login' ? 'text-accent' : 'text-heading hover:text-accent'
                 }`}
               >
                 Login

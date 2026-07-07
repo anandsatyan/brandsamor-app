@@ -20,13 +20,13 @@ export const SplitPanelSection = ({
 }) => (
   <section className="py-12 sm:py-24 border-t border-border">
     {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
-    <h2 className="text-3xl sm:text-4xl mb-8 sm:mb-12 max-w-2xl">{title}</h2>
+    <h2 className="type-h2 mb-8 sm:mb-12 max-w-2xl">{title}</h2>
     <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
       <div className="surface-soft p-6 sm:p-8">
-        <h3 className="font-display text-xl sm:text-2xl mb-6 text-heading">{leftTitle}</h3>
+        <h3 className="type-h3 mb-6 text-heading">{leftTitle}</h3>
         <ul className="space-y-4">
           {leftItems.map((item) => (
-            <li key={item} className="flex gap-3 text-sm sm:text-base text-body">
+            <li key={item} className="flex gap-3 type-body-sm">
               <Check className="text-accent shrink-0 mt-0.5" size={18} aria-hidden="true" />
               <span>{item}</span>
             </li>
@@ -40,12 +40,12 @@ export const SplitPanelSection = ({
             : 'surface-soft'
         }`}
       >
-        <h3 className={`font-display text-xl sm:text-2xl mb-6 ${rightDark ? 'text-white' : 'text-heading'}`}>{rightTitle}</h3>
+        <h3 className={`type-h3 mb-6 ${rightDark ? 'text-white' : 'text-heading'}`}>{rightTitle}</h3>
         <ul className="space-y-4">
           {rightItems.map((item) => (
             <li
               key={item}
-              className={`flex gap-3 text-sm sm:text-base ${rightDark ? 'text-white/80' : 'text-body'}`}
+              className={`flex gap-3 type-body-sm ${rightDark ? 'text-white/80' : ''}`}
             >
               <Check className="text-accent shrink-0 mt-0.5" size={18} aria-hidden="true" />
               <span>{item}</span>

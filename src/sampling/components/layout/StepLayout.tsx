@@ -42,13 +42,13 @@ export const StepLayout = ({
     <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col lg:min-h-[100dvh] lg:flex-row">
       <aside className="hidden border-r border-[#EADFD3] bg-[#FFFDFC] px-8 py-10 lg:flex lg:w-[38%] lg:flex-col lg:justify-between">
         <div>
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-[#FF600A]">
+          <p className="mb-3 type-eyebrow tracking-[0.15em]">
             Brandsamor Sampling
           </p>
-          <h2 className="text-3xl font-bold leading-tight text-[#2B1809]">
+          <h2 className="type-h2">
             {contextTitle ?? copy.title}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-[#725F52]">
+          <p className="mt-4 type-body-lg text-[#725F52]">
             {contextBody ?? copy.body}
           </p>
         </div>
