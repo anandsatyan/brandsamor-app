@@ -52,13 +52,13 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         <div className="site-header__bar relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
           <button
             type="button"
-            className="site-header__menu-btn absolute left-4 sm:left-6 lg:hidden p-1 text-heading hover:text-accent"
+            className="site-header__menu-btn absolute left-4 sm:left-6 lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-secondary/45 text-heading transition-[color,background-color,transform] duration-200 hover:bg-secondary/80 hover:text-accent active:scale-95"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav-drawer"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
-            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMenuOpen ? <X size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
           </button>
 
           <Link to="/" className="flex items-center gap-2" aria-label="Brandsamor home">
@@ -97,51 +97,76 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         <>
           <button
             type="button"
-            className="mobile-nav-backdrop fixed inset-0 z-[60] bg-heading/30 backdrop-blur-[2px] lg:hidden"
+            className="mobile-nav-backdrop fixed inset-0 z-[60] lg:hidden"
             aria-label="Close menu"
             onClick={() => setIsMenuOpen(false)}
           />
 
           <nav
             id="mobile-nav-drawer"
-            className="mobile-nav-drawer fixed top-0 left-0 z-[70] h-full w-[min(85vw,320px)] border-r border-border/70 bg-surface/95 backdrop-blur-lg lg:hidden"
+            className="mobile-nav-drawer fixed top-0 left-0 z-[70] flex h-full w-[min(88vw,22.5rem)] flex-col border-r border-border/60 bg-surface lg:hidden"
             aria-label="Mobile navigation"
           >
-            <div className="flex items-center justify-between px-5 py-4 border-b border-border/70">
-              <Link to="/" onClick={handleNavClick} aria-label="Brandsamor home">
-                <BrandLogo />
-              </Link>
+            <div className="mobile-nav-drawer__accent" aria-hidden="true" />
+
+            <div className="flex items-start justify-between gap-phi-3 border-b border-border/50 px-phi-4 py-phi-4">
+              <div>
+                <p className="type-eyebrow mb-phi-1">Menu</p>
+                <Link to="/" onClick={handleNavClick} aria-label="Brandsamor home">
+                  <BrandLogo />
+                </Link>
+              </div>
               <button
                 type="button"
-                className="p-1 text-heading hover:text-accent"
+                className="mobile-nav-close flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/60 bg-secondary/45 text-heading transition-[color,background-color,transform] duration-200 hover:bg-secondary/80 hover:text-accent active:scale-95"
                 aria-label="Close menu"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <X size={22} />
+                <X size={20} strokeWidth={2} />
               </button>
             </div>
 
-            <div className="flex flex-col py-2">
-              {SITE_NAV.map((item) => (
-                <span key={item.path} className="contents">
-                  {renderNavItem(
-                    item,
-                    `px-5 py-4 text-sm uppercase tracking-[0.12em] font-medium ${
-                      isNavActive(item) ? 'text-accent' : 'text-heading hover:text-accent'
-                    }`,
-                    handleNavClick,
-                  )}
-                </span>
-              ))}
+            <div className="flex flex-1 flex-col overflow-y-auto py-phi-2">
+              {SITE_NAV.map((item, index) => {
+                const active = isNavActive(item);
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={handleNavClick}
+                    className={`mobile-nav-link group mx-phi-2 flex items-center gap-phi-3 rounded-[2px] px-phi-3 py-phi-3 transition-colors duration-200 ${
+                      active
+                        ? 'mobile-nav-link--active bg-secondary/55'
+                        : 'hover:bg-secondary/35'
+                    }`}
+                    style={{ animationDelay: `${0.06 + index * 0.045}s` }}
+                  >
+                    <span className="type-eyebrow shrink-0 tabular-nums text-body/45">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      className={`font-serif text-phi-md leading-snug transition-colors duration-200 ${
+                        active ? 'text-accent' : 'text-heading group-hover:text-accent'
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                    {active && (
+                      <span
+                        className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 px-5 py-6 border-t border-border/70">
+            <div className="border-t border-border/50 bg-surface px-phi-4 py-phi-4">
               <Link
                 to="/login"
                 onClick={handleNavClick}
-                className={`block text-center text-sm ${
-                  pathname === '/login' ? 'text-accent' : 'text-heading hover:text-accent'
-                }`}
+                className="btn-primary w-full justify-center"
               >
                 Login
               </Link>
