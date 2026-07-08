@@ -317,15 +317,21 @@ export const BrandsamorLandingPage = () => {
         className="mb-8 sm:mb-12 text-center"
         footer={<HeroServicesTicker />}
       >
-        <div className="mx-auto flex max-w-3xl flex-col items-center space-y-4 sm:space-y-8">
+        <div className="mx-auto flex max-w-3xl flex-col items-center space-y-3 sm:space-y-8">
           <span className="inline-block px-3 py-1 bg-white/20 text-white type-caption font-semibold uppercase tracking-wider rounded-full border border-white/30">
             PRIVATE LABEL
           </span>
           <h1 className="type-h2 sm:type-h1 text-white">
             The Easy Way to Start Your Own Perfume Line
           </h1>
-          <p className="type-body sm:type-body-lg max-w-2xl" style={{ textShadow: '1px 1px 2px #A5472C' }}>
-            Brandsamor is a private-label perfume manufacturer that helps businesses launch ready-to-sell fragrance products under their own brand. From fragrance sampling and packaging selection to filling, finishing and quality checks, we coordinate the full product-development process.
+          <p
+            className="max-w-2xl type-body-sm leading-snug sm:type-body-lg sm:leading-relaxed"
+            style={{ textShadow: '1px 1px 2px #A5472C' }}
+          >
+            <span className="sm:hidden">{homeMeta.description}</span>
+            <span className="hidden sm:inline">
+              Brandsamor is a private-label perfume manufacturer that helps businesses launch ready-to-sell fragrance products under their own brand. From fragrance sampling and packaging selection to filling, finishing and quality checks, we coordinate the full product-development process.
+            </span>
           </p>
           <ComingSoonLabel variant="hero" trackingLocation="homepage_hero" />
         </div>
