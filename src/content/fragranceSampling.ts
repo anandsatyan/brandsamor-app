@@ -8,6 +8,7 @@ import {
   HowScentLibraryWorksImage,
   HowToEvaluateSamplesImage,
   WhatHappensAfterApprovalImage,
+  WhatSamplingPackageIncludesImage,
 } from '../components/Illustrations';
 import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { FRAGRANCE_SAMPLING_FAQ_ITEMS } from '../seo/pageSeo';
@@ -82,7 +83,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Packaged for safe delivery to your location',
           'Enough volume to share with stakeholders or test customers',
         ),
-        Illustration: FragranceSampleKitImage,
+        Illustration: WhatSamplingPackageIncludesImage,
       },
       {
         id: 'evaluate-samples',
