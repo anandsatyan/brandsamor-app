@@ -28,6 +28,8 @@ export const IMAGE_ALT = {
       'Guide to choosing the right private label fragrance product format for your brand',
     sampleKit:
       'Brandsamor private label fragrance sample kit for comparing scent directions',
+    sampleKitWhite:
+      'Brandsamor private label fragrance sample kit illustration for the next step section',
   },
 
   startPerfumeLine: {

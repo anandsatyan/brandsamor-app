@@ -83,6 +83,11 @@ export const FragranceSampleKitImage = createProductImage(
   IMAGE_ALT.fragranceProducts.sampleKit,
 );
 
+export const FragranceSampleKitWhiteImage = createProductImage(
+  '/fragrance-sample-kit-white.png',
+  IMAGE_ALT.fragranceProducts.sampleKitWhite,
+);
+
 export const PerfumeBottleSelectionImage = createProductImage(
   '/perfume-bottle-selection.png',
   IMAGE_ALT.packagingBranding.bottleSelection,

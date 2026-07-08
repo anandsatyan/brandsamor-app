@@ -4,7 +4,7 @@ import {
   ChoosingProductFormatImage,
   EauDeParfumImage,
   FragranceProductTypesImage,
-  FragranceSampleKitImage,
+  FragranceSampleKitWhiteImage,
   GiftSetImage,
   PerfumeOilsImage,
   RoomSpraysImage,
@@ -152,7 +152,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     title: 'Explore fragrance samples',
     description:
       'Before you lock in a product format, complete the curated sampling brief about your business and customers. We select five fragrances matched to your brand, ship them for evaluation, and help you match your launch scent to the right bottle and format.',
-    Illustration: FragranceSampleKitImage,
+    Illustration: FragranceSampleKitWhiteImage,
   },
   relatedLinks: {
     links: [
