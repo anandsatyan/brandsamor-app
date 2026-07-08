@@ -119,7 +119,7 @@ export const privateLabelPerfumeManufacturerUsaConfig: TopicPageConfig = {
     eyebrow: 'NEXT STEP',
     title: 'Plan your US fragrance launch',
     description:
-      'Share your brand direction, target customer and launch goals. Brandsamor helps you compare scent samples, packaging options and production requirements for a focused first batch.',
+      'Share your brand direction, target customer and launch goals. Brandsamor curates five fragrance samples matched to your business, then helps you plan packaging and production for a focused first batch.',
     Illustration: ScentSamplesIllustration,
   },
   relatedLinks: {

@@ -137,12 +137,12 @@ const AudienceTrack = () => (
 
 const howItWorksSteps = [{
   num: '01',
-  title: 'Sample from our scent library',
-  desc: 'Start your project and our team will help you explore the scent library and select samples that match your brand, customer, and use case.'
+  title: 'Share your brand and customer brief',
+  desc: 'Answer questions about your business, your customers, and how you plan to sell fragrance. We use your answers to understand who your product is for.'
 }, {
   num: '02',
-  title: 'Pick your starting scents',
-  desc: 'Choose one scent or a small set of scents to launch with, so you can test demand before growing the line.'
+  title: 'Receive five curated fragrance samples',
+  desc: 'We select five scents matched to your brand and audience, pack them as a sample kit, and ship them to you for evaluation.'
 }, {
   num: '03',
   title: 'Choose your bottle & branding setup',
@@ -182,7 +182,7 @@ const whyBrandsamorCards = [{
   desc: 'Start with Brandsamor handling the sourcing, filling, packaging, and quality checks, instead of setting up your own production process.'
 }, {
   title: 'Samples Before You Commit',
-  desc: 'Order samples first, compare scent options, and choose what feels right before starting your first batch.'
+  desc: 'Complete a curated sampling brief, receive five fragrances matched to your brand, and evaluate them on skin before starting your first batch.'
 }, {
   title: 'More Bottle and Branding Options',
   desc: 'Choose from more bottle, cap, spray, color, label, and printing options so your perfume does not look like a standard off-the-shelf product.'
@@ -467,9 +467,9 @@ export const BrandsamorLandingPage = () => {
             <h4 className="type-eyebrow mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-border"></span> FRAGRANCE SAMPLING
             </h4>
-            <h2 className="type-h2 mb-6">Sample scents before you commit to production</h2>
+            <h2 className="type-h2 mb-6">Curated fragrance samples for your brand</h2>
             <p className="type-body-lg mb-8">
-              Start your project and our team will help you explore the scent library, order samples that fit your brand, and choose your launch fragrance with confidence before your first production batch goes into production.
+              Answer a short brief about your business and customers. We curate five fragrances matched to your brand, pack them as samples, and ship them to you — so you can choose your launch scent with confidence before production begins.
             </p>
             <SectionCtaRow to="/fragrance-sampling" label="Explore fragrance sampling" />
           </div>

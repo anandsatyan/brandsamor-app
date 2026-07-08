@@ -38,7 +38,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
           'A signature perfume gives creators a tangible product their audience can buy, gift, and associate with their personal brand. Fragrance suits creators because it extends brand memory beyond content into a wearable product. Typical formats include eau de parfum and travel sizes. Start with [fragrance sampling](/fragrance-sampling), then explore [product formats](/fragrance-products).',
         bullets: sectionBullets(
           'Launch a fragrance your audience can wear and gift',
-          'Sample scents before committing to production',
+          'Evaluate curated fragrance samples before committing to production',
           'Customize bottle and packaging to match your aesthetic',
           'Sell through your own channels or retail partners',
         ),
@@ -167,11 +167,11 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
         description:
           'If you have an audience, a brand, and a reason to offer a premium product — retail, e-commerce, events, or gifting — private label perfume may be a strong next line. ' +
           COMMERCIAL_COPY.suitabilityNote +
-          ' Start with [fragrance sampling](/fragrance-sampling) and a brief conversation to explore the fit.',
+          ' Start with the [fragrance sampling](/fragrance-sampling) brief to receive curated samples and explore the fit.',
         bullets: sectionBullets(
           'You have a brand and customers who would buy fragrance',
           'You want production handled without factory setup',
-          'You are ready to sample scents before bulk production',
+          'You are ready to complete the sampling brief and evaluate curated fragrances before bulk production',
           'You prefer starting small and growing the line over time',
         ),
         Illustration: BrandBriefIllustration,
@@ -191,7 +191,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
     eyebrow: 'LET\'S TALK',
     title: 'Discuss Your Project',
     description:
-      'Tell us about your brand, audience, and launch goals. We will help you explore scent directions, packaging options, and whether private label perfume is the right next product for your business.',
+      'Tell us about your brand, audience, and launch goals. We will help you complete the sampling brief, evaluate curated fragrance directions, and explore whether private label perfume is the right next product for your business.',
     Illustration: BrandBriefIllustration,
   },
 };

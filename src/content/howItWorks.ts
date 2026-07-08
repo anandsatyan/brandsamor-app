@@ -45,14 +45,14 @@ export const howItWorksConfig: TopicPageConfig = {
       },
       {
         id: 'explore-fragrance-samples',
-        title: 'Explore fragrance samples',
+        title: 'Receive curated fragrance samples',
         description:
-          'Start your project and our team will help you explore the Brandsamor scent library and order samples that fit your brand personality. Compare how each fragrance feels before committing to production. See the [fragrance sampling](/fragrance-sampling) page for dispatch and evaluation details.',
+          'Complete a short sampling brief about your business and customers. Brandsamor curates five fragrances matched to your brand, packs them as a sample kit, and ships them for evaluation. See the [fragrance sampling](/fragrance-sampling) page for dispatch and evaluation details.',
         bullets: sectionBullets(
-          'Access a curated library of ready-to-launch scents',
-          'Order samples to compare notes and wearability',
-          'Share options with your team or customers',
-          'Narrow down directions before bulk production',
+          'Answer questions about your business, customers, and launch goals',
+          'Receive five fragrances curated for your brand and audience',
+          'Share samples with your team or test customers',
+          'Narrow to your launch scent before bulk production',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -173,9 +173,9 @@ export const howItWorksConfig: TopicPageConfig = {
   },
   cta: {
     eyebrow: 'START WITH SAMPLES',
-    title: 'Ready to explore scents for your brand?',
+    title: 'Ready to receive curated samples for your brand?',
     description:
-      'The best first step is sampling. Compare fragrance directions, share options with your team, and choose the scent that fits your launch before committing to production.',
+      'The best first step is the sampling brief. Tell us about your business and customers, receive five matched fragrances, and choose your launch scent before committing to production.',
     Illustration: ScentSamplesIllustration,
     footerText: 'Have questions about the process? Visit the FAQ on the homepage.',
   },
@@ -191,23 +191,23 @@ export const howItWorksConfig: TopicPageConfig = {
 };
 
 export const howItWorksSplitPanel = {
-  leftTitle: 'What you choose',
+  leftTitle: 'What you share',
   leftItems: [
-    'Scent direction from the Brandsamor library',
-    'Starting fragrance or small launch set',
-    'Bottle, cap, and spray combination',
-    'Label design, colors, and packaging direction',
+    'Your business type, brand stage, and positioning',
+    'Who your customers are and how they shop',
+    'Brand personality and scent direction preferences',
+    'Bottle, cap, and packaging direction',
     'Rough quantity and launch timeline',
     'Final approval before production runs',
   ],
   rightTitle: 'What Brandsamor handles',
   rightItems: [
-    'Scent library access and sample fulfillment',
+    'Curating five fragrances from your sampling brief',
+    'Sample kit preparation and fulfillment',
     'Bottle, cap, and packaging sourcing',
     'Filling, labeling, and finishing',
     'Production sample preparation',
-    'Quality checks and batch documentation',
-    'Packing and delivery of finished perfumes',
+    'Quality checks and delivery of finished perfumes',
   ],
 };
 
@@ -220,7 +220,7 @@ export const howItWorksTimelineSummary = {
     },
     {
       phase: 'Evaluation',
-      detail: 'Compare samples on skin, share with your team, and choose your launch scent or small set.',
+      detail: 'Wear your five curated samples on skin, share with your team, and choose your launch scent or small set.',
     },
     {
       phase: 'Production',

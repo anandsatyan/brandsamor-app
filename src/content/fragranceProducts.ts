@@ -36,7 +36,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
         id: 'product-formats-overview',
         title: 'Product formats overview',
         description:
-          'Private label fragrance is not one-size-fits-all. Brandsamor helps you launch in the format that matches how your customers buy, gift, and use scent — whether that is a hero perfume, a lighter mist, or a curated gift set. Order [fragrance samples](/fragrance-sampling) before locking in a format.',
+          'Private label fragrance is not one-size-fits-all. Brandsamor helps you launch in the format that matches how your customers buy, gift, and use scent — whether that is a hero perfume, a lighter mist, or a curated gift set. Complete the [fragrance sampling](/fragrance-sampling) brief before locking in a format.',
         bullets: sectionBullets(
           'Compare core formats before you commit to production',
           'Match concentration and size to your price point and channel',
@@ -151,7 +151,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     eyebrow: 'NEXT STEP',
     title: 'Explore fragrance samples',
     description:
-      'Before you lock in a product format, work with our team to compare scent directions from the Brandsamor scent library. Order samples, find your launch fragrance, then match it to the right bottle and format on the fragrance sampling page.',
+      'Before you lock in a product format, complete the curated sampling brief about your business and customers. We select five fragrances matched to your brand, ship them for evaluation, and help you match your launch scent to the right bottle and format.',
     Illustration: FragranceSampleKitImage,
   },
   relatedLinks: {

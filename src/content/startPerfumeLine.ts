@@ -119,7 +119,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
         bullets: sectionBullets(
           'A single hero scent is the simplest first launch',
           'Small collections work when you have distinct customer segments',
-          'Order samples before committing to multiple scents',
+          'Evaluate curated samples before committing to multiple scents',
           'Add new fragrances once your first batch sells',
         ),
         Illustration: FragranceSampleKitImage,
@@ -205,7 +205,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     eyebrow: 'NEXT STEP',
     title: 'Start Planning',
     description:
-      'Ready to explore a branded fragrance for your business? Share your brand direction, order scent samples, and map out bottle and packaging choices for a focused first launch.',
+      'Ready to explore a branded fragrance for your business? Complete the sampling brief about your business and customers, evaluate your curated sample kit, and map out bottle and packaging choices for a focused first launch.',
     Illustration: LaunchPlanningIllustration,
   },
   relatedLinks: {

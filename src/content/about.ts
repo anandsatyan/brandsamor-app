@@ -43,7 +43,7 @@ export const aboutSections: InfoSection[] = [
     ],
     bullets: [
       'Customer brief — share your audience, brand style, launch goals and rough quantity range',
-      'Fragrance samples — start your project and explore the scent library with our team before production',
+      'Fragrance samples — complete the curated sampling brief about your business and customers before production',
       'Product format and scent — choose the format and fragrance that fit your customer and channel',
       'Bottle and packaging — select bottle, cap, label, printing and retail packaging details',
       'Production sample approval — review a real unit before bulk filling begins',

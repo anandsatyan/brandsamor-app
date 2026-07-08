@@ -21,7 +21,7 @@ const footerFaqLinks = [
   { label: 'What is private label perfume?', hash: 'faq' },
   { label: 'How do I start my own perfume line?', hash: 'faq' },
   { label: 'Minimum order quantity', hash: 'faq' },
-  { label: 'Order samples before bulk', hash: 'faq' },
+  { label: 'Curated samples before bulk', hash: 'faq' },
   { label: 'Compliance documentation', hash: 'faq' },
   { label: 'Worldwide shipping', hash: 'faq' },
 ] as const;
