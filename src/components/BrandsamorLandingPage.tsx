@@ -317,11 +317,11 @@ export const BrandsamorLandingPage = () => {
         className="mb-8 sm:mb-12 text-center"
         footer={<HeroServicesTicker />}
       >
-        <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
+        <div className="mx-auto flex max-w-3xl flex-col items-center space-y-4 sm:space-y-8">
           <span className="inline-block px-3 py-1 bg-white/20 text-white type-caption font-semibold uppercase tracking-wider rounded-full border border-white/30">
             PRIVATE LABEL
           </span>
-          <h1 className="type-h1 text-white">
+          <h1 className="type-h2 sm:type-h1 text-white">
             The Easy Way to Start Your Own Perfume Line
           </h1>
           <p className="type-body sm:type-body-lg max-w-2xl" style={{ textShadow: '1px 1px 2px #A5472C' }}>
