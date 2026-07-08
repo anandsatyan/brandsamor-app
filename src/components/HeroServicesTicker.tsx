@@ -47,6 +47,21 @@ export const HeroServicesTicker = () => {
       aria-label="Brandsamor private label fragrance services"
     >
       <div
+        className="absolute left-1/2 top-0 z-[2] -translate-x-1/2 -translate-y-[95%]"
+        aria-label="Handled for you"
+      >
+        <div className="inline-flex w-max items-center gap-phi-2 whitespace-nowrap rounded-t-full rounded-b-none bg-[#010100] px-phi-6 py-phi-1 shadow-[0_-10px_22px_rgba(0,0,0,0.25)]">
+          <span className="whitespace-nowrap font-serif text-phi-sm sm:text-phi-sm tracking-wide text-white/80">
+            Handled for you
+          </span>
+          <span className="h-[1px] w-phi-4 bg-white/20" aria-hidden="true" />
+          <span className="type-caption whitespace-nowrap font-sans uppercase tracking-[0.22em] text-white/70">
+            end-to-end
+          </span>
+        </div>
+      </div>
+
+      <div
         className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-phi-6 bg-gradient-to-r from-[#010100] to-transparent sm:w-phi-5"
         aria-hidden="true"
       />
