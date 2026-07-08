@@ -148,6 +148,156 @@ export const StartDesigningImage = createProductImage(
   IMAGE_ALT.packagingBranding.startDesigning,
 );
 
+export const WhyLaunchPerfumeImage = createProductImage(
+  '/Why launch perfume under your brand.png',
+  IMAGE_ALT.startPerfumeLine.whyLaunch,
+);
+
+export const HighMarginProductImage = createProductImage(
+  '/Add a high-margin product.png',
+  IMAGE_ALT.startPerfumeLine.highMargin,
+);
+
+export const GiftableProductImage = createProductImage(
+  '/Create a product customers can gift.png',
+  IMAGE_ALT.startPerfumeLine.giftable,
+);
+
+export const StrongerBrandExperienceImage = createProductImage(
+  '/Build a stronger brand experience.png',
+  IMAGE_ALT.startPerfumeLine.brandExperience,
+);
+
+export const CreateRepeatSalesImage = createProductImage(
+  '/Create repeat sales.png',
+  IMAGE_ALT.startPerfumeLine.repeatSales,
+);
+
+export const KnowYourTargetCustomerImage = createProductImage(
+  '/Know your target customer.png',
+  IMAGE_ALT.startPerfumeLine.targetCustomer,
+);
+
+export const OneScentOrCollectionImage = createProductImage(
+  '/One scent or a small collection.png',
+  IMAGE_ALT.startPerfumeLine.oneScentOrCollection,
+);
+
+export const ChooseProductFormatImage = createProductImage(
+  '/Choose your product format.png',
+  IMAGE_ALT.startPerfumeLine.productFormat,
+);
+
+export const SelectBottleAndPackagingImage = createProductImage(
+  '/Select bottle and packaging.png',
+  IMAGE_ALT.startPerfumeLine.bottleAndPackaging,
+);
+
+export const PlanRetailPriceImage = createProductImage(
+  '/Plan your retail price.png',
+  IMAGE_ALT.startPerfumeLine.retailPrice,
+);
+
+export const StartSmallValidateDemandImage = createProductImage(
+  '/Start small and validate demand.png',
+  IMAGE_ALT.startPerfumeLine.startSmall,
+);
+
+export const CommonMistakesToAvoidImage = createProductImage(
+  '/Common mistakes to avoid.png',
+  IMAGE_ALT.startPerfumeLine.commonMistakes,
+);
+
+export const TellUsAboutYourBrandImage = createProductImage(
+  '/Tell us about your brand .png',
+  IMAGE_ALT.howItWorks.tellUsAboutBrand,
+);
+
+export const ExploreFragranceSamplesImage = createProductImage(
+  '/Explore fragrance samples .png',
+  IMAGE_ALT.howItWorks.exploreSamples,
+);
+
+export const ChooseYourStartingScentsImage = createProductImage(
+  '/Choose your starting scents.png',
+  IMAGE_ALT.howItWorks.chooseStartingScents,
+);
+
+export const SelectBottlesCapsAndSpraysImage = createProductImage(
+  '/Select bottles caps and sprays.png',
+  IMAGE_ALT.howItWorks.selectBottlesCapsSprays,
+);
+
+export const DesignLabelsAndPackagingImage = createProductImage(
+  '/Design labels and packaging .png',
+  IMAGE_ALT.howItWorks.designLabelsPackaging,
+);
+
+export const ApproveProductionSampleImage = createProductImage(
+  '/Approve your production sample.png',
+  IMAGE_ALT.howItWorks.approveProductionSample,
+);
+
+export const ProductionAndFillingImage = createProductImage(
+  '/Production and filling.png',
+  IMAGE_ALT.howItWorks.productionAndFilling,
+);
+
+export const QualityChecksImage = createProductImage(
+  '/Quality checks.png',
+  IMAGE_ALT.howItWorks.qualityChecks,
+);
+
+export const DeliveryOfFinishedPerfumesImage = createProductImage(
+  '/Delivery of finished perfumes.png',
+  IMAGE_ALT.howItWorks.deliveryFinishedPerfumes,
+);
+
+export const RepeatOrdersImage = createProductImage(
+  '/Repeat orders.png',
+  IMAGE_ALT.howItWorks.repeatOrders,
+);
+
+export const HowScentLibraryWorksImage = createProductImage(
+  '/how-scent-library-works.png',
+  IMAGE_ALT.fragranceSampling.scentLibrary,
+);
+
+export const FragranceFamiliesAvailableImage = createProductImage(
+  '/fragrance-families-available.png',
+  IMAGE_ALT.fragranceSampling.fragranceFamilies,
+);
+
+export const ChoosingScentsForYourCustomerImage = createProductImage(
+  '/choosing scents for your customer.png',
+  IMAGE_ALT.fragranceSampling.choosingScents,
+);
+
+export const WhatSamplingPackageIncludesImage = createProductImage(
+  '/What the sampling package includes.png',
+  IMAGE_ALT.fragranceSampling.samplingPackage,
+);
+
+export const BottleAndBoxSamplesImage = createProductImage(
+  '/bottle and box samples.png',
+  IMAGE_ALT.fragranceSampling.bottleAndBoxSamples,
+);
+
+export const HowToEvaluateSamplesImage = createProductImage(
+  '/How to evaluate the samples.png',
+  IMAGE_ALT.fragranceSampling.evaluateSamples,
+);
+
+export const ApprovingSelectedFragrancesImage = createProductImage(
+  '/Approving your selected fragrances.png',
+  IMAGE_ALT.fragranceSampling.approvingFragrances,
+);
+
+export const WhatHappensAfterApprovalImage = createProductImage(
+  '/what happens after approval.png',
+  IMAGE_ALT.fragranceSampling.afterApproval,
+);
+
 export const HeroBottleIllustration = () => (
   <IllustrationFrame minHeight="min-h-[250px] sm:min-h-[320px] md:min-h-[400px]" ariaLabel={IMAGE_ALT.illustrations.heroBottle}>
     <svg

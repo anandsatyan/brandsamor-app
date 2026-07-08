@@ -1,16 +1,15 @@
 import type { TopicPageConfig } from '../components/topic/types';
 import {
-  ApprovalIllustration,
-  BrandBriefIllustration,
-  DeliveryIllustration,
-  FlatLayIllustration,
-  MarbleBottleIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  ProductionIllustration,
-  QualityCheckIllustration,
-  RepeatOrderIllustration,
-  ScentSamplesIllustration,
+  ApproveProductionSampleImage,
+  ChooseYourStartingScentsImage,
+  DeliveryOfFinishedPerfumesImage,
+  DesignLabelsAndPackagingImage,
+  ExploreFragranceSamplesImage,
+  ProductionAndFillingImage,
+  QualityChecksImage,
+  RepeatOrdersImage,
+  SelectBottlesCapsAndSpraysImage,
+  TellUsAboutYourBrandImage,
 } from '../components/Illustrations';
 import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { PROCESS_FAQ_ITEMS, SITE_NAME } from '../seo/siteConfig';
@@ -26,7 +25,7 @@ export const howItWorksConfig: TopicPageConfig = {
     badge: 'HOW IT WORKS',
     title: pageMeta.h1,
     description: `${SITE_NAME} guides you through the private label perfume manufacturing process — from [fragrance sampling](/fragrance-sampling) and [product formats](/fragrance-products) to [packaging](/packaging-branding), production approval, and delivery. Review [how perfume is manufactured](/how-your-batch-is-made) before bulk release.`,
-    Illustration: ProcessTimelineIllustration,
+    Illustration: TellUsAboutYourBrandImage,
   },
   sections: withSteps(
     [
@@ -41,7 +40,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Rough quantity range for your first batch',
           'Any logo, colors, or packaging ideas you already have',
         ),
-        Illustration: BrandBriefIllustration,
+        Illustration: TellUsAboutYourBrandImage,
       },
       {
         id: 'explore-fragrance-samples',
@@ -54,7 +53,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Share samples with your team or test customers',
           'Narrow to your launch scent before bulk production',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: ExploreFragranceSamplesImage,
       },
       {
         id: 'choose-starting-scents',
@@ -67,7 +66,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Keep the first batch manageable and market-ready',
           'Plan future scents once you see what sells',
         ),
-        Illustration: MarbleBottleIllustration,
+        Illustration: ChooseYourStartingScentsImage,
       },
       {
         id: 'select-bottles-caps-sprays',
@@ -80,7 +79,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Spray and pump combinations for different formats',
           'Travel sprays, rollers, and full-size bottles',
         ),
-        Illustration: FlatLayIllustration,
+        Illustration: SelectBottlesCapsAndSpraysImage,
       },
       {
         id: 'design-labels-packaging',
@@ -93,7 +92,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Color, typography, and finishing details',
           'Retail-ready presentation for your sales channel',
         ),
-        Illustration: PackagingIllustration,
+        Illustration: DesignLabelsAndPackagingImage,
       },
       {
         id: 'approve-production-sample',
@@ -106,7 +105,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Request adjustments before bulk production begins',
           'Move forward only when the sample feels right',
         ),
-        Illustration: ApprovalIllustration,
+        Illustration: ApproveProductionSampleImage,
       },
       {
         id: 'production-and-filling',
@@ -119,7 +118,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Batch planning based on your order quantity',
           'Production managed without you running a factory',
         ),
-        Illustration: ProductionIllustration,
+        Illustration: ProductionAndFillingImage,
       },
       {
         id: 'quality-checks',
@@ -132,7 +131,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Batch records and documentation where applicable',
           'Support for compliance needs based on product and market',
         ),
-        Illustration: QualityCheckIllustration,
+        Illustration: QualityChecksImage,
       },
       {
         id: 'delivery-finished-perfumes',
@@ -145,7 +144,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Ready-to-sell inventory under your brand name',
           'Clear handoff so you can launch immediately',
         ),
-        Illustration: DeliveryIllustration,
+        Illustration: DeliveryOfFinishedPerfumesImage,
       },
       {
         id: 'repeat-orders',
@@ -158,7 +157,7 @@ export const howItWorksConfig: TopicPageConfig = {
           'Refine packaging as you learn from customers',
           'Grow from a focused launch into a full fragrance line',
         ),
-        Illustration: RepeatOrderIllustration,
+        Illustration: RepeatOrdersImage,
       },
     ],
     'STEP',
@@ -176,7 +175,7 @@ export const howItWorksConfig: TopicPageConfig = {
     title: 'Ready to receive curated samples for your brand?',
     description:
       'The best first step is the sampling brief. Tell us about your business and customers, receive five matched fragrances, and choose your launch scent before committing to production.',
-    Illustration: ScentSamplesIllustration,
+    Illustration: ExploreFragranceSamplesImage,
     footerText: 'Have questions about the process? Visit the FAQ on the homepage.',
   },
   relatedLinks: {

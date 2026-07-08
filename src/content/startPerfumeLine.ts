@@ -1,17 +1,17 @@
 import type { TopicPageConfig } from '../components/topic/types';
 import {
-  ApprovalIllustration,
-  BrandBriefIllustration,
-  FragranceProductTypesImage,
-  FragranceFamilyIllustration,
-  FragranceSampleKitImage,
-  GiftSetImage,
-  HeroBottleIllustration,
-  LaunchPlanningIllustration,
-  MarbleBottleIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  RepeatOrderIllustration,
+  ChooseProductFormatImage,
+  CommonMistakesToAvoidImage,
+  CreateRepeatSalesImage,
+  GiftableProductImage,
+  HighMarginProductImage,
+  KnowYourTargetCustomerImage,
+  OneScentOrCollectionImage,
+  PlanRetailPriceImage,
+  SelectBottleAndPackagingImage,
+  StartSmallValidateDemandImage,
+  StrongerBrandExperienceImage,
+  WhyLaunchPerfumeImage,
 } from '../components/Illustrations';
 import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { START_PERFUME_LINE_FAQ_ITEMS } from '../seo/pageSeo';
@@ -29,7 +29,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     description:
       'To start a perfume line, define your target customer, choose a product format, evaluate fragrance samples, select packaging, approve the finished product specification and plan production. Brandsamor helps you move from [fragrance sampling](/fragrance-sampling) to a ready-to-sell first batch without managing a factory. ' +
       COMMERCIAL_COPY.unitQuantityNote,
-    Illustration: LaunchPlanningIllustration,
+    Illustration: WhyLaunchPerfumeImage,
   },
   sections: withSteps(
     [
@@ -44,7 +44,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Create a tangible product tied to your brand identity',
           'Launch without factory equipment or in-house production',
         ),
-        Illustration: LaunchPlanningIllustration,
+        Illustration: WhyLaunchPerfumeImage,
       },
       {
         id: 'high-margin-product',
@@ -57,7 +57,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Margin shaped by format, packaging, and retail price',
           'Sell through your existing retail or e-commerce channels',
         ),
-        Illustration: HeroBottleIllustration,
+        Illustration: HighMarginProductImage,
       },
       {
         id: 'giftable-product',
@@ -70,7 +70,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Gift sets can bundle formats for higher order value',
           'Customers associate your brand with memorable moments',
         ),
-        Illustration: GiftSetImage,
+        Illustration: GiftableProductImage,
       },
       {
         id: 'brand-experience',
@@ -83,7 +83,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Fragrance reinforces your brand story and aesthetic',
           'Extends the experience of your spa, hotel, or studio',
         ),
-        Illustration: FragranceFamilyIllustration,
+        Illustration: StrongerBrandExperienceImage,
       },
       {
         id: 'repeat-sales',
@@ -96,7 +96,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Gift buyers often become repeat purchasers',
           'Expand the line once your hero scent proves demand',
         ),
-        Illustration: RepeatOrderIllustration,
+        Illustration: CreateRepeatSalesImage,
       },
       {
         id: 'target-customer',
@@ -109,7 +109,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Match scent intensity to your planned retail price',
           'Align packaging with how your customer shops',
         ),
-        Illustration: BrandBriefIllustration,
+        Illustration: KnowYourTargetCustomerImage,
       },
       {
         id: 'one-scent-or-collection',
@@ -122,7 +122,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Evaluate curated samples before committing to multiple scents',
           'Add new fragrances once your first batch sells',
         ),
-        Illustration: FragranceSampleKitImage,
+        Illustration: OneScentOrCollectionImage,
       },
       {
         id: 'choose-format',
@@ -135,7 +135,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Body mists for lighter, everyday fragrance',
           'Gift sets to increase perceived value and AOV',
         ),
-        Illustration: FragranceProductTypesImage,
+        Illustration: ChooseProductFormatImage,
       },
       {
         id: 'select-packaging',
@@ -148,7 +148,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Add labels, printing, and color direction',
           'Use boxes and gift packaging for retail-ready presentation',
         ),
-        Illustration: PackagingIllustration,
+        Illustration: SelectBottleAndPackagingImage,
       },
       {
         id: 'plan-retail-price',
@@ -161,7 +161,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Higher packaging quality supports higher price points',
           'Start with one price tier before expanding the range',
         ),
-        Illustration: MarbleBottleIllustration,
+        Illustration: PlanRetailPriceImage,
       },
       {
         id: 'start-small-validate',
@@ -175,7 +175,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Launch with a quantity you can sell through confidently',
           'Use early sales data to plan repeat orders',
         ),
-        Illustration: ApprovalIllustration,
+        Illustration: StartSmallValidateDemandImage,
       },
       {
         id: 'common-mistakes',
@@ -188,7 +188,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
           'Choosing packaging that overshoots your price tier',
           'Not defining your customer before scent selection',
         ),
-        Illustration: ProcessTimelineIllustration,
+        Illustration: CommonMistakesToAvoidImage,
       },
     ],
     'PERFUME LINE',
@@ -206,7 +206,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     title: 'Start Planning',
     description:
       'Ready to explore a branded fragrance for your business? Complete the sampling brief about your business and customers, evaluate your curated sample kit, and map out bottle and packaging choices for a focused first launch.',
-    Illustration: LaunchPlanningIllustration,
+    Illustration: StartSmallValidateDemandImage,
   },
   relatedLinks: {
     links: [

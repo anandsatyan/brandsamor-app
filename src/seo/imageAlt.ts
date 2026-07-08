@@ -30,6 +30,75 @@ export const IMAGE_ALT = {
       'Brandsamor private label fragrance sample kit for comparing scent directions',
   },
 
+  startPerfumeLine: {
+    whyLaunch:
+      'Why launch perfume under your brand — private label fragrance as a branded product extension',
+    highMargin:
+      'High-margin private label perfume product ready for retail and e-commerce sales',
+    giftable:
+      'Giftable private label perfume packaging for holidays, events and brand gifting',
+    brandExperience:
+      'Branded perfume that builds a stronger sensory brand experience for customers',
+    repeatSales:
+      'Private label fragrance designed for repeat orders, refills and seasonal launches',
+    targetCustomer:
+      'Planning a private label perfume line around a clear target customer',
+    oneScentOrCollection:
+      'Choosing one hero scent or a small private label fragrance collection to launch',
+    productFormat:
+      'Choosing the right private label perfume product format for your brand',
+    bottleAndPackaging:
+      'Selecting private label perfume bottles, caps, labels and packaging',
+    retailPrice:
+      'Planning retail price for a private label perfume brand launch',
+    startSmall:
+      'Starting small with a private label perfume batch to validate demand',
+    commonMistakes:
+      'Common mistakes to avoid when starting a private label perfume line',
+  },
+
+  howItWorks: {
+    tellUsAboutBrand:
+      'Tell us about your brand — briefing for private label perfume manufacturing',
+    exploreSamples:
+      'Explore fragrance samples from the Brandsamor private label scent library',
+    chooseStartingScents:
+      'Choose starting scents for your private label perfume brand launch',
+    selectBottlesCapsSprays:
+      'Select bottles, caps and sprays for private label fragrance packaging',
+    designLabelsPackaging:
+      'Design labels and packaging for private label perfume branding',
+    approveProductionSample:
+      'Approve your private label perfume production sample before bulk filling',
+    productionAndFilling:
+      'Private label perfume production and filling for branded fragrance batches',
+    qualityChecks:
+      'Quality checks for private label perfume fill level, spray and packaging',
+    deliveryFinishedPerfumes:
+      'Delivery of finished private label perfumes ready to sell under your brand',
+    repeatOrders:
+      'Repeat orders for proven private label perfume scents and formats',
+  },
+
+  fragranceSampling: {
+    scentLibrary:
+      'How the Brandsamor scent library works for private label fragrance sampling',
+    fragranceFamilies:
+      'Fragrance families available for private label perfume sampling — floral, woody, fresh and oriental',
+    choosingScents:
+      'Choosing private label fragrance samples that fit your target customer',
+    samplingPackage:
+      'What a Brandsamor private label fragrance sampling package includes',
+    bottleAndBoxSamples:
+      'Bottle and box samples for private label perfume packaging preview',
+    evaluateSamples:
+      'How to evaluate private label perfume samples on skin before production',
+    approvingFragrances:
+      'Approving selected private label fragrances before bottle and packaging',
+    afterApproval:
+      'What happens after fragrance sample approval in private label perfume manufacturing',
+  },
+
   packagingBranding: {
     bottleSelection:
       'Private label perfume bottle selection — glass shapes, profiles and finishes',

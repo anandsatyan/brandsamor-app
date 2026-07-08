@@ -1,11 +1,13 @@
 import type { TopicPageConfig } from '../components/topic/types';
 import {
-  ApprovalIllustration,
-  BrandBriefIllustration,
-  FlatLayIllustration,
-  FragranceFamilyIllustration,
-  ProcessTimelineIllustration,
-  ScentSamplesIllustration,
+  ApprovingSelectedFragrancesImage,
+  BottleAndBoxSamplesImage,
+  ChoosingScentsForYourCustomerImage,
+  FragranceFamiliesAvailableImage,
+  FragranceSampleKitImage,
+  HowScentLibraryWorksImage,
+  HowToEvaluateSamplesImage,
+  WhatHappensAfterApprovalImage,
 } from '../components/Illustrations';
 import { COMMERCIAL_COPY } from '../seo/businessFacts';
 import { FRAGRANCE_SAMPLING_FAQ_ITEMS } from '../seo/pageSeo';
@@ -27,7 +29,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
       COMMERCIAL_COPY.sampleDispatch +
       ' ' +
       COMMERCIAL_COPY.sampleDeliveryNote,
-    Illustration: ScentSamplesIllustration,
+    Illustration: HowScentLibraryWorksImage,
   },
   sections: withSteps(
     [
@@ -41,7 +43,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Receive a sample kit packed and shipped to your location',
           'Evaluate on skin before committing to bulk production',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: HowScentLibraryWorksImage,
       },
       {
         id: 'what-we-ask-about-your-business',
@@ -54,7 +56,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'How customers will discover, wear, or gift your fragrance',
           'Your price point, channel, and launch goals',
         ),
-        Illustration: BrandBriefIllustration,
+        Illustration: ChoosingScentsForYourCustomerImage,
       },
       {
         id: 'how-we-curate-five-fragrances',
@@ -67,7 +69,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Directions that fit your brand personality and use case',
           'Exclusions respected so we avoid the wrong directions',
         ),
-        Illustration: FragranceFamilyIllustration,
+        Illustration: FragranceFamiliesAvailableImage,
       },
       {
         id: 'sampling-package-includes',
@@ -80,7 +82,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Packaged for safe delivery to your location',
           'Enough volume to share with stakeholders or test customers',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: FragranceSampleKitImage,
       },
       {
         id: 'evaluate-samples',
@@ -93,7 +95,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Gather feedback from team members or trusted customers',
           'Note which scents feel most aligned with your brand story',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: HowToEvaluateSamplesImage,
       },
       {
         id: 'choosing-launch-fragrance',
@@ -106,7 +108,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Consider customer feedback alongside your own preference',
           'Confirm your choice before bottle and packaging decisions',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: FragranceSampleKitImage,
       },
       {
         id: 'extra-samples',
@@ -119,7 +121,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Test seasonal or limited-edition concepts before launch',
           'Keep sampling costs low compared to a wrong bulk order',
         ),
-        Illustration: ScentSamplesIllustration,
+        Illustration: HowScentLibraryWorksImage,
       },
       {
         id: 'bottle-box-samples',
@@ -132,7 +134,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Confirm the product feels right in hand and on shelf',
           'Align scent choice with your bottle and box direction',
         ),
-        Illustration: FlatLayIllustration,
+        Illustration: BottleAndBoxSamplesImage,
       },
       {
         id: 'approving-fragrances',
@@ -145,7 +147,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Move into bottle and packaging choices with confidence',
           'Request adjustments if a sample needs fine-tuning before bulk',
         ),
-        Illustration: ApprovalIllustration,
+        Illustration: ApprovingSelectedFragrancesImage,
       },
       {
         id: 'after-approval',
@@ -158,7 +160,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Move into filling, finishing, and quality checks',
           'Receive finished perfumes ready to sell under your brand',
         ),
-        Illustration: ProcessTimelineIllustration,
+        Illustration: WhatHappensAfterApprovalImage,
       },
     ],
     'SAMPLING',
@@ -175,7 +177,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     eyebrow: 'GET STARTED',
     title: 'Build Your Sample Kit',
     description: COMMERCIAL_COPY.sampleOrderPath,
-    Illustration: ScentSamplesIllustration,
+    Illustration: FragranceSampleKitImage,
   },
   relatedLinks: {
     links: [
