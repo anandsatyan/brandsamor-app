@@ -29,7 +29,7 @@ export const HOMEPAGE_STATIC_SECTIONS = [
   {
     title: 'How It Works',
     description:
-      'Start your project, explore the scent library with our team, pick your starting scents, choose bottle and branding, then receive ready-to-sell perfumes.',
+      'Share your brand and customer brief, receive five curated fragrance samples, choose bottle and branding, then receive ready-to-sell perfumes.',
   },
   {
     title: 'Fragrance Products',

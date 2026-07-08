@@ -108,7 +108,7 @@ export const customPerfumeManufacturerConfig: TopicPageConfig = {
   },
   relatedLinks: {
     links: [
-      { to: '/fragrance-sampling', label: 'Order private label perfume samples' },
+      { to: '/fragrance-sampling', label: 'Start curated fragrance sampling' },
       { to: '/start-a-perfume-line', label: 'Learn how to start a perfume line' },
       { to: '/private-label-perfume-manufacturer-usa', label: 'Private label perfume manufacturer USA' },
       { to: '/knowledge-base/private-label-vs-white-label-vs-custom-perfume', label: 'Private label vs white label perfume' },

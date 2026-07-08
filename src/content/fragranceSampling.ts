@@ -32,50 +32,50 @@ export const fragranceSamplingConfig: TopicPageConfig = {
   sections: withSteps(
     [
       {
-        id: 'how-scent-library-works',
-        title: 'How the scent library works',
+        id: 'how-curated-sampling-works',
+        title: 'How curated sampling works',
         description: `${COMMERCIAL_COPY.scentLibrarySummary} ${COMMERCIAL_COPY.sampleDispatch}`,
         bullets: sectionBullets(
-          'Access a curated library of launch-ready fragrances',
-          'Work with our team to compare scent directions for your brand',
-          'Order individual samples without committing to bulk production',
-          'Move from exploration to selection at your own pace',
+          'Answer a short brief about your business and customers',
+          'We curate five fragrances matched to your brand and audience',
+          'Receive a sample kit packed and shipped to your location',
+          'Evaluate on skin before committing to bulk production',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
-        id: 'fragrance-families',
-        title: 'Fragrance families available',
+        id: 'what-we-ask-about-your-business',
+        title: 'What we ask about your business',
         description:
-          'Scents are grouped into familiar families — floral, woody, fresh, oriental, and more — so you can narrow the library to directions that fit your customer and brand positioning.',
+          'The sampling brief covers your brand, your customers, and how you plan to sell fragrance. These questions help us understand who your product is for — not just what scents you personally like.',
         bullets: sectionBullets(
-          'Explore floral, woody, fresh, and oriental directions',
-          'Filter by mood, season, and customer preference',
-          'Compare families side by side with physical samples',
-          'Find a starting point even if you are new to fragrance',
-        ),
-        Illustration: FragranceFamilyIllustration,
-      },
-      {
-        id: 'choosing-scents-for-customer',
-        title: 'Choosing scents for your customer',
-        description:
-          'The right scent depends on who you sell to and how they will use it. Consider your audience, price point, brand style, and whether the fragrance is for daily wear, gifting, or a specific occasion.',
-        bullets: sectionBullets(
-          'Match scent character to your target customer',
-          'Consider gender positioning, age, and lifestyle cues',
-          'Think about where the product will be worn or gifted',
-          'Align fragrance intensity with your planned price point',
+          'Your business type, brand stage, and positioning',
+          'Who your customers are — demographics, lifestyle, and preferences',
+          'How customers will discover, wear, or gift your fragrance',
+          'Your price point, channel, and launch goals',
         ),
         Illustration: BrandBriefIllustration,
+      },
+      {
+        id: 'how-we-curate-five-fragrances',
+        title: 'How we curate your five fragrances',
+        description:
+          'From your brief, we match scent families, intensity, and character to your brand and customer profile. You receive five focused directions — enough variety to compare meaningfully without overwhelming your decision.',
+        bullets: sectionBullets(
+          'Scent families and moods aligned with your customer',
+          'Intensity and wearability matched to your price point',
+          'Directions that fit your brand personality and use case',
+          'Exclusions respected so we avoid the wrong directions',
+        ),
+        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'sampling-package-includes',
         title: 'What the sampling package includes',
         description:
-          'Each sampling order is prepared so you can compare fragrances meaningfully — with enough product to test on skin, share with your team, and evaluate over a few days rather than a single sniff.',
+          'Each curated sample kit is prepared so you can compare fragrances meaningfully — with enough product to test on skin, share with your team, and evaluate over a few days rather than a single sniff.',
         bullets: sectionBullets(
-          'Sample vials sized for real wear testing',
+          'Five sample vials sized for real wear testing',
           'Clear labeling so you can track each fragrance',
           'Packaged for safe delivery to your location',
           'Enough volume to share with stakeholders or test customers',
@@ -83,15 +83,28 @@ export const fragranceSamplingConfig: TopicPageConfig = {
         Illustration: ScentSamplesIllustration,
       },
       {
-        id: 'choosing-up-to-five',
-        title: 'Choosing up to five fragrances',
+        id: 'evaluate-samples',
+        title: 'How to evaluate the samples',
         description:
-          'Most brands start by selecting up to five scent directions to compare. This keeps the decision focused while giving you enough variety to find a clear winner for your launch.',
+          'Give each sample time on skin — top notes fade quickly, while the heart and base reveal how the fragrance wears through the day. Share options with your team or a small test group for broader feedback.',
         bullets: sectionBullets(
-          'Start with a focused set of up to five samples',
-          'Pick scents across one family or a small range of styles',
-          'Avoid ordering too many directions at once',
-          'Narrow quickly to two or three finalists for deeper testing',
+          'Wear samples on skin, not just paper blotters',
+          'Test over several hours to understand longevity',
+          'Gather feedback from team members or trusted customers',
+          'Note which scents feel most aligned with your brand story',
+        ),
+        Illustration: ScentSamplesIllustration,
+      },
+      {
+        id: 'choosing-launch-fragrance',
+        title: 'Choosing your launch fragrance',
+        description:
+          'Most brands narrow the five curated samples to one hero scent or a small launch set of two or three. Your brief gave us the starting direction — your wear testing confirms which fragrance your customers will respond to.',
+        bullets: sectionBullets(
+          'Compare all five directions before narrowing',
+          'Pick one hero scent or a focused launch set',
+          'Consider customer feedback alongside your own preference',
+          'Confirm your choice before bottle and packaging decisions',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -99,9 +112,9 @@ export const fragranceSamplingConfig: TopicPageConfig = {
         id: 'extra-samples',
         title: 'Adding extra fragrance samples',
         description:
-          'If your first round of samples raises new questions — a lighter alternative, a bolder option, or a different family — you can add extra samples before moving to bottle and packaging decisions.',
+          'If your first curated set raises new questions — a lighter alternative, a bolder option, or a different family — you can request additional samples before moving to bottle and packaging decisions.',
         bullets: sectionBullets(
-          'Order additional samples beyond your initial set',
+          'Order additional samples beyond your initial curated set',
           'Explore adjacent directions once you know what you like',
           'Test seasonal or limited-edition concepts before launch',
           'Keep sampling costs low compared to a wrong bulk order',
@@ -120,19 +133,6 @@ export const fragranceSamplingConfig: TopicPageConfig = {
           'Align scent choice with your bottle and box direction',
         ),
         Illustration: FlatLayIllustration,
-      },
-      {
-        id: 'evaluate-samples',
-        title: 'How to evaluate the samples',
-        description:
-          'Give each sample time on skin — top notes fade quickly, while the heart and base reveal how the fragrance wears through the day. Share options with your team or a small test group for broader feedback.',
-        bullets: sectionBullets(
-          'Wear samples on skin, not just paper blotters',
-          'Test over several hours to understand longevity',
-          'Gather feedback from team members or trusted customers',
-          'Note which scents feel most aligned with your brand story',
-        ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'approving-fragrances',
@@ -168,14 +168,13 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     eyebrow: 'FAQ',
     title: 'Fragrance sampling questions',
     description:
-      'Answers to common questions about ordering samples, using the scent library, and choosing your launch fragrance.',
+      'Answers to common questions about the curated sampling brief, receiving your sample kit, and choosing your launch fragrance.',
     items: FRAGRANCE_SAMPLING_FAQ_ITEMS,
   },
   cta: {
     eyebrow: 'GET STARTED',
     title: 'Build Your Sample Kit',
-    description:
-      COMMERCIAL_COPY.sampleOrderPath,
+    description: COMMERCIAL_COPY.sampleOrderPath,
     Illustration: ScentSamplesIllustration,
   },
   relatedLinks: {

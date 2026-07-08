@@ -12,7 +12,7 @@ export const ContactPage = () => {
       <section className="border-t border-border pt-8 sm:pt-10 space-y-6">
         <h2 className="type-h2-sm">Get in touch</h2>
         <p className="type-body">
-          Contact Brandsamor to discuss fragrance sampling, packaging, production coordination and private label perfume project requirements.
+          Contact Brandsamor to discuss curated fragrance sampling, packaging, production coordination and private label perfume project requirements.
         </p>
         <address className="not-italic space-y-3 text-heading">
           <p>

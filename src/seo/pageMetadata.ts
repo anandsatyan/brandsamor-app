@@ -65,11 +65,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/fragrance-sampling': {
     path: '/fragrance-sampling',
     pageName: 'Fragrance Sampling',
-    title: 'Private Label Perfume Samples and Fragrance Sampling | Brandsamor',
+    title: 'Curated Private Label Perfume Samples | Brandsamor',
     description:
-      'Explore private label perfume samples, compare fragrances and choose the right scents for your brand before production.',
+      'Answer a short sampling brief about your business and customers. Brandsamor curates five private label perfume samples and ships them for evaluation before production.',
     canonical: canonical('/fragrance-sampling'),
-    h1: 'Find the Right Scents for Your Perfume Line',
+    h1: 'Five Fragrances, Matched to Your Brand',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,

@@ -188,7 +188,7 @@ export const LeadFormPage = () => {
             </div>
             <h2 className="type-h2-sm mb-4">Thank you — we received your project details</h2>
             <p className="type-body max-w-lg mx-auto mb-8">
-              Our team will review your brief and reach out shortly to discuss scent sampling, packaging options, and
+              Our team will review your brief and reach out shortly to discuss your curated sample kit, packaging options, and
               a realistic path to your first ready-to-sell batch.
             </p>
             <Link

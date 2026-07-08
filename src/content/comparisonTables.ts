@@ -22,7 +22,7 @@ export const privateLabelComparison: ComparisonTableData = {
     {
       label: 'Scent choice',
       values: {
-        private: 'Choose from a curated library of ready-to-launch scents',
+        private: 'Five fragrances curated from a brief about your business and customers',
         white: 'Limited to pre-made scents with minimal variation',
         custom: 'Bespoke formula developed for your brand',
       },

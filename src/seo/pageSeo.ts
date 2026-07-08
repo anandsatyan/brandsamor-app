@@ -48,18 +48,23 @@ export const FRAGRANCE_SAMPLING_FAQ_ITEMS: FaqItem[] = [
       COMMERCIAL_COPY.sampleDeliveryNote,
   },
   {
-    question: 'How does the Brandsamor scent library work?',
+    question: 'How does Brandsamor curated sampling work?',
     answer: COMMERCIAL_COPY.scentLibrarySummary,
+  },
+  {
+    question: 'What questions does the sampling brief ask?',
+    answer:
+      'The brief covers your business type, brand stage, target customers and their demographics, brand personality, scent preferences, intensity, use case, and packaging direction. Your answers help us curate five fragrances matched to your brand — not a generic list you browse yourself.',
+  },
+  {
+    question: 'How many fragrance samples will I receive?',
+    answer:
+      'You receive five curated fragrances in your sample kit — enough variety to compare meaningfully without overwhelming your decision. You can request additional samples if your first set raises new questions.',
   },
   {
     question: 'Can I share fragrance samples with my team or customers before deciding?',
     answer:
       'Yes. Sampling is designed so you can compare options internally, gather feedback from stakeholders, or test reactions from a small audience before locking in your launch scent.',
-  },
-  {
-    question: 'How many scent samples should I order to start?',
-    answer:
-      'Most brands begin with a small set of samples — often three to six directions — so you can compare without overwhelming your decision. You can always explore more once you know the general style you want.',
   },
   {
     question: 'What happens after I choose a scent from my samples?',
@@ -130,7 +135,7 @@ export const START_PERFUME_LINE_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What is the first step to starting a private label perfume line?',
     answer:
-      'Start your project to explore the Brandsamor scent library with our team. Compare fragrance directions, choose one or a small set to launch with, then customize bottle and packaging before your first production batch.',
+      'Complete the curated sampling brief about your business and customers. Brandsamor selects five fragrances matched to your brand, ships them for evaluation, and helps you move into bottle and packaging before your first production batch.',
   },
   {
     question: 'Can I start small and grow my fragrance line over time?',
@@ -177,7 +182,7 @@ export const WHO_WE_WORK_WITH_FAQ_ITEMS: FaqItem[] = [
     question: 'What if I am not sure whether my business is the right fit?',
     answer:
       COMMERCIAL_COPY.suitabilityNote +
-      ' If you have an audience, a brand, and a reason to offer a premium product, start with a brief and scent samples to explore the fit.',
+      ' If you have an audience, a brand, and a reason to offer a premium product, complete the sampling brief to receive curated fragrance samples and explore the fit.',
   },
 ];
 
@@ -192,7 +197,7 @@ export const WHY_BRANDSAMOR_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I order samples before committing to a full production batch?',
     answer:
-      'Yes. Brandsamor is designed so you start with samples first. Our team helps you compare scent options and choose what feels right before starting your first batch — reducing risk on your launch scent.',
+      'Yes. Brandsamor is designed so you start with curated samples first. Complete the sampling brief, receive five fragrances matched to your brand, and evaluate them on skin before starting your first batch — reducing risk on your launch scent.',
   },
   {
     question: 'How is Brandsamor different from standard private label fragrance suppliers?',
@@ -273,7 +278,7 @@ export const PRIVATE_LABEL_USA_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can US brands order private label perfume samples first?',
     answer:
-      'Yes. Sampling is the recommended first step. Compare scent directions, approve packaging choices, then review a production sample before bulk production is released.',
+      'Yes. Sampling is the recommended first step. Complete the brief about your business and customers, receive five curated fragrances, approve packaging choices, then review a production sample before bulk production is released.',
   },
 ];
 
@@ -298,6 +303,6 @@ export const CUSTOM_PERFUME_MANUFACTURER_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What is the first step for a custom perfume project?',
     answer:
-      'Start with a clear brief and fragrance samples. Compare directions on skin, gather feedback, then align packaging and production requirements before bulk release.',
+      'Start with the curated sampling brief. Receive five matched fragrances, gather feedback on skin, then align packaging and production requirements before bulk release.',
   },
 ];

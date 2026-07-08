@@ -18,13 +18,13 @@ export const BUSINESS_FACTS = {
 
 export const COMMERCIAL_COPY = {
   startingPathLabel: 'Start with samples',
-  startingPathValue: 'Explore first',
+  startingPathValue: 'Curated brief',
   startingPathDetail:
-    'Tell us about your brand to get started. Our team will guide you through the scent library, help you order samples, and plan your first production batch — without a large upfront production commitment.',
+    'Complete a short sampling brief about your business and customers. We curate five fragrances matched to your brand, pack them as samples, and help you plan your first production batch — without a large upfront production commitment.',
   scentLibrarySummary:
-    'The Brandsamor scent library is a curated collection of ready-to-launch fragrances for private-label brands. After you start your project, our team helps you compare scent directions and order the samples you want to evaluate.',
+    'Brandsamor curated sampling starts with a short brief about your business, your customers, and your brand positioning. From your answers, we select five launch-ready fragrances for you to evaluate — no browsing a long scent list or picking samples yourself.',
   sampleOrderPath:
-    'Start your project and our team will help you select and order fragrance samples that fit your brand before production begins.',
+    'Complete the sampling brief about your business and customers. We curate five fragrances, prepare your sample kit, and ship it to you before production begins.',
   productionTimeline:
     'Typical production takes approximately 3-6 weeks after fragrance, packaging, artwork and production details have been approved.',
   sampleDispatch:

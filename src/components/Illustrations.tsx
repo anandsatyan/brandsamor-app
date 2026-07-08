@@ -366,7 +366,7 @@ export const ScentSamplesIllustration = () => (
         letterSpacing="3"
         fill="#A8BBBF"
       >
-        SCENT LIBRARY
+        CURATED SAMPLES
       </text>
     </svg>
   </IllustrationFrame>

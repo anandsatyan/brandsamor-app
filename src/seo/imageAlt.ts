@@ -62,7 +62,7 @@ export const IMAGE_ALT = {
     flatLay: 'Private label fragrance product flat lay with bottle, box and packaging',
     processTimeline: 'Private label perfume launch timeline from sampling to shipment',
     brandBrief: 'Brand brief form for planning a private label fragrance line',
-    scentSamples: 'Private label fragrance scent library sample vials for evaluation',
+    scentSamples: 'Private label curated fragrance sample vials for evaluation',
     approval: 'Private label perfume production sample approval before bulk filling',
     production: 'Private label perfume filling and manufacturing production line',
     qualityCheck: 'Quality checks for private label fragrance fill level, spray and labels',

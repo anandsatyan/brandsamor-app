@@ -46,12 +46,12 @@ export const whyBrandsamorConfig: TopicPageConfig = {
         id: 'samples-before-commit',
         title: 'Samples before you commit',
         description:
-          'Order fragrance samples first, compare scent options on skin, and choose what feels right before starting your first production batch. A sample-first workflow reduces risk on your launch scent.',
+          'Complete a curated sampling brief about your business and customers. We select five fragrances matched to your brand, ship them for evaluation, and help you choose confidently before your first production batch.',
         bullets: sectionBullets(
-          'Start your project to explore the Brandsamor scent library with our team',
-          'Compare fragrances with your team or test audience',
-          'Choose confidently before bulk production',
-          'Add extra samples if you need more directions',
+          'Answer a short brief about your business and customers',
+          'Receive five curated fragrances to compare on skin',
+          'Share samples with your team or test audience',
+          'Request additional samples if you need more directions',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -126,7 +126,7 @@ export const whyBrandsamorConfig: TopicPageConfig = {
         description:
           'Behind every batch is a network of fragrance, bottle, cap, and packaging suppliers Brandsamor already works with. You get access to that supply chain without negotiating each component yourself.',
         bullets: sectionBullets(
-          'Curated fragrance library ready for private label',
+          'Curated fragrance selection matched to your brand brief',
           'Bottle, cap, and spray options in one workflow',
           'Packaging suppliers aligned with fragrance production',
           'Fewer vendor relationships for you to manage',

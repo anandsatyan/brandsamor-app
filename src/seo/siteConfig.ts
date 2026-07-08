@@ -43,7 +43,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How do I start my own perfume line with Brandsamor?',
     answer:
-      'Start your project to explore the Brandsamor scent library with our team. Choose one or a small set of fragrances to launch with, customize your bottle and packaging, then receive a finished batch within weeks. Brandsamor handles sourcing, filling, packaging, and quality checks so you can focus on selling.',
+      'Complete the curated sampling brief about your business and customers. Brandsamor selects five fragrances matched to your brand, ships them for evaluation, and helps you customize bottle and packaging before your first production batch. Brandsamor handles sourcing, filling, packaging, and quality checks so you can focus on selling.',
   },
   {
     question: 'Who is private label perfume best for?',
@@ -63,7 +63,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Can I order perfume samples before placing a bulk order?',
     answer:
-      'Yes — available fragrance samples are normally dispatched within 2-3 business days. Delivery timing depends on destination and shipping service selected.',
+      'Yes — complete the sampling brief and we curate five fragrances for your sample kit. Available fragrance samples are normally dispatched within 2-3 business days. Delivery timing depends on destination and shipping service selected.',
   },
   {
     question: 'What packaging options are available for private label perfume?',
@@ -121,7 +121,7 @@ export const PROCESS_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What if I only want to start with scent samples?',
     answer:
-      'That is the recommended starting point. Samples let you compare fragrance directions, share options with your team or customers, and commit to production with more confidence.',
+      'That is the recommended starting point. Complete the sampling brief, receive five curated fragrances, and compare them on skin before committing to production with more confidence.',
   },
   {
     question: 'Who approves the final product before shipping?',
