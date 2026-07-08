@@ -10,6 +10,7 @@ export const HeroPanel = ({
   layout = 'default',
   backgroundSrc = '/hero-background.png',
   backgroundPosition = 'center center',
+  footer,
 }: {
   children: ReactNode;
   className?: string;
@@ -17,6 +18,7 @@ export const HeroPanel = ({
   layout?: 'default' | 'viewport';
   backgroundSrc?: string;
   backgroundPosition?: string;
+  footer?: ReactNode;
 }) => {
   const isViewport = layout === 'viewport';
 
@@ -40,9 +42,20 @@ export const HeroPanel = ({
       />
       <HeroMistEffect />
       <div
-        className={`relative z-[2] ${isViewport ? 'flex w-full flex-1 flex-col items-center justify-center px-4 sm:px-6' : ''}`}
+        className={`relative z-[2] ${
+          isViewport
+            ? 'flex w-full min-h-0 flex-1 flex-col items-center px-4 sm:px-6'
+            : ''
+        }`}
       >
-        {children}
+        {isViewport ? (
+          <>
+            <div className="flex w-full flex-1 flex-col items-center justify-center">{children}</div>
+            {footer && <div className="w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] -mx-4 sm:-mx-6 shrink-0">{footer}</div>}
+          </>
+        ) : (
+          children
+        )}
       </div>
     </section>
   );

@@ -16,6 +16,14 @@ const StartPerfumeLinePage = lazyNamed(() => import('./components/StartPerfumeLi
 const WhoWeWorkWithPage = lazyNamed(() => import('./components/WhoWeWorkWithPage'), 'WhoWeWorkWithPage');
 const WhyBrandsamorPage = lazyNamed(() => import('./components/WhyBrandsamorPage'), 'WhyBrandsamorPage');
 const QualityCompliancePage = lazyNamed(() => import('./components/QualityCompliancePage'), 'QualityCompliancePage');
+const CustomPerfumeManufacturerPage = lazyNamed(
+  () => import('./components/CustomPerfumeManufacturerPage'),
+  'CustomPerfumeManufacturerPage',
+);
+const PrivateLabelPerfumeManufacturerUsaPage = lazyNamed(
+  () => import('./components/PrivateLabelPerfumeManufacturerUsaPage'),
+  'PrivateLabelPerfumeManufacturerUsaPage',
+);
 const HowYourBatchIsMadePage = lazyNamed(
   () => import('./components/HowYourBatchIsMadePage'),
   'HowYourBatchIsMadePage',
@@ -56,6 +64,8 @@ export const AppRoutes = () => (
         <Route path="/why-brandsamor" element={<WhyBrandsamorPage />} />
         <Route path="/quality-compliance" element={<QualityCompliancePage />} />
         <Route path="/how-your-batch-is-made" element={<HowYourBatchIsMadePage />} />
+        <Route path="/private-label-perfume-manufacturer-usa" element={<PrivateLabelPerfumeManufacturerUsaPage />} />
+        <Route path="/custom-perfume-manufacturer" element={<CustomPerfumeManufacturerPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/get-started" element={<LeadFormPage />} />

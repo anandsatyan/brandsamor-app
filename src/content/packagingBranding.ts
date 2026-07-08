@@ -28,7 +28,7 @@ export const packagingBrandingConfig: TopicPageConfig = {
     badge: 'PACKAGING & BRANDING',
     title: pageMeta.h1,
     description:
-      'Shape every detail — bottle, cap, spray, label, printing, color, and boxes — so your private label fragrance looks and feels ready to sell from the first batch.',
+      'Custom perfume packaging turns a fragrance into a finished branded product. Shape bottle, cap, spray, label, printing, color and boxes so your private label fragrance looks ready to sell from the first batch.',
     Illustration: PackagingIllustration,
   },
   sections: withSteps(
@@ -211,8 +211,9 @@ export const packagingBrandingConfig: TopicPageConfig = {
   relatedLinks: {
     links: [
       { to: '/why-brandsamor', label: 'Why brands choose Brandsamor' },
-      { to: '/how-it-works', label: 'See the full private-label launch process' },
-      { to: '/quality-compliance', label: 'Quality and compliance documentation' },
+      { to: '/how-it-works', label: 'See the private label perfume manufacturing process' },
+      { to: '/how-your-batch-is-made', label: 'See how perfume is manufactured' },
+      { to: '/quality-compliance', label: 'Perfume quality and compliance support' },
     ],
   },
 };

@@ -251,3 +251,53 @@ export const QUALITY_COMPLIANCE_FAQ_ITEMS: FaqItem[] = [
       'Yes. Allergen information can support label planning and ingredient review, and batch record documentation helps keep product, fragrance, and compliance records organized from your first launch forward.',
   },
 ];
+
+// ——— Private Label Perfume Manufacturer USA ———
+
+export const PRIVATE_LABEL_USA_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'Is Brandsamor a US-based private label perfume manufacturer?',
+    answer:
+      'Brandsamor is operated by Packamor LLC in Delaware, USA. Fragrance preparation, filling, packaging and finishing may be completed through qualified specialist partners depending on the product and project requirements.',
+  },
+  {
+    question: 'Does Brandsamor manufacture all perfume in the United States?',
+    answer:
+      'No. Brandsamor coordinates production through a network of qualified partners. The exact production setup depends on format, components, quantity and destination requirements.',
+  },
+  {
+    question: 'Can Brandsamor help with MoCRA for US fragrance brands?',
+    answer:
+      'Brandsamor can discuss documentation and production context with US customers, but the brand owner remains responsible for MoCRA obligations, claims, labelling and market compliance. Confirm requirements with official FDA resources and qualified advisors.',
+  },
+  {
+    question: 'Can US brands order private label perfume samples first?',
+    answer:
+      'Yes. Sampling is the recommended first step. Compare scent directions, approve packaging choices, then review a production sample before bulk production is released.',
+  },
+];
+
+// ——— Custom Perfume Manufacturer ———
+
+export const CUSTOM_PERFUME_MANUFACTURER_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'What is the difference between private label and custom perfume manufacturing?',
+    answer:
+      'Private label usually means choosing a scent from a curated library and branding the bottle and packaging. Custom fragrance development involves more formula work, longer timelines and higher complexity. Most Brandsamor launches begin with private label.',
+  },
+  {
+    question: 'Does Brandsamor offer fully bespoke perfume formulas?',
+    answer:
+      'Bespoke fragrance development may be possible depending on project scope, documentation, quantity and production partner capability. Brandsamor reviews goals during sampling before confirming a custom path.',
+  },
+  {
+    question: 'Can I make a library scent feel custom?',
+    answer:
+      'Yes. Bottle shape, cap finish, label design, printing, color and gift packaging strongly shape how unique the finished product feels — even when the scent comes from a library.',
+  },
+  {
+    question: 'What is the first step for a custom perfume project?',
+    answer:
+      'Start with a clear brief and fragrance samples. Compare directions on skin, gather feedback, then align packaging and production requirements before bulk release.',
+  },
+];

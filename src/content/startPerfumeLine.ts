@@ -27,7 +27,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     badge: 'START A PERFUME LINE',
     title: pageMeta.h1,
     description:
-      'Perfume is a high-margin, giftable product that strengthens brand memory and drives repeat purchases. Learn what it takes to plan your launch — and how Brandsamor helps you go from [fragrance sampling](/fragrance-sampling) to a ready-to-sell first batch. ' +
+      'To start a perfume line, define your target customer, choose a product format, evaluate fragrance samples, select packaging, approve the finished product specification and plan production. Brandsamor helps you move from [fragrance sampling](/fragrance-sampling) to a ready-to-sell first batch without managing a factory. ' +
       COMMERCIAL_COPY.unitQuantityNote,
     Illustration: LaunchPlanningIllustration,
   },
@@ -213,7 +213,9 @@ export const startPerfumeLineConfig: TopicPageConfig = {
       { to: '/how-it-works', label: 'See the full private-label launch process' },
       { to: '/fragrance-products', label: 'Compare the fragrance formats you can launch' },
       { to: '/fragrance-sampling', label: 'Learn why brands sample before production' },
-      { to: '/who-we-work-with', label: 'See who Brandsamor works with' },
+      { to: '/knowledge-base/perfume-brand-startup-cost', label: 'Understand perfume business startup costs' },
+      { to: '/knowledge-base/private-label-vs-white-label-vs-custom-perfume', label: 'Compare private label vs white label perfume' },
+      { to: '/private-label-perfume-manufacturer-usa', label: 'Private label perfume manufacturer USA' },
     ],
   },
 };

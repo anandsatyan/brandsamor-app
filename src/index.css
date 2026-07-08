@@ -322,9 +322,29 @@ h6 {
     }
   }
 
+  @keyframes hero-services-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-services-ticker__track {
+      animation: hero-services-marquee 50s linear infinite;
+      will-change: transform;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .batch-stage {
       animation: none;
+    }
+
+    .hero-services-ticker__track {
+      display: none;
     }
   }
 }

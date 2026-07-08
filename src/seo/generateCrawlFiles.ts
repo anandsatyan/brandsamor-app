@@ -27,6 +27,8 @@ const routePriority = (route: string) => {
   if (
     route === '/how-it-works' ||
     route === '/how-your-batch-is-made' ||
+    route === '/private-label-perfume-manufacturer-usa' ||
+    route === '/custom-perfume-manufacturer' ||
     route === '/fragrance-products' ||
     route === '/start-a-perfume-line'
   ) {

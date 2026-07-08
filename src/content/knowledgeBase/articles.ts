@@ -94,12 +94,12 @@ export const KNOWLEDGE_BASE_ARTICLES: KbArticleBase[] = [
   },
   {
     slug: 'private-label-vs-white-label-vs-custom-perfume',
-    title: 'Private Label vs White Label vs Custom Perfume',
-    pageName: 'Private Label vs White Label',
-    h1: 'Private Label vs White Label vs Custom Perfume',
+    title: 'Private Label vs White Label Perfume',
+    pageName: 'Private Label vs White Label Perfume',
+    h1: 'Private Label vs White Label Perfume',
     targetKeyword: 'private label vs white label perfume',
     description:
-      'Compare private label, white label, and custom perfume manufacturing: speed, cost, differentiation, MOQ, and when each model fits a new fragrance brand.',
+      'Compare private label, white label and custom perfume models — including scent choice, packaging, cost, lead time and brand control.',
     excerpt:
       'Understand the three main ways to launch a fragrance brand—and which path matches your timeline, budget, and differentiation goals.',
     readTimeMinutes: 9,
@@ -178,12 +178,12 @@ export const KNOWLEDGE_BASE_ARTICLES: KbArticleBase[] = [
   },
   {
     slug: 'perfume-brand-startup-cost',
-    title: 'How Much Does It Cost to Start a Perfume Brand?',
-    pageName: 'Perfume Brand Startup Cost',
-    h1: 'How Much Does It Cost to Start a Perfume Brand?',
-    targetKeyword: 'how much does it cost to start a perfume brand',
+    title: 'How Much Does It Cost to Start a Perfume Business?',
+    pageName: 'Perfume Business Startup Cost',
+    h1: 'How Much Does It Cost to Start a Perfume Business?',
+    targetKeyword: 'how much does it cost to start a perfume business',
     description:
-      'Break down perfume brand startup costs: samples, packaging, first production batch, compliance documents, photography, and realistic budgets for DTC and wholesale launches.',
+      'Understand the main costs of starting a perfume business, including sampling, packaging, production, freight and launch expenses.',
     excerpt:
       'A transparent look at what you will actually spend—from fragrance samples to your first filled batch and launch assets.',
     readTimeMinutes: 10,
@@ -193,7 +193,7 @@ export const KNOWLEDGE_BASE_ARTICLES: KbArticleBase[] = [
         id: 'summary',
         title: 'Realistic budget ranges',
         paragraphs: [
-          'When founders ask how much does it cost to start a perfume brand, the honest answer depends on format, packaging, MOQ, and whether you self-fund photography and marketing. Many private label launches land between roughly $8,000 and $40,000 for a first SKU before marketing spend.',
+          'When founders ask how much does it cost to start a perfume business, the honest answer depends on format, packaging, MOQ, and whether you self-fund photography and marketing. As example planning ranges only — not quotes — many private label launches fall between roughly $8,000 and $40,000 for a first SKU before marketing spend.',
           'A lean DTC launch with a standard bottle, label, and modest MOQ can sit at the lower end. A luxury box, custom glass, and larger first batch pushes costs up quickly—often before advertising.',
         ],
       },

@@ -19,6 +19,8 @@ const PUBLIC_ROUTES = new Set([
   '/why-brandsamor',
   '/quality-compliance',
   '/how-your-batch-is-made',
+  '/private-label-perfume-manufacturer-usa',
+  '/custom-perfume-manufacturer',
   '/about',
   '/contact',
   '/get-started',

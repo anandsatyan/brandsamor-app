@@ -1,13 +1,16 @@
 import { FAQ_ITEMS, PROCESS_FAQ_ITEMS, type FaqItem } from './siteConfig';
 import {
+  CUSTOM_PERFUME_MANUFACTURER_FAQ_ITEMS,
   FRAGRANCE_PRODUCTS_FAQ_ITEMS,
   FRAGRANCE_SAMPLING_FAQ_ITEMS,
   PACKAGING_BRANDING_FAQ_ITEMS,
+  PRIVATE_LABEL_USA_FAQ_ITEMS,
   QUALITY_COMPLIANCE_FAQ_ITEMS,
   START_PERFUME_LINE_FAQ_ITEMS,
   WHO_WE_WORK_WITH_FAQ_ITEMS,
   WHY_BRANDSAMOR_FAQ_ITEMS,
 } from './pageSeo';
+import { BATCH_PROCESS_FAQ } from '../content/batchProcess';
 
 export const FAQ_BY_ROUTE: Record<string, FaqItem[]> = {
   '/': FAQ_ITEMS,
@@ -19,4 +22,7 @@ export const FAQ_BY_ROUTE: Record<string, FaqItem[]> = {
   '/who-we-work-with': WHO_WE_WORK_WITH_FAQ_ITEMS,
   '/why-brandsamor': WHY_BRANDSAMOR_FAQ_ITEMS,
   '/quality-compliance': QUALITY_COMPLIANCE_FAQ_ITEMS,
+  '/how-your-batch-is-made': BATCH_PROCESS_FAQ,
+  '/private-label-perfume-manufacturer-usa': PRIVATE_LABEL_USA_FAQ_ITEMS,
+  '/custom-perfume-manufacturer': CUSTOM_PERFUME_MANUFACTURER_FAQ_ITEMS,
 };

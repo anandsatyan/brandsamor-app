@@ -26,7 +26,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     badge: 'FRAGRANCE PRODUCTS',
     title: pageMeta.h1,
     description:
-      'From full-size eau de parfum to travel sprays, body mists, room sprays, and gift sets — choose the product formats that fit your brand, audience, and price point. ' +
+      'Explore private label fragrance products — from full-size eau de parfum to travel sprays, body mists, room sprays and gift sets. Choose the formats that fit your brand, audience and price point. ' +
       COMMERCIAL_COPY.formatMinimumNote,
     Illustration: FragranceProductTypesImage,
   },
@@ -47,7 +47,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       },
       {
         id: 'eau-de-parfum',
-        title: 'Eau de Parfum',
+        title: 'Private Label Eau de Parfum',
         description:
           'Eau de parfum is the most common starting point for a branded perfume line. It offers strong longevity and a premium feel in standard spray bottles — ideal for retail, e-commerce, and signature scent launches.',
         bullets: sectionBullets(
@@ -60,7 +60,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       },
       {
         id: 'perfume-oils-roll-ons',
-        title: 'Perfume oils and roll-ons',
+        title: 'Private Label Perfume Oils',
         description:
           'Perfume oils and roll-on formats offer a more intimate, portable application. They suit wellness brands, travel-focused lines, and customers who prefer alcohol-free or concentrated scent experiences.',
         bullets: sectionBullets(
@@ -73,7 +73,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       },
       {
         id: 'body-mists',
-        title: 'Body mists',
+        title: 'Private Label Body Mists',
         description:
           'Body mists are lighter, more approachable fragrance products — often used for everyday wear, layering, or entry-level price points. They work well for brands targeting younger audiences or broader retail distribution.',
         bullets: sectionBullets(
@@ -86,7 +86,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       },
       {
         id: 'room-sprays',
-        title: 'Room sprays',
+        title: 'Private Label Room Sprays',
         description:
           'Room sprays extend your brand scent beyond personal fragrance into home and hospitality. Candle brands, hotels, spas, and lifestyle labels use them to create a consistent scent world customers can live in.',
         bullets: sectionBullets(
@@ -99,7 +99,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       },
       {
         id: 'travel-perfumes',
-        title: 'Travel perfumes',
+        title: 'Private Label Travel Perfumes',
         description:
           'Travel-size perfumes make your brand portable — perfect for trial sizes, gift-with-purchase, hotel amenities, and customers who want their signature scent on the go without committing to a full bottle.',
         bullets: sectionBullets(
@@ -112,7 +112,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       },
       {
         id: 'gift-sets',
-        title: 'Gift sets',
+        title: 'Private Label Fragrance Gift Sets',
         description:
           'Gift sets combine multiple formats — full size plus travel, mist plus spray, or perfume plus room spray — into a packaged experience. They drive higher average order value and make your brand feel ready for seasonal gifting.',
         bullets: sectionBullets(
@@ -157,9 +157,11 @@ export const fragranceProductsConfig: TopicPageConfig = {
   relatedLinks: {
     links: [
       { to: '/fragrance-sampling', label: 'Compare scents through private-label fragrance sampling' },
-      { to: '/packaging-branding', label: 'Explore packaging and branding options' },
+      { to: '/packaging-branding', label: 'Explore custom perfume packaging options' },
+      { to: '/how-it-works', label: 'See the private label perfume manufacturing process' },
       { to: '/who-we-work-with', label: 'See which businesses launch fragrance with Brandsamor' },
-      { to: '/how-it-works', label: 'See how each format fits the complete launch process' },
+      { to: '/custom-perfume-manufacturer', label: 'Explore custom perfume manufacturing support' },
+      { to: '/how-your-batch-is-made', label: 'See how perfume is manufactured' },
     ],
   },
 };

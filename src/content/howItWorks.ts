@@ -25,7 +25,7 @@ export const howItWorksConfig: TopicPageConfig = {
   hero: {
     badge: 'HOW IT WORKS',
     title: pageMeta.h1,
-    description: `${SITE_NAME} guides you through every step of launching a private label fragrance line — from [fragrance sampling](/fragrance-sampling) and [product formats](/fragrance-products) to [packaging](/packaging-branding), production approval, and delivery.`,
+    description: `${SITE_NAME} guides you through the private label perfume manufacturing process — from [fragrance sampling](/fragrance-sampling) and [product formats](/fragrance-products) to [packaging](/packaging-branding), production approval, and delivery. Review [how perfume is manufactured](/how-your-batch-is-made) before bulk release.`,
     Illustration: ProcessTimelineIllustration,
   },
   sections: withSteps(
@@ -184,6 +184,7 @@ export const howItWorksConfig: TopicPageConfig = {
       { to: '/fragrance-sampling', label: 'Explore our fragrance sampling process' },
       { to: '/fragrance-products', label: 'Compare fragrance product formats' },
       { to: '/packaging-branding', label: 'Review your packaging and branding options' },
+      { to: '/how-your-batch-is-made', label: 'See how perfume is manufactured' },
       { to: '/quality-compliance', label: 'Understand our quality and compliance support' },
     ],
   },

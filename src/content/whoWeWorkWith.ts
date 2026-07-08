@@ -25,7 +25,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
     badge: 'WHO WE WORK WITH',
     title: pageMeta.h1,
     description:
-      'Brandsamor works with beauty brands, creators, boutiques, hotels, spas, salons, home fragrance labels, and gifting companies that want a premium branded fragrance — without building production in-house. ' +
+      'Brandsamor is a private label fragrance partner for businesses that want a premium branded perfume without building production in-house. Explore options for boutiques, creators, salons, beauty brands, hotels and gifting companies. ' +
       COMMERCIAL_COPY.suitabilityNote,
     Illustration: HeroBottleIllustration,
   },
@@ -33,7 +33,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
     [
       {
         id: 'creators-influencers',
-        title: 'Creators and influencers',
+        title: 'Private label perfume for creators and influencers',
         description:
           'A signature perfume gives creators a tangible product their audience can buy, gift, and associate with their personal brand. Fragrance suits creators because it extends brand memory beyond content into a wearable product. Typical formats include eau de parfum and travel sizes. Start with [fragrance sampling](/fragrance-sampling), then explore [product formats](/fragrance-products).',
         bullets: sectionBullets(
@@ -46,7 +46,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
       },
       {
         id: 'boutiques',
-        title: 'Boutiques and retail stores',
+        title: 'Private label perfume for boutiques',
         description:
           'A well-packaged private label perfume can become a high-margin product on your retail floor or online store. Fragrance suits boutiques because it is giftable, display-friendly, and complements existing assortments. Eau de parfum and gift sets are common starting formats. Launch with [fragrance sampling](/fragrance-sampling) and [packaging options](/packaging-branding).',
         bullets: sectionBullets(
@@ -59,7 +59,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
       },
       {
         id: 'salons-spas',
-        title: 'Salons and spas',
+        title: 'Private label perfume for salons and spas',
         description:
           'Spas and salons can extend the in-visit experience with a branded fragrance clients take home. Body mists and eau de parfum work well for wellness positioning. Start with sampling, then choose packaging that matches your studio aesthetic via [packaging and branding](/packaging-branding).',
         bullets: sectionBullets(
@@ -72,7 +72,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
       },
       {
         id: 'beauty-skincare',
-        title: 'Beauty and skincare brands',
+        title: 'Private label fragrance for beauty brands',
         description:
           'Fragrance extends your scent world into a personal, wearable product your customers can buy, gift, and come back for. Eau de parfum and body mists are common extensions for skincare brands. See [fragrance products](/fragrance-products) and the [launch process](/how-it-works).',
         bullets: sectionBullets(
@@ -98,7 +98,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
       },
       {
         id: 'hotels-hospitality',
-        title: 'Hotels and hospitality',
+        title: 'Private label perfume for hotels and hospitality',
         description:
           'A branded perfume lets guests take home the scent of your property, spa, or resort. Travel sizes and room sprays suit hospitality retail and amenities. See [packaging and branding](/packaging-branding) for gift-ready presentation.',
         bullets: sectionBullets(
@@ -124,7 +124,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
       },
       {
         id: 'corporate-gifting',
-        title: 'Corporate gifting companies',
+        title: 'Private label fragrance for corporate gifting',
         description:
           'Premium branded perfume sets are a strong fit for B2B gifting programs. Gift sets and travel formats work well for corporate events. Explore [product formats](/fragrance-products) and [packaging options](/packaging-branding).',
         bullets: sectionBullets(

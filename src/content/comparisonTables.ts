@@ -10,9 +10,9 @@ type ComparisonTableData = {
 
 export const privateLabelComparison: ComparisonTableData = {
   id: 'private-label-vs-white-label-vs-custom',
-  title: 'Private Label vs White Label vs Custom Fragrance',
+  title: 'Private Label vs White Label Perfume',
   description:
-    'Compare how scent choice, customization, packaging, development time and complexity differ across common fragrance launch models.',
+    'Compare private label, white label and custom fragrance models — scent choice, packaging, development time and complexity.',
   columns: [
     { key: 'private', label: 'Private label' },
     { key: 'white', label: 'White label' },

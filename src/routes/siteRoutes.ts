@@ -33,6 +33,9 @@ export const INTERNAL_PAGES: SiteRoute[] = [
   { label: 'Who We Work With', path: '/who-we-work-with', homeSection: 'who-we-work-with' },
   { label: 'Why Brandsamor', path: '/why-brandsamor', homeSection: 'why-brandsamor' },
   { label: 'Quality & Compliance', path: '/quality-compliance', homeSection: 'compliance' },
+  { label: 'How Your Batch Is Made', path: '/how-your-batch-is-made' },
+  { label: 'Private Label Perfume USA', path: '/private-label-perfume-manufacturer-usa' },
+  { label: 'Custom Perfume Manufacturer', path: '/custom-perfume-manufacturer' },
 ];
 
 export const getNavHref = (route: SiteRoute, isHome: boolean) => {

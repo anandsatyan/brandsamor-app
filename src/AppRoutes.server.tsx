@@ -5,7 +5,9 @@ import { ContactPage } from './components/ContactPage';
 import { LeadFormPage } from './components/LeadFormPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
+import { CustomPerfumeManufacturerPage } from './components/CustomPerfumeManufacturerPage';
 import { HowYourBatchIsMadePage } from './components/HowYourBatchIsMadePage';
+import { PrivateLabelPerfumeManufacturerUsaPage } from './components/PrivateLabelPerfumeManufacturerUsaPage';
 import { HowItWorksPage } from './components/HowItWorksPage';
 import { KnowledgeBaseArticlePage } from './components/knowledgeBase/KnowledgeBaseArticlePage';
 import { KnowledgeBaseHubPage } from './components/knowledgeBase/KnowledgeBaseHubPage';
@@ -36,6 +38,8 @@ export const AppRoutesServer = () => (
       <Route path="/why-brandsamor" element={<WhyBrandsamorPage />} />
       <Route path="/quality-compliance" element={<QualityCompliancePage />} />
       <Route path="/how-your-batch-is-made" element={<HowYourBatchIsMadePage />} />
+      <Route path="/private-label-perfume-manufacturer-usa" element={<PrivateLabelPerfumeManufacturerUsaPage />} />
+      <Route path="/custom-perfume-manufacturer" element={<CustomPerfumeManufacturerPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/get-started" element={<LeadFormPage />} />

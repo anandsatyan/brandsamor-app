@@ -24,7 +24,7 @@ export const whyBrandsamorConfig: TopicPageConfig = {
     badge: 'WHY BRANDSAMOR',
     title: pageMeta.h1,
     description:
-      'Brandsamor handles sourcing, filling, packaging, and quality checks so you do not need a factory, production staff, or months of setup. Sample first via [fragrance sampling](/fragrance-sampling), customize your bottle and branding, and receive a ready-to-sell batch in weeks.',
+      'As a private label perfume company, Brandsamor combines fragrance sampling, packaging experience and production coordination so you do not need a factory, production staff or months of setup. Sample first via [fragrance sampling](/fragrance-sampling), customize your bottle and branding, then receive a ready-to-sell batch.',
     Illustration: ProcessTimelineIllustration,
   },
   sections: withSteps(

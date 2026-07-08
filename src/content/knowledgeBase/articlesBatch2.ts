@@ -4,12 +4,12 @@ import type { KbArticleBase } from './types';
 export const KNOWLEDGE_BASE_ARTICLES_BATCH2: KbArticleBase[] = [
   {
     slug: 'choose-private-label-perfume-manufacturer',
-    title: 'How to Choose a Private Label Perfume Manufacturer',
-    pageName: 'Choose a Manufacturer',
-    h1: 'How to Choose a Private Label Perfume Manufacturer',
-    targetKeyword: 'how to choose private label perfume manufacturer',
+    title: 'How to Find a Perfume Manufacturer',
+    pageName: 'Find a Perfume Manufacturer',
+    h1: 'How to Find a Perfume Manufacturer',
+    targetKeyword: 'how to find a perfume manufacturer',
     description:
-      'How to evaluate and choose a private label perfume manufacturer: documentation, sampling process, packaging capabilities, MOQ transparency, and red flags to avoid.',
+      'Learn how to compare perfume manufacturers based on sampling, packaging, documentation, quality checks, lead time and communication.',
     excerpt:
       'A practical vetting checklist for comparing private label partners—before you commit to bottles, MOQ, and your first production deposit.',
     readTimeMinutes: 11,
@@ -23,7 +23,7 @@ export const KNOWLEDGE_BASE_ARTICLES_BATCH2: KbArticleBase[] = [
         id: 'start-with-requirements',
         title: 'Start with your launch requirements, not a supplier list',
         paragraphs: [
-          'Choosing a private label perfume manufacturer works best when you know what you are launching: one EDP in 50 ml, a boutique capsule, or a discovery set. Your format, target price, sales channel, and geography filter which partners can actually deliver—not just which ones rank well in search.',
+          'Learning how to find a perfume manufacturer works best when you know what you are launching: one EDP in 50 ml, a boutique capsule, or a discovery set. Your format, target price, sales channel, and geography filter which partners can actually deliver—not just which ones rank well in search.',
           'Write a one-page brief covering retail price band, estimated first-batch quantity, markets you will sell in, and whether you need custom packaging or library scents. Use that brief to request comparable quotes instead of comparing unrelated headline MOQs.',
         ],
       },

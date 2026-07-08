@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ComingSoonLabel } from './ComingSoonLabel';
 import { HeroPanel } from './HeroPanel';
+import { HeroServicesTicker } from './HeroServicesTicker';
 import { FaqSection } from './FaqSection';
 import { SectionLinkButton } from './SectionLinkButton';
 import { SeoHead } from './SeoHead';
@@ -313,6 +315,7 @@ export const BrandsamorLandingPage = () => {
         backgroundSrc="/perfume-bottle-silhouette-bg-3.png"
         backgroundPosition="50% 60%"
         className="mb-8 sm:mb-12 text-center"
+        footer={<HeroServicesTicker />}
       >
         <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
           <span className="inline-block px-3 py-1 bg-white/20 text-white type-caption font-semibold uppercase tracking-wider rounded-full border border-white/30">
@@ -322,7 +325,7 @@ export const BrandsamorLandingPage = () => {
             The Easy Way to Start Your Own Perfume Line
           </h1>
           <p className="type-body-lg max-w-2xl" style={{ textShadow: '1px 1px 2px #A5472C' }}>
-            Launch a ready-to-sell fragrance product quickly and easily, with Brandsamor handling the scent, bottle, packaging, filling, and quality checks for you.
+            Brandsamor is a private-label perfume manufacturer that helps businesses launch ready-to-sell fragrance products under their own brand. From fragrance sampling and packaging selection to filling, finishing and quality checks, we coordinate the full product-development process.
           </p>
           <ComingSoonLabel variant="hero" trackingLocation="homepage_hero" />
         </div>
@@ -339,7 +342,11 @@ export const BrandsamorLandingPage = () => {
               Branded perfumes, made simple.
             </h2>
             <p className="type-body-lg mb-8 sm:mb-12">
-              Start with samples, choose the scents you like, customize the look, and launch your first ready-to-sell perfume line in weeks — not months.
+              Brandsamor guides you through the private label perfume manufacturing process — from fragrance sampling and product formats to packaging, production approval and delivery. See{' '}
+              <Link to="/how-your-batch-is-made" className="text-accent hover:opacity-80">
+                how your batch is made
+              </Link>{' '}
+              for production-stage detail.
             </p>
             <div className="rounded-xl overflow-hidden w-full max-w-lg">
               <img

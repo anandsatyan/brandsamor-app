@@ -1,8 +1,10 @@
 import type { TopicPageConfig } from '../components/topic/types';
+import { customPerfumeManufacturerConfig } from '../content/customPerfumeManufacturer';
 import { fragranceProductsConfig } from '../content/fragranceProducts';
 import { fragranceSamplingConfig } from '../content/fragranceSampling';
 import { howItWorksConfig } from '../content/howItWorks';
 import { packagingBrandingConfig } from '../content/packagingBranding';
+import { privateLabelPerfumeManufacturerUsaConfig } from '../content/privateLabelPerfumeManufacturerUsa';
 import { qualityComplianceConfig } from '../content/qualityCompliance';
 import { startPerfumeLineConfig } from '../content/startPerfumeLine';
 import { whoWeWorkWithConfig } from '../content/whoWeWorkWith';
@@ -19,6 +21,8 @@ export const TOPIC_ROUTE_CONFIGS: Record<string, TopicPageConfig> = {
   '/who-we-work-with': whoWeWorkWithConfig,
   '/why-brandsamor': whyBrandsamorConfig,
   '/quality-compliance': qualityComplianceConfig,
+  '/private-label-perfume-manufacturer-usa': privateLabelPerfumeManufacturerUsaConfig,
+  '/custom-perfume-manufacturer': customPerfumeManufacturerConfig,
 };
 
 export const HOMEPAGE_STATIC_SECTIONS = [

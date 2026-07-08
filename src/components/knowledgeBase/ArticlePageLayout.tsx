@@ -95,6 +95,9 @@ const RelatedCommercialPages = ({ paths }: { paths?: string[] }) => {
     '/packaging-branding': 'Packaging and branding',
     '/quality-compliance': 'Quality and compliance',
     '/who-we-work-with': 'Who we work with',
+    '/how-your-batch-is-made': 'How perfume is manufactured',
+    '/private-label-perfume-manufacturer-usa': 'Private label perfume USA',
+    '/custom-perfume-manufacturer': 'Custom perfume manufacturer',
     '/contact': 'Contact',
   };
 

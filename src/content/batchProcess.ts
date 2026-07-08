@@ -329,6 +329,26 @@ export const specialistPartnerTasks = [
 
 export const BATCH_PROCESS_FAQ: BatchProcessFaqItem[] = [
   {
+    question: 'How is perfume filled?',
+    answer:
+      'Perfume is filled into approved bottles using a production method matched to the product format, volume and batch size. Fill levels are checked during production to support consistency before closures are applied.',
+  },
+  {
+    question: 'How are perfume bottles sealed?',
+    answer:
+      'After filling, the approved spray pump is inserted, crimped or otherwise secured, and the cap is fitted. Functional checks help confirm closure integrity and spray performance before branding and packing.',
+  },
+  {
+    question: 'What quality checks happen during perfume production?',
+    answer:
+      'Checks may include component inspection, fill-level review, closure security, spray-function sampling, label alignment, box condition and final packing review. The exact inspection process depends on the project and agreed quality process.',
+  },
+  {
+    question: 'What documents may support a batch?',
+    answer:
+      'Documents such as IFRA information, Certificates of Analysis, allergen information and batch records may be available depending on the fragrance, production partner and project requirements. Not every document applies to every project.',
+  },
+  {
     question: 'Does Brandsamor own the production facility?',
     answer:
       'Brandsamor coordinates private-label fragrance projects through qualified fragrance, filling, packaging and finishing partners. The exact production setup depends on the product, quantity, components and destination requirements.',

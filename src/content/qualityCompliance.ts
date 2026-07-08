@@ -19,7 +19,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
     badge: 'QUALITY & COMPLIANCE',
     title: pageMeta.h1,
     description:
-      'Compliance needs vary by product type, market, and sales channel. Brandsamor supports quality processes and documentation — including GMP-aligned production, Certificates of Analysis, IFRA certificates, allergen information, and FDA MoCRA guidance where applicable.',
+      'Private label perfume compliance needs vary by product type, market and sales channel. Brandsamor supports quality processes and documentation — including GMP-aligned production, Certificates of Analysis, IFRA certificates, allergen information and FDA MoCRA guidance where applicable.',
     Illustration: ComplianceDocIllustration,
   },
   sections: withSteps(

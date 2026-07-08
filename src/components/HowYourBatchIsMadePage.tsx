@@ -41,7 +41,7 @@ export const HowYourBatchIsMadePage = () => (
           <h1 className="type-h1 mb-phi-3">{meta.h1}</h1>
           <p className="type-body-lg mb-phi-3 max-w-3xl">
             Once your fragrance, bottle, branding and packaging are approved, your project moves into
-            production. Brandsamor coordinates each stage — from preparation and filling to
+            production. This page explains how private label perfume is made — from preparation and filling to
             finishing, inspection and packing — so the final batch reflects the approved product.
           </p>
           <p className="type-body mb-phi-4 max-w-3xl">
