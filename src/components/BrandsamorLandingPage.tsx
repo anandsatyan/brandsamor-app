@@ -324,7 +324,7 @@ export const BrandsamorLandingPage = () => {
           <h1 className="type-h1 text-white">
             The Easy Way to Start Your Own Perfume Line
           </h1>
-          <p className="type-body-lg max-w-2xl" style={{ textShadow: '1px 1px 2px #A5472C' }}>
+          <p className="type-body sm:type-body-lg max-w-2xl" style={{ textShadow: '1px 1px 2px #A5472C' }}>
             Brandsamor is a private-label perfume manufacturer that helps businesses launch ready-to-sell fragrance products under their own brand. From fragrance sampling and packaging selection to filling, finishing and quality checks, we coordinate the full product-development process.
           </p>
           <ComingSoonLabel variant="hero" trackingLocation="homepage_hero" />
