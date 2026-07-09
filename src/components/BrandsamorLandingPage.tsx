@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import { ComingSoonLabel } from './ComingSoonLabel';
 import { HeroPanel } from './HeroPanel';
@@ -293,12 +293,98 @@ const useActiveStep = (_count: number) => {
   };
 };
 
+const useManufacturingOverlayProgress = (
+  imageFrameRef: RefObject<HTMLDivElement | null>,
+  scrollContentRef: RefObject<HTMLElement | null>,
+) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const imageFrame = imageFrameRef.current;
+      const scrollContent = scrollContentRef.current;
+      if (!imageFrame || !scrollContent) return;
+
+      const imageRect = imageFrame.getBoundingClientRect();
+      const contentRect = scrollContent.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      if (imageRect.top > viewportHeight || imageRect.bottom <= 0) {
+        setProgress(0);
+        return;
+      }
+
+      const entryProgress = Math.min(
+        1,
+        Math.max(0, (viewportHeight - imageRect.top) / (viewportHeight * 0.75)),
+      );
+
+      const scrollProgress = Math.min(
+        1,
+        Math.max(0, (viewportHeight * 0.88 - contentRect.top) / (contentRect.height + viewportHeight * 0.25)),
+      );
+
+      setProgress(Math.max(entryProgress, scrollProgress));
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, [imageFrameRef, scrollContentRef]);
+
+  return progress;
+};
+
+const ManufacturingScrollImage = ({
+  frameRef,
+  revealProgress,
+}: {
+  frameRef: RefObject<HTMLDivElement | null>;
+  revealProgress: number;
+}) => (
+  <div
+    ref={frameRef}
+    className="relative mx-auto w-full max-w-lg overflow-hidden rounded-xl md:mx-0"
+  >
+    <div className="relative aspect-square w-full">
+      <img
+        src="/private-label-manufacturing-1-of-2.png"
+        alt={IMAGE_ALT.homepage.manufacturing}
+        className="absolute inset-0 block h-full w-full object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        src="/private-label-manufacturing-2-of-2.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10 block h-full w-full object-contain"
+        style={{
+          clipPath: `inset(0 0 ${(1 - revealProgress) * 100}% 0)`,
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+);
+
 export const BrandsamorLandingPage = () => {
   const homeMeta = PAGE_METADATA['/'];
+  const manufacturingImageRef = useRef<HTMLDivElement>(null);
+  const howItWorksContentRef = useRef<HTMLDivElement>(null);
   const {
     refs: stepRefs,
     activeIndex: activeStepIndex
   } = useActiveStep(howItWorksSteps.length);
+  const revealProgress = useManufacturingOverlayProgress(
+    manufacturingImageRef,
+    howItWorksContentRef,
+  );
   return <div className="min-h-screen bg-surface font-sans overflow-x-hidden">
       <SeoHead
         title={homeMeta.title}
@@ -339,32 +425,37 @@ export const BrandsamorLandingPage = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         {/* HOW IT WORKS */}
-        <section id="how-it-works" className="py-12 sm:py-24 grid md:grid-cols-2 gap-10 md:gap-16">
-          <div>
+        <section
+          id="how-it-works"
+          className="py-12 sm:py-24"
+        >
+          <div className="mb-8 sm:mb-12 md:mb-16">
             <h4 className="type-eyebrow mb-6 flex items-center gap-4">
               <span className="w-8 h-px bg-border"></span> HOW IT WORKS
             </h4>
             <h2 className="type-h2 mb-6">
               Branded perfumes, made simple.
             </h2>
-            <p className="type-body-lg mb-8 sm:mb-12">
+            <p className="type-body-lg max-w-3xl">
               Brandsamor guides you through the private label perfume manufacturing process — from fragrance sampling and product formats to packaging, production approval and delivery. See{' '}
               <Link to="/how-your-batch-is-made" className="text-accent hover:opacity-80">
                 how your batch is made
               </Link>{' '}
               for production-stage detail.
             </p>
-            <div className="rounded-xl overflow-hidden w-full max-w-lg">
-              <img
-                src="/private-label-perfume-manufacturing-1.png"
-                alt={IMAGE_ALT.homepage.manufacturing}
-                className="w-full h-auto"
-                loading="lazy"
-                decoding="async"
+          </div>
+
+          <div
+            ref={howItWorksContentRef}
+            className="grid items-start gap-10 md:grid-cols-2 md:gap-16"
+          >
+            <div className="sticky top-20 z-10 self-start sm:top-24">
+              <ManufacturingScrollImage
+                frameRef={manufacturingImageRef}
+                revealProgress={revealProgress}
               />
             </div>
-          </div>
-          <div className="space-y-8 sm:space-y-12">
+            <div className="space-y-8 sm:space-y-12">
             {howItWorksSteps.map((step, idx) => {
             const isActive = activeStepIndex === idx;
             const isPast = activeStepIndex > idx;
@@ -400,6 +491,7 @@ export const BrandsamorLandingPage = () => {
             <div className="pt-4">
               <SectionCtaRow to="/how-it-works" label="Learn more about our process" />
             </div>
+          </div>
           </div>
         </section>
 
