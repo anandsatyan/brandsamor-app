@@ -17,7 +17,7 @@ export const FragranceCard = ({ profile, recommendation, index }: FragranceCardP
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.25 }}
-      className="rounded-2xl border-2 border-[#EADFD3] bg-[#FFFDFC] p-5"
+      className="rounded-2xl border border-[#EADFD3] bg-[#FFFDFC] p-5"
     >
       <p className="type-eyebrow">
         Fragrance No. {profile.fragranceNumber}

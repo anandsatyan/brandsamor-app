@@ -70,34 +70,28 @@ export interface SamplingState {
   updatedAt: string;
 }
 
-export const SAMPLING_STATE_VERSION = 1;
+export const SAMPLING_STATE_VERSION = 2;
 export const SAMPLING_STORAGE_KEY = 'brandsamor_sampling_state_v1';
 
 export const QUESTIONNAIRE_STEPS = [
-  { id: 1, label: 'Contact details' },
-  { id: 2, label: 'Brand brief' },
-  { id: 3, label: 'Audience' },
-  { id: 4, label: 'Brand personality' },
-  { id: 5, label: 'Scent directions' },
-  { id: 6, label: 'Experience' },
-  { id: 7, label: 'Exclusions' },
-  { id: 8, label: 'Packaging' },
-  { id: 9, label: 'Review' },
+  { id: 1, shortLabel: 'CONTACT', label: 'Contact' },
+  { id: 2, shortLabel: 'YOUR BRAND', label: 'Your brand' },
+  { id: 3, shortLabel: 'SCENT', label: 'Scent direction' },
+  { id: 4, shortLabel: 'EXPERIENCE', label: 'Experience' },
+  { id: 5, shortLabel: 'PREFERENCES', label: 'Preferences' },
+  { id: 6, shortLabel: 'REVIEW', label: 'Review' },
 ] as const;
 
 export const STEP_WELCOME = 0;
 export const STEP_CONTACT = 1;
 export const STEP_BRAND = 2;
-export const STEP_AUDIENCE = 3;
-export const STEP_PERSONALITY = 4;
-export const STEP_SCENT = 5;
-export const STEP_EXPERIENCE = 6;
-export const STEP_EXCLUSIONS = 7;
-export const STEP_PACKAGING = 8;
-export const STEP_REVIEW = 9;
-export const STEP_CURATION = 10;
-export const STEP_RESULTS = 11;
-export const STEP_COMPLETE = 12;
+export const STEP_SCENT = 3;
+export const STEP_EXPERIENCE = 4;
+export const STEP_PREFERENCES = 5;
+export const STEP_REVIEW = 6;
+export const STEP_CURATION = 7;
+export const STEP_RESULTS = 8;
+export const STEP_COMPLETE = 9;
 
 export const createEmptyLead = (): LeadDetails => ({
   fullName: '',

@@ -31,24 +31,29 @@ export const validateContact = (lead: LeadDetails): ContactErrors => {
 
 export const hasContactErrors = (errors: ContactErrors) => Object.keys(errors).length > 0;
 
-export const isStepComplete = (step: number, answers: import('../types/sampling').SamplingAnswers, lead: LeadDetails): boolean => {
+export const isStepComplete = (
+  step: number,
+  answers: import('../types/sampling').SamplingAnswers,
+  lead: LeadDetails,
+): boolean => {
   switch (step) {
     case 1:
       return hasContactErrors(validateContact(lead)) === false;
     case 2:
-      return Boolean(answers.brandStage && answers.businessType);
+      return Boolean(
+        answers.brandStage &&
+          answers.businessType &&
+          answers.audienceDefinition &&
+          answers.scentExpression,
+      );
     case 3:
-      return Boolean(answers.audienceDefinition && answers.scentExpression);
+      return answers.brandPersonalities.length > 0 && answers.scentFamilies.length > 0;
     case 4:
-      return answers.brandPersonalities.length > 0;
-    case 5:
-      return answers.scentFamilies.length > 0;
-    case 6:
       return Boolean(answers.intensity && answers.useCase && answers.adventureLevel);
-    case 7:
+    case 5:
       return answers.exclusions.length > 0;
-    case 8:
-      return Boolean(answers.packagingDirection);
+    case 6:
+      return true;
     default:
       return true;
   }

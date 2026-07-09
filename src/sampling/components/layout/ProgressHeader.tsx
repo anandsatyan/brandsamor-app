@@ -1,62 +1,55 @@
-import { ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { QUESTIONNAIRE_STEPS } from '../../types/sampling';
-import { SaveStatus } from './SaveStatus';
 
 interface ProgressHeaderProps {
   currentQuestionStep: number;
-  totalSteps?: number;
-  stepLabel?: string;
-  onBack?: () => void;
-  showBack?: boolean;
-  saved?: boolean;
 }
 
-export const ProgressHeader = ({
-  currentQuestionStep,
-  totalSteps = QUESTIONNAIRE_STEPS.length,
-  stepLabel,
-  onBack,
-  showBack = true,
-  saved = false,
-}: ProgressHeaderProps) => {
-  const progress = Math.min(100, Math.round((currentQuestionStep / totalSteps) * 100));
-  const label = stepLabel ?? QUESTIONNAIRE_STEPS.find((s) => s.id === currentQuestionStep)?.label ?? '';
+const segmentState = (index: number, currentIndex: number) => {
+  if (index < currentIndex) return 'complete' as const;
+  if (index === currentIndex) return 'current' as const;
+  return 'pending' as const;
+};
+
+export const ProgressHeader = ({ currentQuestionStep }: ProgressHeaderProps) => {
+  const currentIndex = Math.max(0, currentQuestionStep - 1);
 
   return (
-    <header className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        {showBack && onBack ? (
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#725F52] hover:text-[#2B1809]"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden />
-            Back
-          </button>
-        ) : (
-          <span />
-        )}
-        <SaveStatus visible={saved} />
+    <nav aria-label="Brief progress" className="w-full">
+      <div className="flex w-full">
+        {QUESTIONNAIRE_STEPS.map((segment, index) => {
+          const state = segmentState(index, currentIndex);
+
+          return (
+            <motion.div
+              key={segment.id}
+              className={[
+                'relative flex h-10 flex-1 items-center justify-center px-1 sm:h-11 sm:px-2',
+                state === 'complete' && 'bg-[var(--sampling-progress-complete)]',
+                state === 'current' && 'bg-[var(--sampling-progress-current)]',
+                state === 'pending' && 'bg-[var(--sampling-progress-pending)]',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              initial={false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+            >
+              <span
+                className={[
+                  'text-center text-[8px] font-semibold uppercase leading-tight tracking-wide sm:text-[10px] sm:tracking-wider',
+                  state === 'pending'
+                    ? 'text-[var(--sampling-muted)]'
+                    : 'text-white',
+                ].join(' ')}
+              >
+                <span className="hidden min-[480px]:inline">{segment.shortLabel}</span>
+                <span className="min-[480px]:hidden">{segment.shortLabel.split(' ')[0]}</span>
+              </span>
+            </motion.div>
+          );
+        })}
       </div>
-      <div>
-        <div className="mb-2 flex items-center justify-between text-sm">
-          <span className="font-semibold text-[#2B1809]">{label}</span>
-          <span className="text-[#725F52]">
-            Step {currentQuestionStep} of {totalSteps}
-          </span>
-        </div>
-        <div className="h-1.5 overflow-hidden rounded-full bg-[#EADFD3]">
-          <div
-            className="h-full rounded-full bg-[#FF600A] transition-all duration-300 ease-out"
-            style={{ width: `${progress}%` }}
-            role="progressbar"
-            aria-valuenow={progress}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          />
-        </div>
-      </div>
-    </header>
+    </nav>
   );
 };
