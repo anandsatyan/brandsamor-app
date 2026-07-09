@@ -39,42 +39,42 @@ const createProductImage = (src: string, alt: string) => {
 };
 
 export const FragranceProductTypesImage = createProductImage(
-  '/fragrance-product-types.png',
+  '/pages/fragrance-products/fragrance-product-types.png',
   IMAGE_ALT.fragranceProducts.productTypes,
 );
 
 export const EauDeParfumImage = createProductImage(
-  '/eau-de-parfum.png',
+  '/pages/fragrance-products/eau-de-parfum.png',
   IMAGE_ALT.fragranceProducts.eauDeParfum,
 );
 
 export const PerfumeOilsImage = createProductImage(
-  '/perfume-oils.png',
+  '/pages/fragrance-products/perfume-oils.png',
   IMAGE_ALT.fragranceProducts.perfumeOils,
 );
 
 export const BodyMistsImage = createProductImage(
-  '/body-mists.png',
+  '/pages/fragrance-products/body-mists.png',
   IMAGE_ALT.fragranceProducts.bodyMists,
 );
 
 export const RoomSpraysImage = createProductImage(
-  '/room-sprays.png',
+  '/pages/fragrance-products/room-sprays.png',
   IMAGE_ALT.fragranceProducts.roomSprays,
 );
 
 export const TravelPerfumesImage = createProductImage(
-  '/travel-perfumes.png',
+  '/pages/fragrance-products/travel-perfumes.png',
   IMAGE_ALT.fragranceProducts.travelPerfumes,
 );
 
 export const GiftSetImage = createProductImage(
-  '/gift-set.png',
+  '/pages/fragrance-products/gift-set.png',
   IMAGE_ALT.fragranceProducts.giftSet,
 );
 
 export const ChoosingProductFormatImage = createProductImage(
-  '/choosing-the-right-product-format.png',
+  '/pages/fragrance-products/choosing-the-right-product-format.png',
   IMAGE_ALT.fragranceProducts.choosingFormat,
 );
 
@@ -89,67 +89,67 @@ export const FragranceSampleKitWhiteImage = createProductImage(
 );
 
 export const PerfumeBottleSelectionImage = createProductImage(
-  '/perfume-bottle-selection.png',
+  '/pages/packaging-branding/perfume-bottle-selection.png',
   IMAGE_ALT.packagingBranding.bottleSelection,
 );
 
 export const PerfumeBottleSizesImage = createProductImage(
-  '/perfume-bottle-sizes.png',
+  '/pages/packaging-branding/perfume-bottle-sizes.png',
   IMAGE_ALT.packagingBranding.bottleSizes,
 );
 
 export const CapsAndSpraysImage = createProductImage(
-  '/caps-and-sprays.png',
+  '/pages/packaging-branding/caps-and-sprays.png',
   IMAGE_ALT.packagingBranding.capsAndSprays,
 );
 
 export const PerfumeBottleLabelsImage = createProductImage(
-  '/perfume-bottle-labels.png',
+  '/pages/packaging-branding/perfume-bottle-labels.png',
   IMAGE_ALT.packagingBranding.labels,
 );
 
 export const ScreenPrintingPerfumeBottlesImage = createProductImage(
-  '/screen-printing-perfume-bottles.png',
+  '/pages/packaging-branding/screen-printing-perfume-bottles.png',
   IMAGE_ALT.packagingBranding.screenPrinting,
 );
 
 export const PerfumeBottleColoringCoatingImage = createProductImage(
-  '/perfume-bottle-coloring-coating.png',
+  '/pages/packaging-branding/perfume-bottle-coloring-coating.png',
   IMAGE_ALT.packagingBranding.coloringCoating,
 );
 
 export const PerfumeBottleDecorationsImage = createProductImage(
-  '/perfume-bottle-decorations.png',
+  '/pages/packaging-branding/perfume-bottle-decorations.png',
   IMAGE_ALT.packagingBranding.decorations,
 );
 
 export const PerfumeCartonImage = createProductImage(
-  '/perfume-carton.png',
+  '/pages/packaging-branding/perfume-carton.png',
   IMAGE_ALT.packagingBranding.carton,
 );
 
 export const PerfumeRigidBoxImage = createProductImage(
-  '/perfume-rigid-box.png',
+  '/pages/packaging-branding/perfume-rigid-box.png',
   IMAGE_ALT.packagingBranding.rigidBox,
 );
 
 export const CustomVsStockPackagingImage = createProductImage(
-  '/custom-vs-stock-packaging.png',
+  '/pages/packaging-branding/custom-vs-stock-packaging.png',
   IMAGE_ALT.packagingBranding.stockVsCustom,
 );
 
 export const ArtworkRequirementsImage = createProductImage(
-  '/artwork-requirements.png',
+  '/pages/packaging-branding/artwork-requirements.png',
   IMAGE_ALT.packagingBranding.artworkRequirements,
 );
 
 export const PackagingApprovalProcessImage = createProductImage(
-  '/packaging-approval-process.png',
+  '/pages/packaging-branding/packaging-approval-process.png',
   IMAGE_ALT.packagingBranding.approvalProcess,
 );
 
 export const StartDesigningImage = createProductImage(
-  '/start-designing.png',
+  '/pages/packaging-branding/start-designing.png',
   IMAGE_ALT.packagingBranding.startDesigning,
 );
 
