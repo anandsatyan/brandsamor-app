@@ -23,9 +23,15 @@ const IllustrationFrame = ({
   </div>
 );
 
+const encodeAssetPath = (src: string) =>
+  src
+    .split('/')
+    .map((segment, index) => (index === 0 && segment === '' ? '' : encodeURIComponent(segment)))
+    .join('/');
+
 const ProductImage = ({ src, alt }: { src: string; alt: string }) => (
   <img
-    src={src}
+    src={encodeAssetPath(src)}
     alt={alt}
     className="block h-auto w-full"
     loading="lazy"

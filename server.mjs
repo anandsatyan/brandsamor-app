@@ -103,6 +103,14 @@ const normalizePath = (urlPath) => {
   return urlPath;
 };
 
+const decodePath = (urlPath) => {
+  try {
+    return decodeURIComponent(urlPath);
+  } catch {
+    return urlPath;
+  }
+};
+
 const LEGACY_ROUTE_PREFIXES = [
   '/products/',
   '/collections/',
@@ -118,7 +126,7 @@ const isLegacyRoute = (routePath) =>
   );
 
 const resolveFile = (urlPath) => {
-  const normalized = normalizePath(urlPath);
+  const normalized = normalizePath(decodePath(urlPath));
 
   if (isLegacyRoute(normalized)) {
     const notFoundPath = path.join(distDir, '404', 'index.html');
