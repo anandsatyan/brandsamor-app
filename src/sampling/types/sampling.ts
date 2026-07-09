@@ -66,11 +66,12 @@ export interface SamplingState {
   answers: SamplingAnswers;
   recommendations: Recommendation[];
   selectionSummary?: string;
+  sessionId?: string;
   completed: boolean;
   updatedAt: string;
 }
 
-export const SAMPLING_STATE_VERSION = 2;
+export const SAMPLING_STATE_VERSION = 3;
 export const SAMPLING_STORAGE_KEY = 'brandsamor_sampling_state_v1';
 
 export const QUESTIONNAIRE_STEPS = [
@@ -92,6 +93,8 @@ export const STEP_REVIEW = 6;
 export const STEP_CURATION = 7;
 export const STEP_RESULTS = 8;
 export const STEP_COMPLETE = 9;
+export const STEP_CHECKOUT = 10;
+export const STEP_DONE = 11;
 
 export const createEmptyLead = (): LeadDetails => ({
   fullName: '',

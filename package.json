@@ -10,19 +10,27 @@
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --config vite.config.ssr.ts && tsx scripts/prerender-html.ts",
     "preview": "vite preview --host 0.0.0.0 --port ${PORT:-8080}",
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "fragrance:indexes": "node scripts/fragrance/init-indexes.mjs",
+    "fragrance:import:core16": "node scripts/fragrance/import-core16.mjs",
+    "fragrance:verify": "node scripts/fragrance/verify-import.mjs",
+    "test": "node --test"
   },
   "dependencies": {
     "@fontsource-variable/funnel-display": "^5.2.8",
     "@fontsource-variable/funnel-sans": "^5.2.8",
     "@fontsource/manrope": "^5.2.8",
+    "@stripe/stripe-js": "^9.9.0",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.469.0",
+    "mongodb": "^7.5.0",
     "nodemailer": "^9.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.18.0",
-    "serve": "^14.2.4"
+    "serve": "^14.2.4",
+    "stripe": "^22.3.0"
   },
   "devDependencies": {
     "@types/node": "^26.0.1",

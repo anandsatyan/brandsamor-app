@@ -78,3 +78,143 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Shopify-style checkout */
+.checkout-page {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkout-shell {
+  width: 100%;
+}
+
+.checkout-layout {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e8e0d8;
+  border-radius: 8px;
+  background: #fffdfc;
+}
+
+@media (min-width: 1024px) {
+  .checkout-layout {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    align-items: stretch;
+  }
+
+  .checkout-main {
+    padding: 2rem 2.5rem 3rem;
+    border-right: 1px solid #e8e0d8;
+  }
+
+  .checkout-summary {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem 2rem 3rem;
+    background: #faf7f2;
+  }
+}
+
+@media (max-width: 1023px) {
+  .checkout-summary {
+    order: -1;
+    padding: 1.5rem;
+    background: #faf7f2;
+    border-bottom: 1px solid #e8e0d8;
+  }
+
+  .checkout-main {
+    padding: 1.5rem;
+  }
+}
+
+.checkout-summary {
+  background: #faf7f2;
+}
+
+.checkout-summary-inner {
+  width: 100%;
+  margin-top: 0;
+}
+
+.checkout-page-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #2b1809;
+  margin: 0 0 1.5rem;
+  line-height: 1.2;
+}
+
+.checkout-section {
+  margin-bottom: 2rem;
+}
+
+.checkout-section-title {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #2b1809;
+}
+
+.checkout-pay-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  background: #2b1809;
+  color: #fff;
+  padding: 1.125rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: opacity 0.15s ease;
+}
+
+.checkout-pay-btn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.checkout-pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkout-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: #725f52;
+  text-decoration: underline;
+}
+
+.results-cart {
+  margin-top: 2rem;
+  border: 1px solid #e8e0d8;
+  border-radius: 8px;
+  background: #fffdfc;
+  overflow: hidden;
+}
+
+.results-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e8e0d8;
+  background: #faf7f2;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.results-cart-total {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2b1809;
+}
+

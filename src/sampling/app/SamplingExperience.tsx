@@ -14,8 +14,8 @@ import { SamplingPageShell, ScreenTransition } from '../components/layout/Sampli
 import { WizardFooter } from '../components/layout/WizardFooter';
 import { StickyActionBar, PrimaryButton, TextLinkButton } from '../components/layout/StickyActionBar';
 import { VialIllustration } from '../components/sampling/VialIllustration';
-import { FragranceCard } from '../components/sampling/FragranceCard';
 import { CurationTransition } from '../components/sampling/CurationTransition';
+import { ShopifyCheckout, type CheckoutFormData } from '../components/checkout/ShopifyCheckout';
 import { ReviewSection } from '../components/feedback/ReviewSection';
 import { ConfirmDialog } from '../components/feedback/ConfirmDialog';
 
@@ -39,6 +39,8 @@ import { getFragranceById } from '../data/fragranceLibrary';
 import { useSamplingState } from '../hooks/useSamplingState';
 import { trackSamplingEvent } from '../lib/analytics';
 import { runRecommendationEngine } from '../lib/recommendationEngine';
+import { saveSamplingStep } from '../lib/samplingApi';
+import { fetchPublicFragrances, type PublicFragrance } from '../lib/fragranceApi';
 import { hasContactErrors, validateContact } from '../lib/validation';
 import {
   STEP_BRAND,
@@ -51,6 +53,8 @@ import {
   STEP_REVIEW,
   STEP_SCENT,
   STEP_WELCOME,
+  STEP_CHECKOUT,
+  STEP_DONE,
 } from '../types/sampling';
 
 const RECOMMEND = 'recommend';
@@ -75,32 +79,136 @@ export const SamplingExperience = () => {
     updateLead,
     updateAnswers,
     goToStep,
-    setRecommendations,
     resetState,
     resumeBrief,
     startNew,
     persist,
   } = useSamplingState();
 
-  const { currentStep, lead, answers, recommendations, selectionSummary } = state;
+  const { currentStep, lead, answers, recommendations, selectionSummary, sessionId } = state;
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [contactErrors, setContactErrors] = useState<Record<string, string>>({});
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showLogic, setShowLogic] = useState(false);
   const [experienceSubStep, setExperienceSubStep] = useState(0);
+  const [recommendedFragrances, setRecommendedFragrances] = useState<PublicFragrance[]>([]);
+  const [loadingFragrances, setLoadingFragrances] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
+  const [paying, setPaying] = useState(false);
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
   }, [currentStep]);
 
-  const handleCurationComplete = useCallback(() => {
-    const result = runRecommendationEngine(answers);
-    setRecommendations(result.recommendations, result.selectionSummary);
-    trackSamplingEvent('curation_completed');
-    goToStep(STEP_RESULTS);
-  }, [answers, goToStep, setRecommendations]);
+  const completeStep = useCallback(
+    async (step: string, nextStep: number) => {
+      const saved = await saveSamplingStep({
+        sessionId,
+        step,
+        lead,
+        answers,
+        currentStep: nextStep,
+      });
+      persist({
+        ...state,
+        sessionId: saved?.sessionId ?? sessionId,
+        currentStep: nextStep,
+      });
+      trackSamplingEvent('step_completed', { step });
+      trackSamplingEvent('step_viewed', { step: nextStep });
+    },
+    [answers, lead, persist, sessionId, state],
+  );
 
-  const validateAndContinueContact = () => {
+  useEffect(() => {
+    if (currentStep !== STEP_RESULTS && currentStep !== STEP_CHECKOUT) return;
+    if (recommendations.length === 0) {
+      setRecommendedFragrances([]);
+      return;
+    }
+
+    let cancelled = false;
+    setLoadingFragrances(true);
+
+    (async () => {
+      const slugs = recommendations.map((r) => r.fragranceId);
+      const fromApi = await fetchPublicFragrances(slugs);
+
+      const ordered: PublicFragrance[] = [];
+      for (const rec of recommendations) {
+        const apiFragrance = fromApi.get(rec.fragranceId);
+        if (apiFragrance) {
+          ordered.push(apiFragrance);
+          continue;
+        }
+        const local = getFragranceById(rec.fragranceId);
+        if (local) {
+          ordered.push({
+            number: Number(local.fragranceNumber),
+            slug: local.id,
+            name: local.customerName,
+            descriptionShort: local.description,
+            primaryFamily: local.primaryFamily,
+            tags: local.tags,
+            notes: { top: [], heart: [], base: [], hero: [] },
+          });
+        }
+      }
+
+      if (!cancelled) {
+        setRecommendedFragrances(ordered);
+        setLoadingFragrances(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentStep, recommendations]);
+
+  const handleCurationComplete = useCallback(() => {
+    (async () => {
+      try {
+        const res = await fetch('/api/sampling/curate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lead, answers, sessionId }),
+        });
+        if (!res.ok) {
+          throw new Error('Failed to curate recommendations');
+        }
+        const data = await res.json();
+        const mapped = (data.recommendations ?? []).map((r: { fragranceSlug: string; role: string; reason: string }) => ({
+          fragranceId: r.fragranceSlug,
+          role: r.role,
+          reason: r.reason,
+        }));
+
+        persist({
+          ...state,
+          sessionId: data.sessionId ?? sessionId,
+          recommendations: mapped,
+          selectionSummary: data.selectionSummary,
+          currentStep: STEP_RESULTS,
+        });
+        trackSamplingEvent('curation_completed');
+        trackSamplingEvent('step_viewed', { step: STEP_RESULTS });
+      } catch (e) {
+        console.error(e);
+        const result = runRecommendationEngine(answers);
+        persist({
+          ...state,
+          recommendations: result.recommendations,
+          selectionSummary: result.selectionSummary,
+          currentStep: STEP_RESULTS,
+        });
+        trackSamplingEvent('step_viewed', { step: STEP_RESULTS });
+      }
+    })();
+  }, [answers, lead, persist, sessionId, state]);
+
+  const validateAndContinueContact = async () => {
     const errors = validateContact(lead);
     if (hasContactErrors(errors)) {
       setContactErrors(errors as Record<string, string>);
@@ -108,7 +216,7 @@ export const SamplingExperience = () => {
     }
     setContactErrors({});
     trackSamplingEvent('lead_step_completed');
-    goToStep(STEP_BRAND);
+    await completeStep('contact', STEP_BRAND);
   };
 
   const handlePersonalityToggle = (value: string) => {
@@ -134,7 +242,14 @@ export const SamplingExperience = () => {
     goToStep(STEP_CURATION);
   };
 
-  const handleSaveExit = () => {
+  const handleSaveExit = async () => {
+    await saveSamplingStep({
+      sessionId,
+      step: 'save_exit',
+      lead,
+      answers,
+      currentStep,
+    });
     persist(state);
     goToStep(STEP_WELCOME);
   };
@@ -380,7 +495,7 @@ export const SamplingExperience = () => {
             !answers.audienceDefinition ||
             !answers.scentExpression
           }
-          onClick={() => goToStep(STEP_SCENT)}
+          onClick={() => completeStep('brand', STEP_SCENT)}
         >
           Continue
         </PrimaryButton>
@@ -450,7 +565,7 @@ export const SamplingExperience = () => {
           disabled={answers.brandPersonalities.length === 0 || answers.scentFamilies.length === 0}
           onClick={() => {
             setExperienceSubStep(0);
-            goToStep(STEP_EXPERIENCE);
+            completeStep('scent', STEP_EXPERIENCE);
           }}
         >
           Continue
@@ -522,7 +637,7 @@ export const SamplingExperience = () => {
         </div>
         {allAnswered && (
           <WizardFooter onBack={() => goToStep(STEP_SCENT)}>
-            <PrimaryButton onClick={() => goToStep(STEP_PREFERENCES)}>Continue</PrimaryButton>
+            <PrimaryButton onClick={() => completeStep('experience', STEP_PREFERENCES)}>Continue</PrimaryButton>
           </WizardFooter>
         )}
       </ScreenTransition>
@@ -571,7 +686,7 @@ export const SamplingExperience = () => {
       <WizardFooter onBack={() => goToStep(STEP_EXPERIENCE)}>
         <PrimaryButton
           disabled={answers.exclusions.length === 0}
-          onClick={() => goToStep(STEP_REVIEW)}
+          onClick={() => completeStep('preferences', STEP_REVIEW)}
         >
           Continue
         </PrimaryButton>
@@ -667,13 +782,58 @@ export const SamplingExperience = () => {
         We selected a focused mix based on your brand, audience and scent preferences. These five are
         designed to help you compare distinct directions without overwhelming you.
       </p>
-      <div className="mt-8 space-y-4">
-        {recommendations.map((rec, i) => {
-          const profile = getFragranceById(rec.fragranceId);
-          if (!profile) return null;
-          return <FragranceCard key={rec.fragranceId} profile={profile} recommendation={rec} index={i} />;
-        })}
+
+      <div className="results-cart mt-8">
+        <div className="results-cart-header">
+          <span>Your curated sample kit</span>
+          <span className="results-cart-total">$100.00</span>
+        </div>
+        <div className="divide-y divide-[#e8e0d8]">
+          {loadingFragrances && recommendations.length > 0 && (
+            <p className="p-5 text-sm text-[#725F52]">Loading your fragrance selections…</p>
+          )}
+          {!loadingFragrances && recommendedFragrances.length === 0 && recommendations.length === 0 && (
+            <p className="p-5 text-sm text-[#725F52]">No recommendations available yet.</p>
+          )}
+          {recommendations.map((rec) => {
+            const fragrance = recommendedFragrances.find((f) => f.slug === rec.fragranceId);
+            if (!fragrance) {
+              if (loadingFragrances) return null;
+              return (
+                <div key={rec.fragranceId} className="p-5 text-sm text-[#725F52]">
+                  {rec.fragranceId.replace(/-/g, ' ')}
+                </div>
+              );
+            }
+            return (
+              <div key={rec.fragranceId} className="flex gap-4 p-5">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-[#e8e0d8] bg-[#faf7f2] text-xs font-semibold text-[#2b1809]">
+                  No. {fragrance.number}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-[#2b1809]">{fragrance.name}</p>
+                  <p className="mt-1 text-sm text-[#725f52]">{fragrance.descriptionShort}</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {fragrance.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-[#FEF7ED] px-2.5 py-0.5 text-xs font-medium text-[#2b1809]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mt-2 text-sm italic text-[#725f52]">{rec.reason}</p>
+                </div>
+                <span className="hidden shrink-0 self-start rounded-full bg-[#faf7f2] px-3 py-1 text-xs font-semibold capitalize text-[#2b1809] sm:inline">
+                  {rec.role.replace('-', ' ')}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
       <button
         type="button"
         onClick={() => setShowLogic(!showLogic)}
@@ -688,7 +848,64 @@ export const SamplingExperience = () => {
       )}
       <div className="mt-8">
         <StickyActionBar>
-          <PrimaryButton onClick={() => goToStep(STEP_COMPLETE)}>Continue to my sample kit</PrimaryButton>
+          <PrimaryButton onClick={() => goToStep(STEP_CHECKOUT)}>Continue to checkout</PrimaryButton>
+        </StickyActionBar>
+      </div>
+    </ScreenTransition>
+  );
+
+  const handleCheckoutPay = async (checkout: CheckoutFormData) => {
+    setCheckoutError(null);
+    setPaying(true);
+    try {
+      const res = await fetch('/api/checkout/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, checkout }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error ?? 'Checkout failed');
+      setPaymentClientSecret(data.clientSecret);
+      goToStep(STEP_DONE);
+    } catch (e) {
+      setCheckoutError(e instanceof Error ? e.message : 'Checkout failed');
+    } finally {
+      setPaying(false);
+    }
+  };
+
+  const renderCheckout = () => (
+    <ScreenTransition>
+      <ShopifyCheckout
+        lead={lead}
+        fragrances={recommendedFragrances}
+        onPay={handleCheckoutPay}
+        error={checkoutError}
+        paying={paying}
+      />
+    </ScreenTransition>
+  );
+
+  const renderDone = () => (
+    <ScreenTransition>
+      <h1 ref={headingRef} tabIndex={-1} className="type-h1">
+        Payment step ready.
+      </h1>
+      <p className="mt-3 type-body text-[#725F52]">
+        Stripe is wired on the server. Once you add your Stripe keys in <code>.env</code>, we’ll use the returned
+        PaymentIntent client secret to complete payment on this screen.
+      </p>
+      <p className="mt-3 type-caption text-[#725F52] break-all">clientSecret: {paymentClientSecret ?? '—'}</p>
+      <div className="mt-8">
+        <StickyActionBar>
+          <PrimaryButton
+            onClick={() => {
+              persist({ ...state, completed: true });
+              goToStep(STEP_WELCOME);
+            }}
+          >
+            Exit
+          </PrimaryButton>
         </StickyActionBar>
       </div>
     </ScreenTransition>
@@ -830,6 +1047,10 @@ export const SamplingExperience = () => {
         return renderResults();
       case STEP_COMPLETE:
         return renderComplete();
+      case STEP_CHECKOUT:
+        return renderCheckout();
+      case STEP_DONE:
+        return renderDone();
       default:
         return renderWelcome();
     }
@@ -839,9 +1060,13 @@ export const SamplingExperience = () => {
   const contentClassName =
     currentStep === STEP_WELCOME
       ? 'max-w-2xl'
-      : isQuestionnaireStep
-        ? 'max-w-lg sm:max-w-xl'
-        : 'max-w-3xl';
+      : currentStep === STEP_CHECKOUT
+        ? 'checkout-page w-full max-w-[72rem]'
+      : currentStep === STEP_RESULTS
+        ? 'max-w-3xl'
+        : isQuestionnaireStep
+          ? 'max-w-lg sm:max-w-xl'
+          : 'max-w-3xl';
 
   return (
     <div className="sampling-experience">
@@ -849,7 +1074,7 @@ export const SamplingExperience = () => {
         currentStep={currentStep}
         onSaveExit={handleSaveExit}
         saved={saveFlash}
-        exitOnly={currentStep === STEP_COMPLETE}
+        exitOnly={currentStep === STEP_COMPLETE || currentStep === STEP_CHECKOUT || currentStep === STEP_RESULTS}
         contentClassName={contentClassName}
       >
         <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>

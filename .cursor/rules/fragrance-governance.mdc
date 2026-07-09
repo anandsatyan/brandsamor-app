@@ -1,0 +1,21 @@
+# Fragrance library governance (must-follow)
+
+Before adding, importing, renumbering, editing, retiring, or exposing fragrance data, read:
+
+- `docs/fragrance-library-data-model.md`
+- `docs/adding-a-fragrance.md`
+- `docs/fragrance-field-map.md`
+- `docs/fragrance-import.md`
+- `public/Brandsamor_16_Fragrance_Database_JSON.txt` (authoritative governance rules)
+
+## Non-negotiables
+
+- Never renumber a fragrance after creation.
+- Never reuse a retired fragrance number.
+- Retire/deactivate instead of deleting.
+- Preserve historical supplier variants and compliance document versions.
+- Never overwrite `ORIGINAL_REFERENCE` note pyramids when adding supplier-confirmed or Brandsamor-observed notes.
+- Never expose internal supplier/procurement/testing fields through public APIs or client bundles.
+- Never represent missing compliance files as verified/available.
+- Imports must be idempotent and must not create duplicates.
+

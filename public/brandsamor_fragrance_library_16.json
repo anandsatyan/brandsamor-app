@@ -1,0 +1,1868 @@
+{
+  "schemaVersion": "1.0.0",
+  "libraryName": "Brandsamor Core Fragrance Library",
+  "generatedAt": "2026-07-09",
+  "recordCount": 16,
+  "usageNotes": [
+    "The note pyramids describe the original inspiration references researched online; they do not prove that a supplier oil contains or reproduces every listed note.",
+    "Before customer publication, compare the exact Parfum Plus or Parfex oil against the supplier's own note sheet and documentation.",
+    "Keep the customer-facing fragrance number stable even if the supplier or oil version changes.",
+    "Do not use original brand names on the customer's finished product, packaging or regulatory label.",
+    "Top, heart and base notes describe the original inspiration reference. Replace or supplement them with supplier-confirmed notes after the exact Parfum Plus or Parfex oil is selected.",
+    "Do not set activeSupplierVariantId until the oil has passed olfactive, alcohol-solubility, stability and document review.",
+    "F203 is provisionally mapped to Miss Dior Blooming Bouquet (2014 profile); keep its inspiration hidden until the supplier confirms the exact reference."
+  ],
+  "fragrances": [
+    {
+      "id": "F101",
+      "number": 101,
+      "slug": "bright-citrus",
+      "customerFacingName": "Bright Citrus",
+      "internalProfile": "clean-citrus",
+      "status": "active",
+      "primaryFamily": "fresh-aromatic",
+      "secondaryFamilies": [
+        "citrus",
+        "green",
+        "woody"
+      ],
+      "shortDescription": "A crisp citrus opening sharpened by aromatic basil and grounded by clean, dry woods.",
+      "tags": [
+        "fresh",
+        "citrus",
+        "green",
+        "versatile"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "beauty",
+        "wellness",
+        "boutique",
+        "hospitality",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Mandarin orange",
+          "Lime",
+          "Bergamot"
+        ],
+        "heart": [
+          "Basil",
+          "Thyme",
+          "Iris",
+          "Lilac"
+        ],
+        "base": [
+          "Amberwood",
+          "Vetiver",
+          "Patchouli"
+        ],
+        "heroNotes": [
+          "Mandarin",
+          "Basil",
+          "Amberwood"
+        ],
+        "pyramidType": "brand-simplified-plus-research-expanded",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Jo Malone London",
+        "fragrance": "Lime Basil & Mandarin Cologne",
+        "supplierListedName": "Lime and Mandarin",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F101-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Lime and Mandarin",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F101-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Lime and Mandarin",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "reputable editorial using brand note structure",
+        "sources": [
+          {
+            "publisher": "Byrdie",
+            "title": "15 Summer Scents You'll Want to Wear All Year Long",
+            "url": "https://www.byrdie.com/summer-fragrances-5703985"
+          },
+          {
+            "publisher": "Woman & Home",
+            "title": "The best Jo Malone perfumes",
+            "url": "https://www.womanandhome.com/beauty/beauty-news/these-are-the-top-5-most-popular-jo-malone-london-fragrances/"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F118",
+      "number": 118,
+      "slug": "green-horizon",
+      "customerFacingName": "Green Horizon",
+      "internalProfile": "green-fresh",
+      "status": "active",
+      "primaryFamily": "fresh-aromatic",
+      "secondaryFamilies": [
+        "citrus",
+        "chypre",
+        "woody",
+        "fruity"
+      ],
+      "shortDescription": "Sparkling citrus and pineapple move into polished woods, patchouli and an elegant mossy finish.",
+      "tags": [
+        "green",
+        "premium",
+        "woody",
+        "confident"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "boutique",
+        "mens-grooming",
+        "fashion",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Bergamot",
+          "Pineapple",
+          "Grapefruit"
+        ],
+        "heart": [
+          "Jasmine",
+          "Patchouli",
+          "Cedarwood"
+        ],
+        "base": [
+          "Clearwood",
+          "Oakmoss",
+          "Dry timberwood"
+        ],
+        "heroNotes": [
+          "Pineapple",
+          "Bergamot",
+          "Oakmoss"
+        ],
+        "pyramidType": "official-brand-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Nishane",
+        "fragrance": "Hacivat",
+        "supplierListedName": "Hacivat",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F118-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Hacivat",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F118-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Hacivat",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "official brand",
+        "sources": [
+          {
+            "publisher": "Nishane",
+            "title": "Hacivat",
+            "url": "https://nishane.com/product/hacivat/"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F124",
+      "number": 124,
+      "slug": "sparkling-citrus-woods",
+      "customerFacingName": "Sparkling Citrus Woods",
+      "internalProfile": "sparkling-modern",
+      "status": "active",
+      "primaryFamily": "fresh-aromatic",
+      "secondaryFamilies": [
+        "citrus",
+        "spicy",
+        "tea",
+        "woody",
+        "amber"
+      ],
+      "shortDescription": "Luminous citrus and ginger over black tea, neroli and smooth modern woods.",
+      "tags": [
+        "fresh",
+        "modern",
+        "premium",
+        "polished"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "boutique",
+        "fashion",
+        "mens-grooming",
+        "hospitality",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Citron",
+          "Calabrian bergamot",
+          "Sicilian orange"
+        ],
+        "heart": [
+          "Tunisian neroli",
+          "Nigerian ginger",
+          "Ceylon cinnamon"
+        ],
+        "base": [
+          "Chinese black tea",
+          "Ambroxan",
+          "Guaiac wood",
+          "Olibanum"
+        ],
+        "heroNotes": [
+          "Citron",
+          "Black tea",
+          "Ambroxan"
+        ],
+        "pyramidType": "research-normalized-from-published-key-notes",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Louis Vuitton",
+        "fragrance": "Imagination",
+        "supplierListedName": "Imagination",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F124-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Imagination",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F124-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Imagination",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "brand key-note descriptions plus established reference pyramid",
+        "sources": [
+          {
+            "publisher": "Marie Claire UK",
+            "title": "The Most Distinctive High-Fashion Perfumes",
+            "url": "https://www.marieclaire.co.uk/beauty/fragrance/high-fashion-perfumes"
+          },
+          {
+            "publisher": "Who What Wear",
+            "title": "Louis Vuitton Monogram Fragrance Collection",
+            "url": "https://www.whowhatwear.com/louis-vuitton-monogram-fragrance-collection"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "Imagination Louis Vuitton fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Louis-Vuitton/Imagination-67370.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F137",
+      "number": 137,
+      "slug": "salted-air",
+      "customerFacingName": "Salted Air",
+      "internalProfile": "marine-fresh",
+      "status": "active",
+      "primaryFamily": "fresh-aromatic",
+      "secondaryFamilies": [
+        "marine",
+        "mineral",
+        "herbal",
+        "woody"
+      ],
+      "shortDescription": "Airy sea-salt minerals meet soft ambrette and earthy sage for a clean coastal impression.",
+      "tags": [
+        "coastal",
+        "clean",
+        "airy",
+        "natural"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "wellness",
+        "hospitality",
+        "boutique",
+        "home-fragrance",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Ambrette seeds"
+        ],
+        "heart": [
+          "Sea salt"
+        ],
+        "base": [
+          "Sage"
+        ],
+        "heroNotes": [
+          "Ambrette seeds",
+          "Sea salt",
+          "Sage"
+        ],
+        "pyramidType": "brand-simplified-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Jo Malone London",
+        "fragrance": "Wood Sage & Sea Salt Cologne",
+        "supplierListedName": "Wood Sage and Sea Salt",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F137-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Wood Sage and Sea Salt",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F137-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Wood Sage and Sea Salt",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "reputable editorial using brand note structure",
+        "sources": [
+          {
+            "publisher": "Woman & Home",
+            "title": "The best Jo Malone perfumes",
+            "url": "https://www.womanandhome.com/beauty/beauty-news/these-are-the-top-5-most-popular-jo-malone-london-fragrances/"
+          },
+          {
+            "publisher": "Marie Claire",
+            "title": "The Best Salty Perfumes",
+            "url": "https://www.marieclaire.com/beauty/best-salty-perfumes/"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F149",
+      "number": 149,
+      "slug": "aromatic-reserve",
+      "customerFacingName": "Aromatic Reserve",
+      "internalProfile": "herbal-aromatic",
+      "status": "active",
+      "primaryFamily": "fresh-aromatic",
+      "secondaryFamilies": [
+        "spicy",
+        "aromatic",
+        "lavender",
+        "woody",
+        "amber"
+      ],
+      "shortDescription": "A concentrated aromatic profile with grapefruit, warm spices, lavender and a deep woody-amber base.",
+      "tags": [
+        "aromatic",
+        "spicy",
+        "intense",
+        "evening"
+      ],
+      "scentExpression": "masculine-leaning",
+      "bestForBusinessTypes": [
+        "mens-grooming",
+        "fashion",
+        "boutique",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Grapefruit",
+          "Cinnamon",
+          "Nutmeg",
+          "Cardamom"
+        ],
+        "heart": [
+          "Lavender"
+        ],
+        "base": [
+          "Licorice",
+          "Sandalwood",
+          "Amber",
+          "Patchouli",
+          "Haitian vetiver"
+        ],
+        "heroNotes": [
+          "Grapefruit",
+          "Lavender",
+          "Spices",
+          "Woods"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Dior",
+        "fragrance": "Sauvage Elixir",
+        "supplierListedName": "Sauvage Elixir",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F149-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Sauvage Elixir",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F149-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Sauvage Elixir",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "reputable editorial plus established reference pyramid",
+        "sources": [
+          {
+            "publisher": "Byrdie",
+            "title": "The Best Colognes for Men",
+            "url": "https://www.byrdie.com/best-colognes-for-men-8550467"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "Sauvage Elixir Dior fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Christian-Dior/Sauvage-Elixir-68415.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F156",
+      "number": 156,
+      "slug": "modern-blue",
+      "customerFacingName": "Modern Blue",
+      "internalProfile": "sporty-blue",
+      "status": "active",
+      "primaryFamily": "fresh-aromatic",
+      "secondaryFamilies": [
+        "citrus",
+        "pepper",
+        "lavender",
+        "woody",
+        "amber"
+      ],
+      "shortDescription": "Bright bergamot and pepper over aromatic lavender, woods and a clean ambroxan trail.",
+      "tags": [
+        "fresh",
+        "blue",
+        "versatile",
+        "commercial"
+      ],
+      "scentExpression": "masculine-leaning",
+      "bestForBusinessTypes": [
+        "mens-grooming",
+        "fashion",
+        "gifting",
+        "hospitality"
+      ],
+      "notes": {
+        "top": [
+          "Calabrian bergamot",
+          "Pepper"
+        ],
+        "heart": [
+          "Sichuan pepper",
+          "Lavender",
+          "Pink pepper",
+          "Vetiver",
+          "Patchouli",
+          "Geranium",
+          "Elemi"
+        ],
+        "base": [
+          "Ambroxan",
+          "Cedar",
+          "Labdanum"
+        ],
+        "heroNotes": [
+          "Calabrian bergamot",
+          "Pepper",
+          "Ambroxan"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Dior",
+        "fragrance": "Sauvage Eau de Toilette",
+        "supplierListedName": "Sauvage",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F156-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Sauvage",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F156-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Sauvage",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "established reference pyramid",
+        "sources": [
+          {
+            "publisher": "Allure",
+            "title": "Dior Sauvage Review",
+            "url": "https://www.allure.com/review/dior-sauvage-review"
+          },
+          {
+            "publisher": "Esquire",
+            "title": "The Best Dior Colognes",
+            "url": "https://www.esquire.com/style/grooming/g70469035/best-dior-fragrances-men/"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "Sauvage Dior fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Christian-Dior/Sauvage-31861.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F203",
+      "number": 203,
+      "slug": "soft-petals",
+      "customerFacingName": "Soft Petals",
+      "internalProfile": "soft-floral",
+      "status": "active",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "floral",
+        "fruity",
+        "musky"
+      ],
+      "shortDescription": "A light, graceful bouquet of peony and rose softened by juicy fruit and clean white musk.",
+      "tags": [
+        "soft",
+        "floral",
+        "romantic",
+        "easy-wearing"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "boutique",
+        "bridal",
+        "gifting",
+        "salon"
+      ],
+      "notes": {
+        "top": [
+          "Sicilian mandarin"
+        ],
+        "heart": [
+          "Pink peony",
+          "Damask rose",
+          "Apricot",
+          "Peach"
+        ],
+        "base": [
+          "White musk"
+        ],
+        "heroNotes": [
+          "Peony",
+          "Rose",
+          "White musk"
+        ],
+        "pyramidType": "reference-pyramid-for-mapped-original",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Dior",
+        "fragrance": "Miss Dior Blooming Bouquet (2014 profile)",
+        "supplierListedName": "Miss Dior Cherry Blossom",
+        "referenceStatus": "needs-supplier-confirmation",
+        "referenceNote": "The supplier name is not the standard current Dior product name. Confirm that the supplied oil is intended to match Miss Dior Blooming Bouquet before customer publication."
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F203-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Miss Dior Cherry Blossom",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F203-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Miss Dior Cherry Blossom",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Publish the inspiration reference only after the supplier confirms the exact Dior reference."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium",
+        "sourceType": "mapped reference pyramid; supplier confirmation required",
+        "sources": [
+          {
+            "publisher": "Vanity Fair",
+            "title": "Hot Looks: Fragrances for Mom",
+            "url": "https://www.vanityfair.com/style/2014/05/hot-looks-fragrance-for-mom"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F217",
+      "number": 217,
+      "slug": "pear-blossom",
+      "customerFacingName": "Pear Blossom",
+      "internalProfile": "fruity-floral",
+      "status": "active",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "pear",
+        "floral",
+        "chypre",
+        "woody"
+      ],
+      "shortDescription": "Juicy pear wrapped in cool white freesia with a clean, lightly earthy patchouli finish.",
+      "tags": [
+        "fruity",
+        "floral",
+        "elegant",
+        "giftable"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "boutique",
+        "bridal",
+        "gifting",
+        "hospitality"
+      ],
+      "notes": {
+        "top": [
+          "King William pear"
+        ],
+        "heart": [
+          "Freesia"
+        ],
+        "base": [
+          "Patchouli"
+        ],
+        "heroNotes": [
+          "Pear",
+          "Freesia",
+          "Patchouli"
+        ],
+        "pyramidType": "brand-simplified-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Jo Malone London",
+        "fragrance": "English Pear & Freesia Cologne",
+        "supplierListedName": "English Pear and Freesia",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F217-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "English Pear and Freesia",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F217-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "English Pear and Freesia",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "reputable editorial using brand note structure",
+        "sources": [
+          {
+            "publisher": "Woman & Home",
+            "title": "The best Jo Malone perfumes",
+            "url": "https://www.womanandhome.com/beauty/beauty-news/these-are-the-top-5-most-popular-jo-malone-london-fragrances/"
+          },
+          {
+            "publisher": "Veranda",
+            "title": "10 Editor-Approved Jo Malone Perfumes",
+            "url": "https://www.veranda.com/shopping/g66026943/best-jo-malone-perfume/"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F229",
+      "number": 229,
+      "slug": "electric-fruit",
+      "customerFacingName": "Electric Fruit",
+      "internalProfile": "bright-fruity",
+      "status": "active",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "citrus",
+        "mint",
+        "blackcurrant",
+        "green",
+        "fruity"
+      ],
+      "shortDescription": "A vivid citrus and blackcurrant opening with mint, aromatic greens and a softly musky-fruity dry-down.",
+      "tags": [
+        "bright",
+        "fruity",
+        "fresh",
+        "playful"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "beauty",
+        "creator",
+        "boutique",
+        "wellness",
+        "hospitality"
+      ],
+      "notes": {
+        "top": [
+          "Citron",
+          "Orange",
+          "Mint",
+          "Lemon",
+          "Blackcurrant",
+          "Coriander"
+        ],
+        "heart": [
+          "Apricot",
+          "Basil",
+          "Carrot seed",
+          "May rose"
+        ],
+        "base": [
+          "Fig",
+          "Ambrette",
+          "Dates"
+        ],
+        "heroNotes": [
+          "Blackcurrant",
+          "Citron",
+          "Mint",
+          "Carrot seed"
+        ],
+        "pyramidType": "research-normalized-from-published-key-notes",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Louis Vuitton",
+        "fragrance": "Pacific Chill",
+        "supplierListedName": "Pacific Chill",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F229-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Pacific Chill",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F229-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Pacific Chill",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "launch interview and established reference pyramid",
+        "sources": [
+          {
+            "publisher": "Vogue",
+            "title": "The Latest California-Cool Fragrance from Louis Vuitton Is Inspired by Green Juice",
+            "url": "https://www.vogue.com/article/louis-vuitton-pacific-chill-fragrance"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "Pacific Chill Louis Vuitton fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Louis-Vuitton/Pacific-Chill-81423.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F241",
+      "number": 241,
+      "slug": "vanilla-veil",
+      "customerFacingName": "Vanilla Veil",
+      "internalProfile": "sweet-gourmand",
+      "status": "active",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "vanilla",
+        "lavender",
+        "aromatic",
+        "gourmand"
+      ],
+      "shortDescription": "A polished vanilla gourmand layered with aromatic lavender, subtle spice and multiple textures of vanilla.",
+      "tags": [
+        "vanilla",
+        "warm",
+        "comforting",
+        "premium"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "creator",
+        "boutique",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Vanilla infusion",
+          "Lavender",
+          "Cacao",
+          "Ginger"
+        ],
+        "heart": [
+          "Vanilla caviar"
+        ],
+        "base": [
+          "Vanilla absolute"
+        ],
+        "heroNotes": [
+          "Vanilla infusion",
+          "Lavender",
+          "Vanilla caviar",
+          "Vanilla absolute"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Burberry",
+        "fragrance": "Burberry Goddess Eau de Parfum",
+        "supplierListedName": "Burberry Goddess",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F241-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Burberry Goddess",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F241-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Burberry Goddess",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "brand hero-note structure and reputable editorial",
+        "sources": [
+          {
+            "publisher": "Vogue",
+            "title": "16 Best Vanilla Perfumes",
+            "url": "https://www.vogue.com/article/best-vanilla-perfumes"
+          },
+          {
+            "publisher": "Allure",
+            "title": "Best of Beauty 2024: Scent Winners",
+            "url": "https://www.allure.com/story/best-of-beauty-fragrance-winners-2024"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "Goddess Burberry fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Burberry/Goddess-83483.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F254",
+      "number": 254,
+      "slug": "midnight-cafe",
+      "customerFacingName": "Midnight Café",
+      "internalProfile": "dark-indulgent-gourmand",
+      "status": "active",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "coffee",
+        "white-floral",
+        "vanilla",
+        "woody"
+      ],
+      "shortDescription": "Dark coffee and white flowers melt into vanilla, patchouli and smooth woods.",
+      "tags": [
+        "coffee",
+        "gourmand",
+        "night-out",
+        "bold"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "creator",
+        "boutique",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Pear",
+          "Pink pepper",
+          "Orange blossom"
+        ],
+        "heart": [
+          "Coffee",
+          "Jasmine",
+          "Bitter almond",
+          "Licorice"
+        ],
+        "base": [
+          "Vanilla",
+          "Patchouli",
+          "Cashmere wood",
+          "Cedarwood"
+        ],
+        "heroNotes": [
+          "Coffee",
+          "White flowers",
+          "Vanilla"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Yves Saint Laurent",
+        "fragrance": "Black Opium Eau de Parfum",
+        "supplierListedName": "Black Opium",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F254-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Black Opium",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F254-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Black Opium",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "documented reference pyramid",
+        "sources": [
+          {
+            "publisher": "Wikipedia",
+            "title": "Black Opium (perfume)",
+            "url": "https://en.wikipedia.org/wiki/Black_Opium_(perfume)"
+          },
+          {
+            "publisher": "Allure",
+            "title": "YSL Black Opium Eau de Parfum Review",
+            "url": "https://www.allure.com/review/ysl-black-opium-edp-review"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F306",
+      "number": 306,
+      "slug": "polished-woods",
+      "customerFacingName": "Polished Woods",
+      "internalProfile": "clean-woods",
+      "status": "active",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "citrus",
+        "cypress",
+        "cedar",
+        "vetiver",
+        "resin"
+      ],
+      "shortDescription": "Bright citrus and coriander open into cypress, cedar and vetiver with a smooth resinous finish.",
+      "tags": [
+        "woody",
+        "clean",
+        "refined",
+        "versatile"
+      ],
+      "scentExpression": "masculine-leaning",
+      "bestForBusinessTypes": [
+        "mens-grooming",
+        "boutique",
+        "fashion",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Citrus accord",
+          "Lemon zest",
+          "Coriander leaf"
+        ],
+        "heart": [
+          "Cypress",
+          "Cedarwood",
+          "Vetiver"
+        ],
+        "base": [
+          "Benzoin"
+        ],
+        "heroNotes": [
+          "Cypress",
+          "Cedarwood",
+          "Vetiver"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Bvlgari",
+        "fragrance": "Bvlgari Man Wood Essence",
+        "supplierListedName": "Wood Essence",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F306-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Wood Essence",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F306-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Wood Essence",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "reputable editorial plus established reference pyramid",
+        "sources": [
+          {
+            "publisher": "GQ",
+            "title": "The Best Woody Colognes Are Universal Crowd-Pleasers",
+            "url": "https://www.gq.com/story/best-woody-colognes"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F318",
+      "number": 318,
+      "slug": "dry-sandalwood",
+      "customerFacingName": "Dry Sandalwood",
+      "internalProfile": "earthy-woods",
+      "status": "active",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "sandalwood",
+        "violet",
+        "iris",
+        "leather",
+        "musk"
+      ],
+      "shortDescription": "Dry sandalwood and cedar are lifted by cardamom, iris and violet, then finished with leather and musk.",
+      "tags": [
+        "sandalwood",
+        "editorial",
+        "dry",
+        "unisex"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "boutique",
+        "fashion",
+        "home-fragrance",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Cardamom",
+          "Violet accord"
+        ],
+        "heart": [
+          "Iris",
+          "Papyrus",
+          "Cedarwood"
+        ],
+        "base": [
+          "Australian sandalwood",
+          "Leather",
+          "Musk",
+          "Amber"
+        ],
+        "heroNotes": [
+          "Cardamom",
+          "Iris",
+          "Violet",
+          "Sandalwood",
+          "Leather"
+        ],
+        "pyramidType": "research-normalized-from-official-key-notes",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Le Labo",
+        "fragrance": "Santal 33",
+        "supplierListedName": "Santal 33",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F318-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Santal 33",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F318-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Santal 33",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "official brand key-note description normalized into a pyramid",
+        "sources": [
+          {
+            "publisher": "Le Labo",
+            "title": "Santal 33 Eau de Parfum",
+            "url": "https://www.lelabofragrances.com/santal-33-147.html"
+          },
+          {
+            "publisher": "Vogue",
+            "title": "Best Perfumes for Women - Santal 33 notes",
+            "url": "https://www.vogue.com/article/best-perfumes-for-women"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F331",
+      "number": 331,
+      "slug": "fireside-woods",
+      "customerFacingName": "Fireside Woods",
+      "internalProfile": "smoky-woods",
+      "status": "active",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "smoky",
+        "chestnut",
+        "woody",
+        "vanilla",
+        "balsamic"
+      ],
+      "shortDescription": "Smoky woods, roasted chestnut and warm spice softened by vanilla and balsamic resins.",
+      "tags": [
+        "smoky",
+        "warm",
+        "comforting",
+        "atmospheric"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "home-fragrance",
+        "boutique",
+        "hospitality",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Clove oil",
+          "Pink pepper",
+          "Orange blossom"
+        ],
+        "heart": [
+          "Chestnut accord",
+          "Guaiac wood",
+          "Juniper"
+        ],
+        "base": [
+          "Vanilla accord",
+          "Peru balsam",
+          "Cashmeran"
+        ],
+        "heroNotes": [
+          "Chestnut",
+          "Guaiac wood",
+          "Vanilla",
+          "Clove"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Maison Margiela",
+        "fragrance": "Replica By the Fireplace",
+        "supplierListedName": "Replica By the Fireplace",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F331-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Replica By the Fireplace",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F331-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Replica By the Fireplace",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "high",
+        "sourceType": "reputable editorial with complete note list",
+        "sources": [
+          {
+            "publisher": "Who What Wear",
+            "title": "The Best Maison Margiela Replica Scents",
+            "url": "https://www.whowhatwear.com/best-maison-margiela-replica-perfumes"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "By the Fireplace Maison Margiela fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Maison-Martin-Margiela/By-the-Fireplace-31623.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F347",
+      "number": 347,
+      "slug": "warm-spice",
+      "customerFacingName": "Warm Spice",
+      "internalProfile": "warm-spicy",
+      "status": "active",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "rum",
+        "tobacco",
+        "leather",
+        "floral",
+        "resin"
+      ],
+      "shortDescription": "Dark rum and spices meet tobacco, leather and iris over warm tonka, woods and benzoin.",
+      "tags": [
+        "spicy",
+        "warm",
+        "bold",
+        "evening"
+      ],
+      "scentExpression": "masculine-leaning",
+      "bestForBusinessTypes": [
+        "mens-grooming",
+        "boutique",
+        "fashion",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Spices",
+          "Rum",
+          "Tobacco"
+        ],
+        "heart": [
+          "Leather",
+          "Iris",
+          "Tuberose"
+        ],
+        "base": [
+          "Tonka bean",
+          "Guaiac wood",
+          "Benzoin"
+        ],
+        "heroNotes": [
+          "Rum",
+          "Spices",
+          "Leather",
+          "Tonka bean"
+        ],
+        "pyramidType": "widely-published-reference-pyramid",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Bvlgari",
+        "fragrance": "Bvlgari Man in Black",
+        "supplierListedName": "Men in Black",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F347-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Men in Black",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F347-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Men in Black",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "established reference pyramid",
+        "sources": [
+          {
+            "publisher": "Fragrantica",
+            "title": "Bvlgari Man in Black fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Bvlgari/Bvlgari-Man-In-Black-26358.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    },
+    {
+      "id": "F362",
+      "number": 362,
+      "slug": "dark-amber-oud",
+      "customerFacingName": "Dark Amber Oud",
+      "internalProfile": "dark-sensual",
+      "status": "active",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "oud",
+        "incense",
+        "raspberry",
+        "rose",
+        "resin"
+      ],
+      "shortDescription": "Smoky oud and incense are cut by tart raspberry and softened with rose and glowing resins.",
+      "tags": [
+        "oud",
+        "dark",
+        "luxurious",
+        "intense"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "luxury-retail",
+        "boutique",
+        "middle-eastern-retail",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Raspberry"
+        ],
+        "heart": [
+          "Rose",
+          "Geranium",
+          "Saffron"
+        ],
+        "base": [
+          "Agarwood (oud)",
+          "Incense",
+          "Benzoin",
+          "Birch",
+          "Amberwood"
+        ],
+        "heroNotes": [
+          "Oud",
+          "Incense",
+          "Benzoin",
+          "Raspberry"
+        ],
+        "pyramidType": "research-normalized-from-official-key-notes",
+        "basedOnOriginalReference": true
+      },
+      "inspiredBy": {
+        "brand": "Louis Vuitton",
+        "fragrance": "Ombre Nomade",
+        "supplierListedName": "Ombre Nomade",
+        "referenceStatus": "confirmed"
+      },
+      "supplierVariants": [
+        {
+          "variantId": "F362-PP-01",
+          "supplier": "Parfum Plus",
+          "supplierProductCode": null,
+          "supplierProductName": "Ombre Nomade",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        },
+        {
+          "variantId": "F362-PX-01",
+          "supplier": "Parfex",
+          "supplierProductCode": null,
+          "supplierProductName": "Ombre Nomade",
+          "status": "not-evaluated",
+          "isActiveForSampling": false,
+          "costPerKg": null,
+          "currency": null,
+          "recommendedDosagePercent": null,
+          "testedDosagePercent": null,
+          "ifraDocument": null,
+          "allergenDocument": null,
+          "coaDocument": null,
+          "technicalNotes": null
+        }
+      ],
+      "customerDisplay": {
+        "showInspiredBy": true,
+        "referenceDisclaimer": "Independent scent-direction reference. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-09",
+        "confidence": "medium-high",
+        "sourceType": "brand key notes plus normalized reference pyramid",
+        "sources": [
+          {
+            "publisher": "Who What Wear",
+            "title": "The Best Oud Perfumes",
+            "url": "https://www.whowhatwear.com/best-oud-perfumes"
+          },
+          {
+            "publisher": "Fragrantica",
+            "title": "Ombre Nomade Louis Vuitton fragrance reference",
+            "url": "https://www.fragrantica.com/perfume/Louis-Vuitton/Ombre-Nomade-49755.html"
+          }
+        ]
+      },
+      "activeSupplierVariantId": null
+    }
+  ],
+  "noteDataBasis": "Original-brand/reference fragrance note pyramids, not yet supplier-oil-confirmed.",
+  "supplierValidationRequired": true
+}

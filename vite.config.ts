@@ -2,6 +2,7 @@ import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { prerenderMetaPlugin } from './vite/prerenderMetaPlugin';
 import { handleLeadRequest } from './server/leadHandler.mjs';
+import { samplingApiPlugin } from './vite/samplingApiPlugin.mjs';
 
 const leadApiPlugin = (): Plugin => ({
   name: 'lead-api',
@@ -13,7 +14,7 @@ const leadApiPlugin = (): Plugin => ({
 });
 
 export default defineConfig({
-  plugins: [react(), prerenderMetaPlugin(), leadApiPlugin()],
+  plugins: [react(), prerenderMetaPlugin(), leadApiPlugin(), samplingApiPlugin()],
   build: {
     rollupOptions: {
       output: {

@@ -1,8 +1,15 @@
+import 'dotenv/config';
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { handleLeadRequest } from './server/leadHandler.mjs';
+import { handleLeadRequest, readJsonBody, sendJson } from './server/leadHandler.mjs';
+import { listPublicFragrances, getPublicFragranceBySlug } from './server/fragrance/repo.mjs';
+import { toPublicFragrance } from './server/fragrance/publicSerializer.mjs';
+import { recommendFive } from './server/sampling/recommendationEngine.mjs';
+import { upsertSamplingSession, finalizeCuration, attachCheckoutDetails, recordPaymentIntent } from './server/sampling/repo.mjs';
+import { handleStripeWebhook } from './server/stripe/webhookHandler.mjs';
+import Stripe from 'stripe';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, 'dist');
@@ -187,6 +194,149 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === '/api/lead') {
     await handleLeadRequest(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/sampling/session' && req.method === 'POST') {
+    try {
+      const payload = await readJsonBody(req);
+      const lead = payload?.lead ?? null;
+      const answers = payload?.answers ?? null;
+      const step = String(payload?.step ?? '');
+      const sessionId = payload?.sessionId ? String(payload.sessionId) : undefined;
+      const currentStep = Number(payload?.currentStep ?? 1);
+
+      if (!lead || !step) {
+        sendJson(res, 400, { error: 'Missing lead or step' });
+        return;
+      }
+
+      if (step === 'contact') {
+        const email = String(lead.email ?? '').trim();
+        const phone = String(lead.phone ?? '').trim();
+        if (!email || !phone) {
+          sendJson(res, 400, { error: 'Contact step requires email and phone' });
+          return;
+        }
+      }
+
+      const savedSessionId = await upsertSamplingSession({
+        sessionId,
+        step,
+        lead,
+        answers: answers ?? {},
+        currentStep,
+      });
+
+      sendJson(res, 200, { sessionId: savedSessionId, ok: true });
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Server error';
+      sendJson(res, 500, { error: message });
+      return;
+    }
+  }
+
+  if (url.pathname === '/api/sampling/curate' && req.method === 'POST') {
+    try {
+      const payload = await readJsonBody(req);
+      const lead = payload?.lead ?? null;
+      const answers = payload?.answers ?? null;
+      const sessionId = payload?.sessionId ? String(payload.sessionId) : undefined;
+
+      if (!lead || !answers) {
+        sendJson(res, 400, { error: 'Missing lead or answers' });
+        return;
+      }
+
+      const result = await recommendFive(answers);
+      const savedSessionId = await finalizeCuration({
+        sessionId,
+        lead,
+        answers,
+        recommendations: result.recommendations,
+        selectionSummary: result.selectionSummary,
+      });
+
+      sendJson(res, 200, { sessionId: savedSessionId, ...result });
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Server error';
+      sendJson(res, 500, { error: message });
+      return;
+    }
+  }
+
+  if (url.pathname === '/api/stripe/webhook' && req.method === 'POST') {
+    await handleStripeWebhook(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/checkout/create-payment-intent' && req.method === 'POST') {
+    const secret = process.env.STRIPE_SECRET_KEY;
+    if (!secret) {
+      sendJson(res, 501, { error: 'Stripe is not configured' });
+      return;
+    }
+
+    try {
+      const payload = await readJsonBody(req);
+      const sessionId = String(payload?.sessionId ?? '');
+      const checkout = payload?.checkout ?? null;
+
+      if (!sessionId || !checkout) {
+        sendJson(res, 400, { error: 'Missing sessionId or checkout details' });
+        return;
+      }
+
+      await attachCheckoutDetails(sessionId, checkout);
+
+      const amount = Number(process.env.STRIPE_SAMPLE_KIT_AMOUNT_CENTS || 10000);
+      const currency = process.env.STRIPE_CURRENCY || 'usd';
+      const stripe = new Stripe(secret);
+
+      const intent = await stripe.paymentIntents.create({
+        amount,
+        currency,
+        automatic_payment_methods: { enabled: true },
+        metadata: { samplingSessionId: sessionId, product: 'curated-sample-kit' },
+      });
+
+      await recordPaymentIntent(sessionId, {
+        paymentIntentId: intent.id,
+        status: intent.status,
+        amount: intent.amount,
+        currency: intent.currency,
+        createdAt: new Date(),
+      });
+
+      sendJson(res, 200, { clientSecret: intent.client_secret, paymentIntentId: intent.id });
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Server error';
+      sendJson(res, 500, { error: message });
+      return;
+    }
+  }
+
+  if (url.pathname === '/api/fragrances/public' && req.method === 'GET') {
+    const rows = await listPublicFragrances();
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ fragrances: rows.map(toPublicFragrance) }));
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/fragrances/public/') && req.method === 'GET') {
+    const slug = decodeURIComponent(url.pathname.replace('/api/fragrances/public/', ''));
+    const row = await getPublicFragranceBySlug(slug);
+    if (!row) {
+      res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify({ error: 'Not found' }));
+      return;
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ fragrance: toPublicFragrance(row) }));
     return;
   }
 
