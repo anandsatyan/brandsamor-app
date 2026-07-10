@@ -172,14 +172,26 @@ export async function markPaid(sessionId, payment) {
     existing?.payment?.paymentIntentId &&
     existing.payment.paymentIntentId === payment.paymentIntentId
   ) {
-    return { ok: true, alreadyPaid: true };
+    return { ok: true, alreadyPaid: true, payment: existing.payment };
   }
+
+  const paymentRecord = {
+    ...payment,
+    recordedAt: now,
+  };
 
   await db.collection('samplingSessions').updateOne(
     { sessionId },
     {
       $set: {
-        payment,
+        payment: paymentRecord,
+        paymentIntent: {
+          paymentIntentId: payment.paymentIntentId,
+          status: payment.status ?? 'succeeded',
+          amount: payment.amount,
+          currency: payment.currency,
+          updatedAt: now,
+        },
         status: 'paid',
         updatedAt: now,
       },
@@ -189,5 +201,5 @@ export async function markPaid(sessionId, payment) {
     },
   );
 
-  return { ok: true, alreadyPaid: false };
+  return { ok: true, alreadyPaid: false, payment: paymentRecord };
 }

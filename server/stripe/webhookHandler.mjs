@@ -21,6 +21,33 @@ const readRawBody = (req) =>
     req.on('error', reject);
   });
 
+function buildPaymentRecord(intent, source, extras = {}) {
+  const charge =
+    intent.latest_charge && typeof intent.latest_charge === 'object'
+      ? intent.latest_charge
+      : null;
+
+  return {
+    paymentIntentId: intent.id,
+    status: intent.status,
+    amount: intent.amount,
+    amountReceived: intent.amount_received ?? intent.amount,
+    currency: intent.currency,
+    livemode: Boolean(intent.livemode),
+    paymentMethodTypes: intent.payment_method_types ?? [],
+    paymentMethodId:
+      typeof intent.payment_method === 'string'
+        ? intent.payment_method
+        : intent.payment_method?.id ?? null,
+    receiptEmail: intent.receipt_email ?? null,
+    chargeId: typeof intent.latest_charge === 'string' ? intent.latest_charge : charge?.id ?? null,
+    receiptUrl: charge?.receipt_url ?? null,
+    paidAt: new Date((intent.created || Math.floor(Date.now() / 1000)) * 1000),
+    source,
+    ...extras,
+  };
+}
+
 export async function handleStripeWebhook(req, res) {
   if (req.method !== 'POST') {
     sendJson(res, 405, { error: 'Method not allowed' });
@@ -59,17 +86,26 @@ export async function handleStripeWebhook(req, res) {
       const sessionId = intent.metadata?.samplingSessionId;
 
       if (sessionId) {
-        await markPaid(sessionId, {
-          paymentIntentId: intent.id,
-          amount: intent.amount,
-          currency: intent.currency,
-          paidAt: new Date(intent.created * 1000),
-          source: 'stripe_webhook',
-          eventId: event.id,
-        });
+        let fullIntent = intent;
+        try {
+          const stripe = new Stripe(secretKey);
+          fullIntent = await stripe.paymentIntents.retrieve(intent.id, {
+            expand: ['latest_charge'],
+          });
+        } catch {
+          // Fall back to webhook payload if retrieve fails.
+        }
+
+        await markPaid(
+          sessionId,
+          buildPaymentRecord(fullIntent, 'stripe_webhook', { eventId: event.id }),
+        );
         console.log(`[stripe-webhook] Marked session ${sessionId} as paid (${intent.id})`);
       } else {
-        console.warn('[stripe-webhook] payment_intent.succeeded without samplingSessionId metadata', intent.id);
+        console.warn(
+          '[stripe-webhook] payment_intent.succeeded without samplingSessionId metadata',
+          intent.id,
+        );
       }
     }
 
@@ -81,6 +117,7 @@ export async function handleStripeWebhook(req, res) {
           paymentIntentId: intent.id,
           status: 'payment_failed',
           lastPaymentError: intent.last_payment_error?.message ?? null,
+          updatedAt: new Date(),
         });
       }
     }

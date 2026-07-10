@@ -7,9 +7,12 @@ import { handleLeadRequest, readJsonBody, sendJson } from './server/leadHandler.
 import { listPublicFragrances, getPublicFragranceBySlug } from './server/fragrance/repo.mjs';
 import { toPublicFragrance } from './server/fragrance/publicSerializer.mjs';
 import { recommendFive } from './server/sampling/recommendationEngine.mjs';
-import { upsertSamplingSession, finalizeCuration, attachCheckoutDetails, recordPaymentIntent } from './server/sampling/repo.mjs';
+import { upsertSamplingSession, finalizeCuration, attachCheckoutDetails } from './server/sampling/repo.mjs';
 import { handleStripeWebhook } from './server/stripe/webhookHandler.mjs';
-import Stripe from 'stripe';
+import {
+  confirmSampleKitPayment,
+  createSampleKitPaymentIntent,
+} from './server/stripe/sampleKitPayment.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, 'dist');
@@ -275,8 +278,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (url.pathname === '/api/checkout/create-payment-intent' && req.method === 'POST') {
-    const secret = process.env.STRIPE_SECRET_KEY;
-    if (!secret) {
+    if (!process.env.STRIPE_SECRET_KEY) {
       sendJson(res, 501, { error: 'Stripe is not configured' });
       return;
     }
@@ -292,31 +294,39 @@ const server = http.createServer(async (req, res) => {
       }
 
       await attachCheckoutDetails(sessionId, checkout);
-
-      const amount = Number(process.env.STRIPE_SAMPLE_KIT_AMOUNT_CENTS || 10000);
-      const currency = process.env.STRIPE_CURRENCY || 'usd';
-      const stripe = new Stripe(secret);
-
-      const intent = await stripe.paymentIntents.create({
-        amount,
-        currency,
-        automatic_payment_methods: { enabled: true },
-        metadata: { samplingSessionId: sessionId, product: 'curated-sample-kit' },
-      });
-
-      await recordPaymentIntent(sessionId, {
-        paymentIntentId: intent.id,
-        status: intent.status,
-        amount: intent.amount,
-        currency: intent.currency,
-        createdAt: new Date(),
-      });
-
-      sendJson(res, 200, { clientSecret: intent.client_secret, paymentIntentId: intent.id });
+      const result = await createSampleKitPaymentIntent(sessionId);
+      sendJson(res, 200, result);
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Server error';
       sendJson(res, 500, { error: message });
+      return;
+    }
+  }
+
+  if (url.pathname === '/api/checkout/confirm-payment' && req.method === 'POST') {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      sendJson(res, 501, { error: 'Stripe is not configured' });
+      return;
+    }
+
+    try {
+      const payload = await readJsonBody(req);
+      const sessionId = String(payload?.sessionId ?? '');
+      const paymentIntentId = String(payload?.paymentIntentId ?? '');
+      const result = await confirmSampleKitPayment({ sessionId, paymentIntentId });
+
+      if (!result.ok) {
+        sendJson(res, 409, { error: result.error, status: result.status });
+        return;
+      }
+
+      sendJson(res, 200, result);
+      return;
+    } catch (error) {
+      const statusCode = typeof error?.statusCode === 'number' ? error.statusCode : 500;
+      const message = error instanceof Error ? error.message : 'Server error';
+      sendJson(res, statusCode, { error: message });
       return;
     }
   }

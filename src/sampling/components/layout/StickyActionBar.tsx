@@ -38,14 +38,19 @@ export const PrimaryButton = ({
 export const TextLinkButton = ({
   children,
   onClick,
+  disabled = false,
+  type = 'button',
 }: {
   children: ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
+  type?: 'button' | 'submit';
 }) => (
   <button
-    type="button"
+    type={type}
     onClick={onClick}
-    className="text-sm font-semibold text-[#FF600A] underline-offset-2 hover:underline"
+    disabled={disabled}
+    className="text-sm font-semibold text-[#FF600A] underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-40"
   >
     {children}
   </button>

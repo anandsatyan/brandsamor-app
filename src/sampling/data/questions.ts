@@ -34,7 +34,6 @@ export const BUSINESS_TYPE_OPTIONS: OptionItem[] = [
   { value: 'hospitality', label: 'Hospitality, gifting, or events', icon: Gift },
   { value: 'standalone', label: 'Standalone fragrance brand', icon: Heart },
   { value: 'other', label: 'Other', icon: HelpCircle },
-  { value: 'unsure', label: "I'm not sure how to classify it", icon: HelpCircle },
 ];
 
 export const SCENT_EXPRESSION_OPTIONS: OptionItem[] = [
@@ -175,7 +174,7 @@ export const LABEL_MAP: Record<string, string> = {
   hospitality: 'Hospitality, gifting, or events',
   standalone: 'Standalone fragrance brand',
   other: 'Other',
-  unsure: "Not sure — Brandsamor will recommend",
+  unsure: "I'm not sure",
   'feminine-leaning': 'Feminine-leaning',
   'masculine-leaning': 'Masculine-leaning',
   'gender-neutral': 'Gender-neutral',

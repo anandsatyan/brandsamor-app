@@ -8,6 +8,7 @@ type SamplingEvent =
   | 'curation_started'
   | 'curation_completed'
   | 'prototype_completed'
+  | 'payment_succeeded'
   | 'brief_reset';
 
 export const trackSamplingEvent = (

@@ -7,10 +7,12 @@ import {
   upsertSamplingSession,
   finalizeCuration,
   attachCheckoutDetails,
-  recordPaymentIntent,
 } from '../server/sampling/repo.mjs';
 import { handleStripeWebhook } from '../server/stripe/webhookHandler.mjs';
-import Stripe from 'stripe';
+import {
+  confirmSampleKitPayment,
+  createSampleKitPaymentIntent,
+} from '../server/stripe/sampleKitPayment.mjs';
 
 /**
  * Exposes sampling / fragrance / checkout APIs during `npm run dev`
@@ -83,8 +85,7 @@ export const samplingApiPlugin = () => ({
         }
 
         if (pathname === '/api/checkout/create-payment-intent' && req.method === 'POST') {
-          const secret = process.env.STRIPE_SECRET_KEY;
-          if (!secret) {
+          if (!process.env.STRIPE_SECRET_KEY) {
             sendJson(res, 501, { error: 'Stripe is not configured' });
             return;
           }
@@ -99,27 +100,28 @@ export const samplingApiPlugin = () => ({
           }
 
           await attachCheckoutDetails(sessionId, checkout);
+          const result = await createSampleKitPaymentIntent(sessionId);
+          sendJson(res, 200, result);
+          return;
+        }
 
-          const amount = Number(process.env.STRIPE_SAMPLE_KIT_AMOUNT_CENTS || 10000);
-          const currency = process.env.STRIPE_CURRENCY || 'usd';
-          const stripe = new Stripe(secret);
+        if (pathname === '/api/checkout/confirm-payment' && req.method === 'POST') {
+          if (!process.env.STRIPE_SECRET_KEY) {
+            sendJson(res, 501, { error: 'Stripe is not configured' });
+            return;
+          }
 
-          const intent = await stripe.paymentIntents.create({
-            amount,
-            currency,
-            automatic_payment_methods: { enabled: true },
-            metadata: { samplingSessionId: sessionId, product: 'curated-sample-kit' },
-          });
+          const payload = await readJsonBody(req);
+          const sessionId = String(payload?.sessionId ?? '');
+          const paymentIntentId = String(payload?.paymentIntentId ?? '');
+          const result = await confirmSampleKitPayment({ sessionId, paymentIntentId });
 
-          await recordPaymentIntent(sessionId, {
-            paymentIntentId: intent.id,
-            status: intent.status,
-            amount: intent.amount,
-            currency: intent.currency,
-            createdAt: new Date(),
-          });
+          if (!result.ok) {
+            sendJson(res, 409, { error: result.error, status: result.status });
+            return;
+          }
 
-          sendJson(res, 200, { clientSecret: intent.client_secret, paymentIntentId: intent.id });
+          sendJson(res, 200, result);
           return;
         }
 
