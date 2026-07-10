@@ -15,8 +15,8 @@ import { WizardFooter } from '../components/layout/WizardFooter';
 import { StickyActionBar, PrimaryButton, TextLinkButton } from '../components/layout/StickyActionBar';
 import { VialIllustration } from '../components/sampling/VialIllustration';
 import { CurationTransition } from '../components/sampling/CurationTransition';
-import { ShopifyCheckout, type CheckoutFormData } from '../components/checkout/ShopifyCheckout';
-import { StripePaymentStep } from '../components/checkout/StripePaymentStep';
+import { ShopifyCheckout, type CheckoutFormData, type PaidCheckoutResult } from '../components/checkout/ShopifyCheckout';
+import { OrderThankYou } from '../components/checkout/OrderThankYou';
 import { ReviewSection } from '../components/feedback/ReviewSection';
 import { ConfirmDialog } from '../components/feedback/ConfirmDialog';
 import { getStripePublishableKey } from '../lib/stripeClient';
@@ -97,7 +97,8 @@ export const SamplingExperience = () => {
   const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [paymentRecord, setPaymentRecord] = useState<Record<string, unknown> | null>(null);
-  const [paying, setPaying] = useState(false);
+  const [orderRecord, setOrderRecord] = useState<Record<string, unknown> | null>(null);
+  const [initializingPayment, setInitializingPayment] = useState(false);
   const [finalizingReturn, setFinalizingReturn] = useState(false);
 
   useEffect(() => {
@@ -132,6 +133,7 @@ export const SamplingExperience = () => {
         if (cancelled) return;
         setPaymentIntentId(returnedIntentId);
         setPaymentRecord(data.payment ?? null);
+        setOrderRecord(data.order ?? null);
         persist({
           ...state,
           sessionId: returnedSessionId,
@@ -858,54 +860,69 @@ export const SamplingExperience = () => {
     </ScreenTransition>
   );
 
-  const handleCheckoutPay = async (checkout: CheckoutFormData) => {
+  const ensurePaymentIntent = async (checkout: CheckoutFormData) => {
     setCheckoutError(null);
-    setPaying(true);
-    try {
-      if (!sessionId) throw new Error('Missing sampling session. Please restart checkout.');
-      if (!getStripePublishableKey()) {
-        throw new Error('Stripe publishable key is not configured (VITE_STRIPE_PUBLISHABLE_KEY).');
-      }
+    if (!sessionId) {
+      setCheckoutError('Missing sampling session. Please restart checkout.');
+      return;
+    }
+    if (!getStripePublishableKey()) {
+      setCheckoutError('Stripe publishable key is not configured (VITE_STRIPE_PUBLISHABLE_KEY).');
+      return;
+    }
+    if (paymentClientSecret && paymentIntentId) return;
 
+    setInitializingPayment(true);
+    try {
       const res = await fetch('/api/checkout/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, checkout }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.error ?? 'Checkout failed');
+      if (!res.ok) throw new Error(data?.error ?? 'Could not initialize payment');
       if (!data?.clientSecret || !data?.paymentIntentId) {
         throw new Error('Payment could not be initialized');
       }
       setPaymentClientSecret(data.clientSecret);
       setPaymentIntentId(data.paymentIntentId);
-      setPaymentRecord(null);
-      goToStep(STEP_DONE);
     } catch (e) {
-      setCheckoutError(e instanceof Error ? e.message : 'Checkout failed');
+      setCheckoutError(e instanceof Error ? e.message : 'Could not initialize payment');
     } finally {
-      setPaying(false);
+      setInitializingPayment(false);
     }
   };
 
-  const handlePaymentPaid = (payment: Record<string, unknown>) => {
-    setPaymentRecord(payment);
+  const handlePaymentPaid = (result: PaidCheckoutResult) => {
+    setPaymentRecord(result.payment);
+    setOrderRecord(result.order);
     setPaymentClientSecret(null);
     persist({ ...state, completed: true, currentStep: STEP_DONE });
+    goToStep(STEP_DONE);
     trackSamplingEvent('payment_succeeded', {
-      paymentIntentId: String(payment.paymentIntentId ?? paymentIntentId ?? ''),
+      paymentIntentId: String(result.payment.paymentIntentId ?? paymentIntentId ?? ''),
+      sampleOrderNumber: result.order?.sampleOrderNumber,
+      transactionId: result.order?.transactionId,
     });
   };
 
   const renderCheckout = () => (
     <ScreenTransition>
-      <ShopifyCheckout
-        lead={lead}
-        fragrances={recommendedFragrances}
-        onPay={handleCheckoutPay}
-        error={checkoutError}
-        paying={paying}
-      />
+      {!sessionId ? (
+        <p className="type-body text-[#725F52]">Missing session. Please restart the sampling brief.</p>
+      ) : (
+        <ShopifyCheckout
+          lead={lead}
+          fragrances={recommendedFragrances}
+          sessionId={sessionId}
+          clientSecret={paymentClientSecret}
+          paymentIntentId={paymentIntentId}
+          initializingPayment={initializingPayment}
+          onEnsurePaymentIntent={ensurePaymentIntent}
+          onPaid={handlePaymentPaid}
+          error={checkoutError}
+        />
+      )}
     </ScreenTransition>
   );
 
@@ -921,74 +938,19 @@ export const SamplingExperience = () => {
       );
     }
 
-    if (paymentRecord) {
-      const amount =
-        typeof paymentRecord?.amount === 'number'
-          ? `$${(paymentRecord.amount / 100).toFixed(2)}`
-          : '$100.00';
+    if (paymentRecord || orderRecord) {
       return (
         <ScreenTransition>
-          <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-            Payment received. Thank you.
-          </h1>
-          <p className="mt-3 type-body text-[#725F52]">
-            Your curated sample kit order is confirmed. Brandsamor will follow up with shipping
-            details using the contact information from your brief.
-          </p>
-          <div className="mt-6 rounded-2xl border border-[#EADFD3] bg-[#FFFDFC] p-5 space-y-2 type-body-sm text-[#725F52]">
-            <p>
-              <span className="font-semibold text-[#2B1809]">Amount:</span> {amount}
-            </p>
-            {Boolean(paymentIntentId || paymentRecord?.paymentIntentId) && (
-              <p>
-                <span className="font-semibold text-[#2B1809]">Reference:</span>{' '}
-                {String(paymentRecord?.paymentIntentId ?? paymentIntentId)}
-              </p>
-            )}
+          <div ref={headingRef} tabIndex={-1}>
+            <OrderThankYou
+              order={orderRecord}
+              payment={paymentRecord}
+              onDone={() => {
+                persist({ ...state, completed: true });
+                goToStep(STEP_WELCOME);
+              }}
+            />
           </div>
-          <div className="mt-8">
-            <StickyActionBar>
-              <PrimaryButton
-                onClick={() => {
-                  persist({ ...state, completed: true });
-                  goToStep(STEP_WELCOME);
-                }}
-              >
-                Done
-              </PrimaryButton>
-            </StickyActionBar>
-          </div>
-        </ScreenTransition>
-      );
-    }
-
-    if (!paymentClientSecret || !paymentIntentId || !sessionId) {
-      return (
-        <ScreenTransition>
-          <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-            Payment unavailable
-          </h1>
-          <p className="mt-3 type-body text-[#725F52]">
-            We could not load the payment form. Return to checkout and try again.
-          </p>
-          <div className="mt-8">
-            <StickyActionBar>
-              <PrimaryButton onClick={() => goToStep(STEP_CHECKOUT)}>Back to checkout</PrimaryButton>
-            </StickyActionBar>
-          </div>
-        </ScreenTransition>
-      );
-    }
-
-    if (!getStripePublishableKey()) {
-      return (
-        <ScreenTransition>
-          <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-            Payment configuration needed
-          </h1>
-          <p className="mt-3 type-body text-[#725F52]">
-            Add <code>VITE_STRIPE_PUBLISHABLE_KEY</code> to your environment and restart the app.
-          </p>
         </ScreenTransition>
       );
     }
@@ -996,19 +958,15 @@ export const SamplingExperience = () => {
     return (
       <ScreenTransition>
         <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-          Pay for your sample kit
+          Payment unavailable
         </h1>
         <p className="mt-3 type-body text-[#725F52]">
-          Enter your payment details to complete your Brandsamor curated sample kit order.
+          We could not load your confirmation. Return to checkout and try again.
         </p>
         <div className="mt-8">
-          <StripePaymentStep
-            clientSecret={paymentClientSecret}
-            paymentIntentId={paymentIntentId}
-            sessionId={sessionId}
-            onBack={() => goToStep(STEP_CHECKOUT)}
-            onPaid={handlePaymentPaid}
-          />
+          <StickyActionBar>
+            <PrimaryButton onClick={() => goToStep(STEP_CHECKOUT)}>Back to checkout</PrimaryButton>
+          </StickyActionBar>
         </div>
       </ScreenTransition>
     );

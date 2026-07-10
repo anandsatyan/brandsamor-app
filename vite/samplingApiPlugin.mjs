@@ -13,6 +13,13 @@ import {
   confirmSampleKitPayment,
   createSampleKitPaymentIntent,
 } from '../server/stripe/sampleKitPayment.mjs';
+import {
+  handleAdminLogin,
+  handleAdminLogout,
+  handleAdminOrderDetail,
+  handleAdminOrdersList,
+  handleAdminSession,
+} from '../server/admin/handlers.mjs';
 
 /**
  * Exposes sampling / fragrance / checkout APIs during `npm run dev`
@@ -100,7 +107,11 @@ export const samplingApiPlugin = () => ({
           }
 
           await attachCheckoutDetails(sessionId, checkout);
-          const result = await createSampleKitPaymentIntent(sessionId);
+          const result = await createSampleKitPaymentIntent(sessionId, {
+            reusePaymentIntentId: payload?.reusePaymentIntentId
+              ? String(payload.reusePaymentIntentId)
+              : undefined,
+          });
           sendJson(res, 200, result);
           return;
         }
@@ -114,7 +125,11 @@ export const samplingApiPlugin = () => ({
           const payload = await readJsonBody(req);
           const sessionId = String(payload?.sessionId ?? '');
           const paymentIntentId = String(payload?.paymentIntentId ?? '');
-          const result = await confirmSampleKitPayment({ sessionId, paymentIntentId });
+          const result = await confirmSampleKitPayment({
+            sessionId,
+            paymentIntentId,
+            checkout: payload?.checkout ?? null,
+          });
 
           if (!result.ok) {
             sendJson(res, 409, { error: result.error, status: result.status });
@@ -122,6 +137,34 @@ export const samplingApiPlugin = () => ({
           }
 
           sendJson(res, 200, result);
+          return;
+        }
+
+        if (pathname === '/api/admin/login' && req.method === 'POST') {
+          await handleAdminLogin(req, res);
+          return;
+        }
+
+        if (pathname === '/api/admin/logout' && req.method === 'POST') {
+          await handleAdminLogout(req, res);
+          return;
+        }
+
+        if (pathname === '/api/admin/session' && req.method === 'GET') {
+          await handleAdminSession(req, res);
+          return;
+        }
+
+        if (pathname === '/api/admin/orders' && req.method === 'GET') {
+          await handleAdminOrdersList(req, res);
+          return;
+        }
+
+        if (pathname.startsWith('/api/admin/orders/') && req.method === 'GET') {
+          const sampleOrderNumber = decodeURIComponent(
+            pathname.replace('/api/admin/orders/', ''),
+          );
+          await handleAdminOrderDetail(req, res, sampleOrderNumber);
           return;
         }
 

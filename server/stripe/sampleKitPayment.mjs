@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { markPaid, recordPaymentIntent } from '../sampling/repo.mjs';
+import { markPaid, recordPaymentIntent, attachCheckoutDetails } from '../sampling/repo.mjs';
 
 function getStripe() {
   const secret = process.env.STRIPE_SECRET_KEY;
@@ -36,11 +36,28 @@ function buildPaymentRecord(intent, source, extras = {}) {
 
 /**
  * Create a PaymentIntent for the curated sample kit and persist intent metadata.
+ * If reusePaymentIntentId is provided, only refresh checkout attachment metadata.
  */
-export async function createSampleKitPaymentIntent(sessionId) {
+export async function createSampleKitPaymentIntent(sessionId, { reusePaymentIntentId } = {}) {
   const amount = Number(process.env.STRIPE_SAMPLE_KIT_AMOUNT_CENTS || 10000);
   const currency = process.env.STRIPE_CURRENCY || 'usd';
   const stripe = getStripe();
+
+  if (reusePaymentIntentId) {
+    const existing = await stripe.paymentIntents.retrieve(reusePaymentIntentId);
+    if (existing.metadata?.samplingSessionId !== sessionId) {
+      const err = new Error('Payment intent does not match this sampling session');
+      err.statusCode = 403;
+      throw err;
+    }
+    return {
+      clientSecret: existing.client_secret,
+      paymentIntentId: existing.id,
+      amount: existing.amount,
+      currency: existing.currency,
+      reused: true,
+    };
+  }
 
   const intent = await stripe.paymentIntents.create({
     amount,
@@ -63,17 +80,22 @@ export async function createSampleKitPaymentIntent(sessionId) {
     paymentIntentId: intent.id,
     amount: intent.amount,
     currency: intent.currency,
+    reused: false,
   };
 }
 
 /**
  * After client-side confirmation, verify the PaymentIntent with Stripe and mark the session paid.
  */
-export async function confirmSampleKitPayment({ sessionId, paymentIntentId }) {
+export async function confirmSampleKitPayment({ sessionId, paymentIntentId, checkout }) {
   if (!sessionId || !paymentIntentId) {
     const err = new Error('Missing sessionId or paymentIntentId');
     err.statusCode = 400;
     throw err;
+  }
+
+  if (checkout) {
+    await attachCheckoutDetails(sessionId, checkout);
   }
 
   const stripe = getStripe();
@@ -112,6 +134,7 @@ export async function confirmSampleKitPayment({ sessionId, paymentIntentId }) {
     ok: true,
     alreadyPaid: Boolean(result.alreadyPaid),
     status: intent.status,
-    payment,
+    payment: result.payment,
+    order: result.order,
   };
 }

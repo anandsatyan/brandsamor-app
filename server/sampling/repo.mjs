@@ -1,5 +1,10 @@
 import { getMongoDb } from '../db/mongo.mjs';
 import { randomUUID } from 'node:crypto';
+import {
+  allocateSampleOrderNumber,
+  buildOrderRecord,
+  buildTransactionId,
+} from './orderNumbers.mjs';
 
 let indexesEnsured = false;
 
@@ -12,6 +17,8 @@ export async function ensureSamplingIndexes() {
     { key: { 'lead.phone': 1 }, name: 'idx_lead_phone' },
     { key: { status: 1, updatedAt: -1 }, name: 'idx_status_updatedAt' },
     { key: { createdAt: -1 }, name: 'idx_createdAt' },
+    { key: { 'order.sampleOrderNumber': 1 }, unique: true, sparse: true, name: 'uniq_sampleOrderNumber' },
+    { key: { 'order.transactionId': 1 }, unique: true, sparse: true, name: 'uniq_transactionId' },
   ]);
   indexesEnsured = true;
 }
@@ -172,11 +179,38 @@ export async function markPaid(sessionId, payment) {
     existing?.payment?.paymentIntentId &&
     existing.payment.paymentIntentId === payment.paymentIntentId
   ) {
-    return { ok: true, alreadyPaid: true, payment: existing.payment };
+    return {
+      ok: true,
+      alreadyPaid: true,
+      payment: existing.payment,
+      order: existing.order ?? null,
+    };
   }
+
+  const orderNumber = existing?.order?.sampleOrderNumber
+    ? existing.order.sampleOrderNumber
+    : await allocateSampleOrderNumber();
+
+  const transactionId =
+    existing?.order?.transactionId ||
+    buildTransactionId(payment.paymentIntentId, orderNumber);
+
+  const order = {
+    ...buildOrderRecord({
+      orderNumber,
+      transactionId,
+      paymentIntentId: payment.paymentIntentId,
+    }),
+    paidAt: payment.paidAt ?? now,
+    amount: payment.amount,
+    currency: payment.currency,
+    product: 'curated-sample-kit',
+  };
 
   const paymentRecord = {
     ...payment,
+    transactionId,
+    sampleOrderNumber: orderNumber,
     recordedAt: now,
   };
 
@@ -184,6 +218,7 @@ export async function markPaid(sessionId, payment) {
     { sessionId },
     {
       $set: {
+        order,
         payment: paymentRecord,
         paymentIntent: {
           paymentIntentId: payment.paymentIntentId,
@@ -196,10 +231,10 @@ export async function markPaid(sessionId, payment) {
         updatedAt: now,
       },
       $push: {
-        stepHistory: { step: 'paid', completedAt: now },
+        stepHistory: { step: 'paid', completedAt: now, sampleOrderNumber: orderNumber },
       },
     },
   );
 
-  return { ok: true, alreadyPaid: false, payment: paymentRecord };
+  return { ok: true, alreadyPaid: false, payment: paymentRecord, order };
 }

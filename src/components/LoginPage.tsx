@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { type FormEvent, useState } from 'react';
 import { Lock, Mail } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
@@ -11,11 +11,38 @@ const inputClassName =
 
 export const LoginPage = () => {
   const meta = PAGE_METADATA['/login'];
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError('Wrong Username and Password.');
+    setError('');
+    setSubmitting(true);
+
+    const form = new FormData(event.currentTarget);
+    const email = String(form.get('email') ?? '');
+    const password = String(form.get('password') ?? '');
+
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.error ?? 'Wrong email or password.');
+      }
+      const next = searchParams.get('next') || '/admin/orders';
+      navigate(next.startsWith('/') ? next : '/admin/orders', { replace: true });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Wrong email or password.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -38,6 +65,11 @@ export const LoginPage = () => {
           className="space-y-5 rounded-2xl border border-border bg-secondary p-6 sm:p-8 shadow-sm"
           noValidate
         >
+          <div className="space-y-1">
+            <h1 className="type-h3">Admin sign in</h1>
+            <p className="type-body-sm text-body">Access sample kit orders and payment records.</p>
+          </div>
+
           <div className="space-y-2">
             <label htmlFor="login-email" className="block text-sm font-medium text-heading">
               Email address
@@ -52,8 +84,9 @@ export const LoginPage = () => {
                 id="login-email"
                 name="email"
                 type="email"
-                autoComplete="email"
-                placeholder="you@yourbrand.com"
+                autoComplete="username"
+                required
+                placeholder="you@brandsamor.com"
                 className={inputClassName}
               />
             </div>
@@ -74,43 +107,25 @@ export const LoginPage = () => {
                 name="password"
                 type="password"
                 autoComplete="current-password"
+                required
                 placeholder="Enter your password"
                 className={inputClassName}
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4 text-sm">
-            <label className="flex items-center gap-2 text-body">
-              <input
-                type="checkbox"
-                name="remember"
-                className="h-4 w-4 rounded border-border text-accent focus:ring-accent/40"
-              />
-              Remember me
-            </label>
-            <Link to="/contact" className="font-medium text-accent hover:opacity-80">
-              Forgot password?
-            </Link>
-          </div>
-
-          <button type="submit" className="btn-primary w-full justify-center">
-            Sign in
+          <button type="submit" className="btn-primary w-full justify-center" disabled={submitting}>
+            {submitting ? 'Signing in…' : 'Sign in'}
           </button>
 
           {error && (
-            <p className="rounded-lg border border-border bg-surface px-4 py-3 text-center text-sm text-heading" role="alert">
+            <p
+              className="rounded-lg border border-border bg-surface px-4 py-3 text-center text-sm text-heading"
+              role="alert"
+            >
               {error}
             </p>
           )}
-
-          <p className="text-center text-xs leading-relaxed text-body">
-            Need help?{' '}
-            <Link to="/contact" className="font-medium text-accent hover:opacity-80">
-              Contact the Brandsamor team
-            </Link>
-            .
-          </p>
         </form>
       </main>
     </div>

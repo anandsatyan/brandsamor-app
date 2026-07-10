@@ -13,6 +13,13 @@ import {
   confirmSampleKitPayment,
   createSampleKitPaymentIntent,
 } from './server/stripe/sampleKitPayment.mjs';
+import {
+  handleAdminLogin,
+  handleAdminLogout,
+  handleAdminOrderDetail,
+  handleAdminOrdersList,
+  handleAdminSession,
+} from './server/admin/handlers.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, 'dist');
@@ -36,6 +43,7 @@ const PUBLIC_ROUTES = new Set([
   '/get-started',
   '/curated-sampling',
   '/login',
+  '/admin/orders',
   '/privacy-policy',
   '/terms',
   '/refund-and-cancellation-policy',
@@ -75,7 +83,7 @@ const PUBLIC_ROUTES = new Set([
 ]);
 
 /** Client-rendered routes without prerendered HTML — serve root SPA shell. */
-const SPA_ONLY_ROUTES = new Set(['/curated-sampling']);
+const SPA_ONLY_ROUTES = new Set(['/curated-sampling', '/admin/orders', '/login']);
 
 const STATIC_FILES = new Set([
   '/robots.txt',
@@ -170,7 +178,7 @@ const resolveFile = (urlPath) => {
     }
   }
 
-  if (PUBLIC_ROUTES.has(normalized)) {
+  if (PUBLIC_ROUTES.has(normalized) || normalized.startsWith('/admin/orders/')) {
     const htmlPath =
       normalized === '/'
         ? path.join(distDir, 'index.html')
@@ -178,7 +186,7 @@ const resolveFile = (urlPath) => {
     if (fs.existsSync(htmlPath)) {
       return { filePath: htmlPath, status: 200 };
     }
-    if (SPA_ONLY_ROUTES.has(normalized)) {
+    if (SPA_ONLY_ROUTES.has(normalized) || normalized.startsWith('/admin/orders')) {
       const spaIndex = path.join(distDir, 'index.html');
       if (fs.existsSync(spaIndex)) {
         return { filePath: spaIndex, status: 200 };
@@ -277,6 +285,32 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (url.pathname === '/api/admin/login' && req.method === 'POST') {
+    await handleAdminLogin(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/admin/logout' && req.method === 'POST') {
+    await handleAdminLogout(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/admin/session' && req.method === 'GET') {
+    await handleAdminSession(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/admin/orders' && req.method === 'GET') {
+    await handleAdminOrdersList(req, res);
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/admin/orders/') && req.method === 'GET') {
+    const sampleOrderNumber = decodeURIComponent(url.pathname.replace('/api/admin/orders/', ''));
+    await handleAdminOrderDetail(req, res, sampleOrderNumber);
+    return;
+  }
+
   if (url.pathname === '/api/checkout/create-payment-intent' && req.method === 'POST') {
     if (!process.env.STRIPE_SECRET_KEY) {
       sendJson(res, 501, { error: 'Stripe is not configured' });
@@ -294,7 +328,11 @@ const server = http.createServer(async (req, res) => {
       }
 
       await attachCheckoutDetails(sessionId, checkout);
-      const result = await createSampleKitPaymentIntent(sessionId);
+      const result = await createSampleKitPaymentIntent(sessionId, {
+        reusePaymentIntentId: payload?.reusePaymentIntentId
+          ? String(payload.reusePaymentIntentId)
+          : undefined,
+      });
       sendJson(res, 200, result);
       return;
     } catch (error) {
@@ -314,7 +352,11 @@ const server = http.createServer(async (req, res) => {
       const payload = await readJsonBody(req);
       const sessionId = String(payload?.sessionId ?? '');
       const paymentIntentId = String(payload?.paymentIntentId ?? '');
-      const result = await confirmSampleKitPayment({ sessionId, paymentIntentId });
+      const result = await confirmSampleKitPayment({
+        sessionId,
+        paymentIntentId,
+        checkout: payload?.checkout ?? null,
+      });
 
       if (!result.ok) {
         sendJson(res, 409, { error: result.error, status: result.status });
