@@ -3,7 +3,7 @@ import { kbArticlePath } from '../content/knowledgeBase/types';
 
 export const CANONICAL_ORIGIN = 'https://www.brandsamor.com';
 
-export const OG_IMAGE = `${CANONICAL_ORIGIN}/og-image.jpg`;
+export const OG_IMAGE = `${CANONICAL_ORIGIN}/perfume-bottle-silhouette-bg-3.png`;
 
 export const OG_SITE_NAME = 'Brandsamor';
 

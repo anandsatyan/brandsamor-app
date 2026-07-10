@@ -83,6 +83,7 @@ const STATIC_FILES = new Set([
   '/humans.txt',
   '/og-image.jpg',
   '/og-image.png',
+  '/perfume-bottle-silhouette-bg-3.png',
   '/brandsamor-favicon-dark.png',
   '/brandsamor-logo.png',
   '/favicon.svg',
