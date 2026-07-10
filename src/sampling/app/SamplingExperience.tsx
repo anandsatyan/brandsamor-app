@@ -15,7 +15,7 @@ import { WizardFooter } from '../components/layout/WizardFooter';
 import { StickyActionBar, PrimaryButton, TextLinkButton } from '../components/layout/StickyActionBar';
 import { VialIllustration } from '../components/sampling/VialIllustration';
 import { CurationTransition } from '../components/sampling/CurationTransition';
-import { ShopifyCheckout, type CheckoutFormData } from '../components/checkout/ShopifyCheckout';
+import { ShopifyCheckout, type CheckoutFormData, type CheckoutPayHelpers } from '../components/checkout/ShopifyCheckout';
 import { ReviewSection } from '../components/feedback/ReviewSection';
 import { ConfirmDialog } from '../components/feedback/ConfirmDialog';
 
@@ -41,6 +41,7 @@ import { trackSamplingEvent } from '../lib/analytics';
 import { runRecommendationEngine } from '../lib/recommendationEngine';
 import { saveSamplingStep } from '../lib/samplingApi';
 import { fetchPublicFragrances, type PublicFragrance } from '../lib/fragranceApi';
+import { getStripePromise, fetchStripeConfig } from '../lib/stripeClient';
 import { hasContactErrors, validateContact } from '../lib/validation';
 import {
   STEP_BRAND,
@@ -94,12 +95,49 @@ export const SamplingExperience = () => {
   const [recommendedFragrances, setRecommendedFragrances] = useState<PublicFragrance[]>([]);
   const [loadingFragrances, setLoadingFragrances] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
-  const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
   const [paying, setPaying] = useState(false);
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
   }, [currentStep]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const redirectStatus = params.get('redirect_status');
+    const checkoutFlag = params.get('checkout');
+    const clientSecret = params.get('payment_intent_client_secret');
+
+    if (checkoutFlag !== 'complete' && redirectStatus !== 'succeeded' && redirectStatus !== 'processing') {
+      return;
+    }
+
+    let cancelled = false;
+    (async () => {
+      try {
+        if (clientSecret) {
+          const config = await fetchStripeConfig();
+          const stripe = await getStripePromise(config.publishableKey);
+          const result = await stripe?.retrievePaymentIntent(clientSecret);
+          const status = result?.paymentIntent?.status;
+          if (status && status !== 'succeeded' && status !== 'processing') {
+            return;
+          }
+        }
+        if (cancelled) return;
+        persist({ ...state, completed: true, currentStep: STEP_DONE });
+        trackSamplingEvent('prototype_completed');
+        window.history.replaceState({}, '', '/curated-sampling');
+      } catch {
+        // Keep the user on their current step if return verification fails.
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+    // Only run on mount for Stripe redirect returns.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const completeStep = useCallback(
     async (step: string, nextStep: number) => {
@@ -854,7 +892,7 @@ export const SamplingExperience = () => {
     </ScreenTransition>
   );
 
-  const handleCheckoutPay = async (checkout: CheckoutFormData) => {
+  const handleCheckoutPay = async (checkout: CheckoutFormData, helpers: CheckoutPayHelpers) => {
     setCheckoutError(null);
     setPaying(true);
     try {
@@ -865,8 +903,32 @@ export const SamplingExperience = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? 'Checkout failed');
-      setPaymentClientSecret(data.clientSecret);
-      goToStep(STEP_DONE);
+
+      const clientSecret = String(data.clientSecret ?? '');
+      if (!clientSecret) throw new Error('Missing payment client secret');
+
+      const { error, paymentIntent } = await helpers.stripe.confirmPayment({
+        elements: helpers.elements,
+        clientSecret,
+        confirmParams: {
+          return_url: `${window.location.origin}/curated-sampling?checkout=complete`,
+          receipt_email: checkout.email || undefined,
+        },
+        redirect: 'if_required',
+      });
+
+      if (error) {
+        throw new Error(error.message ?? 'Payment failed');
+      }
+
+      const status = paymentIntent?.status;
+      if (status === 'succeeded' || status === 'processing') {
+        persist({ ...state, completed: true, currentStep: STEP_DONE });
+        trackSamplingEvent('prototype_completed');
+        return;
+      }
+
+      throw new Error('Payment was not completed. Please try again.');
     } catch (e) {
       setCheckoutError(e instanceof Error ? e.message : 'Checkout failed');
     } finally {
@@ -889,13 +951,12 @@ export const SamplingExperience = () => {
   const renderDone = () => (
     <ScreenTransition>
       <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-        Payment step ready.
+        Payment received.
       </h1>
       <p className="mt-3 type-body text-[#725F52]">
-        Stripe is wired on the server. Once you add your Stripe keys in <code>.env</code>, we’ll use the returned
-        PaymentIntent client secret to complete payment on this screen.
+        Thank you. Your curated sample kit order is confirmed. We’ll follow up by email with shipping details and
+        next steps for your fragrance brief.
       </p>
-      <p className="mt-3 type-caption text-[#725F52] break-all">clientSecret: {paymentClientSecret ?? '—'}</p>
       <div className="mt-8">
         <StickyActionBar>
           <PrimaryButton
@@ -904,7 +965,7 @@ export const SamplingExperience = () => {
               goToStep(STEP_WELCOME);
             }}
           >
-            Exit
+            Done
           </PrimaryButton>
         </StickyActionBar>
       </div>
@@ -1074,7 +1135,12 @@ export const SamplingExperience = () => {
         currentStep={currentStep}
         onSaveExit={handleSaveExit}
         saved={saveFlash}
-        exitOnly={currentStep === STEP_COMPLETE || currentStep === STEP_CHECKOUT || currentStep === STEP_RESULTS}
+        exitOnly={
+          currentStep === STEP_COMPLETE ||
+          currentStep === STEP_CHECKOUT ||
+          currentStep === STEP_RESULTS ||
+          currentStep === STEP_DONE
+        }
         contentClassName={contentClassName}
       >
         <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
