@@ -1,7 +1,7 @@
-import { CheckCircle2, Copy, Lock, Mail } from 'lucide-react';
+import { CheckCircle2, Copy } from 'lucide-react';
 import { useState } from 'react';
 import { PrimaryButton, StickyActionBar } from '../layout/StickyActionBar';
-import { PaymentMethodIcons, StripeBadge } from './PaymentTrustSignals';
+import { PaymentTrustSignals } from './PaymentTrustSignals';
 
 type OrderThankYouProps = {
   order: Record<string, unknown> | null;
@@ -100,28 +100,8 @@ export const OrderThankYou = ({ order, payment, onDone }: OrderThankYouProps) =>
         </div>
       </div>
 
-      <div className="mt-5 space-y-3 rounded-2xl border border-[#EADFD3] bg-[#faf7f2] p-5 text-sm text-[#725F52]">
-        <div className="flex items-start gap-2.5">
-          <Lock className="mt-0.5 h-4 w-4 shrink-0 text-[#2B1809]" aria-hidden="true" />
-          <p>
-            Your payment was processed with 256-bit encryption through Stripe. Keep your sample order
-            number handy if you contact support.
-          </p>
-        </div>
-        <div className="flex items-start gap-2.5">
-          <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#2B1809]" aria-hidden="true" />
-          <p>
-            Full refund anytime before dispatch — email{' '}
-            <a className="font-medium text-[#2B1809] underline-offset-2 hover:underline" href="mailto:info@brandsamor.com">
-              info@brandsamor.com
-            </a>{' '}
-            with your sample order number.
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#EADFD3] pt-3">
-          <PaymentMethodIcons />
-          <StripeBadge />
-        </div>
+      <div className="mt-5">
+        <PaymentTrustSignals />
       </div>
 
       <div className="mt-8">

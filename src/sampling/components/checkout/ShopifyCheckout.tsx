@@ -532,7 +532,7 @@ export const ShopifyCheckout = ({
 
           <section className="checkout-section">
             <h2 className="checkout-section-title">Payment</h2>
-            <p className="mt-1 text-sm text-[#725f52]">All transactions are secure and encrypted.</p>
+            <p className="mt-1 text-sm text-[#725f52]">All transactions are secure and encrypted - Powered by Stripe</p>
 
             <div className="mt-3">
               {initializingPayment && !clientSecret && (
