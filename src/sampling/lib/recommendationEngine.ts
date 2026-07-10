@@ -5,11 +5,11 @@ import type {
   RecommendationRole,
   SamplingAnswers,
 } from '../types/sampling';
-
-interface ScoredProfile {
-  profile: FragranceProfile;
-  score: number;
-}
+import {
+  buildSelectionProfileFromClient,
+  normalizePreferenceScores,
+  selectDiversifiedRecommendations,
+} from './diversifiedSelection';
 
 const FAMILY_MAP: Record<string, string[]> = {
   'fresh-clean': ['citrus-fresh', 'aquatic-aromatic'],
@@ -25,25 +25,15 @@ const FAMILY_MAP: Record<string, string[]> = {
 
 const BUSINESS_DEFAULTS: Record<string, string[]> = {
   fashion: ['sparkling-modern', 'clean-woods', 'soft-floral', 'warm-spicy', 'bright-fruity'],
-  beauty: ['soft-floral', 'soft-amber', 'green-fresh', 'clean-citrus', 'vanilla-veil'],
+  beauty: ['soft-floral', 'soft-amber', 'green-fresh', 'clean-citrus', 'sweet-gourmand'],
   salon: ['green-fresh', 'herbal-aromatic', 'soft-floral', 'clean-citrus', 'soft-amber'],
   wellness: ['green-fresh', 'clean-citrus', 'clean-woods', 'soft-amber', 'herbal-aromatic'],
   creator: ['bright-fruity', 'sparkling-modern', 'dark-gourmand', 'sporty-blue', 'rich-white-floral'],
-  hospitality: ['clean-citrus', 'clean-woods', 'soft-amber', 'sporty-blue', 'vanilla-veil'],
+  hospitality: ['clean-citrus', 'clean-woods', 'soft-amber', 'sporty-blue', 'sweet-gourmand'],
   standalone: ['dark-sensual', 'smoky-woods', 'sparkling-modern', 'rich-white-floral', 'warm-spicy'],
-  other: ['clean-citrus', 'soft-floral', 'clean-woods', 'vanilla-veil', 'sparkling-modern'],
+  other: ['clean-citrus', 'soft-floral', 'clean-woods', 'sweet-gourmand', 'sparkling-modern'],
   unsure: ['clean-citrus', 'soft-floral', 'clean-woods', 'sparkling-modern', 'soft-amber'],
 };
-
-// Fix id references - vanilla-veil should be sweet-gourmand
-const fixBusinessDefaults = () => {
-  for (const key of Object.keys(BUSINESS_DEFAULTS)) {
-    BUSINESS_DEFAULTS[key] = BUSINESS_DEFAULTS[key].map((id) =>
-      id === 'vanilla-veil' ? 'sweet-gourmand' : id,
-    );
-  }
-};
-fixBusinessDefaults();
 
 const EXCLUSION_MAP: Record<string, string> = {
   'very-sweet': 'very-sweet',
@@ -107,6 +97,7 @@ const targetAdventure = (answers: SamplingAnswers): number => {
   }
 };
 
+/** Preserve existing preference scoring (raw, unnormalized). */
 const scoreProfile = (profile: FragranceProfile, answers: SamplingAnswers): number => {
   let score = 0;
   const families = resolveFamilies(answers);
@@ -152,45 +143,6 @@ const isExcluded = (profile: FragranceProfile, exclusions: string[]): boolean =>
   });
 };
 
-const familyCount = (selected: FragranceProfile[]) => {
-  const counts: Record<string, number> = {};
-  selected.forEach((p) => {
-    counts[p.primaryFamily] = (counts[p.primaryFamily] ?? 0) + 1;
-  });
-  return counts;
-};
-
-const isNearDuplicate = (a: FragranceProfile, b: FragranceProfile) =>
-  a.primaryFamily === b.primaryFamily &&
-  Math.abs(a.sweetness - b.sweetness) <= 1 &&
-  Math.abs(a.freshness - b.freshness) <= 1;
-
-const buildReason = (profile: FragranceProfile, role: RecommendationRole, answers: SamplingAnswers): string => {
-  const families = resolveFamilies(answers);
-  if (role === 'best-match') {
-    if (families.includes(profile.primaryFamily)) {
-      return `Selected because this direction aligns closely with the scent families you described for your brand.`;
-    }
-    return `Selected as the strongest overall match based on your brand brief and audience direction.`;
-  }
-  if (role === 'close-match') {
-    return `Selected as a close complementary direction that supports your brief without repeating the same impression.`;
-  }
-  if (role === 'safe-option') {
-    return `Selected as a broadly approachable option that helps you sense-check commercial wearability.`;
-  }
-  if (role === 'adjacent') {
-    return `Selected to offer a relevant adjacent direction so you can compare a neighbouring scent style.`;
-  }
-  return `Selected as a contrast option to help you explore a slightly more distinctive direction within your brief.`;
-};
-
-const pickRole = (index: number, adventure: number): RecommendationRole => {
-  const roles: RecommendationRole[] = ['best-match', 'close-match', 'safe-option', 'adjacent', 'wildcard'];
-  if (adventure >= 4) return roles[Math.min(index, roles.length - 1)];
-  return roles[index] ?? 'adjacent';
-};
-
 export interface CurationResult {
   recommendations: Recommendation[];
   selectionSummary: string;
@@ -199,11 +151,10 @@ export interface CurationResult {
 export const runRecommendationEngine = (answers: SamplingAnswers): CurationResult => {
   const businessType = answers.businessType ?? 'unsure';
   const defaults = BUSINESS_DEFAULTS[businessType] ?? BUSINESS_DEFAULTS.unsure;
+  const resolvedFamilies = resolveFamilies(answers);
 
   let candidates = FRAGRANCE_LIBRARY.filter((p) => !isExcluded(p, answers.exclusions));
-
   if (candidates.length < 5) {
-    console.warn('[Sampling] Exclusions reduced pool — relaxing soft preferences');
     candidates = FRAGRANCE_LIBRARY.filter((p) => {
       const hardExclusions = answers.exclusions.filter((e) => e !== 'none' && e !== 'unsure');
       return !hardExclusions.some((ex) => {
@@ -213,88 +164,35 @@ export const runRecommendationEngine = (answers: SamplingAnswers): CurationResul
     });
   }
 
-  const scored: ScoredProfile[] = candidates
-    .map((profile) => ({ profile, score: scoreProfile(profile, answers) }))
-    .sort((a, b) => b.score - a.score);
-
-  // Boost business defaults
-  defaults.forEach((id, i) => {
-    const entry = scored.find((s) => s.profile.id === id);
-    if (entry) entry.score += (defaults.length - i) * 2;
+  const scoredRaw = candidates.map((profile) => {
+    let rawScore = scoreProfile(profile, answers);
+    const boostIdx = defaults.indexOf(profile.id);
+    if (boostIdx >= 0) rawScore += (defaults.length - boostIdx) * 2;
+    return {
+      profile: buildSelectionProfileFromClient(profile),
+      rawScore,
+    };
   });
 
-  scored.sort((a, b) => b.score - a.score);
+  const scored = normalizePreferenceScores(scoredRaw);
+  const selected = selectDiversifiedRecommendations(
+    scored,
+    { ...answers, resolvedFamilies },
+    { isDev: Boolean((import.meta as { env?: { DEV?: boolean } }).env?.DEV) },
+  );
 
-  const selected: FragranceProfile[] = [];
-  const usedIds = new Set<string>();
-
-  const tryAdd = (profile: FragranceProfile) => {
-    if (selected.length >= 5 || usedIds.has(profile.id)) return false;
-    const counts = familyCount(selected);
-    if ((counts[profile.primaryFamily] ?? 0) >= 2) return false;
-    if (selected.some((s) => isNearDuplicate(s, profile))) return false;
-    selected.push(profile);
-    usedIds.add(profile.id);
-    return true;
-  };
-
-  // 1. Best match
-  if (scored[0]) tryAdd(scored[0].profile);
-
-  // 2. Safe commercial option
-  const safe = [...scored].sort((a, b) => b.profile.commerciality - a.profile.commerciality);
-  for (const s of safe) {
-    if (selected.length >= 2) break;
-    if (s.profile.commerciality >= 4) tryAdd(s.profile);
-  }
-
-  // 3. Fill from scored list with diversity
-  for (const s of scored) {
-    if (selected.length >= 5) break;
-    tryAdd(s.profile);
-  }
-
-  // 4. Wildcard if adventure warrants
-  const adventure = targetAdventure(answers);
-  if (adventure >= 4 || answers.adventureLevel === 'wildcard') {
-    const wildcard = [...scored].sort((a, b) => b.profile.adventure - a.profile.adventure);
-    for (const w of wildcard) {
-      if (selected.length >= 5) break;
-      if (w.profile.adventure >= 4) tryAdd(w.profile);
-    }
-  }
-
-  // 5. Fallback fill from defaults
-  for (const id of defaults) {
-    if (selected.length >= 5) break;
-    const profile = FRAGRANCE_LIBRARY.find((p) => p.id === id);
-    if (profile && !isExcluded(profile, answers.exclusions)) tryAdd(profile);
-  }
-
-  // 6. Last resort — any remaining
-  for (const s of scored) {
-    if (selected.length >= 5) break;
-    if (!usedIds.has(s.profile.id)) {
-      selected.push(s.profile);
-      usedIds.add(s.profile.id);
-    }
-  }
-
-  while (selected.length < 5) {
-    const remaining = FRAGRANCE_LIBRARY.find((p) => !usedIds.has(p.id));
-    if (!remaining) break;
-    selected.push(remaining);
-    usedIds.add(remaining.id);
-  }
-
-  const recommendations: Recommendation[] = selected.slice(0, 5).map((profile, index) => ({
-    fragranceId: profile.id,
-    role: pickRole(index, adventure),
-    reason: buildReason(profile, pickRole(index, adventure), answers),
+  const recommendations: Recommendation[] = selected.map((item: {
+    profile: { id: string; primaryFamily: string };
+    role: string;
+    reason: string;
+  }) => ({
+    fragranceId: item.profile.id,
+    role: item.role as RecommendationRole,
+    reason: item.reason,
   }));
 
-  const families = [...new Set(selected.map((p) => p.primaryFamily))];
-  const selectionSummary = `We balanced ${families.length} scent families across five focused directions based on your brand personality, audience and preferences. Each selection plays a distinct role — from your strongest match to a complementary contrast — so you can compare directions without feeling overwhelmed.`;
+  const families = [...new Set(selected.map((item: { profile: { primaryFamily: string } }) => item.profile.primaryFamily))];
+  const selectionSummary = `We balanced ${families.length} scent families across two core matches, two adjacent discoveries, and one controlled wildcard so the set stays relevant without feeling repetitive.`;
 
   return { recommendations, selectionSummary };
 };
