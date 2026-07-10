@@ -6,7 +6,9 @@ import {
   type LeadDetails,
   type SamplingAnswers,
   type SamplingState,
+  STEP_CHECKOUT,
   STEP_CONTACT,
+  STEP_DONE,
   STEP_WELCOME,
 } from '../types/sampling';
 import { useLocalStorage } from './useLocalStorage';
@@ -17,6 +19,13 @@ const isValidState = (value: unknown): value is SamplingState => {
   const s = value as SamplingState;
   return s.version === SAMPLING_STATE_VERSION && typeof s.currentStep === 'number';
 };
+
+/** Unpaid sessions that already reached checkout (or unpaid payment screen) with curated picks. */
+export const canResumeCheckout = (state: SamplingState) =>
+  !state.completed &&
+  Array.isArray(state.recommendations) &&
+  state.recommendations.length > 0 &&
+  (state.currentStep === STEP_CHECKOUT || state.currentStep === STEP_DONE);
 
 export function useSamplingState() {
   const [rawState, setRawState, clearStorage] = useLocalStorage<SamplingState | null>(
@@ -76,11 +85,22 @@ export function useSamplingState() {
 
   const hasSavedBrief = useMemo(() => {
     if (!isValidState(rawState)) return false;
+    if (rawState.completed) return false;
     return rawState.currentStep > STEP_CONTACT || rawState.lead.fullName.length > 0;
+  }, [rawState]);
+
+  const hasCheckoutReady = useMemo(() => {
+    if (!isValidState(rawState)) return false;
+    return canResumeCheckout(rawState);
   }, [rawState]);
 
   const resumeBrief = useCallback(() => {
     if (!isValidState(rawState)) return;
+    if (canResumeCheckout(rawState)) {
+      persist({ ...rawState, currentStep: STEP_CHECKOUT });
+      trackSamplingEvent('sampling_started', { resumed: true, resumeTarget: 'checkout' });
+      return;
+    }
     const step = rawState.currentStep > STEP_WELCOME ? rawState.currentStep : STEP_CONTACT;
     persist({ ...rawState, currentStep: step });
     trackSamplingEvent('sampling_started', { resumed: true });
@@ -104,6 +124,7 @@ export function useSamplingState() {
     state,
     saveFlash,
     hasSavedBrief,
+    hasCheckoutReady,
     updateLead,
     updateAnswers,
     goToStep,

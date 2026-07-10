@@ -76,6 +76,7 @@ export const SamplingExperience = () => {
     state,
     saveFlash,
     hasSavedBrief,
+    hasCheckoutReady,
     updateLead,
     updateAnswers,
     goToStep,
@@ -355,15 +356,26 @@ export const SamplingExperience = () => {
         <li>Exactly five focused options</li>
       </ul>
       <div className="mt-10 flex flex-col items-center gap-4">
-        <PrimaryButton
-          onClick={() => {
-            startNew();
-          }}
-        >
-          Create my sample brief
-        </PrimaryButton>
-        {hasSavedBrief && (
-          <TextLinkButton onClick={resumeBrief}>Resume saved brief</TextLinkButton>
+        {hasCheckoutReady ? (
+          <>
+            <PrimaryButton onClick={resumeBrief}>Continue to checkout</PrimaryButton>
+            <TextLinkButton onClick={() => setShowResetConfirm(true)}>
+              Start a new curated sampling
+            </TextLinkButton>
+          </>
+        ) : (
+          <>
+            <PrimaryButton
+              onClick={() => {
+                startNew();
+              }}
+            >
+              Create my sample brief
+            </PrimaryButton>
+            {hasSavedBrief && (
+              <TextLinkButton onClick={resumeBrief}>Resume saved brief</TextLinkButton>
+            )}
+          </>
         )}
       </div>
       </div>
@@ -906,6 +918,10 @@ export const SamplingExperience = () => {
     });
   };
 
+  const handleRestartFromCheckout = () => {
+    setShowResetConfirm(true);
+  };
+
   const renderCheckout = () => (
     <ScreenTransition>
       {!sessionId ? (
@@ -920,6 +936,7 @@ export const SamplingExperience = () => {
           initializingPayment={initializingPayment}
           onEnsurePaymentIntent={ensurePaymentIntent}
           onPaid={handlePaymentPaid}
+          onRestart={handleRestartFromCheckout}
           error={checkoutError}
         />
       )}
@@ -1071,18 +1088,6 @@ export const SamplingExperience = () => {
         </button>
         <TextLinkButton onClick={() => setShowResetConfirm(true)}>Start over</TextLinkButton>
       </div>
-      <ConfirmDialog
-        open={showResetConfirm}
-        title="Start a new brief?"
-        message="Start a new brief? Your saved answers will be cleared from this device."
-        confirmLabel="Start over"
-        onConfirm={() => {
-          resetState();
-          setShowResetConfirm(false);
-          goToStep(STEP_WELCOME);
-        }}
-        onCancel={() => setShowResetConfirm(false)}
-      />
     </ScreenTransition>
   );
 
@@ -1145,12 +1150,31 @@ export const SamplingExperience = () => {
       >
         <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
       </SamplingPageShell>
-      <style>{`
-        @keyframes vial-float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
+      <ConfirmDialog
+        open={showResetConfirm}
+        title={currentStep === STEP_CHECKOUT ? 'Restart curated sampling?' : 'Start a new brief?'}
+        message={
+          currentStep === STEP_CHECKOUT
+            ? 'This clears your current sample kit selections and brief from this device so you can start over.'
+            : 'Start a new brief? Your saved answers will be cleared from this device.'
         }
-      `}</style>
+        confirmLabel={currentStep === STEP_CHECKOUT ? 'Restart sampling' : 'Start over'}
+        onConfirm={() => {
+          resetState();
+          setPaymentClientSecret(null);
+          setPaymentIntentId(null);
+          setPaymentRecord(null);
+          setOrderRecord(null);
+          setRecommendedFragrances([]);
+          setShowResetConfirm(false);
+          if (currentStep === STEP_CHECKOUT || hasCheckoutReady) {
+            startNew();
+          } else {
+            goToStep(STEP_WELCOME);
+          }
+        }}
+        onCancel={() => setShowResetConfirm(false)}
+      />
     </div>
   );
 };

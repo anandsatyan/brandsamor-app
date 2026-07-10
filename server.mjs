@@ -42,6 +42,7 @@ const PUBLIC_ROUTES = new Set([
   '/contact',
   '/get-started',
   '/curated-sampling',
+  '/curated-sampling/thank-you-preview',
   '/login',
   '/admin/orders',
   '/privacy-policy',
@@ -83,7 +84,12 @@ const PUBLIC_ROUTES = new Set([
 ]);
 
 /** Client-rendered routes without prerendered HTML — serve root SPA shell. */
-const SPA_ONLY_ROUTES = new Set(['/curated-sampling', '/admin/orders', '/login']);
+const SPA_ONLY_ROUTES = new Set([
+  '/curated-sampling',
+  '/curated-sampling/thank-you-preview',
+  '/admin/orders',
+  '/login',
+]);
 
 const STATIC_FILES = new Set([
   '/robots.txt',
@@ -178,7 +184,11 @@ const resolveFile = (urlPath) => {
     }
   }
 
-  if (PUBLIC_ROUTES.has(normalized) || normalized.startsWith('/admin/orders/')) {
+  if (
+    PUBLIC_ROUTES.has(normalized) ||
+    normalized.startsWith('/admin/orders/') ||
+    normalized.startsWith('/curated-sampling/')
+  ) {
     const htmlPath =
       normalized === '/'
         ? path.join(distDir, 'index.html')
@@ -186,7 +196,11 @@ const resolveFile = (urlPath) => {
     if (fs.existsSync(htmlPath)) {
       return { filePath: htmlPath, status: 200 };
     }
-    if (SPA_ONLY_ROUTES.has(normalized) || normalized.startsWith('/admin/orders')) {
+    if (
+      SPA_ONLY_ROUTES.has(normalized) ||
+      normalized.startsWith('/admin/orders') ||
+      normalized.startsWith('/curated-sampling')
+    ) {
       const spaIndex = path.join(distDir, 'index.html');
       if (fs.existsSync(spaIndex)) {
         return { filePath: spaIndex, status: 200 };

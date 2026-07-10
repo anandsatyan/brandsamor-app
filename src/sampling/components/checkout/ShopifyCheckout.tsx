@@ -47,6 +47,7 @@ interface ShopifyCheckoutProps {
   initializingPayment: boolean;
   onEnsurePaymentIntent: (checkout: CheckoutFormData) => Promise<void>;
   onPaid: (result: PaidCheckoutResult) => void;
+  onRestart?: () => void;
   error: string | null;
 }
 
@@ -90,7 +91,13 @@ const appearance = {
   },
 };
 
-const OrderSummary = ({ fragrances }: { fragrances: PublicFragrance[] }) => (
+const OrderSummary = ({
+  fragrances,
+  onRestart,
+}: {
+  fragrances: PublicFragrance[];
+  onRestart?: () => void;
+}) => (
   <aside className="checkout-summary">
     <div className="checkout-summary-inner space-y-5">
       <div className="flex gap-4">
@@ -120,6 +127,19 @@ const OrderSummary = ({ fragrances }: { fragrances: PublicFragrance[] }) => (
             </li>
           ))}
         </ul>
+      )}
+
+      {onRestart && (
+        <p className="border-t border-[#e8e0d8] pt-3 text-xs leading-relaxed text-[#725f52]">
+          Want different fragrances?{' '}
+          <button
+            type="button"
+            onClick={onRestart}
+            className="font-semibold text-[#FF600A] underline-offset-2 hover:underline"
+          >
+            Restart curated sampling
+          </button>
+        </p>
       )}
 
       <div className="space-y-2 border-t border-[#e8e0d8] pt-4 text-sm">
@@ -261,6 +281,7 @@ export const ShopifyCheckout = ({
   initializingPayment,
   onEnsurePaymentIntent,
   onPaid,
+  onRestart,
   error,
 }: ShopifyCheckoutProps) => {
   const [checkout, setCheckout] = useState<CheckoutFormData>(() => buildInitialCheckout(lead));
@@ -583,7 +604,7 @@ export const ShopifyCheckout = ({
           </p>
         </div>
 
-        <OrderSummary fragrances={fragrances} />
+        <OrderSummary fragrances={fragrances} onRestart={onRestart} />
       </div>
     </div>
   );

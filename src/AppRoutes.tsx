@@ -48,6 +48,10 @@ const CuratedSamplingPage = lazyNamed(
   () => import('./components/CuratedSamplingPage'),
   'CuratedSamplingPage',
 );
+const ThankYouPreviewPage = lazyNamed(
+  () => import('./components/ThankYouPreviewPage'),
+  'ThankYouPreviewPage',
+);
 const AdminOrdersPage = lazyNamed(() => import('./components/AdminOrdersPage'), 'AdminOrdersPage');
 
 export const AppRoutes = () => (
@@ -71,6 +75,7 @@ export const AppRoutes = () => (
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/get-started" element={<LeadFormPage />} />
         <Route path="/curated-sampling" element={<CuratedSamplingPage />} />
+        <Route path="/curated-sampling/thank-you-preview" element={<ThankYouPreviewPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route path="/admin/orders/:orderNumber" element={<AdminOrdersPage />} />
