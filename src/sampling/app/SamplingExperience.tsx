@@ -37,6 +37,7 @@ import {
 } from '../data/questions';
 import { getFragranceById } from '../data/fragranceLibrary';
 import { useSamplingState } from '../hooks/useSamplingState';
+import { useScrollIntoViewOnAppear } from '../hooks/useScrollIntoViewOnAppear';
 import { trackSamplingEvent } from '../lib/analytics';
 import { runRecommendationEngine } from '../lib/recommendationEngine';
 import { saveSamplingStep } from '../lib/samplingApi';
@@ -87,6 +88,16 @@ export const SamplingExperience = () => {
 
   const { currentStep, lead, answers, recommendations, selectionSummary, sessionId } = state;
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const businessTypeRef = useScrollIntoViewOnAppear<HTMLFieldSetElement>(Boolean(answers.brandStage));
+  const audienceRef = useScrollIntoViewOnAppear<HTMLFieldSetElement>(Boolean(answers.businessType));
+  const scentExpressionRef = useScrollIntoViewOnAppear<HTMLFieldSetElement>(
+    Boolean(answers.audienceDefinition),
+  );
+  const scentFamiliesRef = useScrollIntoViewOnAppear<HTMLFieldSetElement>(
+    answers.brandPersonalities.length > 0,
+  );
+  const useCaseRef = useScrollIntoViewOnAppear<HTMLFieldSetElement>(Boolean(answers.intensity));
+  const adventureRef = useScrollIntoViewOnAppear<HTMLFieldSetElement>(Boolean(answers.useCase));
   const [contactErrors, setContactErrors] = useState<Record<string, string>>({});
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showLogic, setShowLogic] = useState(false);
@@ -98,7 +109,13 @@ export const SamplingExperience = () => {
   const [paying, setPaying] = useState(false);
 
   useEffect(() => {
-    headingRef.current?.focus({ preventScroll: true });
+    const id = window.setTimeout(() => {
+      const heading = headingRef.current;
+      if (!heading) return;
+      heading.focus({ preventScroll: true });
+      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+    return () => window.clearTimeout(id);
   }, [currentStep]);
 
   const completeStep = useCallback(
@@ -408,7 +425,7 @@ export const SamplingExperience = () => {
           </div>
         </fieldset>
         {answers.brandStage && (
-          <fieldset>
+          <fieldset ref={businessTypeRef}>
             <legend className="mb-4 type-h5">What best describes your business?</legend>
             <div className="grid gap-3 sm:grid-cols-2">
               {BUSINESS_TYPE_OPTIONS.map((opt) => (
@@ -436,7 +453,7 @@ export const SamplingExperience = () => {
           </fieldset>
         )}
         {answers.businessType && (
-          <fieldset>
+          <fieldset ref={audienceRef}>
             <legend className="mb-4 type-h5">Who is the collection mainly intended for?</legend>
             <div className="space-y-3">
               {AUDIENCE_OPTIONS.map((opt) => (
@@ -463,7 +480,7 @@ export const SamplingExperience = () => {
           </fieldset>
         )}
         {answers.audienceDefinition && (
-          <fieldset>
+          <fieldset ref={scentExpressionRef}>
             <legend className="mb-4 type-h5">How should the fragrance collection feel?</legend>
             <p className="mb-4 type-body-sm text-[#725F52]">
               This describes the scent style and marketing direction, not the gender identity of the person
@@ -536,7 +553,7 @@ export const SamplingExperience = () => {
         </div>
       </fieldset>
       {answers.brandPersonalities.length > 0 && (
-        <fieldset className="mt-8">
+        <fieldset ref={scentFamiliesRef} className="mt-8">
           <legend className="mb-4 type-h5">Which scent families feel closest?</legend>
           <div className="space-y-3">
             {SCENT_FAMILY_OPTIONS.map((opt) => {
@@ -600,7 +617,7 @@ export const SamplingExperience = () => {
             </div>
           </fieldset>
           {answers.intensity && (
-            <fieldset>
+            <fieldset ref={useCaseRef}>
               <legend className="mb-4 type-h5">
                 Where do you imagine customers wearing or using them most?
               </legend>
@@ -620,7 +637,7 @@ export const SamplingExperience = () => {
             </fieldset>
           )}
           {answers.useCase && (
-            <fieldset>
+            <fieldset ref={adventureRef}>
               <legend className="mb-4 type-h5">How adventurous should the selection be?</legend>
               <div className="space-y-3">
                 {ADVENTURE_OPTIONS.map((opt) => (

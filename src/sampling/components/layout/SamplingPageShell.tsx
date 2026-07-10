@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { WizardChrome } from './WizardChrome';
 import { ProgressHeader } from './ProgressHeader';
@@ -27,7 +27,16 @@ export const SamplingPageShell = ({
     : 'calc(var(--sampling-chrome-height) + 2rem)';
 
   return (
-    <div className="flex min-h-screen min-h-[100dvh] flex-col">
+    <div
+      className="flex min-h-screen min-h-[100dvh] flex-col"
+      style={
+        {
+          '--sampling-scroll-offset': showProgress
+            ? 'var(--sampling-sticky-header-height)'
+            : 'var(--sampling-chrome-height)',
+        } as CSSProperties
+      }
+    >
       <div className="fixed inset-x-0 top-0 z-50 bg-[var(--sampling-cream)]">
         <WizardChrome onSaveExit={onSaveExit} saved={saved} exitOnly={exitOnly} />
         {showProgress && <ProgressHeader currentQuestionStep={currentStep} />}

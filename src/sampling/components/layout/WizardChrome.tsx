@@ -10,7 +10,9 @@ interface WizardChromeProps {
 
 export const WizardChrome = ({ onSaveExit, saved = false, exitOnly = false }: WizardChromeProps) => (
   <header className="grid grid-cols-[1fr_auto_1fr] items-center px-4 py-4 sm:px-6 sm:py-5">
-    <div aria-hidden className="min-w-0" />
+    <div className="flex min-w-0 items-center justify-self-start">
+      {!exitOnly && <SaveStatus visible={saved} />}
+    </div>
     <Link
       to="/"
       className="justify-self-center transition-opacity hover:opacity-80"
@@ -18,8 +20,7 @@ export const WizardChrome = ({ onSaveExit, saved = false, exitOnly = false }: Wi
     >
       <BrandLogo />
     </Link>
-    <div className="flex min-w-0 items-center justify-end gap-3 justify-self-end">
-      {!exitOnly && <SaveStatus visible={saved} />}
+    <div className="flex min-w-0 items-center justify-end justify-self-end">
       <button
         type="button"
         onClick={onSaveExit}

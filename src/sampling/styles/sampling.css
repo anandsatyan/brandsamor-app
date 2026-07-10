@@ -59,7 +59,17 @@
 }
 
 .sampling-question {
-  @apply mx-auto max-w-sm text-center font-serif text-phi-lg font-normal leading-snug text-heading sm:max-w-md sm:text-phi-xl;
+  @apply mx-auto max-w-sm text-center font-serif text-phi-xl font-normal leading-snug text-heading sm:max-w-md sm:text-phi-2xl;
+  scroll-margin-top: calc(var(--sampling-scroll-offset, var(--sampling-sticky-header-height)) + 1rem);
+}
+
+.sampling-experience fieldset,
+.sampling-scroll-target {
+  scroll-margin-top: calc(var(--sampling-scroll-offset, var(--sampling-sticky-header-height)) + 1rem);
+}
+
+.sampling-experience fieldset legend {
+  @apply font-serif text-phi-md font-normal leading-snug text-heading sm:text-phi-lg;
 }
 
 @media (min-width: 640px) {
