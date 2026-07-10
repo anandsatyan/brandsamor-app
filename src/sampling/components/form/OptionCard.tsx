@@ -40,7 +40,7 @@ export const OptionCard = ({
     ].join(' ')}
   >
     {Icon && (
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FEF7ED] text-[#2B1809]">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f3efe3] text-[#2B1809]">
         <Icon className="h-5 w-5" aria-hidden />
       </span>
     )}

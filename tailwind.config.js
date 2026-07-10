@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        surface: 'rgb(253, 246, 238)',
-        secondary: 'rgb(240, 230, 220)',
-        body: 'rgb(148, 135, 124)',
-        heading: 'rgb(43, 24, 10)',
-        accent: 'rgb(255, 92, 0)',
+        surface: 'rgb(var(--color-surface-rgb) / <alpha-value>)',
+        secondary: 'rgb(var(--color-secondary-rgb) / <alpha-value>)',
+        body: 'rgb(var(--color-body-rgb) / <alpha-value>)',
+        heading: 'rgb(var(--color-heading-rgb) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent-rgb) / <alpha-value>)',
         border: 'rgba(148, 135, 124, 0.22)',
         'border-strong': 'rgba(148, 135, 124, 0.35)',
       },

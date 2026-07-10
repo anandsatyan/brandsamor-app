@@ -48,7 +48,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
 
   return (
     <>
-      <header className="site-header fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface/75">
+      <header className="site-header fixed top-0 left-0 right-0 z-50 bg-surface">
         <div className="site-header__bar relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
           <button
             type="button"
@@ -91,7 +91,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         </nav>
       </header>
 
-      <div className="site-header-spacer h-[68px] lg:h-[114px]" aria-hidden="true" />
+      <div className="site-header-spacer h-[89px] lg:h-[135px]" aria-hidden="true" />
 
       {isMenuOpen && (
         <>

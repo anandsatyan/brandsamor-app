@@ -78,7 +78,7 @@ export const SearchableCountrySelect = ({
                     setOpen(false);
                     setQuery('');
                   }}
-                  className="w-full px-4 py-2.5 text-left text-sm hover:bg-[#FEF7ED]"
+                  className="w-full px-4 py-2.5 text-left text-sm hover:bg-[#f3efe3]"
                 >
                   {country.name}
                 </button>

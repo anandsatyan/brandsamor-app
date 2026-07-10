@@ -6,7 +6,7 @@ interface StickyActionBarProps {
 }
 
 export const StickyActionBar = ({ children, secondary }: StickyActionBarProps) => (
-  <div className="sticky bottom-0 left-0 right-0 z-10 -mx-4 border-t border-[#EADFD3] bg-[#FEF7ED]/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
+  <div className="sticky bottom-0 left-0 right-0 z-10 -mx-4 border-t border-[#EADFD3] bg-[#f3efe3]/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="flex-1">{children}</div>
       {secondary && <div className="flex justify-center sm:justify-end">{secondary}</div>}

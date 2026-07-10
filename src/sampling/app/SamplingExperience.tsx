@@ -817,7 +817,7 @@ export const SamplingExperience = () => {
                     {fragrance.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-[#FEF7ED] px-2.5 py-0.5 text-xs font-medium text-[#2b1809]"
+                        className="rounded-full bg-[#f3efe3] px-2.5 py-0.5 text-xs font-medium text-[#2b1809]"
                       >
                         {tag}
                       </span>
@@ -842,7 +842,7 @@ export const SamplingExperience = () => {
         {showLogic ? 'Hide selection logic' : 'View selection logic'}
       </button>
       {showLogic && selectionSummary && (
-        <p className="mt-2 rounded-xl bg-[#FEF7ED] p-4 text-sm leading-relaxed text-[#725F52]">
+        <p className="mt-2 rounded-xl bg-[#f3efe3] p-4 text-sm leading-relaxed text-[#725F52]">
           {selectionSummary}
         </p>
       )}

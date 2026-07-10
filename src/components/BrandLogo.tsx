@@ -6,10 +6,10 @@ type BrandLogoProps = {
 
 export const BrandLogo = ({ className = '' }: BrandLogoProps) => (
   <img
-    src="/brandsamor-logo.png"
+    src="/brandsamor-neue-logo.png"
     alt={IMAGE_ALT.brandLogo}
     width={156}
-    height={32}
+    height={53}
     className={`h-auto w-[156px] ${className}`}
   />
 );

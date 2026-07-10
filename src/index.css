@@ -74,11 +74,16 @@
   --font-body: 'Funnel Sans Variable', system-ui, sans-serif;
   --font-display: 'Funnel Display Variable', system-ui, sans-serif;
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-  --color-surface: rgb(253, 246, 238);
+  --color-surface: #f3efe3;
+  --color-surface-rgb: 243 239 227;
   --color-secondary: rgb(240, 230, 220);
+  --color-secondary-rgb: 240 230 220;
   --color-body: rgb(148, 135, 124);
+  --color-body-rgb: 148 135 124;
   --color-heading: rgb(43, 24, 10);
+  --color-heading-rgb: 43 24 10;
   --color-accent: rgb(255, 92, 0);
+  --color-accent-rgb: 255 92 0;
 }
 
 * {
@@ -100,12 +105,12 @@ body {
 }
 
 [id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 5.5rem;
 }
 
 @media (min-width: 1024px) {
   [id] {
-    scroll-margin-top: 8rem;
+    scroll-margin-top: 8.5rem;
   }
 }
 
@@ -193,14 +198,14 @@ h6 {
   .hero-panel--viewport {
     display: flex;
     flex-direction: column;
-    min-height: calc(100svh - 68px);
-    min-height: calc(100dvh - 68px);
+    min-height: calc(100svh - 89px);
+    min-height: calc(100dvh - 89px);
   }
 
   @media (min-width: 1024px) {
     .hero-panel--viewport {
-      min-height: calc(100svh - 114px);
-      min-height: calc(100dvh - 114px);
+      min-height: calc(100svh - 135px);
+      min-height: calc(100dvh - 135px);
     }
   }
 

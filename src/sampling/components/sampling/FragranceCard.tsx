@@ -28,7 +28,7 @@ export const FragranceCard = ({ profile, recommendation, index }: FragranceCardP
         {profile.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full bg-[#FEF7ED] px-3 py-1 text-xs font-semibold text-[#2B1809]"
+            className="rounded-full bg-[#f3efe3] px-3 py-1 text-xs font-semibold text-[#2B1809]"
           >
             {tag}
           </span>

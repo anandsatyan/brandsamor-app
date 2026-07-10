@@ -86,6 +86,7 @@ const STATIC_FILES = new Set([
   '/perfume-bottle-silhouette-bg-3.png',
   '/brandsamor-favicon-dark.png',
   '/brandsamor-logo.png',
+  '/brandsamor-neue-logo.png',
   '/favicon.svg',
   '/vite.svg',
 ]);
