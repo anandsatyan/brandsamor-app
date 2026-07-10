@@ -60,6 +60,12 @@
 
 .sampling-question {
   @apply mx-auto max-w-sm text-center font-serif text-phi-lg font-normal leading-snug text-heading sm:max-w-md sm:text-phi-xl;
+  scroll-margin-top: calc(var(--sampling-scroll-offset, var(--sampling-sticky-header-height)) + 1rem);
+}
+
+.sampling-experience fieldset,
+.sampling-scroll-target {
+  scroll-margin-top: calc(var(--sampling-scroll-offset, var(--sampling-sticky-header-height)) + 1rem);
 }
 
 @media (min-width: 640px) {
