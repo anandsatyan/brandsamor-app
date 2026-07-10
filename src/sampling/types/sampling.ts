@@ -4,7 +4,6 @@ export interface LeadDetails {
   phone: string;
   brandName?: string;
   country: string;
-  websiteOrSocial?: string;
   consent: boolean;
 }
 
@@ -12,14 +11,11 @@ export interface SamplingAnswers {
   brandStage?: string;
   businessType?: string;
   businessTypeOther?: string;
-  audienceDefinition?: string;
-  audienceDescription?: string;
   scentExpression?: string;
   brandPersonalities: string[];
   scentFamilies: string[];
   intensity?: string;
   useCase?: string;
-  adventureLevel?: string;
   exclusions: string[];
   likedFragrances?: string;
   additionalNotes?: string;
@@ -71,7 +67,7 @@ export interface SamplingState {
   updatedAt: string;
 }
 
-export const SAMPLING_STATE_VERSION = 3;
+export const SAMPLING_STATE_VERSION = 4;
 export const SAMPLING_STORAGE_KEY = 'brandsamor_sampling_state_v1';
 
 export const QUESTIONNAIRE_STEPS = [
@@ -101,9 +97,8 @@ export const createEmptyLead = (): LeadDetails => ({
   email: '',
   phone: '',
   brandName: '',
-  country: '',
-  websiteOrSocial: '',
-  consent: false,
+  country: 'US',
+  consent: true,
 });
 
 export const createEmptyAnswers = (): SamplingAnswers => ({

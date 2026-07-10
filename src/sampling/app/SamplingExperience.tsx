@@ -20,8 +20,6 @@ import { ReviewSection } from '../components/feedback/ReviewSection';
 import { ConfirmDialog } from '../components/feedback/ConfirmDialog';
 
 import {
-  AUDIENCE_OPTIONS,
-  ADVENTURE_OPTIONS,
   BOTTLE_SIZE_OPTIONS,
   BRAND_PERSONALITY_OPTIONS,
   BRAND_STAGE_OPTIONS,
@@ -283,7 +281,7 @@ export const SamplingExperience = () => {
         Five fragrance directions, selected for your brand.
       </h1>
       <p className="mt-4 max-w-xl type-body-lg text-[#725F52]">
-        Tell us about your brand, audience and the kind of fragrance experience you want to create.
+        Tell us about your brand and the kind of fragrance experience you want to create.
         Brandsamor will use your brief to curate exactly five fragrance samples for you.
       </p>
       <div className="mt-8 flex justify-center gap-3">
@@ -358,13 +356,6 @@ export const SamplingExperience = () => {
           onChange={(v) => updateLead({ country: v })}
           error={contactErrors.country}
         />
-        <FieldInput
-          id="website"
-          label="Website or social profile"
-          value={lead.websiteOrSocial ?? ''}
-          onChange={(v) => updateLead({ websiteOrSocial: v })}
-          optional
-        />
         <label className="flex items-start gap-3">
           <input
             type="checkbox"
@@ -391,7 +382,7 @@ export const SamplingExperience = () => {
   const renderBrand = () => (
     <ScreenTransition>
       <h1 ref={headingRef} tabIndex={-1} className="sampling-question">
-        Tell us about your brand and audience.
+        Tell us about your brand.
       </h1>
       <div className="mt-8 space-y-8">
         <fieldset>
@@ -437,33 +428,6 @@ export const SamplingExperience = () => {
         )}
         {answers.businessType && (
           <fieldset>
-            <legend className="mb-4 type-h5">Who is the collection mainly intended for?</legend>
-            <div className="space-y-3">
-              {AUDIENCE_OPTIONS.map((opt) => (
-                <OptionCard
-                  key={opt.value}
-                  label={opt.label}
-                  selected={answers.audienceDefinition === opt.value}
-                  onClick={() => updateAnswers({ audienceDefinition: opt.value })}
-                />
-              ))}
-            </div>
-            {answers.audienceDefinition === 'defined' && (
-              <div className="mt-4">
-                <FieldInput
-                  id="audienceDesc"
-                  label="Describe the customer in a few words"
-                  value={answers.audienceDescription ?? ''}
-                  onChange={(v) => updateAnswers({ audienceDescription: v })}
-                  optional
-                  placeholder="Example: style-conscious boutique shoppers in their late twenties and thirties"
-                />
-              </div>
-            )}
-          </fieldset>
-        )}
-        {answers.audienceDefinition && (
-          <fieldset>
             <legend className="mb-4 type-h5">How should the fragrance collection feel?</legend>
             <p className="mb-4 type-body-sm text-[#725F52]">
               This describes the scent style and marketing direction, not the gender identity of the person
@@ -490,10 +454,7 @@ export const SamplingExperience = () => {
       <WizardFooter onBack={() => goToStep(STEP_CONTACT)}>
         <PrimaryButton
           disabled={
-            !answers.brandStage ||
-            !answers.businessType ||
-            !answers.audienceDefinition ||
-            !answers.scentExpression
+            !answers.brandStage || !answers.businessType || !answers.scentExpression
           }
           onClick={() => completeStep('brand', STEP_SCENT)}
         >
@@ -575,7 +536,7 @@ export const SamplingExperience = () => {
   );
 
   const renderExperience = () => {
-    const allAnswered = answers.intensity && answers.useCase && answers.adventureLevel;
+    const allAnswered = answers.intensity && answers.useCase;
 
     return (
       <ScreenTransition>
@@ -619,21 +580,6 @@ export const SamplingExperience = () => {
               </div>
             </fieldset>
           )}
-          {answers.useCase && (
-            <fieldset>
-              <legend className="mb-4 type-h5">How adventurous should the selection be?</legend>
-              <div className="space-y-3">
-                {ADVENTURE_OPTIONS.map((opt) => (
-                  <OptionCard
-                    key={opt.value}
-                    label={opt.label}
-                    selected={answers.adventureLevel === opt.value}
-                    onClick={() => updateAnswers({ adventureLevel: opt.value })}
-                  />
-                ))}
-              </div>
-            </fieldset>
-          )}
         </div>
         {allAnswered && (
           <WizardFooter onBack={() => goToStep(STEP_SCENT)}>
@@ -652,7 +598,8 @@ export const SamplingExperience = () => {
       <div className="mt-8 space-y-8">
         <fieldset>
           <legend className="mb-4 type-h5">
-            Are there any scent styles or notes you definitely want to avoid?
+            Are there any scent styles or notes you definitely want to{' '}
+            <strong className="font-bold">AVOID</strong>?
           </legend>
           <div className="flex flex-wrap gap-3">
             {EXCLUSION_OPTIONS.map((opt) => (
@@ -667,11 +614,15 @@ export const SamplingExperience = () => {
         </fieldset>
         <FieldInput
           id="liked"
-          label="Are there fragrances you already like?"
+          label={
+            <>
+              Are there fragrances you already <strong className="font-bold">LIKE</strong>?
+            </>
+          }
           value={answers.likedFragrances ?? ''}
           onChange={(v) => updateAnswers({ likedFragrances: v })}
           optional
-          placeholder="Add names only if you have examples. You can leave this blank."
+          placeholder="Example: Dior Sauvage, Yves Saint Laurent Black Opium, or Le Labo Santal 33"
         />
         <FieldInput
           id="notes"
@@ -720,10 +671,6 @@ export const SamplingExperience = () => {
             ...(answers.businessTypeOther
               ? [{ label: 'Details', value: answers.businessTypeOther }]
               : []),
-            { label: 'Audience', value: getLabel(answers.audienceDefinition) },
-            ...(answers.audienceDescription
-              ? [{ label: 'Customer', value: answers.audienceDescription }]
-              : []),
             { label: 'Expression', value: getLabel(answers.scentExpression) },
           ]}
         />
@@ -747,7 +694,6 @@ export const SamplingExperience = () => {
           items={[
             { label: 'Intensity', value: getLabel(answers.intensity) },
             { label: 'Use case', value: getLabel(answers.useCase) },
-            { label: 'Adventure', value: getLabel(answers.adventureLevel) },
           ]}
         />
         <ReviewSection
@@ -779,7 +725,7 @@ export const SamplingExperience = () => {
         Your five fragrance directions are ready.
       </h1>
       <p className="mt-3 text-base leading-relaxed text-[#725F52]">
-        We selected a focused mix based on your brand, audience and scent preferences. These five are
+        We selected a focused mix based on your brand and scent preferences. These five are
         designed to help you compare distinct directions without overwhelming you.
       </p>
 

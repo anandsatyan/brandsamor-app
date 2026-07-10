@@ -5,7 +5,7 @@ import { useReducedMotion } from '../../hooks/useLocalStorage';
 
 const MESSAGES = [
   'Reading your brand brief',
-  'Balancing scent families and audience fit',
+  'Balancing scent families and brand fit',
   'Selecting five focused fragrance directions',
 ];
 

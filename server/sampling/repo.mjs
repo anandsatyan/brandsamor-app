@@ -21,8 +21,7 @@ const normalizeLead = (lead) => ({
   email: String(lead?.email ?? '').trim().toLowerCase(),
   phone: String(lead?.phone ?? '').trim(),
   brandName: String(lead?.brandName ?? '').trim() || null,
-  country: String(lead?.country ?? '').trim(),
-  websiteOrSocial: String(lead?.websiteOrSocial ?? '').trim() || null,
+  country: String(lead?.country ?? '').trim() || 'US',
   consent: Boolean(lead?.consent),
 });
 

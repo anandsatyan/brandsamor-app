@@ -82,21 +82,6 @@ const targetIntensity = (answers: SamplingAnswers): number => {
   }
 };
 
-const targetAdventure = (answers: SamplingAnswers): number => {
-  switch (answers.adventureLevel) {
-    case 'familiar':
-      return 2;
-    case 'premium-wearable':
-      return 3;
-    case 'distinctive':
-      return 4;
-    case 'wildcard':
-      return 5;
-    default:
-      return 3;
-  }
-};
-
 /** Preserve existing preference scoring (raw, unnormalized). */
 const scoreProfile = (profile: FragranceProfile, answers: SamplingAnswers): number => {
   let score = 0;
@@ -126,9 +111,6 @@ const scoreProfile = (profile: FragranceProfile, answers: SamplingAnswers): numb
 
   const intensityTarget = targetIntensity(answers);
   score += 4 - Math.abs(profile.intensity - intensityTarget);
-
-  const adventureTarget = targetAdventure(answers);
-  score += 4 - Math.abs(profile.adventure - adventureTarget) * 0.8;
 
   score += profile.commerciality * 0.5;
 

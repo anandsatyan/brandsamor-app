@@ -40,16 +40,11 @@ export const isStepComplete = (
     case 1:
       return hasContactErrors(validateContact(lead)) === false;
     case 2:
-      return Boolean(
-        answers.brandStage &&
-          answers.businessType &&
-          answers.audienceDefinition &&
-          answers.scentExpression,
-      );
+      return Boolean(answers.brandStage && answers.businessType && answers.scentExpression);
     case 3:
       return answers.brandPersonalities.length > 0 && answers.scentFamilies.length > 0;
     case 4:
-      return Boolean(answers.intensity && answers.useCase && answers.adventureLevel);
+      return Boolean(answers.intensity && answers.useCase);
     case 5:
       return answers.exclusions.length > 0;
     case 6:

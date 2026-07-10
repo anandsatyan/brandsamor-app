@@ -37,13 +37,6 @@ export const BUSINESS_TYPE_OPTIONS: OptionItem[] = [
   { value: 'unsure', label: "I'm not sure how to classify it", icon: HelpCircle },
 ];
 
-export const AUDIENCE_OPTIONS: OptionItem[] = [
-  { value: 'defined', label: 'A clearly defined customer group' },
-  { value: 'broad', label: 'A broad range of customers' },
-  { value: 'mixed', label: 'Different customer groups across the collection' },
-  { value: 'recommend', label: 'I have not decided yet — recommend for me' },
-];
-
 export const SCENT_EXPRESSION_OPTIONS: OptionItem[] = [
   { value: 'feminine-leaning', label: 'Feminine-leaning' },
   { value: 'masculine-leaning', label: 'Masculine-leaning' },
@@ -91,14 +84,6 @@ export const USE_CASE_OPTIONS: OptionItem[] = [
   { value: 'gifting', label: 'Gifting' },
   { value: 'hospitality', label: 'Hospitality or branded experiences' },
   { value: 'mixed', label: 'A mix of uses' },
-  { value: 'recommend', label: 'Recommend for me' },
-];
-
-export const ADVENTURE_OPTIONS: OptionItem[] = [
-  { value: 'familiar', label: 'Familiar and easy to like' },
-  { value: 'premium-wearable', label: 'Premium but broadly wearable' },
-  { value: 'distinctive', label: 'Distinctive and niche-leaning' },
-  { value: 'wildcard', label: 'Include one unexpected wildcard' },
   { value: 'recommend', label: 'Recommend for me' },
 ];
 
@@ -191,9 +176,6 @@ export const LABEL_MAP: Record<string, string> = {
   standalone: 'Standalone fragrance brand',
   other: 'Other',
   unsure: "Not sure — Brandsamor will recommend",
-  defined: 'A clearly defined customer group',
-  broad: 'A broad range of customers',
-  mixed: 'Different customer groups across the collection',
   'feminine-leaning': 'Feminine-leaning',
   'masculine-leaning': 'Masculine-leaning',
   'gender-neutral': 'Gender-neutral',
@@ -231,10 +213,6 @@ export const LABEL_MAP: Record<string, string> = {
   '50ml': '50 ml',
   '100ml': '100 ml',
   travel: 'Travel size or roll-on',
-  familiar: 'Familiar and easy to like',
-  'premium-wearable': 'Premium but broadly wearable',
-  distinctive: 'Distinctive and niche-leaning',
-  wildcard: 'Include one unexpected wildcard',
   'very-sweet': 'Very sweet',
   'heavy-oud': 'Heavy oud',
   'strong-smoke': 'Strong smoke',

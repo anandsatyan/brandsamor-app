@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
+
 interface FieldInputProps {
   id: string;
-  label: string;
+  label: ReactNode;
   value: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
