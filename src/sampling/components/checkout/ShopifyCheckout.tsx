@@ -1,7 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  Elements,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import type { Stripe, StripeElements } from '@stripe/stripe-js';
 import { COUNTRIES } from '../../data/questions';
 import type { LeadDetails } from '../../types/sampling';
 import type { PublicFragrance } from '../../lib/fragranceApi';
+import {
+  fetchStripeConfig,
+  getStripePromise,
+  type StripePublicConfig,
+} from '../../lib/stripeClient';
 
 export interface CheckoutFormData {
   email: string;
@@ -28,10 +40,15 @@ export interface CheckoutFormData {
   billingSameAsShipping: boolean;
 }
 
+export type CheckoutPayHelpers = {
+  stripe: Stripe;
+  elements: StripeElements;
+};
+
 interface ShopifyCheckoutProps {
   lead: LeadDetails;
   fragrances: PublicFragrance[];
-  onPay: (checkout: CheckoutFormData) => Promise<void>;
+  onPay: (checkout: CheckoutFormData, helpers: CheckoutPayHelpers) => Promise<void>;
   error: string | null;
   paying: boolean;
 }
@@ -117,8 +134,17 @@ const OrderSummary = ({ fragrances }: { fragrances: PublicFragrance[] }) => (
   </aside>
 );
 
-export const ShopifyCheckout = ({ lead, fragrances, onPay, error, paying }: ShopifyCheckoutProps) => {
+const CheckoutForm = ({
+  lead,
+  fragrances,
+  onPay,
+  error,
+  paying,
+}: ShopifyCheckoutProps) => {
+  const stripe = useStripe();
+  const elements = useElements();
   const [checkout, setCheckout] = useState<CheckoutFormData>(() => buildInitialCheckout(lead));
+  const [localError, setLocalError] = useState<string | null>(null);
 
   useEffect(() => {
     setCheckout(buildInitialCheckout(lead));
@@ -139,181 +165,69 @@ export const ShopifyCheckout = ({ lead, fragrances, onPay, error, paying }: Shop
     setCheckout((prev) => ({ ...prev, billing: { ...prev.billing, ...patch }, billingSameAsShipping: false }));
   };
 
+  const displayError = localError || error;
+
+  const handlePay = async () => {
+    setLocalError(null);
+    if (!stripe || !elements) {
+      setLocalError('Payment form is still loading. Please try again.');
+      return;
+    }
+
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      setLocalError(submitError.message ?? 'Please check your payment details.');
+      return;
+    }
+
+    await onPay(checkout, { stripe, elements });
+  };
+
   return (
     <div className="checkout-shell">
       <div className="checkout-layout">
-      <div className="checkout-main">
-        <h1 className="checkout-page-title">Checkout</h1>
-        <section className="checkout-section">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="checkout-section-title">Contact</h2>
-          </div>
-          <div className="space-y-3">
-            <label className="block">
-              <span className={labelClass}>Email</span>
-              <input
-                type="email"
-                className={fieldClass}
-                placeholder="Email"
-                value={checkout.email}
-                onChange={(e) => setCheckout((s) => ({ ...s, email: e.target.value }))}
-                autoComplete="email"
-              />
-            </label>
-            <label className="block">
-              <span className={labelClass}>Phone</span>
-              <input
-                type="tel"
-                className={fieldClass}
-                placeholder="Phone"
-                value={checkout.phone}
-                onChange={(e) => setCheckout((s) => ({ ...s, phone: e.target.value }))}
-                autoComplete="tel"
-              />
-            </label>
-          </div>
-        </section>
-
-        <section className="checkout-section">
-          <h2 className="checkout-section-title">Delivery</h2>
-          <div className="mt-3 space-y-3">
-            <label className="block">
-              <span className={labelClass}>Country/Region</span>
-              <select
-                className={fieldClass}
-                value={checkout.shipping.country}
-                onChange={(e) => updateShipping({ country: e.target.value })}
-                autoComplete="shipping country"
-              >
-                {COUNTRIES.map((c) => (
-                  <option key={c.code} value={c.code}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <div className="grid gap-3 sm:grid-cols-2">
+        <div className="checkout-main">
+          <h1 className="checkout-page-title">Checkout</h1>
+          <section className="checkout-section">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="checkout-section-title">Contact</h2>
+            </div>
+            <div className="space-y-3">
               <label className="block">
-                <span className={labelClass}>First name</span>
+                <span className={labelClass}>Email</span>
                 <input
+                  type="email"
                   className={fieldClass}
-                  placeholder="First name"
-                  value={checkout.firstName}
-                  onChange={(e) => setCheckout((s) => ({ ...s, firstName: e.target.value }))}
-                  autoComplete="given-name"
+                  placeholder="Email"
+                  value={checkout.email}
+                  onChange={(e) => setCheckout((s) => ({ ...s, email: e.target.value }))}
+                  autoComplete="email"
                 />
               </label>
               <label className="block">
-                <span className={labelClass}>Last name</span>
+                <span className={labelClass}>Phone</span>
                 <input
+                  type="tel"
                   className={fieldClass}
-                  placeholder="Last name"
-                  value={checkout.lastName}
-                  onChange={(e) => setCheckout((s) => ({ ...s, lastName: e.target.value }))}
-                  autoComplete="family-name"
+                  placeholder="Phone"
+                  value={checkout.phone}
+                  onChange={(e) => setCheckout((s) => ({ ...s, phone: e.target.value }))}
+                  autoComplete="tel"
                 />
               </label>
             </div>
-            <label className="block">
-              <span className={labelClass}>Company (optional)</span>
-              <input
-                className={fieldClass}
-                placeholder="Company (optional)"
-                value={checkout.company}
-                onChange={(e) => setCheckout((s) => ({ ...s, company: e.target.value }))}
-                autoComplete="organization"
-              />
-            </label>
-            <label className="block">
-              <span className={labelClass}>Address</span>
-              <input
-                className={fieldClass}
-                placeholder="Address"
-                value={checkout.shipping.line1}
-                onChange={(e) => updateShipping({ line1: e.target.value })}
-                autoComplete="address-line1"
-              />
-            </label>
-            <label className="block">
-              <span className={labelClass}>Apartment, suite, etc. (optional)</span>
-              <input
-                className={fieldClass}
-                placeholder="Apartment, suite, etc. (optional)"
-                value={checkout.shipping.line2}
-                onChange={(e) => updateShipping({ line2: e.target.value })}
-                autoComplete="address-line2"
-              />
-            </label>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <label className="block sm:col-span-1">
-                <span className={labelClass}>City</span>
-                <input
-                  className={fieldClass}
-                  placeholder="City"
-                  value={checkout.shipping.city}
-                  onChange={(e) => updateShipping({ city: e.target.value })}
-                  autoComplete="address-level2"
-                />
-              </label>
-              <label className="block">
-                <span className={labelClass}>State</span>
-                <input
-                  className={fieldClass}
-                  placeholder="State"
-                  value={checkout.shipping.state}
-                  onChange={(e) => updateShipping({ state: e.target.value })}
-                  autoComplete="address-level1"
-                />
-              </label>
-              <label className="block">
-                <span className={labelClass}>ZIP code</span>
-                <input
-                  className={fieldClass}
-                  placeholder="ZIP code"
-                  value={checkout.shipping.postalCode}
-                  onChange={(e) => updateShipping({ postalCode: e.target.value })}
-                  autoComplete="postal-code"
-                />
-              </label>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="checkout-section">
-          <h2 className="checkout-section-title">Shipping method</h2>
-          <div className="mt-3 rounded-[5px] border border-[#d9d9d9] bg-[#fafafa] px-4 py-3 text-sm text-[#725f52]">
-            Standard shipping is included with your curated sample kit.
-          </div>
-        </section>
-
-        <section className="checkout-section">
-          <h2 className="checkout-section-title">Billing address</h2>
-          <label className="mt-3 flex items-center gap-2 text-sm text-[#2b1809]">
-            <input
-              type="checkbox"
-              checked={checkout.billingSameAsShipping}
-              onChange={(e) => {
-                const checked = e.target.checked;
-                setCheckout((prev) => ({
-                  ...prev,
-                  billingSameAsShipping: checked,
-                  billing: checked ? { ...prev.shipping } : prev.billing,
-                }));
-              }}
-              className="h-4 w-4 accent-[#2b1809]"
-            />
-            Same as shipping address
-          </label>
-
-          {!checkout.billingSameAsShipping && (
+          <section className="checkout-section">
+            <h2 className="checkout-section-title">Delivery</h2>
             <div className="mt-3 space-y-3">
               <label className="block">
-                <span className={labelClass}>Billing country/region</span>
+                <span className={labelClass}>Country/Region</span>
                 <select
                   className={fieldClass}
-                  value={checkout.billing.country}
-                  onChange={(e) => updateBilling({ country: e.target.value })}
-                  autoComplete="billing country"
+                  value={checkout.shipping.country}
+                  onChange={(e) => updateShipping({ country: e.target.value })}
+                  autoComplete="shipping country"
                 >
                   {COUNTRIES.map((c) => (
                     <option key={c.code} value={c.code}>
@@ -322,14 +236,46 @@ export const ShopifyCheckout = ({ lead, fragrances, onPay, error, paying }: Shop
                   ))}
                 </select>
               </label>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <label className="block">
+                  <span className={labelClass}>First name</span>
+                  <input
+                    className={fieldClass}
+                    placeholder="First name"
+                    value={checkout.firstName}
+                    onChange={(e) => setCheckout((s) => ({ ...s, firstName: e.target.value }))}
+                    autoComplete="given-name"
+                  />
+                </label>
+                <label className="block">
+                  <span className={labelClass}>Last name</span>
+                  <input
+                    className={fieldClass}
+                    placeholder="Last name"
+                    value={checkout.lastName}
+                    onChange={(e) => setCheckout((s) => ({ ...s, lastName: e.target.value }))}
+                    autoComplete="family-name"
+                  />
+                </label>
+              </div>
               <label className="block">
-                <span className={labelClass}>Billing address</span>
+                <span className={labelClass}>Company (optional)</span>
+                <input
+                  className={fieldClass}
+                  placeholder="Company (optional)"
+                  value={checkout.company}
+                  onChange={(e) => setCheckout((s) => ({ ...s, company: e.target.value }))}
+                  autoComplete="organization"
+                />
+              </label>
+              <label className="block">
+                <span className={labelClass}>Address</span>
                 <input
                   className={fieldClass}
                   placeholder="Address"
-                  value={checkout.billing.line1}
-                  onChange={(e) => updateBilling({ line1: e.target.value })}
-                  autoComplete="billing address-line1"
+                  value={checkout.shipping.line1}
+                  onChange={(e) => updateShipping({ line1: e.target.value })}
+                  autoComplete="address-line1"
                 />
               </label>
               <label className="block">
@@ -337,20 +283,20 @@ export const ShopifyCheckout = ({ lead, fragrances, onPay, error, paying }: Shop
                 <input
                   className={fieldClass}
                   placeholder="Apartment, suite, etc. (optional)"
-                  value={checkout.billing.line2}
-                  onChange={(e) => updateBilling({ line2: e.target.value })}
-                  autoComplete="billing address-line2"
+                  value={checkout.shipping.line2}
+                  onChange={(e) => updateShipping({ line2: e.target.value })}
+                  autoComplete="address-line2"
                 />
               </label>
               <div className="grid gap-3 sm:grid-cols-3">
-                <label className="block">
+                <label className="block sm:col-span-1">
                   <span className={labelClass}>City</span>
                   <input
                     className={fieldClass}
                     placeholder="City"
-                    value={checkout.billing.city}
-                    onChange={(e) => updateBilling({ city: e.target.value })}
-                    autoComplete="billing address-level2"
+                    value={checkout.shipping.city}
+                    onChange={(e) => updateShipping({ city: e.target.value })}
+                    autoComplete="address-level2"
                   />
                 </label>
                 <label className="block">
@@ -358,9 +304,9 @@ export const ShopifyCheckout = ({ lead, fragrances, onPay, error, paying }: Shop
                   <input
                     className={fieldClass}
                     placeholder="State"
-                    value={checkout.billing.state}
-                    onChange={(e) => updateBilling({ state: e.target.value })}
-                    autoComplete="billing address-level1"
+                    value={checkout.shipping.state}
+                    onChange={(e) => updateShipping({ state: e.target.value })}
+                    autoComplete="address-level1"
                   />
                 </label>
                 <label className="block">
@@ -368,52 +314,214 @@ export const ShopifyCheckout = ({ lead, fragrances, onPay, error, paying }: Shop
                   <input
                     className={fieldClass}
                     placeholder="ZIP code"
-                    value={checkout.billing.postalCode}
-                    onChange={(e) => updateBilling({ postalCode: e.target.value })}
-                    autoComplete="billing postal-code"
+                    value={checkout.shipping.postalCode}
+                    onChange={(e) => updateShipping({ postalCode: e.target.value })}
+                    autoComplete="postal-code"
                   />
                 </label>
               </div>
             </div>
-          )}
-        </section>
+          </section>
 
-        <section className="checkout-section">
-          <h2 className="checkout-section-title">Payment</h2>
-          <p className="mt-1 text-sm text-[#725f52]">All transactions are secure and encrypted.</p>
-          <div className="mt-3 rounded-[5px] border border-[#d9d9d9] bg-white p-4">
-            <p className="text-sm font-medium text-[#2b1809]">Credit card</p>
-            <p className="mt-2 text-sm text-[#725f52]">
-              Card payment is processed securely via Stripe after you click Pay now.
+          <section className="checkout-section">
+            <h2 className="checkout-section-title">Shipping method</h2>
+            <div className="mt-3 rounded-[5px] border border-[#d9d9d9] bg-[#fafafa] px-4 py-3 text-sm text-[#725f52]">
+              Standard shipping is included with your curated sample kit.
+            </div>
+          </section>
+
+          <section className="checkout-section">
+            <h2 className="checkout-section-title">Billing address</h2>
+            <label className="mt-3 flex items-center gap-2 text-sm text-[#2b1809]">
+              <input
+                type="checkbox"
+                checked={checkout.billingSameAsShipping}
+                onChange={(e) => {
+                  const checked = e.target.checked;
+                  setCheckout((prev) => ({
+                    ...prev,
+                    billingSameAsShipping: checked,
+                    billing: checked ? { ...prev.shipping } : prev.billing,
+                  }));
+                }}
+                className="h-4 w-4 accent-[#2b1809]"
+              />
+              Same as shipping address
+            </label>
+
+            {!checkout.billingSameAsShipping && (
+              <div className="mt-3 space-y-3">
+                <label className="block">
+                  <span className={labelClass}>Billing country/region</span>
+                  <select
+                    className={fieldClass}
+                    value={checkout.billing.country}
+                    onChange={(e) => updateBilling({ country: e.target.value })}
+                    autoComplete="billing country"
+                  >
+                    {COUNTRIES.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="block">
+                  <span className={labelClass}>Billing address</span>
+                  <input
+                    className={fieldClass}
+                    placeholder="Address"
+                    value={checkout.billing.line1}
+                    onChange={(e) => updateBilling({ line1: e.target.value })}
+                    autoComplete="billing address-line1"
+                  />
+                </label>
+                <label className="block">
+                  <span className={labelClass}>Apartment, suite, etc. (optional)</span>
+                  <input
+                    className={fieldClass}
+                    placeholder="Apartment, suite, etc. (optional)"
+                    value={checkout.billing.line2}
+                    onChange={(e) => updateBilling({ line2: e.target.value })}
+                    autoComplete="billing address-line2"
+                  />
+                </label>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <label className="block">
+                    <span className={labelClass}>City</span>
+                    <input
+                      className={fieldClass}
+                      placeholder="City"
+                      value={checkout.billing.city}
+                      onChange={(e) => updateBilling({ city: e.target.value })}
+                      autoComplete="billing address-level2"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className={labelClass}>State</span>
+                    <input
+                      className={fieldClass}
+                      placeholder="State"
+                      value={checkout.billing.state}
+                      onChange={(e) => updateBilling({ state: e.target.value })}
+                      autoComplete="billing address-level1"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className={labelClass}>ZIP code</span>
+                    <input
+                      className={fieldClass}
+                      placeholder="ZIP code"
+                      value={checkout.billing.postalCode}
+                      onChange={(e) => updateBilling({ postalCode: e.target.value })}
+                      autoComplete="billing postal-code"
+                    />
+                  </label>
+                </div>
+              </div>
+            )}
+          </section>
+
+          <section className="checkout-section">
+            <h2 className="checkout-section-title">Payment</h2>
+            <p className="mt-1 text-sm text-[#725f52]">All transactions are secure and encrypted.</p>
+            <div className="mt-3 rounded-[5px] border border-[#d9d9d9] bg-white p-4">
+              <PaymentElement options={{ layout: 'tabs' }} />
+            </div>
+          </section>
+
+          {displayError && (
+            <p
+              className="rounded-[5px] border border-[#fecdca] bg-[#fef3f2] px-4 py-3 text-sm text-[#b42318]"
+              role="alert"
+            >
+              {displayError}
             </p>
-          </div>
-        </section>
+          )}
 
-        {error && (
-          <p className="rounded-[5px] border border-[#fecdca] bg-[#fef3f2] px-4 py-3 text-sm text-[#b42318]" role="alert">
-            {error}
+          <button
+            type="button"
+            disabled={paying || !stripe || !elements}
+            onClick={handlePay}
+            className="checkout-pay-btn"
+          >
+            {paying ? 'Processing…' : 'Pay now'}
+          </button>
+
+          <p className="checkout-footer-links">
+            <span>Refund policy</span>
+            <span>Shipping</span>
+            <span>Privacy policy</span>
+            <span>Terms of service</span>
           </p>
-        )}
+        </div>
 
-        <button
-          type="button"
-          disabled={paying}
-          onClick={() => onPay(checkout)}
-          className="checkout-pay-btn"
-        >
-          {paying ? 'Processing…' : 'Pay now'}
-        </button>
-
-        <p className="checkout-footer-links">
-          <span>Refund policy</span>
-          <span>Shipping</span>
-          <span>Privacy policy</span>
-          <span>Terms of service</span>
-        </p>
-      </div>
-
-      <OrderSummary fragrances={fragrances} />
+        <OrderSummary fragrances={fragrances} />
       </div>
     </div>
+  );
+};
+
+export const ShopifyCheckout = (props: ShopifyCheckoutProps) => {
+  const [config, setConfig] = useState<StripePublicConfig | null>(null);
+  const [configError, setConfigError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const next = await fetchStripeConfig();
+        if (!cancelled) setConfig(next);
+      } catch (e) {
+        if (!cancelled) {
+          setConfigError(e instanceof Error ? e.message : 'Stripe is not configured');
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const stripePromise = useMemo(
+    () => (config ? getStripePromise(config.publishableKey) : null),
+    [config],
+  );
+
+  if (configError) {
+    return (
+      <div className="rounded-[5px] border border-[#fecdca] bg-[#fef3f2] px-4 py-3 text-sm text-[#b42318]" role="alert">
+        {configError}. Confirm <code>STRIPE_SECRET_KEY</code> and <code>STRIPE_PUBLISHABLE_KEY</code> are set in
+        the server environment, then redeploy.
+      </div>
+    );
+  }
+
+  if (!config || !stripePromise) {
+    return <p className="type-body text-[#725F52]">Loading secure checkout…</p>;
+  }
+
+  return (
+    <Elements
+      stripe={stripePromise}
+      options={{
+        mode: 'payment',
+        amount: config.amount,
+        currency: config.currency,
+        appearance: {
+          theme: 'stripe',
+          variables: {
+            colorPrimary: '#2b1809',
+            colorBackground: '#ffffff',
+            colorText: '#2b1809',
+            colorDanger: '#b42318',
+            borderRadius: '5px',
+            fontFamily: 'Funnel Sans, system-ui, sans-serif',
+          },
+        },
+      }}
+    >
+      <CheckoutForm {...props} />
+    </Elements>
   );
 };

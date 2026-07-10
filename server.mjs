@@ -274,6 +274,21 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (url.pathname === '/api/stripe/config' && req.method === 'GET') {
+    const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+    const secret = process.env.STRIPE_SECRET_KEY;
+    if (!publishableKey || !secret) {
+      sendJson(res, 501, { error: 'Stripe is not configured' });
+      return;
+    }
+    sendJson(res, 200, {
+      publishableKey,
+      amount: Number(process.env.STRIPE_SAMPLE_KIT_AMOUNT_CENTS || 10000),
+      currency: process.env.STRIPE_CURRENCY || 'usd',
+    });
+    return;
+  }
+
   if (url.pathname === '/api/checkout/create-payment-intent' && req.method === 'POST') {
     const secret = process.env.STRIPE_SECRET_KEY;
     if (!secret) {
