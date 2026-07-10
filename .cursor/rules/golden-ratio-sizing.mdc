@@ -23,7 +23,7 @@ Prefer `phi-*` spacing tokens (`phi-1` … `phi-6`) when adding padding, gaps, o
 
 ## Fonts
 
-- Headings (h1–h5): Instrument Serif (`font-serif` / `type-h*`)
+- Headings (h1–h5): Queens Compressed Trial (`font-serif` / `type-h*`)
 - Body: Funnel Sans (`font-sans` / `type-body*`)
 - Eyebrows: Funnel Sans (`type-eyebrow`)
 

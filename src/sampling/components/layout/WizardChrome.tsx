@@ -16,7 +16,7 @@ export const WizardChrome = ({ onSaveExit, saved = false, exitOnly = false }: Wi
       className="justify-self-center transition-opacity hover:opacity-80"
       aria-label="Brandsamor home"
     >
-      <BrandLogo className="w-[120px] sm:w-[140px]" />
+      <BrandLogo />
     </Link>
     <div className="flex min-w-0 items-center justify-end gap-3 justify-self-end">
       {!exitOnly && <SaveStatus visible={saved} />}

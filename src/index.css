@@ -70,10 +70,20 @@
   }
 }
 
+@font-face {
+  font-family: 'Queens Compressed Trial';
+  src:
+    url('/fonts/QueensCompressedTrial-Regular.woff2') format('woff2'),
+    url('/fonts/QueensCompressedTrial-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --font-body: 'Funnel Sans Variable', system-ui, sans-serif;
   --font-display: 'Funnel Display Variable', system-ui, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Queens Compressed Trial', Georgia, 'Times New Roman', serif;
   --color-surface: #f3efe3;
   --color-surface-rgb: 243 239 227;
   --color-secondary: rgb(240, 230, 220);
@@ -105,12 +115,12 @@ body {
 }
 
 [id] {
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: 4.5rem;
 }
 
 @media (min-width: 1024px) {
   [id] {
-    scroll-margin-top: 8.5rem;
+    scroll-margin-top: 7.5rem;
   }
 }
 
@@ -126,7 +136,7 @@ h6 {
 }
 
 @layer components {
-  /* Golden-ratio typography — headings: Instrument Serif, body: Funnel Sans */
+  /* Golden-ratio typography — headings: Queens Compressed Trial, body: Funnel Sans */
   .type-h1 {
     @apply font-serif text-phi-3xl sm:text-phi-4xl leading-tight font-normal text-heading;
   }
@@ -198,14 +208,14 @@ h6 {
   .hero-panel--viewport {
     display: flex;
     flex-direction: column;
-    min-height: calc(100svh - 89px);
-    min-height: calc(100dvh - 89px);
+    min-height: calc(100svh - 56px);
+    min-height: calc(100dvh - 68px);
   }
 
   @media (min-width: 1024px) {
     .hero-panel--viewport {
-      min-height: calc(100svh - 135px);
-      min-height: calc(100dvh - 135px);
+      min-height: calc(100svh - 96px);
+      min-height: calc(100dvh - 112px);
     }
   }
 

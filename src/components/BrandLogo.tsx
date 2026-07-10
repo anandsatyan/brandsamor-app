@@ -8,8 +8,8 @@ export const BrandLogo = ({ className = '' }: BrandLogoProps) => (
   <img
     src="/brandsamor-neue-logo.png"
     alt={IMAGE_ALT.brandLogo}
-    width={156}
-    height={53}
-    className={`h-auto w-[156px] ${className}`}
+    width={140}
+    height={48}
+    className={`h-auto w-[120px] sm:w-[140px] ${className}`}
   />
 );

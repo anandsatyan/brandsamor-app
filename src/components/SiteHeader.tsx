@@ -49,7 +49,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
   return (
     <>
       <header className="site-header fixed top-0 left-0 right-0 z-50 bg-surface">
-        <div className="site-header__bar relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-4 sm:py-5">
+        <div className="site-header__bar relative flex items-center justify-center px-4 sm:px-6 lg:px-12 py-3">
           <button
             type="button"
             className="site-header__menu-btn absolute left-4 sm:left-6 lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-secondary/45 text-heading transition-[color,background-color,transform] duration-200 hover:bg-secondary/80 hover:text-accent active:scale-95"
@@ -81,7 +81,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
               <span key={item.path} className="contents">
                 {renderNavItem(
                   item,
-                  `shrink-0 whitespace-nowrap px-1 py-3 text-center text-[10px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.1em] 2xl:tracking-[0.12em] font-medium ${
+                  `shrink-0 whitespace-nowrap px-1 py-2.5 text-center text-[11px] xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.1em] font-medium ${
                     isNavActive(item) ? 'text-accent' : 'text-heading hover:text-accent'
                   }`,
                 )}
@@ -91,7 +91,7 @@ export const SiteHeader = ({ activeNavKey: activeNavKeyProp }: SiteHeaderProps =
         </nav>
       </header>
 
-      <div className="site-header-spacer h-[89px] lg:h-[135px]" aria-hidden="true" />
+      <div className="site-header-spacer h-[68px] lg:h-[112px]" aria-hidden="true" />
 
       {isMenuOpen && (
         <>

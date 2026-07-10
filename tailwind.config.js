@@ -15,7 +15,7 @@ export default {
       fontFamily: {
         sans: ['"Funnel Sans Variable"', 'system-ui', 'sans-serif'],
         display: ['"Funnel Display Variable"', 'system-ui', 'sans-serif'],
-        serif: ['"Instrument Serif"', 'Georgia', 'Times New Roman', 'serif'],
+        serif: ['"Queens Compressed Trial"', 'Georgia', 'Times New Roman', 'serif'],
       },
       fontSize: {
         /* Golden ratio scale: base 16px, ratio φ ≈ 1.618 */
