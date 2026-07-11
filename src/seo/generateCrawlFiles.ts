@@ -178,7 +178,7 @@ export const buildLlmsTxt = () => {
 
   return `# ${OG_SITE_NAME}
 
-> Brandsamor is a private label and white label perfume manufacturer for growing brands. We handle fragrance development, sampling, filling, packaging and compliance for founders launching or scaling a fragrance line. Operated by Packamor LLC with teams in the United States, United Arab Emirates and India.
+> Brandsamor is a private label and white label perfume manufacturer for your brand. We handle fragrance development, sampling, filling, packaging and compliance for founders launching or scaling a fragrance line. Operated by Packamor LLC with teams in the United States, United Arab Emirates and India.
 
 Key facts:
 - Service: private label, white label, custom (OEM/ODM) fragrance manufacturing

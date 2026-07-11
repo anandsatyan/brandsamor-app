@@ -53,7 +53,7 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     description:
       'Brandsamor is a private label perfume manufacturer that handles fragrance sampling, bottles, packaging, filling, finishing and quality checks for your brand.',
     canonical: canonical('/'),
-    h1: 'Private Label Perfume Manufacturer for Growing Brands',
+    h1: 'Private Label Perfume Manufacturer for Your Brand',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: true,
