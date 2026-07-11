@@ -214,6 +214,11 @@ export const StartSmallValidateDemandImage = createProductImage(
   IMAGE_ALT.startPerfumeLine.startSmall,
 );
 
+export const StartSmallValidateDemandCtaImage = createProductImage(
+  '/start-small-and-validate-demand.png',
+  IMAGE_ALT.startPerfumeLine.startSmall,
+);
+
 export const CommonMistakesToAvoidImage = createProductImage(
   '/Common mistakes to avoid.png',
   IMAGE_ALT.startPerfumeLine.commonMistakes,
@@ -226,6 +231,11 @@ export const TellUsAboutYourBrandImage = createProductImage(
 
 export const ExploreFragranceSamplesImage = createProductImage(
   '/Explore fragrance samples .png',
+  IMAGE_ALT.howItWorks.exploreSamples,
+);
+
+export const ExploreFragranceSamplesWhiteImage = createProductImage(
+  '/explore-fragrance-samples-white.png',
   IMAGE_ALT.howItWorks.exploreSamples,
 );
 

@@ -10,6 +10,7 @@ import {
   PlanRetailPriceImage,
   SelectBottleAndPackagingImage,
   StartSmallValidateDemandImage,
+  StartSmallValidateDemandCtaImage,
   StrongerBrandExperienceImage,
   WhyLaunchPerfumeImage,
 } from '../components/Illustrations';
@@ -206,7 +207,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     title: 'Start Planning',
     description:
       'Ready to explore a branded fragrance for your business? Complete the sampling brief about your business and customers, evaluate your curated sample kit, and map out bottle and packaging choices for a focused first launch.',
-    Illustration: StartSmallValidateDemandImage,
+    Illustration: StartSmallValidateDemandCtaImage,
   },
   relatedLinks: {
     links: [

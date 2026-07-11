@@ -5,6 +5,7 @@ import {
   ChoosingScentsForYourCustomerImage,
   FragranceFamiliesAvailableImage,
   FragranceSampleKitImage,
+  FragranceSampleKitWhiteImage,
   HowScentLibraryWorksImage,
   HowToEvaluateSamplesImage,
   WhatHappensAfterApprovalImage,
@@ -178,7 +179,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     eyebrow: 'GET STARTED',
     title: 'Build Your Sample Kit',
     description: COMMERCIAL_COPY.sampleOrderPath,
-    Illustration: FragranceSampleKitImage,
+    Illustration: FragranceSampleKitWhiteImage,
   },
   relatedLinks: {
     links: [

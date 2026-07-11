@@ -5,6 +5,7 @@ import {
   DeliveryOfFinishedPerfumesImage,
   DesignLabelsAndPackagingImage,
   ExploreFragranceSamplesImage,
+  ExploreFragranceSamplesWhiteImage,
   ProductionAndFillingImage,
   QualityChecksImage,
   RepeatOrdersImage,
@@ -175,7 +176,7 @@ export const howItWorksConfig: TopicPageConfig = {
     title: 'Ready to receive curated samples for your brand?',
     description:
       'The best first step is the sampling brief. Tell us about your business and customers, receive five matched fragrances, and choose your launch scent before committing to production.',
-    Illustration: ExploreFragranceSamplesImage,
+    Illustration: ExploreFragranceSamplesWhiteImage,
     footerText: 'Have questions about the process? Visit the FAQ on the homepage.',
   },
   relatedLinks: {
