@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { LEAD_FORM_PATH } from '../routes/leadForm';
+import { CURATED_SAMPLING_PATH, PRIMARY_CTA_LABEL } from '../routes/leadForm';
 import { trackComingSoonCta } from '../analytics/siteAnalytics';
 
 export const ComingSoonLabel = ({
   className = '',
   variant = 'primary',
-  children = 'Start your project',
+  children = PRIMARY_CTA_LABEL,
   trackingLocation = 'unspecified',
 }: {
   className?: string;
@@ -14,7 +14,7 @@ export const ComingSoonLabel = ({
   trackingLocation?: string;
 }) => (
   <Link
-    to={LEAD_FORM_PATH}
+    to={CURATED_SAMPLING_PATH}
     onClick={() => trackComingSoonCta(trackingLocation)}
     className={`inline-flex items-center px-5 py-3 font-semibold uppercase tracking-wider transition-opacity hover:opacity-90 ${
       variant === 'hero' ? 'btn-hero-cta' : 'btn-primary'

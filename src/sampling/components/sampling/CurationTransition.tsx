@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { VialIllustration } from './VialIllustration';
+import { FiveBottleSampleSet } from './FiveBottleSampleSet';
 import { useReducedMotion } from '../../hooks/useLocalStorage';
 
 const MESSAGES = [
@@ -16,12 +16,10 @@ interface CurationTransitionProps {
 export const CurationTransition = ({ onComplete }: CurationTransitionProps) => {
   const reducedMotion = useReducedMotion();
   const [messageIndex, setMessageIndex] = useState(0);
-  const [vialsFilled, setVialsFilled] = useState(0);
 
   useEffect(() => {
     const msgInterval = window.setInterval(() => {
       setMessageIndex((i) => Math.min(i + 1, MESSAGES.length - 1));
-      setVialsFilled((v) => Math.min(v + 2, 5));
     }, 900);
 
     const completeTimer = window.setTimeout(onComplete, reducedMotion ? 1500 : 3200);
@@ -48,18 +46,14 @@ export const CurationTransition = ({ onComplete }: CurationTransitionProps) => {
         </div>
       ) : (
         <>
-          <div className="mb-8 flex gap-4">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.15, duration: 0.4 }}
-              >
-                <VialIllustration index={i} filled={i < vialsFilled} size="lg" />
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            className="mb-8 w-full"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+          >
+            <FiveBottleSampleSet size="lg" />
+          </motion.div>
           <AnimatePresence mode="wait">
             <motion.p
               key={messageIndex}

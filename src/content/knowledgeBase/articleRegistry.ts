@@ -70,7 +70,7 @@ const articleEnhancements: Record<
   },
   'choose-private-label-perfume-manufacturer': {
     category: 'manufacturing',
-    relatedCommercialPages: ['/how-it-works', '/why-brandsamor', '/get-started'],
+    relatedCommercialPages: ['/how-it-works', '/why-brandsamor', '/curated-sampling'],
   },
   'is-private-label-perfume-profitable': {
     category: 'business-and-pricing',
@@ -106,7 +106,7 @@ const articleEnhancements: Record<
   },
   'test-demand-before-perfume-inventory': {
     category: 'business-and-pricing',
-    relatedCommercialPages: ['/start-a-perfume-line', '/get-started'],
+    relatedCommercialPages: ['/start-a-perfume-line', '/curated-sampling'],
   },
   'calculate-retail-price-perfume': {
     category: 'business-and-pricing',
@@ -131,7 +131,7 @@ const articleEnhancements: Record<
   },
   'how-to-write-fragrance-brief': {
     category: 'fragrance-sampling',
-    relatedCommercialPages: ['/fragrance-sampling', '/get-started'],
+    relatedCommercialPages: ['/fragrance-sampling', '/curated-sampling'],
   },
   'perfume-stability-testing': {
     category: 'quality-and-compliance',

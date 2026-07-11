@@ -736,7 +736,9 @@ export const BrandsamorLandingPage = () => {
             <div className="mb-6">
               <ComingSoonLabel variant="primary" />
             </div>
-            <p className="type-body-sm text-white/60">Start with your idea. The first step is simply telling us what you want to build.</p>
+            <p className="type-body-sm text-white/60">
+              The first step is curated fragrance sampling — tell us about your brand and we&apos;ll select five scents for you to evaluate.
+            </p>
           </div>
           <div className="max-w-md mx-auto w-full">
             <img

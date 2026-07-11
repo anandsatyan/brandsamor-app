@@ -13,7 +13,7 @@ import { SearchableCountrySelect } from '../components/form/SearchableCountrySel
 import { SamplingPageShell, ScreenTransition } from '../components/layout/SamplingPageShell';
 import { WizardFooter } from '../components/layout/WizardFooter';
 import { StickyActionBar, PrimaryButton, TextLinkButton } from '../components/layout/StickyActionBar';
-import { VialIllustration } from '../components/sampling/VialIllustration';
+import { FiveBottleSampleSet } from '../components/sampling/FiveBottleSampleSet';
 import { CurationTransition } from '../components/sampling/CurationTransition';
 import { ShopifyCheckout, type CheckoutFormData, type PaidCheckoutResult } from '../components/checkout/ShopifyCheckout';
 import { OrderThankYou } from '../components/checkout/OrderThankYou';
@@ -42,6 +42,7 @@ import { runRecommendationEngine } from '../lib/recommendationEngine';
 import { saveSamplingStep } from '../lib/samplingApi';
 import { fetchPublicFragrances, type PublicFragrance } from '../lib/fragranceApi';
 import { hasContactErrors, validateContact } from '../lib/validation';
+import { ORGANIZATION } from '../../seo/siteConfig';
 import {
   STEP_BRAND,
   STEP_COMPLETE,
@@ -345,16 +346,6 @@ export const SamplingExperience = () => {
         Tell us about your brand and the kind of fragrance experience you want to create.
         Brandsamor will use your brief to curate exactly five fragrance samples for you.
       </p>
-      <div className="mt-8 flex justify-center gap-3">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <VialIllustration key={i} index={i} animate size="md" />
-        ))}
-      </div>
-      <ul className="mt-8 flex flex-col gap-2 text-sm font-medium text-[#2B1809] sm:flex-row sm:gap-6">
-        <li>Curated around your brand</li>
-        <li>No fragrance expertise required</li>
-        <li>Exactly five focused options</li>
-      </ul>
       <div className="mt-10 flex flex-col items-center gap-4">
         {hasCheckoutReady ? (
           <>
@@ -378,6 +369,17 @@ export const SamplingExperience = () => {
           </>
         )}
       </div>
+      <div className="mt-10 flex justify-center">
+        <FiveBottleSampleSet size="sm" />
+      </div>
+      <ul className="mt-8 flex flex-col gap-2 text-sm font-medium text-[#2B1809] sm:flex-row sm:gap-6">
+        <li>Curated around your brand</li>
+        <li>No fragrance expertise required</li>
+        <li>Exactly five focused options</li>
+      </ul>
+      <p className="mt-10 type-caption text-[#725F52]">
+        © {new Date().getFullYear()}, {ORGANIZATION.legalName}
+      </p>
       </div>
     </ScreenTransition>
   );

@@ -90,7 +90,9 @@ const RelatedCommercialPages = ({ paths }: { paths?: string[] }) => {
   const labels: Record<string, string> = {
     '/start-a-perfume-line': 'Start a perfume line',
     '/how-it-works': 'How it works',
+    '/why-brandsamor': 'Why Brandsamor',
     '/fragrance-sampling': 'Fragrance sampling',
+    '/curated-sampling': 'Start with sampling',
     '/fragrance-products': 'Fragrance products',
     '/packaging-branding': 'Packaging and branding',
     '/quality-compliance': 'Quality and compliance',

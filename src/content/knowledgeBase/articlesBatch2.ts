@@ -1518,7 +1518,7 @@ export const KNOWLEDGE_BASE_ARTICLES_BATCH2: KbArticleBase[] = [
       {
         question: 'Does Brandsamor work across regions?',
         answer:
-          'Brandsamor supports brands worldwide with team coverage in multiple regions—start your project to discuss fit for your market and format.',
+          'Brandsamor supports brands worldwide with team coverage in multiple regions—start with sampling to discuss fit for your market and format.',
       },
     ],
   },

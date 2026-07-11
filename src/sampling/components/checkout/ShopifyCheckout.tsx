@@ -101,11 +101,11 @@ const OrderSummary = ({
   <aside className="checkout-summary">
     <div className="checkout-summary-inner space-y-5">
       <div className="flex gap-4">
-        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[#e8e0d8] bg-white">
+        <div className="flex h-16 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#e8e0d8] bg-white p-1">
           <img
-            src="/fragrance-sample-kit.png"
+            src="/five-bottle-sample-set.png"
             alt="Brandsamor curated sample kit"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
           />
         </div>
         <div className="flex flex-1 items-start justify-between gap-3">

@@ -171,10 +171,10 @@ export const whyBrandsamorConfig: TopicPageConfig = {
     items: WHY_BRANDSAMOR_FAQ_ITEMS,
   },
   cta: {
-    eyebrow: 'GET STARTED',
-    title: 'Start Your Project',
+    eyebrow: 'START WITH SAMPLING',
+    title: 'Start with fragrance sampling',
     description:
-      'Ready to launch a branded fragrance without factory setup? Start your project to request scent samples, explore bottle and packaging options, and plan your first ready-to-sell batch with Brandsamor.',
+      'Ready to launch a branded fragrance without factory setup? Begin with the curated sampling brief — receive five matched scents, then explore bottle and packaging options for your first ready-to-sell batch.',
     Illustration: ProcessTimelineIllustration,
   },
   relatedLinks: {
