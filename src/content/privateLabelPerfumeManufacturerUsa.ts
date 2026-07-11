@@ -20,7 +20,7 @@ export const privateLabelPerfumeManufacturerUsaConfig: TopicPageConfig = {
     badge: 'UNITED STATES',
     title: pageMeta.h1,
     description:
-      'Brandsamor is operated by Packamor LLC in Delaware and works with customers in the United States and worldwide through a coordinated supplier and production network. Launch private label fragrance for the US market with sampling, packaging, production coordination and documentation support where applicable.',
+      'Looking for a perfume manufacturer USA founders can work with clearly? Brandsamor is operated by Packamor LLC in Delaware and coordinates sampling, packaging, production and documentation for US and worldwide launches through a specialist partner network.',
     Illustration: ProcessTimelineIllustration,
   },
   sections: withSteps(
@@ -95,7 +95,7 @@ export const privateLabelPerfumeManufacturerUsaConfig: TopicPageConfig = {
         id: 'launch-path',
         title: 'A practical US launch path',
         description:
-          'Most US brands begin with [fragrance sampling](/fragrance-sampling), choose a [product format](/fragrance-products), finalize [custom perfume packaging](/packaging-branding), approve a production sample, then move into coordinated filling and finishing. Review [how perfume is manufactured](/how-your-batch-is-made) before bulk release.',
+          'Most US brands begin with [fragrance sampling](/fragrance-sampling), choose a [product format](/fragrance-products), finalize [custom perfume packaging](/packaging-branding), approve a production sample, then move into coordinated filling and finishing. Review [how perfume is made](/how-your-batch-is-made) before bulk release.',
         bullets: sectionBullets(
           'Define customer, channel and price point first',
           'Sample scents before packaging and production decisions',
@@ -126,7 +126,7 @@ export const privateLabelPerfumeManufacturerUsaConfig: TopicPageConfig = {
     links: [
       { to: '/fragrance-sampling', label: 'Explore private label perfume samples' },
       { to: '/quality-compliance', label: 'Review perfume quality and compliance support' },
-      { to: '/how-your-batch-is-made', label: 'See how perfume is manufactured' },
+      { to: '/how-your-batch-is-made', label: 'See how perfume is made' },
       { to: '/contact', label: 'Contact Brandsamor about your US project' },
     ],
   },

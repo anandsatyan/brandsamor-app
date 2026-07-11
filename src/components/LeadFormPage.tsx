@@ -174,8 +174,9 @@ export const LeadFormPage = () => {
           </span>
           <h1 className="type-h1 text-white">{meta.h1}</h1>
           <p className="type-body-lg max-w-2xl">
-            Tell us about your brand and launch goals. We will review your project and follow up
-            with the right next steps for your private label fragrance line.
+            Starting a perfume business is clearer when you begin with your brand, customers and
+            launch goals. Share a few details and we will follow up with the right next steps for
+            sampling and your first private label batch.
           </p>
         </div>
       </HeroPanel>

@@ -25,7 +25,7 @@ export const fragranceSamplingConfig: TopicPageConfig = {
     badge: 'FRAGRANCE SAMPLING',
     title: pageMeta.h1,
     description:
-      'Private label perfume samples help you compare fragrances and choose the right scents for your brand before production begins. ' +
+      'Private label perfume samples let you compare scents on skin before you commit to a bulk order. ' +
       COMMERCIAL_COPY.sampleOrderPath +
       ' ' +
       COMMERCIAL_COPY.sampleDispatch +

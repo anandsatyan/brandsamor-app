@@ -18,7 +18,7 @@ export const customPerfumeManufacturerConfig: TopicPageConfig = {
     badge: 'CUSTOM FRAGRANCE',
     title: pageMeta.h1,
     description:
-      'Custom perfume manufacturing can mean different things — from selecting a library scent with your packaging to developing a more bespoke fragrance direction. Brandsamor helps brands understand which path fits their timeline, budget and differentiation goals, then coordinates production through qualified partners.',
+      'A custom perfume manufacturer can mean a library scent with your packaging, or a more bespoke fragrance direction. Brandsamor helps you choose the path that fits your timeline, budget and differentiation goals, then coordinates production through qualified partners.',
     Illustration: FragranceFamilyIllustration,
   },
   sections: withSteps(
