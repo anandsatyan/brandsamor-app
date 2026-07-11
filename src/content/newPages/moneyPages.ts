@@ -23,6 +23,9 @@ import type { TopicPageConfig } from '../../components/topic/types';
 const PACKAMOR_OPERATOR =
   'Brandsamor is operated by Packamor LLC at 1111B S Governors Ave, Dover, DE 19904.';
 
+const QUALITY_DOCUMENTATION_SENTENCE =
+  '[Quality and compliance](/quality-compliance) covers available IFRA, COA, GMP, ISO 22716, MoCRA and halal certification support.';
+
 const certificationSummary = BUSINESS_FACTS.certifications.join(', ');
 
 const moneyPageRelatedLinks = [
@@ -36,7 +39,7 @@ const whiteLabelComparison = {
   id: 'white-label-vs-private-label-vs-custom-oem',
   title: 'White label vs private label vs custom OEM perfume',
   description:
-    'The fastest and lowest-cost route is usually a white label or guided private label path. Custom OEM gives more control, but every extra decision can add cost, approvals and lead time.',
+    'The fastest route is usually white label or a guided private label path. Custom OEM can give more control, but every new decision can add cost, approvals and lead time.',
   columns: [
     { key: 'whiteLabel', label: 'White label' },
     { key: 'privateLabel', label: 'Private label' },
@@ -46,9 +49,9 @@ const whiteLabelComparison = {
     {
       label: 'Scent',
       values: {
-        whiteLabel: 'Launch-ready scents selected from an existing library.',
-        privateLabel: 'Curated scent sampling matched to your brand and customer brief.',
-        customOem: 'A new scent direction developed around a detailed creative brief.',
+        whiteLabel: 'Select from an existing scent library or a narrow set of ready options.',
+        privateLabel: 'Sample scents matched to your buyer, channel and brand brief.',
+        customOem: 'Develop a new scent direction from a deeper creative and technical brief.',
       },
     },
     {
@@ -56,15 +59,15 @@ const whiteLabelComparison = {
       values: {
         whiteLabel: 'Supplier formula; your brand sells the finished product.',
         privateLabel: 'Supplier-supported formula with brand-specific positioning and packaging.',
-        customOem: 'Project-specific formula ownership terms must be agreed before development.',
+        customOem: 'Formula ownership terms need to be agreed before development starts.',
       },
     },
     {
       label: 'Packaging',
       values: {
-        whiteLabel: 'Fast stock bottle, cap, spray and label choices.',
+        whiteLabel: 'Stock bottle, cap, spray and label choices keep the scope tight.',
         privateLabel: 'Branded bottle, label, carton and decoration choices within practical limits.',
-        customOem: 'Higher-touch bottle molds, special decoration or structural packaging may be possible.',
+        customOem: 'Custom molds, special decoration or structural packaging may be possible.',
       },
     },
     {
@@ -72,13 +75,13 @@ const whiteLabelComparison = {
       values: {
         whiteLabel: '100 units through the Brandsamor low-MOQ path.',
         privateLabel: '100 units through Brandsamor, depending on format and packaging.',
-        customOem: 'Often higher because development, materials and tooling require more commitment.',
+        customOem: 'Often higher because development, materials and tooling need more commitment.',
       },
     },
     {
       label: 'Lead time',
       values: {
-        whiteLabel: 'Samples dispatch in 2-3 business days; production is typically 3-6 weeks after approvals.',
+        whiteLabel: 'Samples dispatch in 2-3 days; production is typically 3-6 weeks after approvals.',
         privateLabel: 'Typically 3-6 weeks after fragrance, artwork, packaging and production approvals.',
         customOem: 'Longer when new formula work, stability review or special packaging is required.',
       },
@@ -86,17 +89,17 @@ const whiteLabelComparison = {
     {
       label: 'Cost per unit',
       values: {
-        whiteLabel: 'Indicative entry projects start from $10 per unit.',
-        privateLabel: 'Indicative pricing starts from $10 per unit, with packaging and format affecting cost.',
+        whiteLabel: 'Entry projects can start from $10 per unit.',
+        privateLabel: 'Indicative pricing starts from $10 per unit; format and packaging shape the quote.',
         customOem: 'Usually higher because more development, testing and custom components are involved.',
       },
     },
     {
       label: 'Best for',
       values: {
-        whiteLabel: 'Testing a perfume idea quickly with the lowest practical launch cost.',
-        privateLabel: 'Building a branded product range without starting from a blank formula.',
-        customOem: 'Established brands that need a highly specific scent or packaging system.',
+        whiteLabel: 'Fast tests, boutique add-ons, creator drops and simple branded goods.',
+        privateLabel: 'Brands that want a more deliberate scent and packaging story.',
+        customOem: 'Teams that can fund longer development and need a highly specific product.',
       },
     },
   ],
@@ -107,7 +110,7 @@ const pricingComparison = {
   id: 'private-label-perfume-pricing-drivers',
   title: 'What changes private label perfume pricing?',
   description:
-    'Entry projects can start from $10 per unit, but the final quote is built from format, bottle, decoration, packaging and quantity choices. The table below shows how those decisions usually move cost.',
+    'A useful quote is built from format, bottle, closure, decoration, packaging, quantity and destination. The table shows the decisions that usually move cost, without pretending every SKU lands at the entry price.',
   columns: [
     { key: 'lowerCost', label: 'Lower-cost direction' },
     { key: 'higherCost', label: 'Higher-cost direction' },
@@ -117,25 +120,25 @@ const pricingComparison = {
     {
       label: 'Format',
       values: {
-        lowerCost: 'Simple fragrance format in a practical fill size.',
-        higherCost: 'Oil, EDP, mist or gift formats with more components or handling.',
-        planningNote: 'Choose the format around channel and margin, not only the lowest unit price.',
+        lowerCost: 'A straightforward fragrance format in a practical fill size.',
+        higherCost: 'Oil, EDP, mist, travel, room or gift formats with more handling or parts.',
+        planningNote: 'Choose the format around channel, margin and customer use, not only unit price.',
       },
     },
     {
       label: 'Bottle and closure',
       values: {
         lowerCost: 'Stock bottle, stock cap and standard spray pump.',
-        higherCost: 'Premium bottle shape, heavier glass, specialty cap or unique actuator.',
-        planningNote: 'Bottle choices influence unit cost, freight weight, shelf presence and reorder speed.',
+        higherCost: 'Heavier glass, specialty cap, unusual actuator or less common bottle shape.',
+        planningNote: 'Bottle decisions affect unit cost, freight weight, shelf presence and reorder speed.',
       },
     },
     {
       label: 'Decoration',
       values: {
-        lowerCost: 'Label-first branding with clean artwork.',
-        higherCost: 'Screen printing, coating, metallic effects or more complex decoration.',
-        planningNote: 'Decorations should support your retail price and not only look impressive in mockups.',
+        lowerCost: 'Label-first branding with disciplined artwork.',
+        higherCost: 'Screen printing, coating, metallic effects or multi-step decoration.',
+        planningNote: 'Decoration should support the retail price, not just photograph well.',
       },
     },
     {
@@ -143,23 +146,23 @@ const pricingComparison = {
       values: {
         lowerCost: 'Simple carton or no outer box where the channel allows it.',
         higherCost: 'Rigid box, inserts, gift-ready presentation or multi-piece sets.',
-        planningNote: 'Packaging adds cost but may raise perceived value for gifting and boutique retail.',
+        planningNote: 'Packaging can raise perceived value, but it is also a common margin leak.',
       },
     },
     {
       label: 'Quantity',
       values: {
-        lowerCost: 'MOQ from 100 units for validation and first launch.',
-        higherCost: 'Larger runs can improve component efficiency but require more cash and storage.',
-        planningNote: 'Start with the batch size you can sell, then use reorder data to scale responsibly.',
+        lowerCost: 'Start with the batch size your channel can realistically sell.',
+        higherCost: 'Larger runs can improve component efficiency but tie up more cash.',
+        planningNote: 'Use first-batch data before chasing volume savings.',
       },
     },
     {
       label: 'Documentation',
       values: {
-        lowerCost: 'Standard project documentation aligned to the product and market.',
+        lowerCost: 'Standard project documentation matched to product and market.',
         higherCost: 'Additional certificates or market-specific documentation support where required.',
-        planningNote: `Available support includes ${certificationSummary}; requirements depend on product and destination.`,
+        planningNote: `Available support includes ${certificationSummary}; exact needs depend on product, claims and destination.`,
       },
     },
   ],
@@ -170,7 +173,7 @@ const manufacturerComparison = {
   id: 'manufacturer-model-comparison',
   title: 'Private label perfume manufacturer types compared',
   description:
-    'There is no single best manufacturer for every fragrance business. The strongest choice depends on launch size, internal experience, compliance needs, cost tolerance and how much project management you want to own.',
+    'There is no single best manufacturer for every fragrance business. The right choice depends on launch size, internal experience, compliance needs, budget and how much supplier management you want to own.',
   columns: [
     { key: 'fit', label: 'Best fit' },
     { key: 'tradeoff', label: 'Main trade-off' },
@@ -180,15 +183,15 @@ const manufacturerComparison = {
     {
       label: 'Brandsamor',
       values: {
-        fit: 'Low-MOQ private label launches, sample-first validation and founders who need guided packaging support.',
-        tradeoff: 'Not the best fit for every highly custom R&D brief or very large enterprise procurement process.',
-        chooseWhen: 'You want to start from 100 units, sample first and keep the launch path practical.',
+        fit: 'Low-MOQ private label launches, sample-led validation and founders who need packaging support.',
+        tradeoff: 'Not the best fit for every custom R&D brief or enterprise procurement process.',
+        chooseWhen: 'You want a guided first production path without ordering thousands of units.',
       },
     },
     {
       label: 'US contract houses',
       values: {
-        fit: 'Established US brands that need domestic communication, formal production controls and repeatable scale.',
+        fit: 'Established US brands that need domestic communication, formal controls and repeatable scale.',
         tradeoff: 'Many have higher MOQs, slower onboarding or less flexibility for small first launches.',
         chooseWhen: 'You already have demand, budget and a clear operations process.',
       },
@@ -196,16 +199,16 @@ const manufacturerComparison = {
     {
       label: 'China OEM marketplaces',
       values: {
-        fit: 'Cost-led sourcing teams that can vet suppliers, manage samples and handle production details directly.',
-        tradeoff: 'Quality, communication, documentation and packaging consistency can vary widely by supplier.',
-        chooseWhen: 'You have sourcing experience and are comfortable managing more risk yourself.',
+        fit: 'Cost-led sourcing teams that can vet suppliers, manage samples and inspect production details.',
+        tradeoff: 'Quality, communication, documentation and packaging consistency vary widely by supplier.',
+        chooseWhen: 'You have sourcing experience and are comfortable carrying more buyer-side risk.',
       },
     },
     {
       label: 'EU niche labs',
       values: {
         fit: 'Premium fragrance brands that prioritize perfumer-led development and European market context.',
-        tradeoff: 'Custom development can be expensive, slower and less accessible for small commercial tests.',
+        tradeoff: 'Custom development can be expensive, slower and harder to justify for small tests.',
         chooseWhen: 'Your budget supports deeper creative work and longer development timelines.',
       },
     },
@@ -226,13 +229,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/white-label-perfume-supplier',
     badge: 'White label perfume supplier',
     heroDescription:
-      'Launch branded perfume faster with a white label-style path: curated scent sampling, practical stock packaging choices and production from 100 units. Brandsamor keeps the early decision set focused so founders can test demand without a custom OEM budget.',
+      'Choose white label when the commercial job is simple: put a credible branded fragrance in market quickly, test demand, and avoid a long custom formula project before you know what sells.',
     eyebrowPrefix: 'WHITE LABEL',
     heroIllustration: ProcessTimelineIllustration,
     keyFacts: {
       title: 'White label launch facts',
       description:
-        'Use this route when speed, low upfront cost and a simple first batch matter more than owning every formula and packaging detail.',
+        'This route suits founders who care more about speed, cost control and a clean first batch than owning every formula detail.',
       facts: defaultKeyFacts({ format: 'White label fragrance' }),
     },
     answerBlocks: [
@@ -240,17 +243,17 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-is-a-white-label-perfume-supplier',
         question: 'What is a white label perfume supplier?',
         answer:
-          'A white label perfume supplier helps you sell a ready-to-produce fragrance under your own branding. Instead of developing a scent from zero, you choose from launch-ready options, confirm packaging, approve artwork and move into production after approvals, keeping the project closer to a commercial test than custom R&D.',
+          'A white label perfume supplier lets you sell an existing or near-ready fragrance under your own brand. You still approve scent, packaging and artwork, but you are not starting with a blank perfumer brief.',
         detail:
-          'For a new brand, the value is speed and cost control. You still need to evaluate samples, choose a product format and prepare branding, but the project avoids the long discovery cycle of custom formulation.',
+          'For a new brand, the benefit is fewer open decisions. You can test the product with real customers before spending heavily on custom development.',
       },
       {
-        id: 'is-white-label-cheaper-than-private-label',
-        question: 'Is white label perfume cheaper than private label?',
+        id: 'is-white-label-right-for-a-first-launch',
+        question: 'Is white label right for a first perfume launch?',
         answer:
-          'White label is often the lowest-cost perfume launch path because it uses existing fragrance directions and practical packaging components. Brandsamor pricing starts from $10 per unit for entry projects, with MOQ from 100 units and final cost shaped by format and packaging.',
+          'It can be, if speed and simplicity matter more than deep customization. A first order should prove scent preference, packaging response and price tolerance before the brand builds a larger fragrance program.',
         detail:
-          'Private label can overlap with white label when the project uses curated scents and branded packaging. The difference is how much creative control you want before the first sale.',
+          'White label is not automatically worse than private label. It is just a narrower tool, and sometimes that is exactly what an early launch needs.',
       },
     ],
     sections: [
@@ -258,23 +261,23 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'why-speed-matters',
         title: 'Why does white label perfume move faster?',
         description:
-          'White label speed comes from narrowing the number of open decisions. You begin with [fragrance sampling](/fragrance-sampling), review curated scent options, choose a practical bottle and confirm artwork. Production still requires approvals, quality checks and documentation, but the project does not wait for a long custom formula brief. Available samples are normally dispatched in 2-3 business days, and production is typically 3-6 weeks after fragrance, packaging, artwork and production details are approved.',
+          'Speed comes from closing down choices early. You review [fragrance sampling](/fragrance-sampling), choose a practical bottle system, approve artwork and move into production once the commercial details are clear.',
         bullets: sectionBullets(
-          'Curated scent options reduce the time spent searching through a large fragrance library.',
-          'Stock packaging choices help keep sourcing, decoration and costing more predictable.',
-          'A focused first batch lets you validate demand before committing to a wider collection.',
+          'Use a narrower scent set instead of browsing hundreds of options.',
+          'Choose stock components when reorder speed matters.',
+          'Keep the first SKU simple enough to learn from customer response.',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
-        id: 'lowest-cost-path',
-        title: 'How does Brandsamor keep the first launch cost practical?',
+        id: 'cost-control',
+        title: 'How do you keep a white label launch cost practical?',
         description:
-          'The lowest-cost perfume launch is usually the one with fewer custom parts, fewer tooling decisions and a product format your channel can sell profitably. Brandsamor starts production from 100 units and publishes indicative entry pricing from $10 per unit. That does not mean every project costs the same; bottle size, cap, spray, decoration, carton and destination can change the quote. The purpose of the white label route is to keep those variables manageable.',
+          'Cost control usually comes from restraint: fewer custom parts, fewer decoration steps and packaging that fits the retail price. The first batch should be good enough to sell confidently, not burdened with every premium option at once.',
         bullets: sectionBullets(
-          'Start with a realistic 100-unit MOQ instead of tying cash into untested inventory.',
-          'Use practical bottle and label choices before exploring more expensive decoration.',
-          'Plan retail price early so packaging ambition stays aligned with margin.',
+          'Spend on the scent and presentation choices customers will notice.',
+          'Use label-first branding before moving into expensive decoration.',
+          'Plan the margin before choosing a bottle that looks good only in mockups.',
         ),
         Illustration: LaunchPlanningIllustration,
       },
@@ -282,23 +285,22 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'white-label-vs-private-label',
         title: 'Should you choose white label or private label perfume?',
         description:
-          'Choose white label when you mainly need a branded product quickly. Choose private label when you want more say over scent positioning, packaging story and product range architecture, while still avoiding a blank-page custom formulation project. The [private label vs white label perfume](/private-label-vs-white-label-perfume) decision is less about prestige and more about risk: how much time, cash and uncertainty should your first launch carry?',
+          'Choose white label when you mainly need a branded product fast. Choose private label when the scent, packaging story and range architecture need more thought. The [private label vs white label perfume](/private-label-vs-white-label-perfume) decision is about risk, not status.',
         bullets: sectionBullets(
-          'White label fits launch tests, creator drops, boutique add-ons and gifting concepts.',
-          'Private label fits brands that want a more deliberate scent and packaging story.',
-          'Custom OEM fits established teams that can fund longer development and deeper testing.',
+          'White label fits creator drops, boutique add-ons, gifting and simple product tests.',
+          'Private label fits brands building fragrance as a repeatable category.',
+          'Custom OEM fits teams that can fund longer development and deeper testing.',
         ),
         Illustration: BrandBriefIllustration,
       },
       {
         id: 'documentation-and-approvals',
         title: 'What documentation can support a white label perfume order?',
-        description:
-          'White label does not mean vague documentation. Depending on the project and destination, Brandsamor can support IFRA certificates, GMP and ISO 22716 production standards, MoCRA documentation, Certificate of Analysis and halal certification support. This is documentation support, not a promise that every product automatically qualifies for every market. Claims, labels and market requirements still need to be reviewed honestly for the product you plan to sell.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For white label orders, confirm what your retailer, marketplace or destination market expects before final artwork is approved.`,
         bullets: sectionBullets(
-          'Confirm fragrance, packaging and artwork before production is released.',
-          'Request the documents your sales channel or destination market expects.',
-          'Avoid unsupported claims and keep compliance language specific to the product.',
+          'Ask for the documents tied to the actual product and market.',
+          'Keep claim language specific instead of using broad approval wording.',
+          'Make documentation part of the brief, not a last-minute request.',
         ),
         Illustration: ComplianceDocIllustration,
       },
@@ -306,11 +308,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'first-batch-plan',
         title: 'What should your first white label batch include?',
         description:
-          'A smart first batch is not only a bottle with a label. It includes the scent, fill size, selling price, packaging tier, channel plan, reorder expectation and documentation needs. If you are selling online, product photography and shipping weight matter. If you are selling in a boutique, shelf presence and carton finish may matter more. Brandsamor helps you turn those decisions into a production-ready scope before the 3-6 week production window begins.',
+          'A useful first batch has one clear job. Decide the scent, fill size, selling price, packaging tier, channel plan, reorder trigger and delivery needs before production starts. If you are selling online, photography and shipping weight matter. If you are selling in a boutique, shelf clarity may matter more.',
         bullets: sectionBullets(
-          'Pick one hero scent before adding flankers or gift sets.',
-          'Match packaging to the channel where the first 100 units will sell.',
-          'Keep a reorder path open if early demand is stronger than expected.',
+          'Pick one hero scent before adding flankers or sets.',
+          'Match packaging to the channel where the first units will sell.',
+          'Keep reorder notes from the start so the second run is easier.',
         ),
         Illustration: PackagingIllustration,
       },
@@ -322,19 +324,19 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     faqItems: [
       faq(
         'What is the MOQ for white label perfume with Brandsamor?',
-        'Brandsamor production starts at 100 units. Sampling has no production MOQ, so you can review scents before committing to a production batch.',
+        'Brandsamor production starts at 100 units. Sampling happens before production, so you can evaluate fragrance direction before approving a batch.',
       ),
       faq(
         'How much does white label perfume cost?',
-        'Indicative entry pricing starts from $10 per unit. Final pricing depends on format, bottle, closure, decoration, packaging, quantity, destination and documentation needs.',
+        'Indicative entry projects start from $10 per unit. Final pricing depends on format, bottle, closure, decoration, packaging, quantity, destination and documentation needs.',
       ),
       faq(
         'How fast can a white label perfume launch?',
-        'Available samples are normally dispatched in 2-3 business days. Production typically takes 3-6 weeks after fragrance, packaging, artwork and production details are approved.',
+        'Available samples normally dispatch in 2-3 days. Production typically takes 3-6 weeks after fragrance, packaging, artwork and production details are approved.',
       ),
       faq(
         'Do I own the fragrance formula in a white label project?',
-        'Usually no. White label projects typically use supplier-supported formulas. If formula ownership is important, discuss custom OEM terms before development begins.',
+        'Usually no. White label projects typically use supplier-supported formulas. If formula ownership is a core requirement, discuss custom OEM terms before development begins.',
       ),
       faq(
         'Who operates Brandsamor?',
@@ -343,7 +345,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ],
     ctaTitle: 'Start with a focused white label perfume brief',
     ctaDescription:
-      'Tell us your brand, audience, target price and launch channel. We will help you evaluate whether a fast white label route or a deeper private label route is the better first step.',
+      'Share your customer, sales channel, target price and packaging expectations. We will help decide whether a white label path or a deeper private label path makes better commercial sense.',
     ctaIllustration: DeliveryIllustration,
     relatedLinks: [
       { to: '/low-moq-perfume-manufacturer', label: 'Low MOQ perfume manufacturer' },
@@ -357,13 +359,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/low-moq-perfume-manufacturer',
     badge: 'Low MOQ perfume manufacturing',
     heroDescription:
-      'Brandsamor is a low MOQ perfume manufacturer for brands that want to start at 100 units, sample before production and keep the first launch commercially realistic. Build a branded fragrance without ordering thousands of bottles before demand is proven.',
+      'A low MOQ matters when the real question is not "can we make perfume?" but "can we sell this scent, package and price without tying up too much cash?"',
     eyebrowPrefix: 'LOW MOQ',
     heroIllustration: LaunchPlanningIllustration,
     keyFacts: {
       title: 'Low MOQ facts',
       description:
-        'The core production MOQ is clear: Brandsamor production starts at 100 units, with samples available before that commitment.',
+        'Use the low-MOQ path to validate a fragrance line with real finished goods before ordering at scale.',
       facts: defaultKeyFacts({ format: 'Perfume, oils, mists and related formats' }),
     },
     answerBlocks: [
@@ -371,29 +373,29 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-is-low-moq-perfume-manufacturing',
         question: 'What does low MOQ mean for perfume manufacturing?',
         answer:
-          'Low MOQ perfume manufacturing means you can produce a smaller first batch instead of committing to thousands of units. With Brandsamor, production starts at 100 units, giving founders room to test scent, packaging, pricing and channel demand before scaling with less inventory exposure.',
+          'Low MOQ perfume manufacturing means the first production batch can be smaller than a traditional factory commitment. Brandsamor starts production at 100 units for eligible private label fragrance projects.',
         detail:
-          'MOQ is not only a factory number. It affects cash flow, storage, launch risk and how quickly you can learn from customers.',
+          'MOQ affects cash flow, storage, launch risk and learning speed. It is an operating decision, not just a factory line item.',
       },
       {
         id: 'can-i-really-start-at-100-units',
         question: 'Can I really start at 100 units?',
         answer:
-          'Yes. Brandsamor production MOQ starts at 100 units for eligible private label fragrance projects. The exact first-batch scope still depends on product format, bottle, decoration, packaging and destination, but the starting production quantity is 100 units for planning your launch budget.',
+          'Yes. The starting production MOQ is 100 units, with the final scope still shaped by format, bottle, decoration, packaging and destination requirements.',
         detail:
-          'That number is most useful when paired with disciplined choices: one strong scent, practical packaging and a clear plan for where the first units will sell.',
+          'That number works best with discipline: one strong scent, practical packaging and a clear plan for where the first batch will sell.',
       },
     ],
     sections: [
       {
         id: 'why-100-units-matters',
-        title: 'Why is a 100-unit MOQ useful for new perfume brands?',
+        title: 'Why is a smaller first batch useful for new perfume brands?',
         description:
-          'A 100-unit MOQ lets you validate the parts of a fragrance launch that spreadsheets cannot prove: whether customers like the scent, whether the bottle supports the retail price, whether the label feels credible and whether the channel can move inventory. It is especially useful for creators, boutiques, salons, spas and ecommerce sellers that need real product in hand before investing in a larger run. See the broader [perfume MOQ guide](/perfume-moq-guide) for planning context.',
+          'A smaller batch gives you real market evidence without pretending a forecast is demand. You can see whether customers like the scent, whether the bottle supports the price and whether your channel can move inventory. For broader planning context, see the [perfume MOQ guide](/perfume-moq-guide).',
         bullets: sectionBullets(
-          'Lower inventory exposure while you learn what customers actually buy.',
-          'More flexibility to adjust scent, packaging or channel before a reorder.',
-          'A practical entry point for brands without enterprise production budgets.',
+          'Protect cash while you learn what customers actually buy.',
+          'Adjust scent, packaging or channel before a bigger reorder.',
+          'Use finished goods to test photography, reviews, events and retail conversations.',
         ),
         Illustration: BodyMistIllustration,
       },
@@ -401,11 +403,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'sample-before-moq',
         title: 'Do samples count toward the MOQ?',
         description:
-          'Samples are the step before production MOQ. Brandsamor sampling begins with a brief about your business, customer and fragrance direction. We curate five fragrance samples for evaluation and available samples are normally dispatched within 2-3 business days. Only after you approve fragrance, packaging, artwork and production details does the production batch begin. This separation helps you avoid ordering 100 units of a scent you have not evaluated.',
+          'Samples are the decision step before production. Start with a brief, review selected scents, give feedback and approve the production scope only after the product direction is clear.',
         bullets: sectionBullets(
-          'Use samples to compare scent direction, drydown and audience fit.',
-          'Share feedback before the production scope is locked.',
-          'Approve fragrance and packaging before the 3-6 week production timeline begins.',
+          'Compare scent direction, drydown and audience fit before buying finished units.',
+          'Use feedback to narrow the first SKU instead of widening the range too early.',
+          'Approve fragrance and packaging before the production clock starts.',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -413,11 +415,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-affects-low-moq',
         title: 'What can make a low-MOQ project more complex?',
         description:
-          'The MOQ may start at 100 units, but the project can become more complex when the bottle is unusual, decoration requires special handling, packaging has multiple parts or the product needs destination-specific documentation. A low-MOQ launch works best when the commercial goal is clear. If the first batch is meant to test demand, keep the packaging elegant and repeatable instead of spending the entire budget on difficult custom components.',
+          'Low MOQ works best when the product is commercially clear. Unusual bottles, special coating, multi-part cartons, gift sets or market-specific documents can add cost and approval steps. That does not make the project wrong; it just needs to be planned before the quote is treated as final.',
         bullets: sectionBullets(
-          'Special bottles, coatings or caps can change component availability and cost.',
-          'Outer boxes, inserts and gift sets add more approval points.',
-          'Market-specific documentation should be discussed before artwork is finalized.',
+          'Special bottles, coatings or caps can affect component availability.',
+          'Outer boxes and inserts add more artwork and approval points.',
+          'Destination requirements should be discussed before labels are finalized.',
         ),
         Illustration: PackagingIllustration,
       },
@@ -425,19 +427,18 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'low-moq-unit-cost',
         title: 'Does a lower MOQ mean the lowest unit cost?',
         description:
-          'A lower MOQ usually protects cash flow, but it does not always create the lowest possible unit cost. Larger runs can improve component efficiency, while smaller runs help you avoid unsold inventory. Brandsamor publishes indicative pricing from $10 per unit so founders have a starting point, then quotes based on the actual format, bottle, decoration, packaging and quantity. The right first order is the one your channel can sell responsibly.',
+          'No. A lower MOQ protects cash and reduces inventory exposure, while larger runs can improve some component economics. The right first order is the one your channel can sell responsibly, with enough margin left for freight, fulfillment and marketing.',
         bullets: sectionBullets(
-          'Use 100 units to test demand before chasing theoretical volume savings.',
-          'Model landed cost, retail price and expected sell-through together.',
-          'Reorder once customer response is clearer, not because inventory was cheap.',
+          'Compare total cash outlay, not only unit price.',
+          'Treat the first batch as demand validation.',
+          'Reorder after customer response is clearer.',
         ),
         Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'low-moq-compliance',
         title: 'What documents are available for low-MOQ perfume?',
-        description:
-          'Low MOQ should not mean casual production records. Depending on the product and destination, Brandsamor can support IFRA, GMP, ISO 22716, MoCRA documentation, Certificate of Analysis and halal certification support. Documentation should match the actual formula, claims and destination. Brandsamor avoids unsupported approval language; the project should use accurate documentation and honest label language.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For low-MOQ runs, the document request should match the product and market instead of asking for every certificate by default.`,
         bullets: sectionBullets(
           'Discuss documentation needs before production so the quote reflects them.',
           'Keep claims grounded in available support and applicable market rules.',
@@ -447,13 +448,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       },
       {
         id: 'scaling-low-moq',
-        title: 'How do you scale after the first 100 units?',
+        title: 'How do you scale after the first batch?',
         description:
-          'Scaling should be based on sell-through, customer comments, return reasons and channel feedback. If the first 100 units sell quickly, the next decision might be a reorder of the same scent, a larger batch, a second fragrance or a packaging upgrade. If demand is mixed, you still have a manageable amount of learning inventory. That is the main value of low MOQ manufacturing: it turns the first order into a controlled market test.',
+          'Scale from evidence: sell-through, customer comments, return reasons and channel feedback. If the first batch moves quickly, the next step may be a reorder, a larger run, a second scent or a packaging upgrade. If demand is mixed, you still learned without carrying a warehouse problem.',
         bullets: sectionBullets(
           'Track which scent notes, packaging details and price points customers mention.',
-          'Keep reorder artwork and component choices organized from the first batch.',
-          'Scale the winners before expanding into a full fragrance collection.',
+          'Keep approved artwork and component choices organized.',
+          'Scale the winning SKU before expanding into a full collection.',
         ),
         Illustration: ProductionIllustration,
       },
@@ -463,11 +464,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     faqItems: [
       faq(
         'What is the Brandsamor perfume MOQ?',
-        'Brandsamor production MOQ starts at 100 units. This is the confirmed starting point for eligible private label fragrance production.',
+        'Brandsamor production MOQ starts at 100 units for eligible private label fragrance production.',
       ),
       faq(
-        'Can I order samples before the 100-unit production batch?',
-        'Yes. Available samples are normally dispatched within 2-3 business days, and sampling happens before production approval.',
+        'Can I order samples before the production batch?',
+        'Yes. Available samples normally dispatch in 2-3 days, and sampling happens before production approval.',
       ),
       faq(
         'Does 100 units apply to every possible custom request?',
@@ -482,9 +483,9 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         `Available support includes ${certificationSummary}. Exact documentation depends on the product, claims, destination and project requirements.`,
       ),
     ],
-    ctaTitle: 'Plan a 100-unit perfume launch',
+    ctaTitle: 'Plan a low-MOQ perfume launch',
     ctaDescription:
-      'Share your product format, audience, price point and channel. We will help you shape a first batch that uses the 100-unit MOQ responsibly.',
+      'Send your format, audience, price point and channel. We will help shape a first batch that uses the MOQ responsibly.',
     ctaIllustration: QualityCheckIllustration,
     relatedLinks: [
       { to: '/perfume-moq-guide', label: 'Perfume MOQ guide' },
@@ -498,13 +499,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/contract-perfume-manufacturing',
     badge: 'Contract perfume manufacturing',
     heroDescription:
-      'Contract perfume manufacturing for established brands ready to move from one-off launches into repeatable production planning. Brandsamor supports fragrance, filling, packaging, quality checks and documentation coordination for scalable private label fragrance programs.',
+      'Contract perfume manufacturing is for brands that need repeatable production planning: clear specifications, filling, packaging, quality checks and documentation coordination across launches and reorders.',
     eyebrowPrefix: 'CONTRACT',
     heroIllustration: ProductionIllustration,
     keyFacts: {
       title: 'Contract manufacturing facts',
       description:
-        'Use contract manufacturing when you need a production partner, clearer specifications and a repeatable process for launches and reorders.',
+        'Use this route when the work is no longer just picking a scent; it is turning approved specs into dependable finished goods.',
       facts: defaultKeyFacts({ format: 'Contract perfume production' }),
     },
     answerBlocks: [
@@ -512,17 +513,17 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-is-contract-perfume-manufacturing',
         question: 'What is contract perfume manufacturing?',
         answer:
-          'Contract perfume manufacturing is production support for a brand that needs fragrance made, filled, finished and prepared under agreed specifications. It can involve selected formulas, existing formulas, packaging coordination, documentation support and quality checks across first runs and repeat orders.',
+          'Contract perfume manufacturing is production support for a brand that needs fragrance made, filled, finished and prepared under agreed specifications. It can include selected formulas, existing formulas, packaging coordination, quality checks and production documentation.',
         detail:
-          'Compared with a simple launch package, contract manufacturing puts more emphasis on specifications, repeatability, batch records and commercial planning.',
+          'Compared with a simple launch package, contract manufacturing puts more weight on repeatability, batch records and commercial planning.',
       },
       {
         id: 'who-is-contract-manufacturing-for',
         question: 'Who should use contract perfume manufacturing?',
         answer:
-          'Contract perfume manufacturing is best for established brands with a defined audience, sales channel and reorder plan. If you already know what sells, the conversation shifts from experimentation to consistency, packaging control, lead-time planning and documentation for each production run.',
+          'It is best for brands with a defined audience, sales channel and reorder plan. The conversation shifts from "what should we make?" to "how do we make this consistently?"',
         detail:
-          'New brands can still start with Brandsamor, but the contract manufacturing page is written for teams that are already thinking beyond the first test batch.',
+          'New brands can still start with Brandsamor, but this route fits teams already thinking beyond the first test batch.',
       },
     ],
     sections: [
@@ -530,11 +531,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'scaling-from-first-launch',
         title: 'How does contract manufacturing help a brand scale?',
         description:
-          'Scaling fragrance is less about making a larger batch and more about making the same promise reliably. The scent profile, fill volume, packaging, carton, label placement, batch documentation and delivery plan all need to be repeatable. Brandsamor helps established brands convert a product idea or proven first launch into a production scope that can be quoted, approved and repeated. If you are still choosing the first scent, start with [fragrance sampling](/fragrance-sampling) before locking production.',
+          'Scaling fragrance is less about making more bottles and more about repeating the same promise. Scent profile, fill volume, bottle, carton, label placement, batch records and delivery plans need to be specific enough that a reorder does not become a new project every time.',
         bullets: sectionBullets(
           'Translate creative direction into production-ready specifications.',
           'Coordinate bottle, closure, decoration and carton decisions before production.',
-          'Plan reorders around real sales velocity and component lead times.',
+          'Plan reorders around sales velocity and component lead times.',
         ),
         Illustration: ProcessTimelineIllustration,
       },
@@ -542,7 +543,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'brand-supplied-formula',
         title: 'Can Brandsamor work with an existing formula?',
         description:
-          'Some contract projects begin with an existing fragrance formula or brand-owned direction. In those cases, the work starts with clarity: what is being supplied, what documentation exists, which format is planned and what packaging must be compatible with the fragrance. Brands that already have a formula may also need [perfume filling services](/perfume-filling-services) rather than a full private label scent selection process. The right route depends on how complete your formula, concentrate and documentation package already is.',
+          'Some contract projects begin with an existing fragrance formula, concentrate or brand-owned direction. The first step is clarity: what is being supplied, what documentation exists, which format is planned and which packaging must be compatible with the fragrance. Brands with complete formulas may also need [perfume filling services](/perfume-filling-services).',
         bullets: sectionBullets(
           'Share formula status, fragrance concentrate details and documentation early.',
           'Confirm bottle and closure compatibility before production assumptions are made.',
@@ -554,10 +555,10 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'production-controls',
         title: 'What should be controlled before contract production starts?',
         description:
-          'Contract production should not begin until the practical details are agreed. That includes the approved fragrance, fill size, bottle, cap, pump, label, carton, artwork files, pack-out, documentation needs and shipment plan. Typical production is 3-6 weeks after approvals, so incomplete decisions can delay the clock. A brand scaling into multiple SKUs should also decide whether every scent shares the same bottle system or whether each product needs distinct packaging.',
+          'Production should not start until the approved fragrance, fill size, bottle, cap, pump, label, carton, artwork files, pack-out, documentation needs and shipment plan are agreed. Incomplete details are what usually push timelines, not the filling step itself.',
         bullets: sectionBullets(
           'Confirm approved samples and final artwork before production release.',
-          'Use a clear component list so each reorder can reference the same decisions.',
+          'Use a clear component list so reorders can reference the same decisions.',
           'Keep quality expectations specific: fill level, spray test, label alignment and carton finish.',
         ),
         Illustration: QualityCheckIllustration,
@@ -565,8 +566,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       {
         id: 'documentation-for-contract-orders',
         title: 'What documentation is available for contract perfume manufacturing?',
-        description:
-          'Documentation depends on the product, market and claims, but Brandsamor can support IFRA certificates, GMP and ISO 22716 production standards, Certificate of Analysis, MoCRA documentation and halal certification support. These documents help brands sell through ecommerce, retail, gifting or international channels more responsibly. They are not a substitute for brand-side legal review of claims, label copy or destination-specific obligations.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For contract orders, documentation should be tied to the approved formula, claims and destination market before a repeat program is built around it.`,
         bullets: sectionBullets(
           'Identify the sales market before labels and claims are finalized.',
           'Request IFRA, COA, MoCRA or halal support where relevant to the product.',
@@ -578,11 +578,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'commercial-planning',
         title: 'How should established brands plan quantity and cost?',
         description:
-          'For established brands, the best order quantity depends on sell-through, margin, cash flow, storage and campaign timing. Brandsamor production starts at 100 units, and entry pricing starts from $10 per unit, but a scaling brand may order more when demand is known. Larger runs can help component planning, while smaller runs can protect cash during SKU testing. The quote should be read beside your retail price, launch calendar and reorder threshold.',
+          'For an established brand, order quantity should follow sell-through, margin, cash flow, storage and campaign timing. Bigger runs can make sense when demand is known. Smaller runs can still be useful when testing a new SKU or packaging tier.',
         bullets: sectionBullets(
           'Use sales data to decide whether the next run should be the same size or larger.',
-          'Build launch calendars around the 3-6 week post-approval production timeline.',
-          'Protect margin by evaluating packaging upgrades against expected retail price.',
+          'Build launch calendars around post-approval production timing.',
+          'Evaluate packaging upgrades against expected retail price and reorder volume.',
         ),
         Illustration: LaunchPlanningIllustration,
       },
@@ -590,7 +590,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'handoff-and-delivery',
         title: 'What happens after contract production is complete?',
         description:
-          'Finished perfume still needs inspection, packing and delivery coordination. For a scaling brand, the delivery plan may involve ecommerce fulfillment, retail distribution, event inventory or a warehouse transfer. Each route has different carton labeling and timing needs. Brandsamor helps align production completion with the way finished units will be used, so the product is not only manufactured but commercially ready for its next step.',
+          'Finished perfume still needs inspection, packing and delivery coordination. Ecommerce fulfillment, retail distribution, event inventory and warehouse transfer all have different carton labeling and timing needs. Plan the handoff before the finished units are ready.',
         bullets: sectionBullets(
           'Confirm pack-out requirements before units leave production.',
           'Plan delivery timing around launch dates, retail windows or campaign drops.',
@@ -640,13 +640,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/private-label-perfume-oil-manufacturer',
     badge: 'Private label perfume oils',
     heroDescription:
-      'Private label perfume oil and attar-style manufacturing for brands building oil-first fragrance lines, including GCC-relevant scent directions, sampling, bottles, branding, filling and documentation support from a 100-unit production MOQ.',
+      'Perfume oil is a format decision, not just a cheaper spray alternative. It changes application, bottle choice, customer ritual, claims and the way the product is sold.',
     eyebrowPrefix: 'PERFUME OIL',
     heroIllustration: FragranceFamilyIllustration,
     keyFacts: {
       title: 'Perfume oil launch facts',
       description:
-        'Perfume oils need careful format, bottle and claim decisions, especially for brands selling into GCC and Muslim-majority markets.',
+        'Oil and attar-style products need careful format, bottle and claim decisions, especially for GCC and Muslim-majority markets.',
       facts: defaultKeyFacts({ format: 'Perfume oil and attar-style formats', market: 'GCC and global' }),
     },
     answerBlocks: [
@@ -654,17 +654,17 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-is-private-label-perfume-oil',
         question: 'What is private label perfume oil manufacturing?',
         answer:
-          'Private label perfume oil manufacturing helps a brand sell oil-based fragrance, attar-style products or roll-on formats under its own name. The process includes scent sampling, format selection, bottle and applicator choices, branding, filling, quality checks and documentation support before commercial launch.',
+          'Private label perfume oil manufacturing lets a brand sell oil-based fragrance, attar-style products or roll-on formats under its own name. The work can include scent sampling, bottle and applicator choice, branding, filling, quality checks and documentation support.',
         detail:
-          'The oil format changes how customers apply fragrance, how packaging feels in hand and how claims should be discussed for the destination market.',
+          'The oil format changes how customers apply fragrance, how packaging feels in hand and how claims should be handled for the destination market.',
       },
       {
         id: 'why-are-perfume-oils-relevant-to-gcc',
         question: 'Why are perfume oils relevant for GCC fragrance brands?',
         answer:
-          'Perfume oils and attar-style formats are commercially relevant in GCC markets because many customers already understand concentrated, intimate and layering-friendly fragrance rituals. Brandsamor can support oud, amber, musk and oriental directions without inventing market claims or promising universal halal status.',
+          'Perfume oils and attar-style formats are commercially familiar in many GCC markets because customers already understand concentrated, close-wearing and layering-friendly fragrance rituals.',
         detail:
-          'Halal certification support is available where the project requires it, but the correct pathway depends on formula, carrier, documentation and destination rules.',
+          'That does not mean every oil should make halal claims or copy traditional Arabic perfume cues. The product still needs its own customer and market logic.',
       },
     ],
     sections: [
@@ -672,11 +672,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'oil-format-strategy',
         title: 'When should a brand choose perfume oil instead of spray perfume?',
         description:
-          'Perfume oil works when your customer expects close-wearing fragrance, layering rituals, travel-friendly packaging or an attar-inspired product experience. It is not simply a cheaper version of eau de parfum. Oil changes the application method, texture, bottle choice and retail story. If your brand already sells skincare, wellness, modest fashion, oud or gifting products, a private label oil can feel more natural than a spray-first launch. Compare formats on the [fragrance products](/fragrance-products) page before choosing.',
+          'Choose oil when your customer expects close-to-skin wear, layering, compact packaging or an attar-inspired ritual. Choose spray when projection, misting and classic perfume presentation matter more. Compare broader options on the [fragrance products](/fragrance-products) page before locking the format.',
         bullets: sectionBullets(
-          'Choose oils for close-to-skin wear, layering and compact packaging.',
-          'Choose sprays when projection, misting and classic perfume presentation matter more.',
-          'Let customer ritual and channel expectations guide the format decision.',
+          'Use oils for intimate wear, layering and compact packaging.',
+          'Use sprays when projection and classic presentation matter more.',
+          'Let customer ritual and channel expectations drive the format decision.',
         ),
         Illustration: BodyMistIllustration,
       },
@@ -684,7 +684,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'gcc-scent-direction',
         title: 'Which scent directions fit GCC and attar-style positioning?',
         description:
-          'GCC-relevant perfume oil lines often lean into oud, amber, musk, rose, saffron, vanilla, spice, incense and resinous warmth. That does not mean every product must be heavy or traditional. A modern oil line might combine fresh citrus with musk, soft florals with amber or clean woods with subtle sweetness. Brandsamor starts with a brief and curated [fragrance sampling](/fragrance-sampling), so the scent direction can reflect your customer rather than a generic idea of Arabic perfume.',
+          'GCC-relevant oil lines often lean into oud, amber, musk, rose, saffron, vanilla, spice, incense and resinous warmth. A modern oil line can still be fresh, clean or understated. Start with [fragrance sampling](/fragrance-sampling) so the scent direction reflects your buyer, not a generic idea of Arabic perfume.',
         bullets: sectionBullets(
           'Use oud and amber thoughtfully, not as automatic decoration.',
           'Consider layering sets when your audience understands fragrance wardrobes.',
@@ -696,7 +696,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'oil-packaging',
         title: 'What packaging decisions matter for perfume oil?',
         description:
-          'Perfume oil packaging must match viscosity, application style and brand perception. Roll-ons, dabbers and small glass bottles each communicate something different. A simple label may work for a value-driven oil, while a carton or gift-ready box may be important for premium attar positioning. The best packaging choice depends on channel: ecommerce needs secure shipping, boutiques need shelf clarity and gifting products need presentation. Review [packaging and branding](/packaging-branding) before choosing decoration.',
+          'Perfume oil packaging has to match viscosity, application style and brand perception. Roll-ons, dabbers and small glass bottles all communicate something different. Ecommerce needs secure shipping; boutiques need shelf clarity; gifting products need presentation that justifies the price.',
         bullets: sectionBullets(
           'Match applicator style to customer habit and product viscosity.',
           'Keep label information legible on smaller oil bottles.',
@@ -707,8 +707,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       {
         id: 'halal-and-documentation',
         title: 'How should halal and documentation be handled?',
-        description:
-          'Perfume oil brands should be careful with claims. Brandsamor can support IFRA, GMP, ISO 22716, MoCRA documentation, COA and halal certification support where the project requires it. That is different from saying every oil is automatically halal certified. The formula, carrier, ingredient documentation, production pathway and market requirements all matter. Honest framing protects the brand and helps customers understand what is actually supported.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For perfume oils, halal-facing claims depend on formula, carrier, documentation pathway and market rules; do not assume every oil is halal certified.`,
         bullets: sectionBullets(
           'Discuss halal certification support before making label or product page claims.',
           'Confirm which documents your destination market or retailer expects.',
@@ -718,13 +717,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       },
       {
         id: 'oil-moq-pricing',
-        title: 'What MOQ and pricing apply to perfume oils?',
+        title: 'What changes perfume oil cost?',
         description:
-          'Brandsamor production starts at 100 units, and indicative pricing starts from $10 per unit depending on format, bottle, decoration, packaging and quantity. Perfume oils may have different cost drivers than sprays because the bottle, applicator, fill size, carrier and fragrance load can differ. A first oil batch should be scoped around the sales channel and reorder plan, not only the lowest possible component cost.',
+          'Oil projects have their own cost drivers: bottle size, applicator, carrier, fragrance load, decoration and packaging. A first oil batch should be scoped around the channel and reorder plan, not only the lowest possible component cost.',
         bullets: sectionBullets(
-          'Use 100 units to test the oil concept before expanding the range.',
-          'Model price around fill size, bottle feel and expected application ritual.',
-          'Plan reorders around scent winners rather than launching too many oils at once.',
+          'Model price around fill size, bottle feel and application ritual.',
+          'Do not launch too many oils before one hero scent proves demand.',
+          'Plan reorders around scent winners rather than a broad opening range.',
         ),
         Illustration: LaunchPlanningIllustration,
       },
@@ -732,10 +731,10 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'oil-production',
         title: 'What happens after a perfume oil is approved?',
         description:
-          'After fragrance, packaging, artwork and production details are approved, typical production takes 3-6 weeks. During that stage, the focus shifts from creative selection to repeatability: filling, bottle closure, label placement, pack-out, quality review and delivery coordination. For oils sold across borders, documentation and shipping expectations should be clarified before production release so the finished units are aligned with the intended market.',
+          'After fragrance, packaging, artwork and production details are approved, the work shifts from selection to repeatability: filling, closure, label placement, pack-out, quality review and delivery coordination. For cross-border selling, documentation and shipping expectations should be clarified before release.',
         bullets: sectionBullets(
           'Approve the oil sample and packaging system before production starts.',
-          'Confirm label copy, carton artwork and any certificate requirements early.',
+          'Confirm label copy, carton artwork and certificate needs early.',
           'Keep production notes for reorders if the first batch sells well.',
         ),
         Illustration: ProductionIllustration,
@@ -759,7 +758,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       ),
       faq(
         'How quickly are perfume oil samples dispatched?',
-        'Available samples are normally dispatched within 2-3 business days. Delivery timing depends on destination and shipping service.',
+        'Available samples normally dispatch in 2-3 days. Delivery timing depends on destination and shipping service.',
       ),
       faq(
         'Can I sell perfume oil outside the GCC?',
@@ -768,7 +767,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ],
     ctaTitle: 'Create a private label perfume oil line',
     ctaDescription:
-      'Tell us your customer, scent direction, market and preferred oil format. We will help shape a sample-first path for your first 100-unit production batch.',
+      'Tell us your customer, scent direction, market and preferred oil format. We will help shape a practical path for the first production batch.',
     ctaIllustration: DeliveryIllustration,
     areaServed: ['United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Bahrain', 'Oman', 'Worldwide'],
     relatedLinks: [
@@ -783,7 +782,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/perfume-filling-services',
     badge: 'Perfume filling services',
     heroDescription:
-      'Perfume filling services for brands that already have a formula, fragrance concentrate or approved scent direction and need help turning it into finished, packaged units with quality checks and documentation-aware production planning.',
+      'Perfume filling services fit brands that already have a formula, fragrance concentrate or approved scent direction and need finished, packaged units produced with the right checks.',
     eyebrowPrefix: 'FILLING',
     heroIllustration: ProductionIllustration,
     keyFacts: {
@@ -797,7 +796,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-are-perfume-filling-services',
         question: 'What are perfume filling services?',
         answer:
-          'Perfume filling services help a brand put an existing fragrance formula, approved concentrate or selected scent into bottles, closures and packaging. The work can include fill planning, component coordination, label or carton finishing, quality checks and production documentation for sale or distribution.',
+          'Perfume filling services put an existing formula, approved concentrate or selected scent into bottles, closures and packaging. The work can include fill planning, component coordination, label or carton finishing, quality checks and production documentation.',
         detail:
           'This route is different from full scent discovery. It assumes the fragrance direction is already known or close to approval.',
       },
@@ -805,9 +804,9 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'who-needs-filling-services',
         question: 'Who needs perfume filling instead of private label development?',
         answer:
-          'Perfume filling is the better fit when your brand already has a formula, supplier-approved scent or concentrate and mainly needs finished goods. Private label development is better when you still need help choosing fragrance direction, product format and packaging strategy.',
+          'Filling is the better fit when your brand already has a production-ready formula or supplier-approved scent and mainly needs finished goods. Private label development is better when scent direction, product format and packaging strategy are still open.',
         detail:
-          'If you are not sure which route fits, the first question is whether your formula and documentation package are truly production-ready.',
+          'If you are unsure, the first question is whether your formula and documentation package are complete enough to quote against.',
       },
     ],
     sections: [
@@ -815,7 +814,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'formula-readiness',
         title: 'What should you prepare before requesting perfume filling?',
         description:
-          'A filling project starts with evidence, not just a scent idea. You should know who owns the formula, whether the concentrate is available, what documentation already exists, what fill size is planned and whether the bottle, pump and closure have been selected. If those details are missing, Brandsamor may recommend a broader [contract perfume manufacturing](/contract-perfume-manufacturing) or private label path first. Clear inputs reduce quoting delays and help avoid compatibility surprises later.',
+          'A filling project starts with evidence, not just a nice-smelling sample. Clarify who owns the formula, whether the concentrate is available, what documents already exist, what fill size is planned and whether bottles, pumps and caps have been selected. If those details are missing, a broader [contract perfume manufacturing](/contract-perfume-manufacturing) route may fit better.',
         bullets: sectionBullets(
           'Clarify formula ownership and what materials will be supplied.',
           'Share available IFRA, COA, allergen or formula-related documents early.',
@@ -827,7 +826,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'component-compatibility',
         title: 'Why do bottle and pump choices matter for filling?',
         description:
-          'Perfume filling is only successful when the fragrance, bottle, pump, cap, label and carton work together. A beautiful bottle can create problems if the spray pump does not fit, the label surface is difficult, the cap is delayed or the carton does not protect the product in transit. Brands that already own packaging should verify component specifications before assuming the filling step will be simple. Packaging compatibility is part of commercial quality, not a minor detail.',
+          'Filling only works when fragrance, bottle, pump, cap, label and carton behave together. A good-looking bottle can still create issues if the pump does not fit, the label surface is difficult, the cap is late or the carton fails in transit. Component compatibility is commercial quality, not a small production detail.',
         bullets: sectionBullets(
           'Check bottle neck, pump fit and closure compatibility before production.',
           'Confirm label material and decoration method for the bottle surface.',
@@ -839,7 +838,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'filling-quality-checks',
         title: 'What quality checks matter in perfume filling?',
         description:
-          'Filling quality is visible to customers. Fill level, leakage risk, spray function, cap fit, label alignment, carton condition and batch information all influence trust. Brandsamor can coordinate checks appropriate to the project and product format. The goal is not to make filling sound complicated; it is to make sure the finished units look and perform consistently enough for ecommerce, retail, gifting or reorder use.',
+          'Customers notice filling quality immediately. Fill level, leakage risk, spray function, cap fit, label alignment, carton condition and batch information all affect trust. The goal is not to make filling sound complicated; it is to make finished units consistent enough for ecommerce, retail, gifting or reorder use.',
         bullets: sectionBullets(
           'Review fill level, spray test and closure fit as practical quality points.',
           'Check label alignment and packaging appearance before delivery.',
@@ -850,10 +849,9 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       {
         id: 'filling-documentation',
         title: 'What documents can support a filling project?',
-        description:
-          'Documentation depends on whether the formula, concentrate and finished product information are available. Brandsamor can support IFRA, GMP, ISO 22716, MoCRA documentation, COA and halal certification support where the project requires it. If you bring your own formula, the existing documentation package matters. Missing formula information can limit what can be confirmed, quoted or claimed for the finished product.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For filling projects, existing formula and concentrate records determine what can be confirmed, quoted or claimed for the finished product.`,
         bullets: sectionBullets(
-          'Provide existing formula and concentrate documentation before quoting.',
+          'Provide formula and concentrate documentation before quoting.',
           'Identify destination markets and sales channels before label claims are finalized.',
           'Use honest compliance language rather than unsupported approval claims.',
         ),
@@ -861,13 +859,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       },
       {
         id: 'filling-moq-timeline',
-        title: 'What MOQ and timeline apply to perfume filling?',
+        title: 'What affects filling MOQ, cost and timeline?',
         description:
-          'Brandsamor production starts at 100 units, and typical production takes 3-6 weeks after fragrance, packaging, artwork and production details are approved. Filling-only projects may feel simpler, but they still require component readiness, documentation review and production scheduling. Indicative pricing starts from $10 per unit for entry private label projects, with final filling quotes depending on format, packaging, quantity and what the brand supplies.',
+          'Filling-only projects may look simple, but they still depend on component readiness, documentation review, production scheduling and what the brand supplies. Final quotes are shaped by format, packaging, quantity, handling and documentation needs.',
         bullets: sectionBullets(
-          'Plan around a 100-unit starting MOQ for production.',
-          'Do not start the timeline clock until approvals and components are ready.',
-          'Expect final pricing to reflect handling, format, packaging and documentation needs.',
+          'Confirm components before assuming the production schedule.',
+          'Do not start the timeline clock until approvals and materials are ready.',
+          'Expect final pricing to reflect handling, format and packaging requirements.',
         ),
         Illustration: ProcessTimelineIllustration,
       },
@@ -875,7 +873,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'after-filling',
         title: 'What happens after bottles are filled?',
         description:
-          'After filling, the project moves into finishing and delivery coordination. That can include cap application, label or carton completion, quality review, packing and shipment planning. If your brand is preparing for a launch date, event or retail delivery, the handoff matters as much as the filling itself. Finished perfume should arrive in a condition that supports selling, photographing, gifting or forwarding to a fulfillment partner.',
+          'After filling, the project moves into finishing and delivery coordination: caps, labels, cartons, quality review, packing and shipment planning. If your brand is preparing for a launch date, event or retail delivery, the handoff matters as much as the filling itself.',
         bullets: sectionBullets(
           'Confirm carton count, packing method and delivery address before release.',
           'Align production completion with campaign dates or retail windows.',
@@ -925,13 +923,13 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/private-label-perfume-pricing',
     badge: 'Private label perfume pricing',
     heroDescription:
-      'Private label perfume pricing starts from $10 per unit at Brandsamor, with production MOQ from 100 units. The final quote depends on fragrance format, bottle, closure, decoration, packaging, order quantity, destination and documentation needs.',
+      'Private label perfume pricing should be read from the finished unit backward: format, bottle, closure, decoration, packaging, order size, destination and documentation all affect the quote.',
     eyebrowPrefix: 'PRICING',
     heroIllustration: LaunchPlanningIllustration,
     keyFacts: {
       title: 'Pricing facts',
       description:
-        'Pricing should be planned around your retail price, margin and first-batch risk, not only the lowest possible unit cost.',
+        'Use the starting price as a planning anchor, then build the quote around the product you can sell profitably.',
       facts: defaultKeyFacts({ format: 'Private label fragrance pricing' }),
     },
     answerBlocks: [
@@ -939,28 +937,28 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'how-much-private-label-perfume-costs',
         question: 'How much does private label perfume cost?',
         answer:
-          'Brandsamor private label perfume pricing starts from $10 per unit for entry projects. Final cost depends on format, bottle size, closure, decoration, outer packaging, quantity, destination and documentation needs, so a quote is built around your actual launch scope and goals.',
+          'Brandsamor private label perfume pricing starts from $10 per unit for entry projects. Final cost depends on format, bottle size, closure, decoration, outer packaging, quantity, destination and documentation needs.',
         detail:
-          'The starting price is useful for planning, but it should not be treated as a universal price for every bottle, format or packaging ambition.',
+          'The starting price is useful for planning, but it is not a universal price for every bottle, format or packaging ambition.',
       },
       {
         id: 'why-pricing-varies',
         question: 'Why does private label perfume pricing vary so much?',
         answer:
-          'Perfume pricing varies because the finished unit is a system: fragrance, alcohol or oil base, bottle, pump, cap, label, carton, decoration, packing and documentation. Changing one part can affect cost, lead time, freight weight and retail positioning at the same time.',
+          'A finished perfume unit is a system: fragrance, base, bottle, pump, cap, label, carton, decoration, packing and documents. Change one part and you can change cost, lead time, freight weight and retail positioning.',
         detail:
-          'The most expensive-looking option is not always the most profitable. The right packaging choice is the one your customer values enough to pay for.',
+          'The expensive-looking option is not always the most profitable. The right packaging choice is the one your customer values enough to pay for.',
       },
     ],
     sections: [
       {
         id: 'starting-price',
-        title: 'What does "from $10 per unit" include?',
+        title: 'What does "from $10 per unit" mean?',
         description:
-          'The $10 starting point is an indicative entry price for private label fragrance projects, not a flat promise for every SKU. It is most relevant when the project uses practical components, a straightforward format and packaging choices that do not add unusual decoration or handling. It gives founders a real planning anchor before discussing details. Your final quote still depends on the approved scent, bottle, cap, pump, label, carton, quantity, destination and documentation requirements.',
+          'The $10 starting point is an indicative entry price, not a flat promise for every SKU. It is most relevant when the project uses practical components, a straightforward format and packaging choices without unusual decoration or handling. Use it for early margin planning, then quote against the approved scope.',
         bullets: sectionBullets(
-          'Use the $10 starting point for early margin planning.',
-          'Expect upgrades in bottle, cap, carton or decoration to change the quote.',
+          'Use the starting point to test whether the business model works.',
+          'Expect bottle, cap, carton or decoration upgrades to change the quote.',
           'Confirm final pricing only after the production scope is defined.',
         ),
         Illustration: PackagingIllustration,
@@ -969,7 +967,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'format-cost',
         title: 'How does product format affect perfume pricing?',
         description:
-          'Eau de parfum, perfume oil, body mist, travel spray, room spray and gift sets each carry different cost logic. A small oil bottle may use a different applicator and fill process than a spray perfume. A mist may need a different bottle and pump. A gift set adds multiple components and assembly decisions. Review [fragrance products](/fragrance-products) before choosing format, because the format influences not only cost but also how customers use and value the product.',
+          'Eau de parfum, perfume oil, body mist, travel spray, room spray and gift sets each carry different cost logic. A small oil bottle may use a different applicator and fill process than a spray perfume. A gift set adds components and assembly decisions. Review [fragrance products](/fragrance-products) before choosing format.',
         bullets: sectionBullets(
           'Choose EDP when classic perfume presentation and perceived value matter.',
           'Choose oils for close-wearing formats, layering or attar-style positioning.',
@@ -981,7 +979,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'packaging-cost',
         title: 'How much do bottle and packaging choices matter?',
         description:
-          'Packaging can make or break the economics of a first launch. Heavy glass, specialty caps, coatings, screen printing, rigid boxes and inserts can improve perceived value, but they also increase cost and sometimes lead time. Label-first packaging can still look premium when the artwork, bottle proportion and carton choices are disciplined. Brandsamor helps brands compare [packaging and branding](/packaging-branding) options against retail price so the product looks credible without damaging margin.',
+          'Packaging can make or break first-batch economics. Heavy glass, specialty caps, coatings, screen printing, rigid boxes and inserts can raise perceived value, but they also raise cost and sometimes lead time. Label-first packaging can still feel premium when artwork, proportion and carton choices are disciplined.',
         bullets: sectionBullets(
           'Start with packaging that supports your retail price and channel.',
           'Add decoration only when it helps customers understand value.',
@@ -993,9 +991,9 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'moq-and-cash-flow',
         title: 'How does MOQ affect total launch budget?',
         description:
-          'Brandsamor production starts at 100 units. That MOQ helps control total launch budget because you are not forced into thousands of bottles before seeing demand. Unit cost may improve at higher quantities, but a low unit price does not help if inventory sits unsold. The first pricing question should be: how many units can your channel realistically sell, and what margin do you need after packaging, shipping, marketing and fulfillment?',
+          'MOQ shapes total spend, not just unit cost. A larger run may reduce some per-unit costs, but it also puts more cash into inventory before demand is proven. The practical question is how many units your channel can sell and what margin remains after packaging, freight, marketing and fulfillment.',
         bullets: sectionBullets(
-          'Use 100 units to validate scent, packaging and price before scaling.',
+          'Validate scent, packaging and price before scaling.',
           'Compare unit savings against cash tied up in inventory.',
           'Plan reorder timing before the first batch sells out.',
         ),
@@ -1004,8 +1002,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       {
         id: 'documentation-cost',
         title: 'Can documentation affect pricing?',
-        description:
-          'Documentation can affect project planning because different markets and claims require different support. Brandsamor can support IFRA, GMP, ISO 22716, MoCRA documentation, Certificate of Analysis and halal certification support where relevant. This does not mean every project needs every document. The right approach is to identify the destination market, sales channel and claims early, then quote the project with the appropriate support rather than adding it late.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For pricing, identify destination market, sales channel and claims early so the right support is quoted instead of added late.`,
         bullets: sectionBullets(
           'Ask retailers or marketplaces what documentation they expect.',
           'Discuss halal certification support before making halal-facing claims.',
@@ -1017,7 +1014,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'pricing-model',
         title: 'How should you model retail price and margin?',
         description:
-          'A perfume line should be priced from the customer backward and the cost forward. Start with the retail price your audience can accept, then test whether the bottle, packaging, fill size and documentation choices leave enough margin after production, freight, transaction fees and marketing. A product can be beautiful and still be commercially weak if the packaging consumes too much margin. The best first quote supports a repeatable business, not only a launch photo.',
+          'Price the line from the customer backward and the cost forward. Start with the retail price your audience can accept, then test whether the bottle, packaging, fill size and documentation choices leave enough margin after production, freight, transaction fees and marketing.',
         bullets: sectionBullets(
           'Set a target retail price before choosing premium packaging upgrades.',
           'Include fulfillment, shipping, ads, returns and platform fees in margin planning.',
@@ -1037,7 +1034,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       ),
       faq(
         'What is the minimum order quantity?',
-        'Brandsamor production starts at 100 units. Sampling is available before production and does not require a 100-unit production order.',
+        'Brandsamor production starts at 100 units. Sampling is available before production and does not require a production order.',
       ),
       faq(
         'Why might my quote be higher than $10 per unit?',
@@ -1045,7 +1042,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       ),
       faq(
         'Are samples included in production pricing?',
-        'Samples are a separate pre-production step. Available samples are normally dispatched in 2-3 business days so you can evaluate scent before approving production.',
+        'Samples are a separate pre-production step. Available samples normally dispatch in 2-3 days so you can evaluate scent before approving production.',
       ),
       faq(
         'Does Brandsamor publish pricing to be transparent?',
@@ -1068,7 +1065,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/perfume-moq-guide',
     badge: 'Perfume MOQ guide',
     heroDescription:
-      'A practical guide to perfume MOQ for founders and brand teams. Brandsamor production starts at 100 units, giving you a clear first-batch option before scaling into larger fragrance runs.',
+      'MOQ is a cash-flow and learning decision. The right first perfume run gives you enough finished product to sell, photograph and review without forcing the brand into oversized inventory.',
     eyebrowPrefix: 'MOQ GUIDE',
     heroIllustration: LaunchPlanningIllustration,
     keyFacts: {
@@ -1082,17 +1079,17 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'what-is-perfume-moq',
         question: 'What is perfume MOQ?',
         answer:
-          'Perfume MOQ means minimum order quantity: the smallest production batch a supplier will make. Brandsamor production starts at 100 units, so a brand can move from samples to a manageable first run instead of committing to thousands of bottles up front.',
+          'Perfume MOQ means minimum order quantity: the smallest production batch a supplier will make for a finished product. Brandsamor production starts at 100 units, giving brands a manageable first-run option before scaling.',
         detail:
-          'MOQ exists because production requires setup, components, filling, packaging and quality checks. The goal is to choose a minimum that supports learning without creating unnecessary inventory risk.',
+          'MOQ exists because production requires setup, components, filling, packaging and quality checks. The goal is to learn without creating unnecessary inventory risk.',
       },
       {
         id: 'why-does-moq-vary',
         question: 'Why do perfume MOQs vary by supplier?',
         answer:
-          'Perfume MOQs vary because suppliers use different fragrance libraries, factories, component sources, decoration methods and business models. A stock bottle with label branding can support lower quantities, while custom molds, special decoration and new formulas usually require higher commitments from buyers.',
+          'MOQs vary because suppliers use different fragrance libraries, factories, component sources, decoration methods and business models. Stock bottles and label branding can support lower quantities; custom molds and new formulas usually need larger commitments.',
         detail:
-          'When comparing suppliers, ask what the MOQ includes. A low number is only useful if it includes the product format, packaging and documentation you actually need.',
+          'When comparing suppliers, ask what the MOQ includes. A low number is only useful if it covers the format, packaging and documents you actually need.',
       },
     ],
     sections: [
@@ -1100,11 +1097,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'brandsamor-100-unit-moq',
         title: 'What is the Brandsamor MOQ?',
         description:
-          'Brandsamor production MOQ starts at 100 units. That number should be read clearly: samples can be ordered before production, but once you approve the project and move into production, the starting quantity is 100 units. This is designed for brands that want real finished goods for launch testing, creator drops, boutique retail, ecommerce validation or gifting programs without taking on a warehouse full of unproven inventory.',
+          'Brandsamor production MOQ starts at 100 units. Samples can be ordered before production, but once the approved project moves into production, that is the starting quantity. It is designed for launch tests, creator drops, boutique retail, ecommerce validation and gifting programs.',
         bullets: sectionBullets(
-          'Sampling comes first, with available samples normally dispatched in 2-3 business days.',
-          'Production starts at 100 units after approvals are complete.',
-          'Typical production is 3-6 weeks after fragrance, packaging, artwork and details are approved.',
+          'Use sampling before committing to finished units.',
+          'Move into production after fragrance, packaging, artwork and details are approved.',
+          'Keep the first run focused enough to learn from real demand.',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -1112,9 +1109,9 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'moq-and-packaging',
         title: 'How do packaging choices affect MOQ?',
         description:
-          'Packaging can affect MOQ because every component has its own sourcing and production logic. A stock bottle and label can be practical at lower quantities. A custom cap, special coating, screen print, rigid box or unusual insert may require higher component commitments or longer lead times. If your goal is to use Brandsamor as a [low MOQ perfume manufacturer](/low-moq-perfume-manufacturer), keep the first packaging system elegant, repeatable and aligned with a 100-unit validation batch.',
+          'Packaging has its own minimums and lead times. A stock bottle and label can be practical at lower quantities. A custom cap, special coating, screen print, rigid box or unusual insert may require higher component commitments. If low MOQ is the goal, keep the first packaging system elegant, repeatable and easy to reorder.',
         bullets: sectionBullets(
-          'Stock components usually support lower-MOQ launch planning.',
+          'Stock components usually support lower-MOQ planning.',
           'Custom decoration can increase cost, setup requirements or component minimums.',
           'Packaging ambition should match the first batch sales plan.',
         ),
@@ -1124,11 +1121,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'moq-and-unit-cost',
         title: 'Does a higher MOQ always save money?',
         description:
-          'Higher quantities can reduce some per-unit costs, but they also increase total spend, storage needs and inventory risk. A 1,000-unit order with a lower unit cost can still be a worse business decision than a 100-unit order if the scent or channel is unproven. Brandsamor publishes indicative pricing from $10 per unit so brands can model the first batch and then decide whether a reorder or larger run makes sense after customer response.',
+          'Higher quantities can reduce some per-unit costs, but they also increase total spend, storage needs and inventory risk. A lower unit cost is not useful if the scent, price or channel is wrong. Use first-batch feedback before deciding whether a larger run is justified.',
         bullets: sectionBullets(
           'Compare total cash outlay, not only unit cost.',
-          'Use first-batch feedback to decide whether larger runs are justified.',
-          'Avoid overbuying packaging before the product-market fit is clearer.',
+          'Use customer response to decide whether larger runs are justified.',
+          'Avoid overbuying packaging before product-market fit is clearer.',
         ),
         Illustration: LaunchPlanningIllustration,
       },
@@ -1136,7 +1133,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'moq-by-format',
         title: 'Do perfume oils, mists and sprays have different MOQ considerations?',
         description:
-          'The confirmed Brandsamor production starting point is 100 units, but each format has different practical considerations. Eau de parfum may depend on bottle, pump and carton choices. Perfume oils may depend on applicator and carrier decisions. Body mists may use different bottle and spray systems. Room sprays or gift sets can add components that change quoting. MOQ planning should always happen alongside the [fragrance products](/fragrance-products) and packaging decision, not after.',
+          'The Brandsamor starting point is the same, but each format has different practical considerations. EDP may depend on bottle, pump and carton choices. Oils may depend on applicator and carrier decisions. Body mists may use different spray systems. Gift sets add components that change quoting.',
         bullets: sectionBullets(
           'Choose format based on customer use case and channel expectations.',
           'Check whether each format needs different packaging or documentation.',
@@ -1147,20 +1144,19 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       {
         id: 'moq-documents',
         title: 'Do low-MOQ batches still need documentation?',
-        description:
-          'Yes. A smaller batch can still need documentation if the sales channel, destination or product claims require it. Brandsamor can support IFRA, GMP, ISO 22716, MoCRA documentation, COA and halal certification support where relevant. Low MOQ is about batch size, not about skipping responsible production planning. The right documents should be discussed before label copy and claims are finalized.',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For MOQ planning, a smaller batch should still carry the documents required by the sales channel, destination and claim language.`,
         bullets: sectionBullets(
-          'Match documentation to product, destination and claim language.',
-          'Keep certificate requests specific rather than asking for every document by default.',
+          'Match documentation to product, destination and claims.',
+          'Keep certificate requests specific rather than asking for everything by default.',
           'Do not use unsupported approval claims in product listings or packaging.',
         ),
         Illustration: ComplianceDocIllustration,
       },
       {
         id: 'moq-reorder-strategy',
-        title: 'How should you plan the reorder after a 100-unit launch?',
+        title: 'How should you plan the reorder after a first batch?',
         description:
-          'Your reorder strategy should be decided before the first batch sells out. Track sell-through by channel, customer comments, scent preferences, return reasons and packaging feedback. If the 100-unit batch performs well, you may reorder the same SKU, increase quantity or add a second scent. If it underperforms, the smaller MOQ gives you room to adjust without being trapped by excess inventory. MOQ is a learning tool when used intentionally.',
+          'Decide the reorder trigger before the first batch sells out. Track sell-through by channel, customer comments, scent preference, return reasons and packaging feedback. If the batch performs well, you may reorder the same SKU, increase quantity or add a second scent. If it underperforms, the smaller run gives you room to adjust.',
         bullets: sectionBullets(
           'Set a reorder trigger based on inventory level and production timeline.',
           'Keep approved artwork and component details organized.',
@@ -1173,7 +1169,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       id: 'moq-planning-table',
       title: 'How to think about 100, 500 and 1,000 unit perfume runs',
       description:
-        'The right MOQ is not always the largest batch you can afford. Use this guide to match quantity to risk and market confidence.',
+        'The right MOQ is not always the largest batch you can afford. Match quantity to risk, cash and market confidence.',
       columns: [
         { key: 'bestFor', label: 'Best for' },
         { key: 'benefit', label: 'Main benefit' },
@@ -1221,7 +1217,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       ),
       faq(
         'Can I sample before meeting the MOQ?',
-        'Yes. Available samples are normally dispatched in 2-3 business days, and sampling happens before production commitment.',
+        'Yes. Available samples normally dispatch in 2-3 days, and sampling happens before production commitment.',
       ),
       faq(
         'Why do some manufacturers require much higher MOQs?',
@@ -1234,7 +1230,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ],
     ctaTitle: 'Use MOQ as a launch planning tool',
     ctaDescription:
-      'Tell us your channel, target retail price and expected first-batch quantity. We will help you decide whether 100 units is the right starting point.',
+      'Tell us your channel, target retail price and expected first-batch quantity. We will help decide whether the starting MOQ is the right commercial step.',
     ctaIllustration: DeliveryIllustration,
     relatedLinks: [
       { to: '/low-moq-perfume-manufacturer', label: 'Low MOQ perfume manufacturer' },
@@ -1248,7 +1244,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     path: '/best-private-label-perfume-manufacturers',
     badge: 'Manufacturer comparison guide',
     heroDescription:
-      'An honest guide to choosing the best private label perfume manufacturer for your situation. Compare Brandsamor, US contract houses, China OEM marketplaces, EU niche labs and regional GCC fillers without assuming one model is best for everyone.',
+      'The best private label perfume manufacturer depends on stage, budget, order size, compliance needs and how much project management your team can handle.',
     eyebrowPrefix: 'MANUFACTURERS',
     heroIllustration: BrandBriefIllustration,
     keyFacts: {
@@ -1262,17 +1258,17 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'best-private-label-perfume-manufacturer',
         question: 'Who is the best private label perfume manufacturer?',
         answer:
-          'The best private label perfume manufacturer depends on your stage. Brandsamor is a strong fit for low-MOQ launches from 100 units with sampling and packaging support. Larger contract houses, EU labs, GCC fillers or China OEM suppliers may fit other needs better.',
+          'The best manufacturer depends on your situation. Brandsamor is a strong fit for low-MOQ launches with sampling and packaging support. Larger contract houses, EU labs, GCC fillers or China OEM suppliers may be better for other briefs.',
         detail:
-          'A useful shortlist starts with your order size, market, formula needs, documentation expectations, budget and how much supplier management you can handle internally.',
+          'Start the shortlist with order size, market, formula needs, documentation expectations, budget and the amount of supplier management you can handle internally.',
       },
       {
         id: 'when-to-choose-brandsamor',
         question: 'When should a brand choose Brandsamor?',
         answer:
-          'Choose Brandsamor when you want to sample first, start production from 100 units, keep pricing practical from an indicative $10 per unit, and receive help coordinating scent, packaging, filling, quality checks and documentation-aware launch planning for a focused first batch.',
+          'Choose Brandsamor when you want to sample first, keep the first production run manageable, and coordinate scent, packaging, filling, quality checks and documentation-aware planning through one guided path.',
         detail:
-          'Brandsamor is not positioned as the answer for every enterprise brief. It is built for brands that need a guided, commercial path into fragrance.',
+          'Brandsamor is not positioned as the answer for every enterprise brief. It is built for brands that need a practical commercial route into fragrance.',
       },
     ],
     sections: [
@@ -1280,7 +1276,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'how-to-shortlist-manufacturers',
         title: 'How should you shortlist private label perfume manufacturers?',
         description:
-          'Start with fit, not logos. A manufacturer that works beautifully for a global beauty company may be wrong for a founder testing 100 units. A marketplace supplier with a low headline price may be wrong if you need documentation support and packaging guidance. Shortlist suppliers by MOQ, sample process, communication, packaging capability, documentation support, production timeline, cost transparency and reorder planning. Then ask whether each model matches your actual launch risk.',
+          'Start with fit, not logos. A manufacturer that works beautifully for a global beauty company may be wrong for a founder testing a first batch. A marketplace supplier with a low headline price may be wrong if you need documentation support and packaging guidance. Shortlist by MOQ, sample process, communication, packaging capability, documentation, lead time, cost transparency and reorder planning.',
         bullets: sectionBullets(
           'Confirm MOQ, sample timing and production lead time in writing.',
           'Ask what documentation is available for your product and destination.',
@@ -1292,11 +1288,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'brandsamor-best-fit',
         title: 'Where is Brandsamor the best fit?',
         description:
-          'Brandsamor is best for brands that want a guided private label path with low-MOQ production from 100 units. It is especially relevant when you need curated [fragrance sampling](/fragrance-sampling), help choosing practical [packaging and branding](/packaging-branding), and a first batch that does not require enterprise inventory risk. The service is operated by Packamor LLC in Delaware and supports global customers subject to product, destination, logistics and compliance requirements.',
+          'Brandsamor fits brands that want a guided private label path with a low-MOQ production route. It is especially relevant when you need [fragrance sampling](/fragrance-sampling), practical [packaging and branding](/packaging-branding), and a first batch that does not require enterprise inventory risk. Packamor LLC operates the service from Delaware and supports global customers subject to product, destination, logistics and compliance requirements.',
         bullets: sectionBullets(
           'Good fit for first launches, creator lines, boutiques, beauty brands and gifting concepts.',
-          'Good fit when you want to compare scents before approving production.',
-          'Good fit when a 100-unit MOQ is commercially safer than a large opening order.',
+          'Good fit when scent choice and packaging need to be planned together.',
+          'Good fit when a smaller first batch is commercially safer than a large opening order.',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -1304,11 +1300,11 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'us-contract-houses',
         title: 'When are US contract houses a better choice?',
         description:
-          'US contract houses can be a better choice for established US brands with higher volumes, internal operations teams, domestic vendor requirements or complex retail onboarding processes. They may offer strong production controls and formal account management, but they often expect clearer specifications, larger budgets and higher MOQs. If your brand already has purchase orders, forecasts and a mature supply chain process, a US contract house may be worth evaluating alongside Brandsamor.',
+          'US contract houses can be better for established US brands with higher volumes, internal operations teams, domestic vendor requirements or complex retail onboarding. They may offer strong controls and formal account management, but often expect clearer specifications, larger budgets and higher MOQs.',
         bullets: sectionBullets(
           'Consider US contract houses for larger repeat programs and domestic procurement needs.',
           'Expect onboarding and minimums to vary significantly by supplier.',
-          'Ask whether they support small first launches before spending time on a quote.',
+          'Ask whether they support small first launches before investing time in a quote.',
         ),
         Illustration: ProductionIllustration,
       },
@@ -1316,7 +1312,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'china-oem-marketplaces',
         title: 'When do China OEM marketplaces make sense?',
         description:
-          'China OEM marketplaces can make sense for experienced sourcing teams that know how to vet suppliers, compare samples, inspect quality, handle freight and manage communication across time zones. They can be cost-competitive, especially for component-heavy products, but marketplace listings vary widely. The burden of supplier verification sits heavily on the buyer. If you choose this route, ask detailed questions about formula status, documentation, packaging specifications, defect handling and reorder consistency.',
+          'China OEM marketplaces can make sense for experienced sourcing teams that know how to vet suppliers, compare samples, inspect quality, handle freight and manage communication across time zones. They can be cost-competitive, but marketplace listings vary widely and the buyer carries more verification work.',
         bullets: sectionBullets(
           'Use marketplaces only if you can manage supplier due diligence.',
           'Confirm sample quality, production quality and packaging consistency separately.',
@@ -1328,7 +1324,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'eu-and-gcc-options',
         title: 'When are EU niche labs or regional GCC fillers better?',
         description:
-          'EU niche labs can be a better choice for brands prioritizing perfumer-led creative development, European positioning or a longer custom fragrance process. Regional GCC fillers can be useful for brands focused on oud, attar, local distribution and Gulf customer expectations. Both models can be excellent in the right context, but capabilities, MOQs, documentation and export readiness vary. The best choice depends on market focus and how much custom development your budget can support.',
+          'EU niche labs can be better for brands prioritizing perfumer-led creative development, European positioning or a longer custom fragrance process. Regional GCC fillers can fit brands focused on oud, attar, local distribution and Gulf customer expectations. Both models can be excellent in the right context, but capabilities, MOQs, documents and export readiness vary.',
         bullets: sectionBullets(
           'Consider EU labs for premium creative development and niche fragrance positioning.',
           'Consider GCC fillers for regional oil, attar or oud-centered commercial needs.',
@@ -1337,16 +1333,27 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         Illustration: FragranceFamilyIllustration,
       },
       {
+        id: 'documentation-for-manufacturer-choice',
+        title: 'How should documentation affect manufacturer choice?',
+        description: `${QUALITY_DOCUMENTATION_SENTENCE} For manufacturer selection, ask whether the supplier can provide documents tied to your exact product, not just a generic capability list.`,
+        bullets: sectionBullets(
+          'Match document support to destination, product type and claims.',
+          'Ask how batch records and certificates are handled on reorders.',
+          'Avoid suppliers that answer compliance questions only with broad badges.',
+        ),
+        Illustration: ComplianceDocIllustration,
+      },
+      {
         id: 'when-not-to-choose-brandsamor',
         title: 'When should you not choose Brandsamor?',
         description:
-          'Do not choose Brandsamor if you need a fully bespoke perfumer-led R&D process with no starting library, proprietary formula ownership as the main requirement, custom glass tooling for a very large launch, or a procurement process built only for enterprise-scale manufacturers. Also do not choose a low-MOQ path if your team already has proven demand and needs thousands of units on a strict institutional supply contract. In those cases, a specialized lab or large contract house may serve you better.',
+          'Do not choose Brandsamor if you need a fully bespoke perfumer-led R&D process with no starting library, proprietary formula ownership as the central asset, custom glass tooling for a very large launch or a procurement process built only for enterprise-scale manufacturers. In those cases, a specialized lab or large contract house may serve you better.',
         bullets: sectionBullets(
           'Not ideal when formula ownership is the central commercial asset.',
           'Not ideal when custom molds and large-scale tooling are already approved.',
           'Not ideal when procurement requires a very specific enterprise manufacturing profile.',
         ),
-        Illustration: ComplianceDocIllustration,
+        Illustration: QualityCheckIllustration,
       },
     ],
     comparison: manufacturerComparison,
@@ -1356,7 +1363,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     faqItems: [
       faq(
         'Is Brandsamor the best private label perfume manufacturer?',
-        'Brandsamor is best for low-MOQ, sample-first private label launches. It may not be best for every custom R&D, enterprise or very large-volume project.',
+        'Brandsamor is best for low-MOQ, sample-led private label launches. It may not be best for every custom R&D, enterprise or very large-volume project.',
       ),
       faq(
         'What manufacturer type is best for a first perfume launch?',
@@ -1372,7 +1379,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
       ),
       faq(
         'What are Brandsamor\'s confirmed launch facts?',
-        'Production starts at 100 units, indicative pricing starts from $10 per unit, samples dispatch in 2-3 business days and production is typically 3-6 weeks after approvals.',
+        'Production starts at 100 units, indicative pricing starts from $10 per unit, samples dispatch in 2-3 days and production is typically 3-6 weeks after approvals.',
       ),
     ],
     ctaTitle: 'Choose the manufacturer model that fits your launch',

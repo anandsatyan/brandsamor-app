@@ -39,7 +39,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
     keyFacts: {
       title: 'Decision facts',
       description:
-        'Brandsamor supports sample-first private label fragrance with production from 100 units and indicative pricing from $10 per unit. White label can be faster when a brand only needs a ready stock product with limited changes.',
+        'Brandsamor supports guided private label fragrance with published MOQ and pricing baselines. White label can be faster when a brand only needs a ready stock product with limited changes.',
       facts: defaultKeyFacts({ format: 'Private label or white label', market: 'Launch model choice' }),
     },
     answerBlocks: [
@@ -55,7 +55,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         id: 'brandsamor-position',
         question: 'Where does Brandsamor fit in this comparison?',
         answer:
-          'Brandsamor is strongest for guided private label launches: curated samples, packaging coordination, production from 100 units, quality checks and available certifications. It is less suitable if you only want an unmodified stock perfume with the least possible buying process.',
+          'Brandsamor is strongest for guided private label launches that need scent selection, packaging coordination, quality checks and available certifications. It is less suitable if you only want an unmodified stock perfume with the least possible buying process.',
       },
     ],
     sections: [
@@ -207,7 +207,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
       'Straight answers about the practical differences between private label and white label perfume launch models.',
     ctaTitle: 'Choose the right fragrance launch model',
     ctaDescription:
-      'Tell us whether you need speed, brand control or a long-term fragrance line. Brandsamor will help you decide whether sample-first private label is the right route.',
+      'Tell us whether you need speed, brand control or a long-term fragrance line. Brandsamor will help you decide whether guided private label is the right route.',
     relatedLinks: comparisonLinks,
     whatsappPrefill: 'I am comparing private label vs white label perfume and want guidance.',
   }),
@@ -421,7 +421,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
     keyFacts: {
       title: 'Buyer comparison facts',
       description:
-        'Brandsamor production starts at 100 units and indicative pricing starts from $10 per unit after sampling and approval. Alibaba listings vary widely by supplier, spec, MOQ, service level and buyer due diligence.',
+        'Brandsamor gives buyers a guided private-label path with published planning baselines. Alibaba listings vary widely by supplier, spec, MOQ, service level and buyer due diligence.',
       facts: defaultKeyFacts({ format: 'Guided private label', market: 'Supplier selection' }),
     },
     answerBlocks: [
@@ -429,7 +429,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         id: 'short-answer',
         question: 'Is Brandsamor better than Alibaba perfume suppliers?',
         answer:
-          'Brandsamor is better when you want guided private-label fragrance development, curated samples, packaging coordination and documentation support. Alibaba can be better when you want to search many suppliers yourself, compare the lowest listings or buy a simple stock product with minimal guidance.',
+          'Brandsamor is better when you want guided private-label fragrance development, packaging coordination and documentation support. Alibaba can be better when you want to search many suppliers yourself, compare the lowest listings or buy a simple stock product with minimal guidance.',
         detail:
           'This comparison is about buying model, not a universal winner. A marketplace and a guided private-label partner solve different problems.',
       },
@@ -516,12 +516,12 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         id: 'who-should-pick-brandsamor',
         title: 'When Brandsamor is the better fit',
         description:
-          'Brandsamor fits brands that want a more guided path from idea to private label product. It is strongest when the customer, scent story, packaging and documentation need to come together as a coherent launch.',
+          'Brandsamor fits brands that want a more guided path from idea to private label product. It is strongest when customer, scent story, packaging and documentation need to be planned together.',
         bullets: sectionBullets(
           'You want private label guidance instead of open-ended supplier search',
-          'You value curated samples before production',
+          'You value review and approval steps before production',
           'You need packaging decisions coordinated with scent and price point',
-          'You want production from 100 units with documentation support available',
+          'You want documentation support available for the planned product',
         ),
         Illustration: PackagingIllustration,
       },
@@ -546,7 +546,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         {
           label: 'Best fit',
           values: {
-            brandsamor: 'Brands that want curated samples, packaging coordination and support through production.',
+            brandsamor: 'Brands that want packaging coordination and support through production.',
             alibaba: 'Experienced buyers who want broad supplier search, direct negotiation or stock items.',
           },
         },
@@ -560,7 +560,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         {
           label: 'Sampling',
           values: {
-            brandsamor: 'Brief-led path with five curated fragrance samples before production.',
+            brandsamor: 'Brief-led sample approval before production.',
             alibaba: 'Supplier-by-supplier sample ordering; can be fast, but buyer manages comparisons.',
           },
         },
@@ -599,11 +599,11 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
       ),
       faq(
         'When should I choose Brandsamor instead of Alibaba?',
-        'Choose Brandsamor if you want a guided process, curated fragrance samples, packaging planning, production from 100 units and available documentation support instead of managing open-ended supplier search on your own.',
+        'Choose Brandsamor if you want a guided process, packaging planning and available documentation support instead of managing open-ended supplier search on your own.',
       ),
       faq(
         'Does Brandsamor have a one-click ordering cart like Alibaba?',
-        'No. Brandsamor uses a sample-first, brief-led path. That means you share your brand and customer context, review curated samples and approve production details before bulk ordering. It is more guided, but not instant checkout.',
+        'No. Brandsamor uses a brief-led approval path. That means you share your brand and customer context, review the proposed direction and approve production details before bulk ordering. It is more guided, but not instant checkout.',
       ),
       faq(
         'What MOQ and pricing does Brandsamor offer?',
@@ -619,7 +619,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
       'Straight answers about price, process, sampling, customization and when a marketplace supplier may be the better fit.',
     ctaTitle: 'Decide if guided private label is worth it',
     ctaDescription:
-      'If you want more than a supplier listing, share your brand, budget and product goals. Brandsamor will help you sample and plan a private label fragrance from 100 units.',
+      'If you want more than a supplier listing, share your brand, budget and product goals. Brandsamor will help you sample and plan a private label fragrance.',
     relatedLinks: comparisonLinks,
     whatsappPrefill: 'I am comparing Brandsamor with Alibaba perfume suppliers.',
   }),
