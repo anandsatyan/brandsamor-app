@@ -26,7 +26,13 @@ async function loadActiveFragrancesWithNotes() {
 
 export { recommendFiveFromRows };
 
-export async function recommendFive(answers) {
-  const rows = await loadActiveFragrancesWithNotes();
+export async function recommendFive(answers, { excludeSlugs = [] } = {}) {
+  let rows = await loadActiveFragrancesWithNotes();
+  if (excludeSlugs.length > 0) {
+    const excluded = new Set(
+      excludeSlugs.map((slug) => String(slug ?? '').trim().toLowerCase()).filter(Boolean),
+    );
+    rows = rows.filter(({ fragrance }) => !excluded.has(String(fragrance.slug ?? '').toLowerCase()));
+  }
   return recommendFiveFromRows(rows, answers);
 }

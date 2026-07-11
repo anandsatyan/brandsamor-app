@@ -5,6 +5,8 @@ import {
   buildOrderRecord,
   buildTransactionId,
 } from './orderNumbers.mjs';
+import { notifySampleOrderPaid } from './orderNotificationEmail.mjs';
+import { sendCustomerOrderConfirmation } from './customerOrderConfirmationEmail.mjs';
 
 let indexesEnsured = false;
 
@@ -236,5 +238,57 @@ export async function markPaid(sessionId, payment) {
     },
   );
 
+  const paidSession = {
+    ...(existing ?? {}),
+    sessionId,
+    order,
+    payment: paymentRecord,
+    status: 'paid',
+  };
+  // Fire-and-forget: do not block payment confirmation on email delivery.
+  void notifySampleOrderPaid({
+    session: paidSession,
+    order,
+    payment: paymentRecord,
+  });
+  void sendCustomerOrderConfirmation({
+    session: paidSession,
+    order,
+    payment: paymentRecord,
+  });
+
   return { ok: true, alreadyPaid: false, payment: paymentRecord, order };
+}
+
+/**
+ * Collect fragrance slugs from all prior paid sample kits for this email,
+ * so a returning customer is not recommended the same set again.
+ */
+export async function getPriorPaidFragranceSlugsByEmail(email, { excludeSessionId } = {}) {
+  const normalized = String(email ?? '').trim().toLowerCase();
+  if (!normalized) return [];
+
+  await ensureSamplingIndexes();
+  const db = await getMongoDb();
+  const filter = {
+    status: 'paid',
+    'lead.email': normalized,
+  };
+  if (excludeSessionId) {
+    filter.sessionId = { $ne: String(excludeSessionId) };
+  }
+
+  const sessions = await db
+    .collection('samplingSessions')
+    .find(filter, { projection: { recommendations: 1 } })
+    .toArray();
+
+  const slugs = new Set();
+  for (const doc of sessions) {
+    for (const rec of doc.recommendations ?? []) {
+      const slug = rec.fragranceSlug ?? rec.fragranceId;
+      if (slug) slugs.add(String(slug));
+    }
+  }
+  return [...slugs];
 }

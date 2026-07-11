@@ -7,7 +7,7 @@ import { handleLeadRequest, readJsonBody, sendJson } from './server/leadHandler.
 import { listPublicFragrances, getPublicFragranceBySlug } from './server/fragrance/repo.mjs';
 import { toPublicFragrance } from './server/fragrance/publicSerializer.mjs';
 import { recommendFive } from './server/sampling/recommendationEngine.mjs';
-import { upsertSamplingSession, finalizeCuration, attachCheckoutDetails } from './server/sampling/repo.mjs';
+import { upsertSamplingSession, finalizeCuration, attachCheckoutDetails, getPriorPaidFragranceSlugsByEmail } from './server/sampling/repo.mjs';
 import { handleStripeWebhook } from './server/stripe/webhookHandler.mjs';
 import {
   confirmSampleKitPayment,
@@ -101,7 +101,7 @@ const STATIC_FILES = new Set([
   '/og-image.jpg',
   '/og-image.png',
   '/perfume-bottle-silhouette-bg-3.png',
-  '/brandsamor-favicon-dark.png',
+  '/brandsamor-b-favicon.png',
   '/brandsamor-logo.png',
   '/brandsamor-neue-logo.png',
   '/favicon.svg',
@@ -276,7 +276,10 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
-      const result = await recommendFive(answers);
+      const excludeSlugs = await getPriorPaidFragranceSlugsByEmail(lead.email, {
+        excludeSessionId: sessionId,
+      });
+      const result = await recommendFive(answers, { excludeSlugs });
       const savedSessionId = await finalizeCuration({
         sessionId,
         lead,

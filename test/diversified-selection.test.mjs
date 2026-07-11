@@ -185,3 +185,24 @@ test('recommendation roles contain two core, two adjacent, one wildcard', () => 
   assert.equal(roles.filter((r) => r === 'safe-option' || r === 'adjacent').length, 2);
   assert.equal(roles.filter((r) => r === 'wildcard').length, 1);
 });
+
+test('prior paid fragrance slugs are excluded from a new curation', () => {
+  const priorSlugs = [
+    'bright-citrus',
+    'soft-petals',
+    'polished-woods',
+    'sparkling-citrus-woods',
+    'vanilla-veil',
+  ];
+  const excluded = new Set(priorSlugs);
+  const filteredRows = core16Rows.filter((row) => !excluded.has(row.fragrance.slug));
+  const result = recommendFiveFromRows(filteredRows, baseAnswers);
+
+  assert.equal(result.recommendations.length, 5);
+  for (const slug of priorSlugs) {
+    assert.ok(
+      !result.recommendations.some((r) => r.fragranceSlug === slug),
+      `expected ${slug} to be excluded`,
+    );
+  }
+});

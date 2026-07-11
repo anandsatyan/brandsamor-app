@@ -7,6 +7,7 @@ import {
   upsertSamplingSession,
   finalizeCuration,
   attachCheckoutDetails,
+  getPriorPaidFragranceSlugsByEmail,
 } from '../server/sampling/repo.mjs';
 import { handleStripeWebhook } from '../server/stripe/webhookHandler.mjs';
 import {
@@ -78,7 +79,10 @@ export const samplingApiPlugin = () => ({
             return;
           }
 
-          const result = await recommendFive(answers);
+          const excludeSlugs = await getPriorPaidFragranceSlugsByEmail(lead.email, {
+            excludeSessionId: sessionId,
+          });
+          const result = await recommendFive(answers, { excludeSlugs });
           const savedSessionId = await finalizeCuration({
             sessionId,
             lead,
