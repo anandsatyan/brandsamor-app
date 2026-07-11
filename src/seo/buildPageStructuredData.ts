@@ -59,13 +59,16 @@ const websiteNode = (description: string) => ({
   inLanguage: 'en-US',
 });
 
-const serviceNode = (meta: PageMetadata) => ({
+const serviceNode = (
+  meta: PageMetadata,
+  areaServed: string | string[] = 'Worldwide',
+) => ({
   '@type': 'Service',
   '@id': `${meta.canonical}#service`,
   name: meta.pageName,
   serviceType: 'Private label fragrance manufacturing',
   provider: { '@id': organizationId },
-  areaServed: 'Worldwide',
+  areaServed,
   description: meta.description,
   url: meta.canonical,
 });
@@ -112,6 +115,7 @@ export const buildHomeStructuredData = (meta: PageMetadata) => ({
 export const buildInternalStructuredData = (
   meta: PageMetadata,
   faqItems?: { question: string; answer: string }[],
+  areaServed?: string | string[],
 ) => {
   const graph: object[] = [];
 
@@ -122,7 +126,7 @@ export const buildInternalStructuredData = (
   graph.push(internalWebPageNode(meta), breadcrumbList(meta));
 
   if (meta.includeServiceSchema) {
-    graph.push(serviceNode(meta));
+    graph.push(serviceNode(meta, areaServed));
   }
 
   if (faqItems && faqItems.length > 0) {
@@ -146,7 +150,8 @@ export const buildInternalStructuredData = (
 export const buildStructuredDataForPath = (
   meta: PageMetadata,
   faqItems?: { question: string; answer: string }[],
+  areaServed?: string | string[],
 ) =>
   meta.includeHomeGraph
     ? buildHomeStructuredData(meta)
-    : buildInternalStructuredData(meta, faqItems);
+    : buildInternalStructuredData(meta, faqItems, areaServed);

@@ -11,6 +11,7 @@ import {
   WHY_BRANDSAMOR_FAQ_ITEMS,
 } from './pageSeo';
 import { BATCH_PROCESS_FAQ } from '../content/batchProcess';
+import { NEW_PAGE_FAQS } from '../content/newPages/registry';
 
 export const FAQ_BY_ROUTE: Record<string, FaqItem[]> = {
   '/': FAQ_ITEMS,
@@ -25,4 +26,5 @@ export const FAQ_BY_ROUTE: Record<string, FaqItem[]> = {
   '/how-your-batch-is-made': BATCH_PROCESS_FAQ,
   '/private-label-perfume-manufacturer-usa': PRIVATE_LABEL_USA_FAQ_ITEMS,
   '/custom-perfume-manufacturer': CUSTOM_PERFUME_MANUFACTURER_FAQ_ITEMS,
+  ...NEW_PAGE_FAQS,
 };

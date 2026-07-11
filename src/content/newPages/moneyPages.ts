@@ -16,7 +16,6 @@ import {
   faq,
   sectionBullets,
   defaultKeyFacts,
-  COMMERCIAL_COPY,
   BUSINESS_FACTS,
 } from './buildCommercialPage';
 import type { TopicPageConfig } from '../../components/topic/types';

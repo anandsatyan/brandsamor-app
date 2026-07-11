@@ -208,6 +208,14 @@ const resolveFile = (urlPath) => {
     }
   }
 
+  // Serve any prerendered marketing HTML even if PUBLIC_ROUTES drifts.
+  if (normalized !== '/' && !normalized.includes('..')) {
+    const prerenderedPath = path.join(distDir, normalized.slice(1), 'index.html');
+    if (fs.existsSync(prerenderedPath)) {
+      return { filePath: prerenderedPath, status: 200 };
+    }
+  }
+
   const notFoundPath = path.join(distDir, '404', 'index.html');
   if (fs.existsSync(notFoundPath)) {
     return { filePath: notFoundPath, status: 404 };

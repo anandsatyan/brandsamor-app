@@ -1,6 +1,10 @@
 import type { ComponentType, ReactNode } from 'react';
 import type { FaqItem } from '../../seo/siteConfig';
 import type { NavKey } from '../../routes/siteRoutes';
+import type { AnswerBlockProps } from '../aeo/AnswerBlock';
+import type { SpecFact } from '../aeo/SpecTable';
+import type { TrustBadge } from '../aeo/TrustBar';
+import type { ComparisonColumn, ComparisonRow } from '../ComparisonTable';
 
 export type IllustrationComponent = ComponentType;
 
@@ -20,6 +24,15 @@ export type CardItem = {
   num?: string;
 };
 
+export type TopicComparisonData = {
+  id?: string;
+  title: string;
+  description?: string;
+  columns: ComparisonColumn[];
+  rows: ComparisonRow[];
+  caption?: string;
+};
+
 export type TopicPageConfig = {
   navKey?: NavKey;
   seo: {
@@ -34,7 +47,19 @@ export type TopicPageConfig = {
     description: string;
     Illustration?: IllustrationComponent;
   };
+  keyFacts?: {
+    title?: string;
+    description?: string;
+    facts: SpecFact[];
+  };
+  answerBlocks?: AnswerBlockProps[];
+  trustBar?: {
+    title?: string;
+    description?: string;
+    badges?: TrustBadge[];
+  };
   sections: ContentSectionData[];
+  comparison?: TopicComparisonData;
   faq?: {
     id?: string;
     eyebrow: string;
@@ -55,4 +80,7 @@ export type TopicPageConfig = {
     title?: string;
     links: { to: string; label: string; external?: boolean }[];
   };
+  showWhatsApp?: boolean;
+  whatsappPrefill?: string;
+  areaServed?: string | string[];
 };

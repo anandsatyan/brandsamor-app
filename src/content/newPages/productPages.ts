@@ -16,7 +16,6 @@ import {
   ProcessTimelineIllustration,
   ProductionIllustration,
   QualityCheckIllustration,
-  RepeatOrderIllustration,
   RigidBoxIllustration,
   RoomSprayIllustration,
   ScentSamplesIllustration,
