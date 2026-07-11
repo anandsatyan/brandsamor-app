@@ -55,6 +55,27 @@ const renderFaq = (faq?: TopicPageConfig['faq']) =>
 const renderTopicStatic = (meta: PageMetadata, config: TopicPageConfig) => `<main id="brandsamor-static-content">
   <h1>${escapeHtml(meta.h1)}</h1>
   <p>${escapeHtml(config.hero.description)}</p>
+  ${
+    config.keyFacts
+      ? `<section id="key-facts">
+  <h2>${escapeHtml(config.keyFacts.title ?? 'Key facts')}</h2>
+  ${config.keyFacts.facts
+    .map((fact) => `<p><strong>${escapeHtml(fact.label)}:</strong> ${escapeHtml(fact.value)}</p>`)
+    .join('\n  ')}
+</section>`
+      : ''
+  }
+  ${
+    config.answerBlocks
+      ?.map(
+        (block) => `<section>
+  <h2>${escapeHtml(block.question)}</h2>
+  <p>${escapeHtml(block.answer)}</p>
+  ${block.detail ? `<p>${escapeHtml(block.detail)}</p>` : ''}
+</section>`,
+      )
+      .join('\n') ?? ''
+  }
   ${renderSections(config.sections)}
   ${renderFaq(config.faq)}
 </main>`;

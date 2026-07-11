@@ -9,6 +9,7 @@ import { qualityComplianceConfig } from '../content/qualityCompliance';
 import { startPerfumeLineConfig } from '../content/startPerfumeLine';
 import { whoWeWorkWithConfig } from '../content/whoWeWorkWith';
 import { whyBrandsamorConfig } from '../content/whyBrandsamor';
+import { NEW_PAGE_CONFIGS } from '../content/newPages/registry';
 import { COMMERCIAL_COPY } from './businessFacts';
 import { PAGE_METADATA } from './pageMetadata';
 
@@ -23,6 +24,7 @@ export const TOPIC_ROUTE_CONFIGS: Record<string, TopicPageConfig> = {
   '/quality-compliance': qualityComplianceConfig,
   '/private-label-perfume-manufacturer-usa': privateLabelPerfumeManufacturerUsaConfig,
   '/custom-perfume-manufacturer': customPerfumeManufacturerConfig,
+  ...NEW_PAGE_CONFIGS,
 };
 
 export const HOMEPAGE_STATIC_SECTIONS = [

@@ -1,5 +1,6 @@
 import { KNOWLEDGE_BASE_ARTICLES } from '../content/knowledgeBase/articles';
 import { kbArticlePath } from '../content/knowledgeBase/types';
+import { NEW_PAGE_METADATA } from '../content/newPages/metadata';
 
 export const CANONICAL_ORIGIN = 'https://www.brandsamor.com';
 
@@ -42,6 +43,7 @@ const canonical = (path: string) =>
  * /quality-compliance → IFRA certificate
  * /about → private label fragrance company
  * /contact → fragrance manufacturer
+ * (see src/content/newPages/metadata.ts for Phase 4 keyword targets)
  */
 const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/': {
@@ -308,6 +310,7 @@ const KNOWLEDGE_BASE_ARTICLE_METADATA: Record<string, PageMetadata> = Object.fro
 
 export const PAGE_METADATA: Record<string, PageMetadata> = {
   ...BASE_PAGE_METADATA,
+  ...NEW_PAGE_METADATA,
   '/knowledge-base': KNOWLEDGE_BASE_HUB,
   ...KNOWLEDGE_BASE_ARTICLE_METADATA,
 };

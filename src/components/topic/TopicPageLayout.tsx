@@ -1,3 +1,10 @@
+import { AnswerBlock } from '../aeo/AnswerBlock';
+import { QuoteCtaGroup } from '../aeo/QuoteCtaGroup';
+import { SpecTable } from '../aeo/SpecTable';
+import { StickyCtaBar } from '../aeo/StickyCtaBar';
+import { TrustBar } from '../aeo/TrustBar';
+import { WhatsAppCta } from '../aeo/WhatsAppCta';
+import { ComparisonTable } from '../ComparisonTable';
 import { getPageMetadata } from '../../seo/pageMetadata';
 import { homeBreadcrumbs } from '../Breadcrumbs';
 import { PageBreadcrumbBar } from '../PageBreadcrumbBar';
@@ -16,7 +23,7 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
   const pageMeta = getPageMetadata(config.seo.path);
 
   return (
-  <div className="min-h-screen bg-surface font-sans overflow-x-hidden">
+  <div className={`min-h-screen bg-surface font-sans overflow-x-hidden ${config.showWhatsApp ? 'pb-20 md:pb-0' : ''}`}>
     <SeoHead
       title={config.seo.title}
       description={config.seo.description}
@@ -28,8 +35,20 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
     <PageBreadcrumbBar items={homeBreadcrumbs(pageMeta.pageName)} />
 
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <PageHero {...config.hero} trackingLocation={`topic_hero${config.seo.path}`} />
+      <PageHero {...config.hero} trackingLocation={`topic_hero${config.seo.path}`} dualCta />
+      {config.keyFacts && (
+        <SpecTable
+          title={config.keyFacts.title}
+          description={config.keyFacts.description}
+          facts={config.keyFacts.facts}
+        />
+      )}
+      {config.answerBlocks?.map((block) => (
+        <AnswerBlock key={block.question} {...block} />
+      ))}
+      {config.trustBar && <TrustBar {...config.trustBar} />}
       <ContentSections sections={config.sections} />
+      {config.comparison && <ComparisonTable {...config.comparison} />}
       {children}
       {config.beforeFaq}
       {config.relatedLinks && (
@@ -44,10 +63,32 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
           items={config.faq.items}
         />
       )}
+      {config.showWhatsApp && (
+        <section className="py-10 sm:py-14 border-t border-border">
+          <h2 className="type-h2-sm mb-3">Prefer WhatsApp?</h2>
+          <p className="type-body mb-4 max-w-2xl">
+            For UAE and Saudi Arabia projects, WhatsApp is often the fastest way to share your brief and get a clear next step.
+          </p>
+          <WhatsAppCta variant="button" prefill={config.whatsappPrefill} />
+        </section>
+      )}
     </main>
 
-    <PageCtaSection {...config.cta} />
+    <PageCtaSection {...config.cta} dualCta />
     <SiteFooter />
+    {config.showWhatsApp && (
+      <>
+        <WhatsAppCta variant="floating" prefill={config.whatsappPrefill} className="hidden md:inline-flex mb-0" />
+        <StickyCtaBar showWhatsApp whatsappPrefill={config.whatsappPrefill} />
+      </>
+    )}
   </div>
   );
 };
+
+/** Lightweight dual-CTA strip used above related links on denser pages. */
+export const InlineQuoteStrip = ({ trackingLocation }: { trackingLocation: string }) => (
+  <div className="py-8 border-t border-border">
+    <QuoteCtaGroup trackingLocation={trackingLocation} />
+  </div>
+);

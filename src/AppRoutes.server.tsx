@@ -22,6 +22,12 @@ import { TermsPage } from './components/TermsPage';
 import { WhoWeWorkWithPage } from './components/WhoWeWorkWithPage';
 import { WhyBrandsamorPage } from './components/WhyBrandsamorPage';
 import { ScrollToTop } from './components/ScrollToTop';
+import { NEW_PAGE_PATHS } from './content/newPages/metadata';
+import { createCommercialPage } from './components/CommercialTopicPage';
+
+const commercialServerPages = Object.fromEntries(
+  NEW_PAGE_PATHS.map((path) => [path, createCommercialPage(path)]),
+);
 
 /** Eager route tree used by SSR prerender only. */
 export const AppRoutesServer = () => (
@@ -40,6 +46,10 @@ export const AppRoutesServer = () => (
       <Route path="/how-your-batch-is-made" element={<HowYourBatchIsMadePage />} />
       <Route path="/private-label-perfume-manufacturer-usa" element={<PrivateLabelPerfumeManufacturerUsaPage />} />
       <Route path="/custom-perfume-manufacturer" element={<CustomPerfumeManufacturerPage />} />
+      {NEW_PAGE_PATHS.map((path) => {
+        const Page = commercialServerPages[path];
+        return <Route key={path} path={path} element={<Page />} />;
+      })}
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/get-started" element={<LeadFormPage />} />

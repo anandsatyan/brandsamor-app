@@ -194,4 +194,17 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
       'Tell us about your brand, audience, and launch goals. We will help you complete the sampling brief, evaluate curated fragrance directions, and explore whether private label perfume is the right next product for your business.',
     Illustration: BrandBriefIllustration,
   },
+  relatedLinks: {
+    title: 'Audience guides',
+    links: [
+      { to: '/perfume-line-for-influencers-creators', label: 'Perfume line for influencers and creators' },
+      { to: '/private-label-perfume-for-boutiques', label: 'Private label perfume for boutiques' },
+      { to: '/hotel-signature-scent-manufacturer', label: 'Hotel signature scent manufacturer' },
+      { to: '/salon-spa-private-label-fragrance', label: 'Salon and spa private label fragrance' },
+      { to: '/corporate-gifting-perfume-supplier', label: 'Corporate gifting perfume supplier' },
+      { to: '/private-label-perfume-for-fashion-brands', label: 'Private label perfume for fashion brands' },
+      { to: '/private-label-perfume-for-skincare-beauty-brands', label: 'Private label perfume for skincare brands' },
+      { to: '/perfume-manufacturer-for-amazon-sellers', label: 'Perfume manufacturer for Amazon sellers' },
+    ],
+  },
 };

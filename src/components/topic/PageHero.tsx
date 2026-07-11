@@ -1,4 +1,5 @@
 import { ComingSoonLabel } from '../ComingSoonLabel';
+import { QuoteCtaGroup } from '../aeo/QuoteCtaGroup';
 import { BodyCopy } from '../BodyCopy';
 import { HeroPanel } from '../HeroPanel';
 
@@ -7,11 +8,13 @@ export const PageHero = ({
   title,
   description,
   trackingLocation = 'topic_hero',
+  dualCta = false,
 }: {
   badge: string;
   title: string;
   description: string;
   trackingLocation?: string;
+  dualCta?: boolean;
 }) => (
   <HeroPanel className="py-12 sm:py-16 mb-8 sm:mb-12 rounded-none sm:rounded-2xl text-center">
     <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 sm:space-y-8">
@@ -22,7 +25,11 @@ export const PageHero = ({
       <p className="type-body-lg max-w-2xl">
         <BodyCopy>{description}</BodyCopy>
       </p>
-      <ComingSoonLabel variant="hero" trackingLocation={trackingLocation} />
+      {dualCta ? (
+        <QuoteCtaGroup variant="hero" trackingLocation={trackingLocation} className="justify-center" />
+      ) : (
+        <ComingSoonLabel variant="hero" trackingLocation={trackingLocation} />
+      )}
     </div>
   </HeroPanel>
 );

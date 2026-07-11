@@ -78,7 +78,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What is the minimum order quantity for a private label perfume launch?',
     answer:
-      'Start with samples — there is no production minimum to explore scents and packaging direction. When you are ready for your first batch, quantity depends on product format, bottle, decoration, box, fragrance, and destination. Brandsamor helps you plan a focused first run rather than over-ordering upfront.',
+      'Start with samples — there is no production minimum to explore scents and packaging direction. When you are ready for your first batch, production MOQ starts at 100 units, with indicative pricing from $10 per unit depending on format, bottle, decoration and packaging.',
   },
   {
     question: 'How is private label perfume different from white label fragrance?',

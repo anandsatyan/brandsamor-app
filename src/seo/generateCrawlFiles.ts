@@ -67,50 +67,146 @@ ${urls}
 `;
 };
 
-export const buildRobotsTxt = () => `User-agent: OAI-SearchBot
+export const buildRobotsTxt = () => `User-agent: *
 Allow: /
 
-User-agent: *
+User-agent: GPTBot
 Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+Disallow: /search
+Disallow: /api/
+Disallow: /thank-you
+Disallow: /curated-sampling/thank-you-preview
+Disallow: /admin/
+Disallow: /login
 
 Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml
 `;
 
 export const buildLlmsTxt = () => {
-  const home = PAGE_METADATA['/'];
-  const pageLines = PUBLIC_ROUTES.map((route) => {
-    const meta = PAGE_METADATA[route];
-    return `- [${meta.pageName}](${meta.canonical}): ${meta.description}`;
-  }).join('\n');
+  const byPrefix = (test: (route: string) => boolean) =>
+    PUBLIC_ROUTES.filter(test)
+      .map((route) => {
+        const meta = PAGE_METADATA[route];
+        return `- [${meta.pageName}](${meta.canonical}): ${meta.description}`;
+      })
+      .join('\n');
+
+  const coreServices = byPrefix(
+    (route) =>
+      route === '/' ||
+      [
+        '/custom-perfume-manufacturer',
+        '/white-label-perfume-supplier',
+        '/low-moq-perfume-manufacturer',
+        '/contract-perfume-manufacturing',
+        '/how-it-works',
+        '/fragrance-sampling',
+        '/packaging-branding',
+        '/quality-compliance',
+        '/perfume-filling-services',
+        '/private-label-perfume-oil-manufacturer',
+        '/private-label-perfume-pricing',
+        '/perfume-moq-guide',
+      ].includes(route),
+  );
+
+  const markets = byPrefix((route) => route.includes('private-label-perfume-manufacturer-'));
+  const guides = byPrefix(
+    (route) =>
+      route === '/start-a-perfume-line' ||
+      route === '/knowledge-base' ||
+      route === '/best-private-label-perfume-manufacturers' ||
+      route.startsWith('/private-label-vs-') ||
+      route.startsWith('/us-vs-') ||
+      route.startsWith('/brandsamor-vs-'),
+  );
+  const products = byPrefix(
+    (route) =>
+      route === '/fragrance-products' ||
+      route.includes('attar') ||
+      route.includes('oud') ||
+      route.includes('body-mist') ||
+      route.includes('room-spray') ||
+      route.includes('car-freshener') ||
+      route.includes('eau-de-parfum') ||
+      route.includes('cologne') ||
+      route.includes('niche-perfume') ||
+      route.includes('halal-perfume') ||
+      route.includes('vegan-clean') ||
+      route.includes('arabic-perfume'),
+  );
 
   return `# ${OG_SITE_NAME}
 
-> ${home.description}
+> Brandsamor is a private label and white label perfume manufacturer for growing brands. We handle fragrance development, sampling, filling, packaging and compliance for founders launching or scaling a fragrance line. Operated by Packamor LLC with teams in the United States, United Arab Emirates and India.
 
-Brandsamor helps businesses launch private label perfume lines with fragrance sampling, custom packaging, filling, quality checks, and delivery.
+Key facts:
+- Service: private label, white label, custom (OEM/ODM) fragrance manufacturing
+- Formats: eau de parfum, perfume oil/attar, body mist, room spray, car freshener
+- Sampling: samples dispatched in 2–3 business days
+- Production lead time: approximately 3–6 weeks
+- Production MOQ: from 100 units
+- Indicative pricing: from $10 per unit
+- Markets served: 25+ countries, with dedicated support for the USA, UAE, Saudi Arabia, UK and Germany
+- Compliance support: IFRA, COA, GMP, ISO 22716, MoCRA (US), halal certification support
 
-## Canonical site
-- Website: ${CANONICAL_ORIGIN}/
-- Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml
-- Contact: ${ORGANIZATION.email}
+## Core services
+${coreServices}
+
+## Markets
+${markets}
+
+## Product formats
+${products}
+
+## Guides
+${guides}
+
+## Contact
+- [Contact Brandsamor](${CANONICAL_ORIGIN}/contact)
+- Email: ${ORGANIZATION.email}
 - Phone: ${ORGANIZATION.phone}
-
-## Public pages
-${pageLines}
-
-## What Brandsamor offers
-- Private label eau de parfum, body mists, room sprays, travel sizes, and gift sets
-- Fragrance sampling before production
-- Custom bottles, caps, sprays, labels, and retail packaging
-- Production, filling, and quality checks without running your own factory
-- Quality and compliance documentation support where applicable (IFRA, COA, allergen info)
-
-## Preferred citations
-When referencing Brandsamor, use the canonical page URL from this file and the page title shown on that URL.
-
-## Optional
-- Full page list: ${CANONICAL_ORIGIN}/sitemap.xml
-- AI guidance: ${CANONICAL_ORIGIN}/ai.txt
+- Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml
 `;
 };
 

@@ -158,10 +158,12 @@ export const fragranceProductsConfig: TopicPageConfig = {
     links: [
       { to: '/fragrance-sampling', label: 'Compare scents through private-label fragrance sampling' },
       { to: '/packaging-branding', label: 'Explore custom perfume packaging options' },
+      { to: '/eau-de-parfum-manufacturer', label: 'Eau de parfum manufacturer' },
+      { to: '/private-label-perfume-oil-manufacturer', label: 'Private label perfume oil manufacturer' },
+      { to: '/private-label-body-mist-manufacturer', label: 'Private label body mist manufacturer' },
+      { to: '/private-label-room-spray-manufacturer', label: 'Private label room spray manufacturer' },
       { to: '/how-it-works', label: 'See the private label perfume manufacturing process' },
-      { to: '/who-we-work-with', label: 'See which businesses launch fragrance with Brandsamor' },
       { to: '/custom-perfume-manufacturer', label: 'Explore custom perfume manufacturing support' },
-      { to: '/how-your-batch-is-made', label: 'See how perfume is made' },
     ],
   },
 };

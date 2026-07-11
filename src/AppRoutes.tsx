@@ -1,7 +1,8 @@
-import { lazy, Suspense, type ComponentType } from 'react';
+import { lazy, Suspense, type ComponentType, type LazyExoticComponent } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { BrandsamorLandingPage } from './components/BrandsamorLandingPage';
 import { ScrollToTop } from './components/ScrollToTop';
+import { NEW_PAGE_PATHS } from './content/newPages/metadata';
 
 const lazyNamed = (
   factory: () => Promise<Record<string, ComponentType>>,
@@ -54,6 +55,17 @@ const ThankYouPreviewPage = lazyNamed(
 );
 const AdminOrdersPage = lazyNamed(() => import('./components/AdminOrdersPage'), 'AdminOrdersPage');
 
+const commercialPageElements = Object.fromEntries(
+  NEW_PAGE_PATHS.map((path) => [
+    path,
+    lazy(() =>
+      import('./components/CommercialTopicPage').then((module) => ({
+        default: module.createCommercialPage(path),
+      })),
+    ),
+  ]),
+) as Record<string, LazyExoticComponent<ComponentType>>;
+
 export const AppRoutes = () => (
   <>
     <ScrollToTop />
@@ -71,6 +83,10 @@ export const AppRoutes = () => (
         <Route path="/how-your-batch-is-made" element={<HowYourBatchIsMadePage />} />
         <Route path="/private-label-perfume-manufacturer-usa" element={<PrivateLabelPerfumeManufacturerUsaPage />} />
         <Route path="/custom-perfume-manufacturer" element={<CustomPerfumeManufacturerPage />} />
+        {NEW_PAGE_PATHS.map((path) => {
+          const Page = commercialPageElements[path];
+          return <Route key={path} path={path} element={<Page />} />;
+        })}
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/get-started" element={<LeadFormPage />} />
