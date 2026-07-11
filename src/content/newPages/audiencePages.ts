@@ -18,7 +18,6 @@ import {
   RoomSprayIllustration,
   ScentSamplesIllustration,
 } from '../../components/Illustrations';
-import type { FaqItem } from '../../seo/siteConfig';
 import {
   buildCommercialPage,
   defaultKeyFacts,
@@ -34,66 +33,43 @@ const audienceLinks = [
   { to: '/contact', label: 'Contact Brandsamor about your launch' },
 ];
 
-const audienceFaqs = ({
-  audience,
-  product,
-  channel,
-}: {
-  audience: string;
-  product: string;
-  channel: string;
-}): FaqItem[] => [
-  faq(
-    `Can ${audience} start with 100 units?`,
-    `Yes. Brandsamor production MOQ starts at 100 units, so ${audience} can test a focused first batch before committing to a larger line. Sampling comes first, then production is quoted from $10 per unit depending on bottle, format, decoration, packaging and destination.`,
-  ),
-  faq(
-    `What kind of ${product} should we launch first?`,
-    `Most ${audience} start with one hero scent in a format that fits ${channel}. Eau de parfum, perfume oils, body mists, room sprays, travel sizes and gift sets can all work when the scent story and packaging match the buyer.`,
-  ),
-  faq(
-    'Do we choose from a scent list?',
-    'Brandsamor starts with a short brand and customer brief, then curates five fragrance samples for review. This keeps the process focused and helps your team evaluate scents against your positioning instead of browsing a long unfiltered catalogue.',
-  ),
-  faq(
-    'Can certifications and documents be provided?',
-    'Certifications and documentation are available where the project requires them, including IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support. Exact documents depend on formula, production route, sales market and product claims.',
-  ),
-  faq(
-    'How long does production take after approval?',
-    'Typical production takes about 3-6 weeks after scent, packaging, artwork and production details are approved. Sampling, artwork revisions, freight, destination compliance checks and final sign-off can add time before or after that production window.',
-  ),
-];
-
 export const audiencePageConfigs: Record<string, TopicPageConfig> = {
   '/perfume-manufacturer-for-amazon-sellers': buildCommercialPage({
     path: '/perfume-manufacturer-for-amazon-sellers',
     badge: 'AMAZON SELLERS',
     heroDescription:
-      'Build a retail-ready perfume line for Amazon without guessing through factory catalogues. Brandsamor coordinates curated samples, compliant-looking packaging, production from 100 units and documentation support so your listing has a real product behind it.',
+      'Private label perfume built around Amazon channel realities: hazmat-aware documentation, listing-ready packaging, production from 100 units and clear responsibility lines between what the manufacturer provides and what the seller owns.',
     eyebrowPrefix: 'AMAZON LAUNCH',
     heroIllustration: PackagingIllustration,
     ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Amazon seller launch facts',
       description:
-        'Start with samples, then move into production from 100 units with indicative pricing from $10 per unit. Packaging, documentation and fulfilment planning should be confirmed before listing inventory.',
+        'Production starts at 100 units with indicative pricing from $10 per unit. Packaging, documentation and fulfilment planning should be confirmed before listing inventory on any marketplace.',
       facts: defaultKeyFacts({ format: 'EDP, oils, travel sizes', market: 'Amazon and DTC' }),
     },
     answerBlocks: [
       {
-        id: 'amazon-fit',
-        question: 'What makes perfume suitable for Amazon sellers?',
+        id: 'amazon-hazmat-reality',
+        question: 'How does Amazon\'s dangerous-goods programme affect perfume sellers?',
         answer:
-          'Amazon perfume needs more than a bottle and scent. Your product should photograph clearly, explain its format honestly, include compliant label information, ship safely and support repeat reorders. Brandsamor helps sellers turn a fragrance idea into a private label SKU with sampling before production.',
+          'Alcohol-based perfume typically falls within Amazon\'s hazmat classification. This affects FBA facility routing, carrier requirements and listing eligibility. Sellers must confirm ASIN classification with Amazon before sending inventory — the product-side IFRA certificate, SDS and COA support that review, but submission and account compliance are the seller\'s responsibility.',
         detail:
-          'This page links back to [who we work with](/who-we-work-with) because Amazon sellers are one of several audiences that use private label fragrance to extend an existing customer base.',
+          'FBM (Fulfilled by Merchant) is an alternative for ASINs that face FBA hazmat restrictions. Both routes require the same product documents; the logistics overhead differs by route and territory.',
+      },
+      {
+        id: 'amazon-listing-responsibility',
+        question: 'What does the manufacturer provide and what does the seller own?',
+        answer:
+          'The product side covers fragrance sampling, filling, packaging, quality checks and available documentation including IFRA, COA, GMP and MoCRA support. The seller owns the Amazon account, listing copy, product images, advertising, fulfilment method, marketplace compliance and final claims review. Those responsibilities do not transfer with the purchase order.',
+        detail:
+          'Amazon sellers are one of several audiences on the [who we work with](/who-we-work-with) page — private label fragrance gives sellers a distinct SKU rather than a resell position on someone else\'s listing.',
       },
       {
         id: 'amazon-first-batch',
-        question: 'How should Amazon sellers plan a first perfume batch?',
+        question: 'How should a first Amazon perfume batch be planned?',
         answer:
-          'A first Amazon batch should focus on one clear customer, one scent direction and packaging that looks strong in thumbnails. Production starts at 100 units, with pricing from $10 per unit depending on the final spec, so sellers can test demand before scaling inventory.',
+          'One customer, one scent direction and packaging that reads clearly in a small thumbnail. A focused first batch tests whether the listing concept holds before additional SKUs or a wider range are added to the account.',
       },
     ],
     sections: [
@@ -101,10 +77,10 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'listing-ready-positioning',
         title: 'Position the fragrance for search and conversion',
         description:
-          'Amazon customers compare products quickly, so your first perfume needs a clear promise: scent family, format, size, gifting angle and brand story. Brandsamor helps translate your brief into fragrance samples and packaging choices that support a focused listing instead of a generic private label bottle.',
+          'Amazon customers compare quickly. A first perfume needs a clear promise — scent family, format, size, gifting angle and brand story — that supports a specific listing rather than a generic private label bottle with no search anchor.',
         bullets: sectionBullets(
           'Define customer, scent family and use occasion before sampling',
-          'Choose a bottle size that fits your target price and shipping plan',
+          'Choose a bottle size that fits the target price and shipping plan',
           'Use packaging that photographs clearly for marketplace thumbnails',
           'Keep claims realistic and supportable for the formula and channel',
         ),
@@ -112,51 +88,51 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
       },
       {
         id: 'sample-before-inventory',
-        title: 'Sample before buying marketplace inventory',
+        title: 'Smell the product before buying marketplace inventory',
         description:
-          'Fragrance is hard to judge from supplier photos. Brandsamor curates five samples from your brief so you can smell the direction, evaluate drydown and choose a launch scent before committing to bulk production or Amazon stock planning.',
+          'Fragrance is hard to judge from supplier photos. A curated sample path provides five direction options to evaluate on skin before any bulk production or Amazon stock commitment is made.',
         bullets: sectionBullets(
           'Curated five-scent sample path before production',
           'Evaluate scent on blotter and skin before selecting the hero SKU',
-          'Use sample feedback to refine product page language',
+          'Use sample feedback to sharpen product page language',
           'Move to production only after scent and packaging decisions are clear',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
         id: 'packaging-for-online-retail',
-        title: 'Packaging built for online retail reality',
+        title: 'Packaging built for transit and thumbnails',
         description:
-          'Amazon packaging must look premium but still survive pick, pack and delivery. Bottle, cap, label, carton and insert choices should support photos, unboxing, storage and safe transit rather than only looking good in a supplier catalogue.',
+          'Amazon packaging must look premium and survive pick, pack and delivery. Bottle, cap, label, carton and insert choices should support photos, unboxing and safe transit — not just look good in a catalogue.',
         bullets: sectionBullets(
-          'Select bottles and cartons that balance shelf appeal with transit needs',
-          'Plan label hierarchy for small mobile images',
-          'Include box or insert choices that reduce damage risk',
-          'Confirm barcode, net quantity and responsible-party space early',
+          'Select bottles and cartons that balance shelf appeal with transit durability',
+          'Plan label hierarchy for small mobile-viewport images',
+          'Include insert or box choices that reduce damage risk in fulfilment',
+          'Confirm barcode, net quantity and responsible-party field space early',
         ),
         Illustration: FlatLayIllustration,
       },
       {
         id: 'documentation-and-compliance',
-        title: 'Documentation for marketplace confidence',
+        title: 'Documentation for marketplace and internal records',
         description:
-          'Amazon sellers may need documents for internal records, retail partners or marketplace review depending on product type and claims. Certifications are available where applicable, including IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support.',
+          'Amazon sellers may need documents for hazmat review, internal records or retail partners depending on product type and claims. Available certifications include IFRA, GMP, ISO 22716, COA and MoCRA support. The seller remains responsible for listing accuracy and marketplace rule compliance.',
         bullets: sectionBullets(
-          'Request relevant fragrance and batch documents during specification',
+          'Request fragrance and batch documents during specification',
           'Avoid unsupported therapeutic or medical claims in listings',
-          'Review destination and marketplace rules before inventory purchase',
-          'Keep label text aligned with the formula and product format',
+          'Review destination and marketplace rules before purchasing inventory',
+          'Keep label text aligned with the actual formula and product format',
         ),
         Illustration: ComplianceDocIllustration,
       },
       {
         id: 'reorder-path',
-        title: 'Plan reorders before stock runs out',
+        title: 'Plan reorders before the listing runs dry',
         description:
-          'A launch batch is only useful if the next order can follow. Brandsamor coordinates production details, packaging decisions and quality checks so sellers can learn from customer response and reorder with clearer demand signals.',
+          'A launch batch is only useful if the next order can follow. Production details, packaging decisions and quality checks should be documented from the first batch so reorders move faster — with clearer demand signals and no guesswork on spec.',
         bullets: sectionBullets(
           'Track sell-through before adding more scent variants',
-          'Keep approved packaging and artwork files organized',
+          'Keep approved packaging and artwork files organised',
           'Use reviews and return reasons to improve future batches',
           'Plan production lead time before inventory reaches zero',
         ),
@@ -164,22 +140,37 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
       },
     ],
     faqItems: [
-      ...audienceFaqs({
-        audience: 'Amazon sellers',
-        product: 'perfume SKU',
-        channel: 'Amazon search, ads and brand store merchandising',
-      }),
       faq(
-        'Does Brandsamor prepare Amazon listings?',
-        'Brandsamor focuses on fragrance sampling, packaging, production coordination and documentation support. Your team remains responsible for Amazon account setup, listing copy, images, advertising, fulfilment method, marketplace compliance and final claims review.',
+        'Does FBA require a larger MOQ than 100 units?',
+        'Production MOQ is 100 units. FBA minimum shipment requirements are set by Amazon separately and vary by category, fulfilment centre and territory. Confirm FBA acceptance criteria before committing to a large initial inventory run.',
+      ),
+      faq(
+        'Who submits documents to Amazon\'s hazmat review portal?',
+        'The seller. IFRA certificate, SDS, COA and responsible-party details are prepared on the product side and available on request — but submission through Amazon\'s dangerous-goods review process, and account-level compliance, are the seller\'s responsibility.',
+      ),
+      faq(
+        'Can a perfume ASIN avoid the hazmat programme?',
+        'Some alcohol-free formats — perfume oils, solid fragrances — may fall outside standard hazmat classification, but sellers should confirm this directly with Amazon for each ASIN rather than assuming. Classification depends on flashpoint, concentration and packaging, not just format name.',
+      ),
+      faq(
+        'What listing copy and images are needed for a perfume launch?',
+        'Listing copy, main image, lifestyle images and A+ content are the seller\'s responsibility. Product-side outputs — the sample, production photos, COA and label artwork — can inform those assets, but the listing itself is built and managed by the Amazon seller account holder.',
+      ),
+      faq(
+        'How should sellers plan reorder timing on Amazon?',
+        'Production lead time is 3–6 weeks after approvals. FBA stock can run down faster than expected once a listing gains ranking. Plan reorders before stock reaches a critical level — out-of-stock events on Amazon damage BSR faster than most sellers anticipate.',
+      ),
+      faq(
+        'Is one SKU better than a range for a first Amazon launch?',
+        'Usually yes. One well-photographed SKU with a clear search position builds review velocity faster than a scattered range competing with itself. A single focused listing also makes it easier to read what is working before adding variants.',
       ),
     ],
     faqTitle: 'Amazon perfume manufacturing questions',
     faqDescription:
-      'Answers for Amazon sellers planning a private label fragrance SKU with low MOQ production and sample-first decision making.',
+      'Answers for Amazon sellers planning a private label fragrance SKU with hazmat documentation, low MOQ production and clear responsibility lines.',
     ctaTitle: 'Plan your Amazon-ready perfume SKU',
     ctaDescription:
-      'Share your customer, target price, fulfilment model and launch goal. Brandsamor will help you start with curated samples, then plan packaging and production from 100 units.',
+      'Share your customer profile, target price, fulfilment model and launch goal. Curated samples come first, then packaging and production against a confirmed spec.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I sell on Amazon and want to plan a private label perfume SKU.',
   }),
@@ -188,14 +179,14 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/perfume-line-for-influencers-creators',
     badge: 'CREATORS',
     heroDescription:
-      'Turn an audience into a fragrance product they can wear, gift and remember. Brandsamor helps influencers and creators launch private label perfume with curated samples, branded packaging, MOQ from 100 units and pricing from $10 per unit.',
+      'Creators and influencers can turn audience loyalty into a wearable, giftable product — private label perfume with curated samples, branded packaging and realistic production timelines that fit a content calendar rather than fight it.',
     eyebrowPrefix: 'CREATOR LINE',
     heroIllustration: HeroBottleIllustration,
     ctaIllustration: BrandBriefIllustration,
     keyFacts: {
       title: 'Creator launch facts',
       description:
-        'A creator fragrance should feel personal, but production still needs practical specs, documentation and repeatable quality. Start with samples, then approve the scent and packaging before your first 100-unit batch.',
+        'A creator fragrance should feel personal, but production still needs practical specs, documentation and repeatable quality. Production MOQ is 100 units, with indicative pricing from $10 per unit.',
       facts: defaultKeyFacts({ format: 'EDP, oils, mists, gift sets', market: 'Creator commerce' }),
     },
     answerBlocks: [
@@ -203,39 +194,47 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'creator-fit',
         question: 'Can influencers launch a perfume line without a factory?',
         answer:
-          'Yes. Influencers and creators can launch private label perfume without owning a factory by working through Brandsamor. The process starts with a brand brief, continues through five curated samples, then moves into packaging, production and quality checks for a first batch from 100 units.',
+          'Yes. Influencers and creators can launch private label perfume without owning a factory by working through a coordinated production route. The process starts with a brand brief, continues through five curated samples, then moves into packaging, production and quality checks for a first batch. The creator signs off every decision; the product carries their brand, their name and their responsibility.',
         detail:
           'Creators are one audience in the broader [who we work with](/who-we-work-with) group, alongside boutiques, hotels, salons, beauty brands and gifting teams.',
+      },
+      {
+        id: 'creator-channel-reality',
+        question: 'What channel realities should creators plan around?',
+        answer:
+          'Social commerce, preorder drops and creator shops move fast, but production does not. Sampling takes 1–2 weeks; artwork, packaging approval and production add 3–6 more weeks; freight varies by destination. A campaign date set before those steps are mapped almost always slips — and a sold-out presale with no product is a credibility problem.',
+        detail:
+          'Presales carry legal disclosure obligations in some markets. A first batch of finished stock avoids those obligations and demonstrates a real product before the audience is asked to pay.',
       },
       {
         id: 'audience-match',
         question: 'How do creator fragrances avoid feeling generic?',
         answer:
-          'A creator fragrance feels specific when the scent family, name, packaging and launch story all connect to the audience. Brandsamor uses your content style, customer profile and price point to curate fragrance samples instead of forcing a one-size-fits-all stock perfume.',
+          'A creator fragrance feels specific when scent family, name, packaging and launch story connect to the audience. Samples are curated from a brief that references the creator\'s content style, customer profile and price point — not from a generic fragrance wheel.',
       },
     ],
     sections: [
       {
         id: 'translate-personal-brand',
-        title: 'Translate your personal brand into scent',
+        title: 'Connect your visual world to a scent direction',
         description:
-          'Your audience already knows your tone, visuals and point of view. The fragrance should extend that world through scent notes, bottle mood, box design and product naming that feel credible for your creator brand.',
+          'An audience already knows a creator\'s tone, visuals and point of view. The fragrance should extend that world through scent notes, bottle mood, box design and product naming that feel credible — not like a licensed side project with a stock bottle and a sticker.',
         bullets: sectionBullets(
           'Define the audience mood before choosing fragrance families',
-          'Connect scent direction to your content, values and style',
-          'Choose packaging that feels like merchandise, not a giveaway',
+          'Connect scent direction to your content, values and visual style',
+          'Choose packaging that reads as merchandise, not a giveaway',
           'Keep the first line focused so launch messaging stays clear',
         ),
         Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'sample-with-small-circle',
-        title: 'Use samples to test the story privately',
+        title: 'Test the story privately before going public',
         description:
-          'Before public launch, curated samples let you compare scent directions with a small trusted circle. This helps you avoid overpromising a fragrance your audience has never smelled and gives you language for launch content.',
+          'Curated samples let a creator compare scent directions with a small trusted circle before any public announcement. This avoids overpromising a fragrance the audience has never smelled and gives real language for launch content rather than supplier copy.',
         bullets: sectionBullets(
-          'Receive five curated fragrances from your creator brief',
-          'Evaluate wear, drydown and feedback before production',
+          'Receive five curated fragrances from the creator brief',
+          'Evaluate wear, drydown and feedback before committing to production',
           'Build launch content around the selected scent story',
           'Approve the hero scent before packaging is locked',
         ),
@@ -243,27 +242,27 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
       },
       {
         id: 'packaging-for-fans',
-        title: 'Create packaging fans want to keep',
+        title: 'Packaging fans want to keep and share',
         description:
-          'Creator products often succeed when they feel collectible and giftable. Brandsamor coordinates bottle, cap, label, carton and optional gift packaging so the perfume feels aligned with your audience and retail price.',
+          'Creator products often succeed when they feel collectible and giftable. Bottle, cap, label, carton and optional gift packaging should reflect the audience and retail price — not look like a white-label stock item with a logo applied.',
         bullets: sectionBullets(
-          'Match bottle and box choices to your visual identity',
-          'Plan unboxing moments for launch content',
+          'Match bottle and box choices to the creator visual identity',
+          'Plan unboxing moments that work for launch content',
           'Use travel sizes or gift sets where they fit the audience',
-          'Keep decoration choices realistic for a first 100-unit batch',
+          'Keep decoration choices practical for a first production run',
         ),
         Illustration: GiftSetIllustration,
       },
       {
         id: 'launch-calendar',
-        title: 'Build around a realistic launch calendar',
+        title: 'Build around the production calendar, not against it',
         description:
-          'Creator launches need content timing, preorder decisions, fulfilment planning and production sign-off. Typical production is 3-6 weeks after approvals, so your content calendar should account for sampling and packaging decisions first.',
+          'Creator launches need content timing, fulfilment planning and production sign-off locked before a campaign date is announced. Typical production is 3–6 weeks after approvals; freight adds time on top. A realistic schedule protects the launch from delivery delays becoming public.',
         bullets: sectionBullets(
           'Work backward from campaign date, not only production date',
-          'Leave time for sample review and artwork changes',
-          'Confirm fulfilment and customer service responsibilities',
-          'Use a first batch to learn before expanding variants',
+          'Leave time for sample review and artwork revision rounds',
+          'Confirm fulfilment and customer service responsibilities early',
+          'Use a first batch to learn before expanding into variants',
         ),
         Illustration: ProcessTimelineIllustration,
       },
@@ -271,27 +270,48 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'responsible-claims',
         title: 'Keep claims and documents launch-safe',
         description:
-          'Fragrance can be emotional without making unsupported claims. Brandsamor can support applicable certifications and documents, while your team remains responsible for final marketing claims, labels and destination-market compliance.',
+          'Fragrance can be emotionally compelling without making unsupported claims. The creator — as brand owner — carries final responsibility for marketing language, label accuracy and destination-market compliance. Available certifications and documents support that; they do not replace it.',
         bullets: sectionBullets(
           'Use scent and mood language without medical or therapeutic claims',
-          'Request IFRA, COA, GMP, ISO 22716 or halal support when needed',
+          'Request IFRA, COA, GMP, ISO 22716 or halal support where needed',
           'Review ingredient and label wording for your sales market',
-          'Keep final approvals documented before production release',
+          'Keep all approvals documented before production is released',
         ),
         Illustration: ComplianceDocIllustration,
       },
     ],
-    faqItems: audienceFaqs({
-      audience: 'creators and influencers',
-      product: 'signature fragrance',
-      channel: 'creator shops, drops, events and social commerce',
-    }),
+    faqItems: [
+      faq(
+        'How large does an audience need to be before a creator fragrance makes sense?',
+        'There is no fixed threshold. A tight, engaged community of 10,000 can support a first batch better than a loosely-engaged audience of 500,000 if conversion rates and average order values are realistic. The brief, price point and sell-through expectation matter more than follower count.',
+      ),
+      faq(
+        'Should the fragrance be a presale or produced in advance of launch?',
+        'Producing in advance is lower-risk. Presales carry legal disclosure requirements in some markets and can damage credibility if production delays occur. A completed first batch demonstrates a real product before the audience is asked to commit money.',
+      ),
+      faq(
+        'Who is responsible for the label and marketing claims?',
+        'The creator, as brand owner, signs off all label copy and marketing claims. No agency, production coordinator or manufacturer takes that responsibility away from the person whose name is on the product.',
+      ),
+      faq(
+        'Can travel sizes or sample vials be produced for events and gifting?',
+        'Yes, where the format is part of the agreed spec from the start. Travel sizes, vials and gift sets can be planned alongside the hero SKU when quantities and packaging are scoped upfront rather than added after artwork is approved.',
+      ),
+      faq(
+        'How should production timing align with a content calendar?',
+        'Work backward: brief, sampling (1–2 weeks), scent approval, artwork, production (3–6 weeks), freight and fulfilment setup. A campaign date announced before those steps are scheduled creates public pressure that production cannot absorb.',
+      ),
+      faq(
+        'Can the fragrance carry the creator\'s name and brand exclusively?',
+        'Yes. Private label means the brand, name and story belong to the creator. No manufacturer or coordinator name appears on the finished product.',
+      ),
+    ],
     faqTitle: 'Creator perfume line questions',
     faqDescription:
-      'Answers for creators planning a branded fragrance launch with sample-first development and a practical low-MOQ first batch.',
-    ctaTitle: 'Create your signature fragrance brief',
+      'Answers for creators planning a branded fragrance with sample-first development, production timelines that fit a content calendar and clear brand-owner responsibilities.',
+    ctaTitle: 'Build your signature fragrance brief',
     ctaDescription:
-      'Tell us about your audience, visual world and launch goal. Brandsamor will curate five samples and help you turn the winning direction into a sellable perfume.',
+      'Share your audience, visual world and launch goal. Curated samples come first, then packaging and a production run against the approved direction.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I am a creator and want to launch a private label perfume line.',
   }),
@@ -300,82 +320,82 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/private-label-perfume-for-boutiques',
     badge: 'BOUTIQUES',
     heroDescription:
-      'Add a boutique-exclusive perfume that feels giftable, display-ready and aligned with your shop. Brandsamor supports curated scent sampling, packaging, production from 100 units and documentation for retail-minded private label fragrance.',
+      'A boutique-exclusive perfume that fits the shop floor, sells as a gift and keeps customers coming back — curated sampling, packaging coordination, production from 100 units and documentation for retail-ready private label fragrance.',
     eyebrowPrefix: 'BOUTIQUE RETAIL',
     heroIllustration: FlatLayIllustration,
     ctaIllustration: PackagingIllustration,
     keyFacts: {
       title: 'Boutique launch facts',
       description:
-        'Boutiques can start with one hero scent and a 100-unit production batch. Indicative pricing starts from $10 per unit, with final cost shaped by bottle, box, decoration and quantity.',
+        'Boutiques can start with one hero scent and a first production batch. Indicative pricing starts from $10 per unit, with final cost shaped by bottle, box, decoration and quantity.',
       facts: defaultKeyFacts({ format: 'EDP, oils, travel, gift sets', market: 'Boutique retail' }),
     },
     answerBlocks: [
       {
-        id: 'boutique-fit',
-        question: 'Why do boutiques add private label perfume?',
+        id: 'boutique-channel-reality',
+        question: 'What does a boutique\'s retail channel actually require from a fragrance?',
         answer:
-          'Boutiques add private label perfume because fragrance is giftable, compact, repeatable and emotionally connected to the shop experience. A focused scent line can complement apparel, accessories, home goods or beauty products without requiring the boutique to build production capacity.',
+          'Boutique retail rewards products that are giftable, display-ready and repeatable. A fragrance must photograph well for social posts, sit logically in the existing assortment, survive being tucked into a gift bag and be explainable by staff in two sentences. Those requirements shape every decision from bottle choice to label language.',
         detail:
-          'Boutiques are a core audience on the broader [who we work with](/who-we-work-with) page because private label fragrance fits stores with a clear customer and curated point of view.',
+          'Boutiques are a core audience on [who we work with](/who-we-work-with) because private label fragrance suits stores with a clear customer and a curated point of view.',
       },
       {
         id: 'boutique-moq',
         question: 'Can a small boutique afford a first perfume run?',
         answer:
-          'A boutique can start with production from 100 units after sampling. Indicative pricing begins from $10 per unit depending on the specification, so a first batch can test sell-through, gifting demand and customer response before adding scents or larger quantities.',
+          'A boutique can start production after sampling and approval with a first batch sized to test sell-through rather than fill shelves for a year. A small initial run confirms customer response, gifting demand and reorder cadence before a larger commitment is made.',
       },
     ],
     sections: [
       {
         id: 'retail-assortment-fit',
-        title: 'Fit the fragrance into your retail assortment',
+        title: 'Fit the fragrance into the existing assortment',
         description:
-          'A boutique perfume should feel like it belongs beside your existing products. Brandsamor helps define the customer, scent family, bottle style and price point before samples are curated, so the final product supports your merchandising story.',
+          'A boutique perfume should feel like it belongs beside the other products. The brief defines customer, scent family, bottle style and price point before samples are curated, so the final product supports the merchandising story rather than sitting awkwardly apart from everything else.',
         bullets: sectionBullets(
-          'Match scent direction to your store aesthetic and shopper',
-          'Choose a retail price that fits nearby categories',
-          'Start with one scent instead of a scattered collection',
-          'Plan display, gifting and online merchandising together',
+          'Match scent direction to the store aesthetic and core shopper',
+          'Choose a retail price that sits naturally in the existing category mix',
+          'Start with one scent rather than a scattered collection',
+          'Plan display, gifting and online merchandising at the same time',
         ),
         Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'giftable-packaging',
-        title: 'Make packaging work on the shelf and in a gift bag',
+        title: 'Packaging that works on-shelf and in a gift bag',
         description:
-          'Boutique fragrance needs to attract browsers, photograph well for social posts and feel ready to gift. Bottle, label, cap and carton decisions should support the store environment as much as the scent itself.',
+          'Boutique fragrance needs to attract browsers, photograph well on Instagram and feel ready to give. Bottle, label, cap and carton decisions should support the store environment and gifting occasions as much as the scent itself.',
         bullets: sectionBullets(
           'Use cartons or sleeves for clean shelf presentation',
-          'Keep label hierarchy readable in small retail displays',
-          'Consider gift sets when your customers buy for occasions',
-          'Align colors and finish with your boutique identity',
+          'Keep label hierarchy legible in small retail displays',
+          'Plan gift sets when customers frequently buy for occasions',
+          'Align colour and finish with the boutique visual identity',
         ),
         Illustration: GiftSetIllustration,
       },
       {
         id: 'sampling-for-merchants',
-        title: 'Evaluate scents like a merchant',
+        title: 'Evaluate scents from a merchant\'s perspective',
         description:
-          'Sampling helps boutique teams compare fragrance options against customer taste, not personal preference alone. Staff can smell the five curated samples, identify the most commercial fit and prepare talking points for the sales floor.',
+          'Staff who know the customers are the right people to approve a fragrance. The five-scent curated sample path lets the team identify the most commercially viable direction and build the sales-floor language at the same time — before any packaging or production spend.',
         bullets: sectionBullets(
-          'Test samples with staff who know your customers',
-          'Compare opening, drydown and giftability',
-          'Choose a scent that is distinctive but easy to explain',
-          'Use sample notes to train sales associates',
+          'Test samples with staff who know customer taste',
+          'Compare opening, drydown and giftability together',
+          'Choose a scent that is distinctive but easy to describe',
+          'Use sample notes to prepare front-of-house talking points',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
         id: 'quality-for-repeat-sales',
-        title: 'Support repeat sales with consistent specs',
+        title: 'Consistent specs support repeat sales',
         description:
-          'Retail success depends on a product customers can return for. Brandsamor coordinates production details, quality checks and available documentation so your boutique can treat fragrance as a real line, not a one-off novelty.',
+          'Retail success depends on a product customers come back to. Production details, quality checks and documentation are kept from the first batch so reorders maintain the same scent, fill level and packaging finish.',
         bullets: sectionBullets(
-          'Approve a production sample before bulk filling',
-          'Document bottle, cap, fragrance and packaging choices',
-          'Use quality checks for fill, spray, label and carton condition',
-          'Plan reorder timing around seasonal retail peaks',
+          'Approve a production sample before bulk filling begins',
+          'Document bottle, cap, fragrance and packaging choices per batch',
+          'Quality checks cover fill, spray, label and carton condition',
+          'Plan reorder timing around gift seasons and sell-through data',
         ),
         Illustration: QualityCheckIllustration,
       },
@@ -383,27 +403,48 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'expand-carefully',
         title: 'Expand after the first scent proves demand',
         description:
-          'The strongest boutique lines often begin with a hero product. Once customers respond, you can explore travel sizes, perfume oils, seasonal scents or gift sets with better data from your own store.',
+          'The strongest boutique fragrance lines often begin with a single hero product. Once customers are buying and returning for it, travel sizes, oils, seasonal scents or gift sets can follow with real data from the same store.',
         bullets: sectionBullets(
-          'Track sell-through and customer comments after launch',
-          'Use gift seasons to test sets or limited packaging',
-          'Add variants only when the hero scent has traction',
-          'Keep the brand story consistent across future batches',
+          'Track sell-through and unsolicited customer comments after launch',
+          'Use gift-season peaks to test sets or limited outer packaging',
+          'Add variants only when the hero scent shows clear repeat demand',
+          'Keep the brand story consistent across future batches and formats',
         ),
         Illustration: ProductionIllustration,
       },
     ],
-    faqItems: audienceFaqs({
-      audience: 'boutiques',
-      product: 'boutique perfume',
-      channel: 'in-store retail, online shops and gift merchandising',
-    }),
+    faqItems: [
+      faq(
+        'What retail price range works for a boutique-exclusive perfume?',
+        'Prices that hold margin sit at 3–5× the landed unit cost, covering boutique margin, staff incentive and the premium customers expect from an exclusive product. The landed cost includes production, freight, packaging and any compliance work — not just the base unit price.',
+      ),
+      faq(
+        'Is one scent better than a small collection for a first boutique launch?',
+        'One hero scent is almost always more practical. Multiple scents divide attention on the sales floor, demand more stock commitment and make the brand story harder for staff to communicate. A collection adds coherence once the hero has proven demand.',
+      ),
+      faq(
+        'Can the perfume carry the boutique\'s name and branding exclusively?',
+        'Yes. Private label means the brand, name and packaging story belong to the boutique. No manufacturer branding appears on the finished product.',
+      ),
+      faq(
+        'Who handles label compliance and INCI disclosure?',
+        'The boutique, as brand owner, is responsible for label accuracy, INCI disclosure and destination-market requirements. IFRA, COA and manufacturing context are available to support that compliance work.',
+      ),
+      faq(
+        'How much staff preparation is needed before launch?',
+        'Enough to describe the scent family, the occasion and the brand story in two or three confident sentences. A brief staff tasting session using the curated samples — before the product goes on shelf — is more effective than a written training document.',
+      ),
+      faq(
+        'Can the first batch include both full-size and travel-size formats?',
+        'Yes, provided both are in the spec from the start. Splitting a first batch across two formats reduces the quantity of each, which can affect per-unit cost and packaging tooling. Confirm formats and quantities together rather than adding a travel size after carton artwork is finalised.',
+      ),
+    ],
     faqTitle: 'Boutique private label perfume questions',
     faqDescription:
-      'Answers for boutique owners evaluating private label perfume as a retail, gifting or online product extension.',
+      'Answers for boutique owners evaluating private label perfume as a retail, gifting or online product that fits their existing customer and assortment.',
     ctaTitle: 'Plan a boutique-exclusive fragrance',
     ctaDescription:
-      'Share your store concept, customer and target retail price. Brandsamor will help you sample scent directions and plan a first batch from 100 units.',
+      'Share your store concept, customer profile and target retail price. Curated samples come first, then packaging and a first batch sized to test demand.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I own a boutique and want to create a private label perfume.',
   }),
@@ -412,110 +453,131 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/hotel-signature-scent-manufacturer',
     badge: 'HOSPITALITY',
     heroDescription:
-      'Create a signature hotel scent guests can remember, buy and take home. Brandsamor supports hospitality fragrance products for retail, gifting and amenities with curated sampling, packaging coordination and production from 100 units.',
+      'A hotel signature scent guests can remember, buy and take home — production from 100 units, curated samples matched to the property brief, and formats built for gift shops, spa retail, VIP programmes and room amenities.',
     eyebrowPrefix: 'HOTEL SCENT',
     heroIllustration: RoomSprayIllustration,
     ctaIllustration: BrandBriefIllustration,
     keyFacts: {
       title: 'Hospitality launch facts',
       description:
-        'Hotel fragrance projects can begin with samples and move into production from 100 units. Unit pricing starts from $10 depending on format, bottle, packaging and quantity.',
+        'Hotel fragrance projects start with samples and move into production from 100 units. Unit pricing starts from $10 depending on format, bottle, packaging and quantity.',
       facts: defaultKeyFacts({ format: 'EDP, room spray, travel', market: 'Hotels and resorts' }),
     },
     answerBlocks: [
       {
-        id: 'hotel-fit',
-        question: 'What is a hotel signature scent product?',
+        id: 'hotel-channel-reality',
+        question: 'What makes hospitality fragrance different from standard retail?',
         answer:
-          'A hotel signature scent product is a branded fragrance, room spray or gift format that lets guests take the property experience home. It can support retail, amenities, VIP gifting or spa sales when the scent and packaging reflect the property identity.',
+          'Hotel fragrance sits across multiple channels inside one property — gift shop, spa retail, VIP gifting, room amenities — and each has different pricing, packaging, regulatory treatment and reorder logic. A retail eau de parfum and a room amenity may share a scent direction but are distinct products in terms of formula classification, label requirements and production route.',
         detail:
-          'Hotels and hospitality teams are included on [who we work with](/who-we-work-with) because scent can extend the memory of a stay into a tangible branded product.',
+          'Hotels and hospitality teams are on [who we work with](/who-we-work-with) because scent extends the memory of a stay into a product guests can take home.',
       },
       {
         id: 'hotel-use-cases',
         question: 'Where can hotels use private label fragrance?',
         answer:
-          'Hotels can use private label fragrance in gift shops, minibar programs, spa retail, VIP welcome gifts, event gifting and branded room sprays. Brandsamor helps select formats that match the property, audience and operational plan instead of assuming every hotel needs the same product.',
+          'Gift shops, spa retail, minibar programmes, VIP welcome gifts, event gifting and branded room sprays are all established hospitality use cases. The format, price point and label should match the specific use rather than assuming one product covers all channels.',
       },
     ],
     sections: [
       {
         id: 'property-story',
-        title: 'Capture the property story in scent',
+        title: 'Translate the property into a scent brief',
         description:
-          'A hotel fragrance should express place, service style and guest memory. Brandsamor uses your property brief to curate scent directions that fit the mood of the lobby, spa, rooms or retail environment.',
+          'A hotel fragrance should express place, service style and guest memory. A brief built on location, room palette, material references and service tone produces curated samples that connect to the property — not a generic "fresh and clean" that could belong to any hotel brand.',
         bullets: sectionBullets(
-          'Translate location, materials and mood into scent direction',
-          'Choose fragrance families that fit the guest profile',
-          'Avoid overpowering notes for hospitality contexts',
-          'Keep the retail product aligned with the on-property experience',
+          'Translate location, materials and guest experience into scent direction',
+          'Choose fragrance families that fit the guest profile and price tier',
+          'Avoid overpowering notes in spaces guests share for extended periods',
+          'Keep the retail product aligned with the on-property atmosphere',
         ),
         Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'product-formats',
-        title: 'Choose formats for retail, rooms or gifts',
+        title: 'Match formats to retail, rooms and gifting goals',
         description:
-          'A hotel may need wearable perfume, room spray, travel sizes or gift packaging. The right format depends on where guests encounter the product and whether the goal is revenue, recognition or appreciation.',
+          'Eau de parfum, room spray, travel sizes and gift sets serve different guest moments. The format should be chosen by where guests encounter the product and whether the goal is revenue, brand recognition or guest appreciation — not by what is cheapest or most convenient to produce.',
         bullets: sectionBullets(
           'Eau de parfum for gift shop and spa retail',
-          'Room spray for atmosphere and take-home memory',
-          'Travel sizes for amenities, events and VIP stays',
-          'Gift sets for premium rooms, weddings and corporate bookings',
+          'Room spray for atmosphere, turndown and take-home memory',
+          'Travel sizes for amenities, signature events and VIP stays',
+          'Gift sets for premium rooms, weddings and corporate programmes',
         ),
         Illustration: GiftSetIllustration,
       },
       {
         id: 'hospitality-packaging',
-        title: 'Package for a premium hospitality experience',
+        title: 'Packaging that reads as part of the property',
         description:
-          'Hotel fragrance packaging should feel like part of the property. Brandsamor coordinates bottle, label, box and insert options so the finished product can sit in a boutique, spa or guest room without feeling generic.',
+          'Hotel fragrance packaging should feel like an extension of the property rather than a generic product with a sticker. Bottle, label, box and insert options can reflect the visual identity without requiring bespoke glass tooling on a first run.',
         bullets: sectionBullets(
-          'Use brand colors, typography and property cues carefully',
-          'Consider gift-ready cartons for front-desk and spa sales',
-          'Plan compact formats for luggage and travel retail',
-          'Keep labels clear for destination-market requirements',
+          'Use brand colours, typography and property cues with restraint',
+          'Plan gift-ready cartons for front-desk and spa retail formats',
+          'Consider compact formats for luggage-friendly and travel retail use',
+          'Label content should meet destination-market cosmetic requirements',
         ),
         Illustration: PackagingIllustration,
       },
       {
         id: 'operations-and-reorders',
-        title: 'Plan for hotel operations and reorders',
+        title: 'Plan for operations and predictable reorders',
         description:
-          'Hospitality teams need predictable lead times, reorder planning and internal ownership. Typical production takes 3-6 weeks after approvals, so inventory planning should account for seasons, events and guest occupancy.',
+          'Hospitality teams need reliable lead times, reorder planning and one clear internal owner for approvals. Typical production is 3–6 weeks after sign-off; seasonal peaks and events should be built into inventory planning rather than treated as emergencies.',
         bullets: sectionBullets(
-          'Assign one decision owner for scent and packaging approvals',
-          'Plan quantities around retail, amenities and gifting separately',
-          'Track consumption by use case before scaling',
-          'Keep reorder specs consistent for future batches',
+          'Assign a single decision owner for scent and packaging approvals',
+          'Plan quantities across gift shop, amenities and gifting separately',
+          'Track consumption by channel before scaling quantities',
+          'Keep reorder specs documented so future batches match the original',
         ),
         Illustration: DeliveryIllustration,
       },
       {
         id: 'documents-and-claims',
-        title: 'Keep hospitality claims and documents grounded',
+        title: 'Keep hospitality claims and labels grounded',
         description:
-          'Whether the fragrance is sold or gifted, labels and claims need to match the product. Certifications and documentation are available where applicable, including IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support.',
+          'Whether a fragrance is sold in a hotel boutique or gifted to a VIP guest, label claims must match the actual product. Available certifications include IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support — chosen for the destination market, not for marketing optics.',
         bullets: sectionBullets(
-          'Review market rules for retail versus amenity use',
-          'Use accurate product identity and net quantity information',
+          'Review market rules separately for retail and amenity use',
+          'Use accurate product identity and net quantity on every label',
           'Request relevant certificates during the specification stage',
-          'Avoid wellness or therapeutic claims unless properly supported',
+          'Avoid wellness or therapeutic claims unless properly substantiated',
         ),
         Illustration: ComplianceDocIllustration,
       },
     ],
-    faqItems: audienceFaqs({
-      audience: 'hotels and resorts',
-      product: 'signature scent product',
-      channel: 'gift shops, spa retail, guest amenities and VIP gifting',
-    }),
+    faqItems: [
+      faq(
+        'Should a hotel\'s retail fragrance be the same as its in-room amenity?',
+        'Not necessarily. Retail-grade eau de parfum and an amenity body wash can share a scent direction without being identical products. Retail products need commercial packaging, full cosmetic labelling and a retail price point; amenities follow different sourcing, dosage and regulatory classification logic.',
+      ),
+      faq(
+        'How many units should a hotel start with?',
+        '100 units is the production minimum. For an active gift shop, spa and seasonal gifting programme, 200–300 units across one or two SKUs is a more useful starting range. Volume and SKU count should be matched to realistic channel demand rather than the minimum.',
+      ),
+      faq(
+        'Who owns the scent formula after the first production run?',
+        'Formula exclusivity and long-term ownership depend on the commercial terms agreed at brief stage. These should be confirmed in writing before production begins, not assumed after the first batch ships.',
+      ),
+      faq(
+        'Can room sprays and personal fragrances share the same scent brief?',
+        'They can start from the same inspiration, but formula, safety classification, regulatory treatment and packaging are different for each product type. A room spray and a personal perfume with the same name should be scoped, assessed and approved as separate products.',
+      ),
+      faq(
+        'What documentation does a hotel gift shop typically need?',
+        'IFRA certificate, INCI list, country of origin and — depending on the destination market and retail channel — a cosmetic product safety assessment. Retail products stocked in hotel boutiques follow the same cosmetic regulations as any retail fragrance sold in that country.',
+      ),
+      faq(
+        'How far in advance should a hotel start the fragrance development process?',
+        'For a property opening, seasonal relaunch or event gift programme, allow 10–14 weeks from brief to in-hand. That covers sampling (1–2 weeks), artwork and approval rounds, production (3–6 weeks) and inbound freight. Starting later compresses revision time and risks stock shortfalls.',
+      ),
+    ],
     faqTitle: 'Hotel signature scent questions',
     faqDescription:
-      'Answers for hotels, resorts and hospitality teams considering a branded fragrance product or room scent line.',
+      'Answers for hotels, resorts and hospitality teams considering a branded fragrance for gift shops, spa retail, amenities or VIP gifting.',
     ctaTitle: 'Build a hotel scent guests remember',
     ctaDescription:
-      'Share your property concept, guest profile and product use case. Brandsamor will curate scent samples and help you plan a retail or gifting batch from 100 units.',
+      'Share your property brief — location, guest profile, intended use and any scent references. Samples and a production plan will follow.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I want to create a hotel signature scent product.',
   }),
@@ -524,51 +586,51 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/salon-spa-private-label-fragrance',
     badge: 'SALONS & SPAS',
     heroDescription:
-      'Extend the salon or spa experience with a branded fragrance clients can take home. Brandsamor helps wellness and beauty service businesses launch private label perfume, body mist or room spray from 100 units.',
+      'Salons and spas can extend the treatment-room experience with a branded fragrance clients take home — sample-first private label perfume, body mist or room spray with packaging that fits the service environment and a retail price the client recognises as fair.',
     eyebrowPrefix: 'SALON & SPA',
     heroIllustration: MarbleBottleIllustration,
     ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Salon and spa launch facts',
       description:
-        'Service businesses can start with curated samples and a first production batch from 100 units. Pricing starts from $10 per unit depending on product format, bottle and packaging choices.',
+        'Service businesses can start with curated samples and a first production batch from 100 units. Indicative pricing starts from $10 per unit depending on product format, bottle and packaging choices.',
       facts: defaultKeyFacts({ format: 'EDP, mist, oil, room spray', market: 'Salon and spa retail' }),
     },
     answerBlocks: [
       {
-        id: 'salon-spa-fit',
-        question: 'Why do salons and spas launch private label fragrance?',
+        id: 'salon-spa-channel-reality',
+        question: 'What channel realities shape salon and spa fragrance retail?',
         answer:
-          'Salons and spas launch private label fragrance to let clients continue the service experience at home. A branded perfume, mist or room spray can support retail sales, client gifting, treatment-room memory and repeat engagement without adding in-house manufacturing.',
+          'Service businesses sell fragrance in a fundamentally different context from a boutique or online store. The conversion moment is a staff recommendation after a treatment — not a search result or an impulse display. Format, retail price and merchandising placement must make sense given what clients already spend at the same business.',
         detail:
-          'Salons and spas are part of the broader [who we work with](/who-we-work-with) audience because fragrance naturally connects to beauty, wellness and client experience.',
+          'Salons and spas are part of the broader [who we work with](/who-we-work-with) audience because fragrance connects naturally to the physical service experience.',
       },
       {
         id: 'wellness-product-choice',
         question: 'Which fragrance formats fit salons and spas?',
         answer:
-          'Eau de parfum works for premium retail, body mist can fit lighter wellness positioning, perfume oils can feel intimate and room sprays can extend treatment-room atmosphere. Brandsamor helps choose formats based on client profile, price point and sales environment.',
+          'Format choices depend on the service environment and client spending behaviour. Eau de parfum suits premium retail positions; body mist works at accessible price points; perfume oil can feel intimate at the treatment-room price level; room sprays extend the atmosphere into a take-home context. The format should match the client, not the supplier catalogue.',
       },
     ],
     sections: [
       {
         id: 'service-experience',
-        title: 'Turn the service atmosphere into a product',
+        title: 'Give the service atmosphere a product form',
         description:
-          'Clients remember scent from a treatment room, reception area or styling experience. A private label fragrance gives that memory a product form they can buy, gift or use between visits.',
+          'Clients remember scent from a treatment room, reception area or styling experience. A private label fragrance gives that memory something to buy, gift or use between appointments — keeping the brand present outside the booking.',
         bullets: sectionBullets(
-          'Define the feeling clients associate with your space',
-          'Choose calming, polished or expressive scent directions intentionally',
-          'Connect the fragrance to treatments, retail shelves or memberships',
-          'Avoid generic spa notes when your brand has a clearer identity',
+          'Define the feeling clients already associate with the space',
+          'Choose calming, polished or expressive directions with intention',
+          'Connect fragrance to treatments, retail shelves or memberships',
+          'Avoid generic "spa" notes when the brand has a stronger identity',
         ),
         Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'format-and-price',
-        title: 'Select a format that fits your service menu',
+        title: 'Match format to the service menu and price ladder',
         description:
-          'A high-end spa may prefer eau de parfum or oils, while a salon may sell body mists or travel sizes near checkout. Brandsamor helps align format, packaging and retail price before production.',
+          'A high-end spa and a mid-market salon have different client price ceilings. Format, bottle and packaging choices must land at a retail price clients consider reasonable given what they already spend at the same business.',
         bullets: sectionBullets(
           'Eau de parfum for premium take-home retail',
           'Body mist for lighter everyday use and accessible gifting',
@@ -579,55 +641,76 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
       },
       {
         id: 'sample-with-team',
-        title: 'Sample with the team that knows your clients',
+        title: 'Sample with the people who know your clients',
         description:
-          'Your stylists, therapists or retail staff often know what clients ask for. Use the five curated samples to choose a scent that staff can confidently explain and recommend after services.',
+          'Stylists, therapists and front-of-house staff usually know which scent directions clients respond to. The five-scent sample path gives that team something to evaluate with the client profile in mind — producing a scent they can explain from personal experience, not from reading a spec sheet.',
         bullets: sectionBullets(
-          'Compare samples with the customer profile in mind',
-          'Listen for staff language that makes the scent easy to sell',
-          'Choose a hero scent before adding seasonal products',
-          'Use sample feedback to plan merchandising and scripts',
+          'Compare samples against the client profile, not personal preference alone',
+          'Listen for staff language that makes the scent natural to recommend',
+          'Choose a hero direction before adding seasonal or supplementary products',
+          'Use sample feedback to plan merchandising positions and selling scripts',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
         id: 'retail-merchandising',
-        title: 'Merchandise fragrance at the right client moment',
+        title: 'Place fragrance at the right client moment',
         description:
-          'Salon and spa fragrance sells best when clients understand why it belongs with the service. Packaging, display and staff education should make the product feel like a natural extension rather than a random retail add-on.',
+          'Salon and spa fragrance converts best when clients understand the connection to the service. Staff recommendation immediately after a treatment, a tester near checkout and a clear product story outperform passive shelf placement every time.',
         bullets: sectionBullets(
-          'Place fragrance near checkout, treatment rooms or gift displays',
-          'Use testers and blotters where appropriate',
-          'Build gift bundles around services or memberships',
-          'Keep packaging aligned with towels, robes, skincare or salon branding',
+          'Position fragrance near checkout, treatment rooms or gift displays',
+          'Use testers and blotters in client-facing areas',
+          'Build gift bundles around services, memberships or seasonal occasions',
+          'Keep packaging aligned with towels, robes, skincare and brand materials',
         ),
         Illustration: FlatLayIllustration,
       },
       {
         id: 'documents-and-quality',
-        title: 'Support the product with quality checks and documents',
+        title: 'Support the product with quality checks and available documents',
         description:
-          'Beauty service brands need client trust. Brandsamor coordinates production sample approval, filling checks and available documentation such as IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support where relevant.',
+          'Beauty service brands need clients to trust the retail products they recommend. Production sample approval, filling checks and available documentation — IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support — are available where the project requires them.',
         bullets: sectionBullets(
-          'Approve scent, bottle, label and box before bulk production',
+          'Approve scent, bottle, label and box before bulk production releases',
           'Review labels against formula, claims and destination market',
           'Keep documents available for retail or wholesale conversations',
-          'Plan reorders around busy seasons and appointment peaks',
+          'Plan reorders around appointment peaks and gift-giving seasons',
         ),
         Illustration: QualityCheckIllustration,
       },
     ],
-    faqItems: audienceFaqs({
-      audience: 'salons and spas',
-      product: 'private label fragrance',
-      channel: 'spa retail, salon checkout, treatment rooms and client gifting',
-    }),
+    faqItems: [
+      faq(
+        'What fragrance retail price makes sense for a salon or spa client?',
+        'Price should sit relative to existing service spend. A high-end spa with treatments at $150–200 can support a $60–80 fragrance retail price; a mid-market salon may find $30–40 more appropriate. The format and packaging must justify the price point before the first client picks it up.',
+      ),
+      faq(
+        'Can a multi-location salon or franchise run the same fragrance across all sites?',
+        'Yes, as long as label accuracy, compliance and stock responsibilities are managed centrally. Multi-location orders also consolidate reorder volume, which is more cost-efficient than each site ordering independently at production minimums.',
+      ),
+      faq(
+        'Who handles cosmetic compliance for a salon selling retail fragrance?',
+        'The salon, as brand owner, is responsible for label accuracy and destination-market compliance. IFRA, COA and manufacturing information are available to support that. The salon should also confirm that its retail product classification meets any applicable local rules for cosmetics sold in service businesses.',
+      ),
+      faq(
+        'How do staff recommend the fragrance without it feeling like a hard sell?',
+        'The most effective recommendation follows naturally from the service: naming the scent used during the treatment, letting the client smell the retail version and explaining the connection. A brief team tasting session before launch produces staff who describe the product from experience, not from a training document.',
+      ),
+      faq(
+        'Can a salon launch a room spray alongside a personal fragrance?',
+        'Yes, but they are separate products with separate formulas, safety assessments and packaging considerations. Scoping both products in a single brief is more efficient than staging them separately, as long as the salon can commit stock and sales attention to two SKUs.',
+      ),
+      faq(
+        'Is 100 units a sensible starting quantity for a single-location salon?',
+        '100 units is the production minimum and a practical test run for a single location. Sell-through data from the first batch tells you whether to reorder the same spec, adjust the retail price or reconsider the format before committing to larger quantities.',
+      ),
+    ],
     faqTitle: 'Salon and spa fragrance questions',
     faqDescription:
-      'Answers for salons, spas and wellness studios adding branded fragrance to retail shelves or client gifting.',
+      'Answers for salons, spas and wellness studios adding branded fragrance to retail shelves, treatment rooms or client gifting programmes.',
     ctaTitle: 'Create a fragrance clients take home',
     ctaDescription:
-      'Tell us about your service experience, client profile and retail price point. Brandsamor will curate samples and help plan a first batch from 100 units.',
+      'Share your service environment, client profile and target retail price. Curated samples and a first batch can be planned from that brief.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I run a salon or spa and want a private label fragrance.',
   }),
@@ -636,7 +719,7 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/corporate-gifting-perfume-supplier',
     badge: 'CORPORATE GIFTS',
     heroDescription:
-      'Create branded perfume gifts for clients, events, employees and partners. Brandsamor coordinates fragrance sampling, gift-ready packaging, production from 100 units and documentation support for corporate gifting programs.',
+      'Branded perfume gifts for clients, events, employees and partners — production from 100 units, gift-ready packaging options, realistic procurement timelines and clear documentation support for corporate gifting programmes.',
     eyebrowPrefix: 'GIFT PROGRAM',
     heroIllustration: GiftSetIllustration,
     ctaIllustration: DeliveryIllustration,
@@ -648,18 +731,18 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     },
     answerBlocks: [
       {
-        id: 'gifting-fit',
-        question: 'Why use perfume for corporate gifting?',
+        id: 'gifting-channel-reality',
+        question: 'What makes corporate gifting a distinct production challenge?',
         answer:
-          'Perfume works for corporate gifting when the goal is a premium, personal and memorable branded product. It can suit client appreciation, employee rewards, event gifts or partnership launches when scent, packaging and message are chosen with the recipient in mind.',
+          'Corporate gift programmes involve stakeholder approval rounds, event deadlines, potential multi-site delivery and procurement policies that standard DTC production does not face. A lead time that works for a boutique reorder may not work for a conference gift that must arrive at three offices across two countries by a fixed date.',
         detail:
-          'Corporate gifting teams are included on [who we work with](/who-we-work-with) because private label fragrance can become a polished B2B gift without requiring in-house production.',
+          'Corporate gifting teams are on [who we work with](/who-we-work-with) because a polished branded fragrance gift does not require in-house production — it requires planning discipline.',
       },
       {
         id: 'gifting-moq',
         question: 'What is the minimum order for corporate perfume gifts?',
         answer:
-          'Production starts at 100 units after sampling and approval. Pricing begins from $10 per unit depending on bottle, format, decoration, carton, gift packaging and destination, so teams can build a premium gift program without starting with thousands of pieces.',
+          'Production starts at 100 units after sampling and approval. For a corporate programme that needs consistent stock across multiple events or offices, the right quantity is determined by total programme demand rather than the minimum. Document the full programme scope before the first purchase order is placed.',
       },
     ],
     sections: [
@@ -667,12 +750,12 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'recipient-first-brief',
         title: 'Start with the recipient, not the logo',
         description:
-          'A strong corporate perfume gift feels considered rather than promotional. Brandsamor helps define who receives the gift, the occasion, the tone and the practical delivery needs before fragrance and packaging choices are made.',
+          'A corporate perfume gift that feels considered is more effective than one that is clearly promotional. The brief starts with who receives it, the occasion, the tone and any cultural or regulatory sensitivities — before fragrance and packaging choices are made.',
         bullets: sectionBullets(
-          'Define client, employee, event or partner recipient groups',
-          'Choose scent direction that is broadly wearable and giftable',
-          'Avoid over-branding when premium perception matters',
-          'Match the product to the occasion and budget',
+          'Define client, employee, event or partner recipient groups clearly',
+          'Choose a scent direction that is broadly wearable across recipient cultures',
+          'Avoid over-branding when premium perception matters more than visibility',
+          'Match the product tone to the occasion and the recipient relationship',
         ),
         Illustration: BrandBriefIllustration,
       },
@@ -680,72 +763,87 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'gift-packaging',
         title: 'Build gift-ready packaging from the start',
         description:
-          'Corporate gifts often need boxes, inserts, sleeves, note cards or event-ready presentation. Packaging should protect the bottle, communicate the occasion and feel intentional when opened.',
+          'Corporate gifts often require boxes, inserts, message cards or event presentation. Packaging should protect the bottle, communicate the occasion and feel intentional when opened — not like a product pulled from a retail shipment.',
         bullets: sectionBullets(
           'Use cartons, rigid boxes or sets where the budget supports them',
-          'Plan branded inserts or message cards early',
-          'Keep recipient unboxing and safe delivery in mind',
-          'Confirm artwork approvals before production release',
+          'Plan branded inserts or message cards early in the brief',
+          'Keep recipient unboxing and safe delivery in mind throughout',
+          'Confirm artwork approvals well before production is released',
         ),
         Illustration: PackagingIllustration,
       },
       {
         id: 'sample-for-stakeholders',
-        title: 'Sample before stakeholder approval',
+        title: 'Sample before stakeholder approval rounds',
         description:
-          'Corporate gifting usually involves multiple decision makers. A curated five-scent sample path gives procurement, marketing and leadership something real to evaluate before final artwork, quantities and production are approved.',
+          'Corporate gifting decisions typically involve procurement, marketing, legal and leadership. A curated five-scent sample path gives those stakeholders something real to evaluate — reducing the number of revision rounds needed after packaging and quantities are committed.',
         bullets: sectionBullets(
-          'Use samples to align stakeholders on scent direction',
-          'Choose broadly appealing fragrance for mixed recipient groups',
-          'Confirm packaging materials alongside scent approval',
-          'Document the approved spec before purchase order release',
+          'Use samples to align stakeholders on scent direction early',
+          'Choose broadly appealing fragrance for mixed-culture recipient groups',
+          'Confirm packaging materials alongside the scent approval',
+          'Document the full approved spec before the purchase order is released',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
         id: 'timelines-and-logistics',
-        title: 'Plan timelines around event dates',
+        title: 'Plan timelines against the event date, not the production estimate',
         description:
-          'Perfume gifts need sampling, approvals, production and delivery timing. Typical production is 3-6 weeks after all details are approved, so event programs should build in buffer for stakeholder review and freight.',
+          'A corporate event gift needs sampling, approval rounds, production and freight time — all before the in-hand date. Typical production is 3–6 weeks after full approval. Buffer for revision rounds and multi-leg freight must be built in, not assumed away.',
         bullets: sectionBullets(
           'Work backward from the in-hand event or gifting date',
-          'Leave time for artwork, sample and packaging approval',
-          'Confirm shipping responsibilities and destination requirements',
-          'Consider staggered delivery needs for multiple offices',
+          'Allow time for artwork, sample and packaging approval rounds',
+          'Confirm shipping responsibilities and destination requirements early',
+          'Account for staggered delivery across multiple offices or countries',
         ),
         Illustration: ProcessTimelineIllustration,
       },
       {
         id: 'documents-and-restrictions',
-        title: 'Confirm documents and recipient-market restrictions',
+        title: 'Check documents and recipient-market rules',
         description:
-          'Corporate gifts can cross borders or enter regulated workplaces. Certifications and documentation are available where applicable, including IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support, but your team should confirm internal gift policies and destination rules.',
+          'Corporate gifts can cross borders and enter regulated workplace environments. Available documentation includes IFRA, GMP, ISO 22716, COA and MoCRA support. Procurement teams must confirm internal gift policies and destination-country rules for fragrance.',
         bullets: sectionBullets(
-          'Check corporate gifting policies before finalizing value and format',
+          'Verify corporate gifting policies before finalising value and format',
           'Review destination rules for alcohol-based fragrance where relevant',
-          'Request project documents during specification',
-          'Keep claims simple, accurate and suitable for broad recipients',
+          'Request documentation during specification, not after production',
+          'Keep claims simple, accurate and appropriate for diverse recipients',
         ),
         Illustration: ComplianceDocIllustration,
       },
     ],
     faqItems: [
-      ...audienceFaqs({
-        audience: 'corporate gifting teams',
-        product: 'branded perfume gift',
-        channel: 'events, employee rewards, client gifts and partner programs',
-      }),
       faq(
-        'Can you ship gifts directly to every recipient?',
-        'Brandsamor coordinates production and packing for the project, but delivery model depends on destination, quantity, packaging and agreed logistics. Direct-to-recipient shipping, bulk delivery or staged delivery should be discussed early so responsibilities and costs are clear.',
+        'Can orders be delivered directly to multiple office locations?',
+        'Delivery logistics depend on terms agreed at brief stage. Direct-to-recipient, consolidated and staged delivery all carry different cost and coordination implications. Confirm the delivery model before the purchase order is issued, not after production completes.',
+      ),
+      faq(
+        'Can the fragrance carry a personalised message for recipients?',
+        'Personalised inserts, message cards or printed sleeves can be planned as part of the packaging spec. Bottle-level personalisation — engraving or individual print — is a distinct scope item that must be agreed before production begins, not added at the despatch stage.',
+      ),
+      faq(
+        'What is a realistic lead time for a corporate gift order?',
+        'Four months is a comfortable target from brief to in-hand; six weeks is tight and leaves no room for revision rounds. Production takes 3–6 weeks after full approval; add sampling, stakeholder sign-off, artwork and freight time around that.',
+      ),
+      faq(
+        'Are there restrictions on perfume as a corporate gift?',
+        'Some corporate policies restrict high-value items or alcohol-based products. Certain recipient markets have regulatory restrictions on receiving fragrance by post or across borders. These are the brand\'s and procurement team\'s responsibility to confirm — not a production question.',
+      ),
+      faq(
+        'Can the same fragrance be reordered for future events?',
+        'Yes, provided the spec is fully documented at the first production. Reorders are faster and lower-risk when packaging, artwork and formula are already approved and on file. Reorder speed deteriorates when spec documentation is incomplete.',
+      ),
+      faq(
+        'Is halal fragrance available for events with mixed-culture recipient groups?',
+        'Alcohol-free attar and mukhallat formats, and halal ingredient audit paths for alcohol-based eau de parfum, can be requested through the partner network. The halal position should be confirmed at brief stage so it is reflected in formula, label and packaging from the first batch.',
       ),
     ],
     faqTitle: 'Corporate perfume gifting questions',
     faqDescription:
-      'Answers for marketing, procurement and event teams planning branded perfume gifts with realistic timelines and low MOQ production.',
-    ctaTitle: 'Plan a premium perfume gift program',
+      'Answers for marketing, procurement and events teams planning branded perfume gifts with realistic timelines, clear delivery responsibilities and low MOQ production.',
+    ctaTitle: 'Plan a premium perfume gift programme',
     ctaDescription:
-      'Share your recipient group, deadline, budget and packaging needs. Brandsamor will help you sample fragrance options and plan production from 100 units.',
+      'Share your recipient group, deadline, budget and packaging requirements. Curated samples and a production plan can be scoped from that brief.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I need branded perfume for a corporate gifting program.',
   }),
@@ -754,7 +852,7 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/private-label-perfume-for-fashion-brands',
     badge: 'FASHION BRANDS',
     heroDescription:
-      'Extend apparel, accessories or lifestyle collections into fragrance with a product that matches your aesthetic. Brandsamor helps fashion brands sample scents, coordinate packaging and produce private label perfume from 100 units.',
+      'Fashion brands can extend apparel, accessories or lifestyle collections into fragrance — private label perfume with curated sampling against the collection brief, packaging designed as an accessory and production timelines that respect the buying calendar.',
     eyebrowPrefix: 'FASHION EXTENSION',
     heroIllustration: LabelIllustration,
     ctaIllustration: HeroBottleIllustration,
@@ -766,70 +864,70 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     },
     answerBlocks: [
       {
-        id: 'fashion-fit',
-        question: 'Why should a fashion brand launch perfume?',
+        id: 'fashion-channel-reality',
+        question: 'What do fashion channel realities mean for a perfume launch?',
         answer:
-          'A fashion brand can use perfume to turn visual identity into a wearable sensory product. Fragrance supports gifting, repeat purchase and brand memory, while private label production lets the brand launch without building fragrance manufacturing inside the apparel business.',
+          'Fashion wholesale buyers, DTC drops and department store buyers each have distinct expectations for fragrance: dossier documentation, sell-in dates, pricing architecture and packaging standards that differ from anything a garment buyer discusses. A fragrance launched alongside a collection needs to be scoped and approved on a separate timeline — production for fragrance does not follow garment factory logic.',
         detail:
-          'Fashion brands sit within the broader [who we work with](/who-we-work-with) audience because fragrance often works best when a brand already has a recognizable style and customer.',
+          'Fashion brands are on [who we work with](/who-we-work-with) because fragrance works best when a brand already has a recognisable aesthetic and a defined customer.',
       },
       {
         id: 'fashion-first-scent',
         question: 'How should fashion brands choose a first scent?',
         answer:
-          'The first scent should match the brand world more than a founder preference alone. Brandsamor uses your customer, collection mood, price point and visual direction to curate five samples, then helps translate the selected scent into bottle and packaging choices.',
+          'The first scent should match the brand world more than founder preference. A brief drawn from the customer profile, collection mood, price architecture and visual direction produces five curated samples for the team to evaluate — rather than an open catalogue browse that rarely connects scent to brand in a coherent way.',
       },
     ],
     sections: [
       {
         id: 'brand-aesthetic',
-        title: 'Translate your aesthetic into fragrance',
+        title: 'Translate the aesthetic into fragrance',
         description:
-          'Fashion customers buy into a world. The perfume should express that same world through scent family, name, bottle silhouette, label hierarchy and packaging finish.',
+          'Fashion customers buy into a world. The perfume should express that world through scent family, name, bottle silhouette, label hierarchy and packaging finish — not repurpose whatever stock components happen to fit a convenient price.',
         bullets: sectionBullets(
-          'Use collection mood, materials and customer lifestyle as inputs',
-          'Choose scent families that match your brand attitude',
-          'Avoid a generic trend scent if it conflicts with the brand',
-          'Treat fragrance as part of the line, not a separate novelty',
+          'Use collection mood, materials and customer lifestyle as brief inputs',
+          'Choose scent families that match the brand attitude and price tier',
+          'Avoid a generic trend scent if it conflicts with the existing brand',
+          'Treat fragrance as part of the product line, not a marketing add-on',
         ),
         Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'packaging-as-accessory',
-        title: 'Design packaging like an accessory',
+        title: 'Design the packaging like an accessory',
         description:
-          'For fashion brands, bottle and box choices carry as much meaning as scent. Brandsamor coordinates components and decoration so the finished product feels visually coherent with apparel, accessories and retail displays.',
+          'For a fashion brand, bottle and box choices carry as much meaning as the scent. Components and decoration are coordinated so the finished product feels visually coherent with the garment, accessory and retail context it will live in.',
         bullets: sectionBullets(
-          'Match cap, label and carton decisions to brand codes',
-          'Plan product photography alongside packaging direction',
+          'Match cap, label and carton decisions to the brand visual codes',
+          'Plan product photography alongside packaging direction early',
           'Use gift-ready details for drops, bundles or seasonal campaigns',
-          'Keep decoration choices practical for MOQ and price point',
+          'Keep decoration practical for the production volume and retail price',
         ),
         Illustration: PackagingIllustration,
       },
       {
         id: 'drop-strategy',
-        title: 'Use fragrance for drops and seasonality',
+        title: 'Use fragrance for drops and seasonal launches',
         description:
-          'A first perfume can launch as a permanent hero product, capsule drop or event gift. Production from 100 units lets fashion brands test response before planning a larger fragrance wardrobe.',
+          'A first perfume can launch as a permanent hero product, a capsule drop or an event gift. A small first batch lets fashion brands test customer and wholesale response before planning a broader range.',
         bullets: sectionBullets(
           'Launch one hero scent with a clear campaign story',
-          'Use limited packaging when it supports the collection',
-          'Bundle fragrance with apparel or accessories where appropriate',
-          'Review customer response before expanding into flankers',
+          'Use limited outer packaging when it supports the collection narrative',
+          'Bundle fragrance with apparel or accessories where it makes editorial sense',
+          'Review customer response before building out flankers or a wardrobe',
         ),
         Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'sampling-with-brand-team',
-        title: 'Sample with brand and merchandising teams',
+        title: 'Sample with brand and wholesale teams before committing',
         description:
-          'A fashion perfume should work for the customer and commercial plan. Sampling lets creative, merchandising and retail teams compare directions before production specs are finalized.',
+          'A fashion perfume needs to work for the customer, the wholesale buyer and the campaign story. The sample stage lets creative, merchandising and retail teams compare directions before production specs are finalised and packaging is committed.',
         bullets: sectionBullets(
-          'Review five curated samples against the customer profile',
-          'Compare scent strength, drydown and giftability',
-          'Align naming and packaging after the scent direction is chosen',
-          'Use team feedback to avoid overly niche first launches',
+          'Review five curated samples against the actual customer profile',
+          'Compare scent strength, drydown and giftability as a team',
+          'Align naming and packaging decisions after the scent direction is chosen',
+          'Use cross-team feedback to avoid a niche first launch',
         ),
         Illustration: ScentSamplesIllustration,
       },
@@ -837,27 +935,48 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'quality-and-compliance',
         title: 'Keep the fashion launch production-ready',
         description:
-          'A polished campaign needs a product that can be made consistently. Brandsamor coordinates production sample approval, quality checks and available certifications such as IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support where relevant.',
+          'A polished campaign needs a product that can be made consistently and documented properly. Production sample approval, quality checks and available certifications — IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support — are available where the project requires them.',
         bullets: sectionBullets(
-          'Confirm formula, bottle, decoration and carton before launch assets',
-          'Review labels and claims before production release',
-          'Keep documents available for wholesale or retail partners',
-          'Plan reorder timing before seasonal demand peaks',
+          'Confirm formula, bottle, decoration and carton before launch assets are shot',
+          'Review labels and claims before production is released',
+          'Keep documents available for wholesale buyers and retail partners',
+          'Plan reorder timing before seasonal demand peaks arrive',
         ),
         Illustration: QualityCheckIllustration,
       },
     ],
-    faqItems: audienceFaqs({
-      audience: 'fashion brands',
-      product: 'fashion fragrance',
-      channel: 'DTC drops, retail stores, wholesale and seasonal campaigns',
-    }),
+    faqItems: [
+      faq(
+        'How should a fashion brand time a fragrance launch against a seasonal collection?',
+        'A fragrance needs sampling, approvals and production typically 10–14 weeks before the in-hand date. A garment collection finalises materials 8–12 weeks before delivery. Brief the fragrance when the collection concept is settled — not when the garments are already in production and the season is locked.',
+      ),
+      faq(
+        'Should the scent change each season, or stay constant?',
+        'Building one recognisable brand scent is generally more commercially valuable than seasonal reformulation. A permanent hero scent with seasonal or limited-edition outer packaging is more practical than a new formula twice a year and avoids confusing customers who have come to associate the brand with a specific scent.',
+      ),
+      faq(
+        'Can the perfume be included on a fashion wholesale order alongside garments?',
+        'Only if the channel buyers stock fragrance and have appropriate cosmetic handling procedures. Multi-brand fashion stores in some markets require separate cosmetic sections, specific labelling and regulatory documentation. Confirm with wholesale buyers before adding fragrance to an order form.',
+      ),
+      faq(
+        'What documents do fashion wholesale buyers typically ask for?',
+        'IFRA certificate, COA, INCI list, responsible-party contact and — depending on the destination country — a Cosmetic Product Safety Report or RP certificate. Having those ready before the range presentation avoids a first-order delay while documentation is assembled after the fact.',
+      ),
+      faq(
+        'Can limited packaging be produced for a collaboration without reworking the full range?',
+        'Yes. A capsule with a different outer carton or sleeve can be scoped as a standalone production run, provided minimum quantities and lead times are viable. Existing packaging dielines and artwork files from the main range reduce the work required.',
+      ),
+      faq(
+        'Can the fashion brand own the fragrance name exclusively?',
+        'The brand name on the product belongs to the brand. Formula exclusivity and whether it is held exclusively for one brand should be confirmed in the commercial terms agreed at brief stage, in writing, before the first production order.',
+      ),
+    ],
     faqTitle: 'Fashion brand perfume questions',
     faqDescription:
-      'Answers for fashion, apparel and accessories brands adding fragrance as a private label product extension.',
+      'Answers for fashion, apparel and accessories brands adding fragrance as a private label extension — from first sample to wholesale launch and seasonal reorders.',
     ctaTitle: 'Extend your fashion brand into scent',
     ctaDescription:
-      'Share your aesthetic, audience and launch model. Brandsamor will curate fragrance samples and help plan packaging and production from 100 units.',
+      'Share your aesthetic, customer profile and launch model. Curated samples and a packaging plan for a first production run will follow.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I have a fashion brand and want to launch private label perfume.',
   }),
@@ -866,7 +985,7 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     path: '/private-label-perfume-for-skincare-beauty-brands',
     badge: 'BEAUTY BRANDS',
     heroDescription:
-      'Add a fragrance line that feels coherent with your skincare, haircare or beauty brand. Brandsamor supports sample-first private label perfume, packaging coordination, production from 100 units and available certification pathways.',
+      'Skincare and beauty brands can add a fragrance extension that sits coherently inside the existing line — sample-first private label perfume, packaging coordination, production from 100 units and certification pathways matched to the brand\'s compliance position.',
     eyebrowPrefix: 'BEAUTY EXTENSION',
     heroIllustration: FragranceFamilyIllustration,
     ctaIllustration: ScentSamplesIllustration,
@@ -878,31 +997,31 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     },
     answerBlocks: [
       {
-        id: 'beauty-fit',
-        question: 'Why should skincare and beauty brands add perfume?',
+        id: 'beauty-channel-reality',
+        question: 'What channel realities should a beauty brand expect when adding fragrance?',
         answer:
-          'Skincare and beauty brands add perfume to extend an existing scent world into a wearable product. A private label fragrance can increase basket size, create giftable bundles and deepen brand memory while keeping production, filling and packaging coordination outside the internal team.',
+          'Beauty retail buyers — whether at Sephora, independent boutiques or online marketplaces — treat fragrance SKUs differently from skincare or haircare. They may require a separate Responsible Person, a distinct CPNP or SCPN notification, a safety assessment for the fragrance formula specifically, and retailer dossier documentation that the skincare range did not need. Plan the fragrance as a new regulatory file, not an extension of an existing one.',
         detail:
-          'Beauty and skincare brands are a major audience on [who we work with](/who-we-work-with) because fragrance naturally connects to routine, identity and repeat purchase.',
+          'Beauty and skincare brands are a major audience on [who we work with](/who-we-work-with) because fragrance connects naturally to routine, identity and repeat purchase.',
       },
       {
         id: 'beauty-claims',
-        question: 'How can beauty brands keep fragrance claims compliant?',
+        question: 'How should beauty brands keep fragrance claims compliant?',
         answer:
-          'Beauty brands should keep fragrance claims tied to scent, format and cosmetic use unless stronger claims are properly reviewed. Brandsamor can support applicable documents, but the brand owner remains responsible for final labelling, marketing language and market compliance.',
+          'Fragrance claims should be tied to scent, format and cosmetic use unless stronger claims are reviewed and substantiated. The brand owner carries final responsibility for label wording, marketing language and market compliance — no production partner or coordinator takes that obligation away from the person selling the product.',
       },
     ],
     sections: [
       {
         id: 'extend-scent-world',
-        title: 'Extend your existing scent world',
+        title: 'Connect the fragrance to the existing product world',
         description:
-          'If customers already associate your brand with a texture, ingredient story or aromatic profile, fragrance can make that world wearable. Brandsamor helps translate your brand cues into curated samples for a private label launch.',
+          'If customers already associate the brand with a texture, ingredient story or aromatic profile, a branded perfume makes that world wearable. The brief uses existing product cues — not unsupported therapeutic claims from the skincare range — to curate samples for a coherent fragrance extension.',
         bullets: sectionBullets(
-          'Use existing product scent cues without copying unsupported claims',
-          'Choose a fragrance family that matches your routine positioning',
-          'Decide whether perfume should be clean, sensual, fresh or ritual-led',
-          'Keep the first scent aligned with the brand customers already know',
+          'Use existing scent cues without copying claims from the skincare line',
+          'Choose a fragrance family that matches the routine positioning',
+          'Decide whether the direction is clean, sensual, fresh or ritual-led',
+          'Keep the first scent recognisably connected to the brand customers know',
         ),
         Illustration: FragranceFamilyIllustration,
       },
@@ -910,66 +1029,87 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
         id: 'choose-beauty-format',
         title: 'Choose a format that fits the beauty routine',
         description:
-          'Beauty brands can choose eau de parfum for premium positioning, body mist for accessible everyday use, perfume oil for intimate ritual or travel formats for discovery sets and gifting.',
+          'Eau de parfum, body mist, perfume oil and travel formats each occupy a different position in a beauty customer\'s routine. The format should sit naturally alongside the existing product range rather than being chosen for production convenience.',
         bullets: sectionBullets(
-          'Eau de parfum for premium fragrance extensions',
-          'Body mist for lighter daily routines and layering',
-          'Perfume oil for concentrated ritual positioning',
-          'Travel sizes for discovery, sets and checkout add-ons',
+          'Eau de parfum for a premium fragrance extension at the top of the range',
+          'Body mist for lighter daily routines and accessible gifting',
+          'Perfume oil for concentrated or ritual-style positioning',
+          'Travel sizes for discovery sets, checkout add-ons and gifting',
         ),
         Illustration: BodyMistIllustration,
       },
       {
         id: 'packaging-coherence',
-        title: 'Make packaging feel native to your line',
+        title: 'Make the packaging feel native to the line',
         description:
-          'The bottle and carton should sit naturally beside skincare jars, haircare bottles or cosmetics. Brandsamor coordinates components, labels and decoration so fragrance feels like part of the beauty system.',
+          'The perfume bottle and carton should sit naturally beside skincare jars, haircare bottles or cosmetic compacts. Components, labels and decoration are coordinated so the fragrance reads as part of the beauty system — not as an import from a different brand.',
         bullets: sectionBullets(
-          'Match label language, color and finish to existing products',
-          'Plan cartons or inserts for gift sets and bundles',
-          'Keep ingredient and net quantity space clear on labels',
-          'Use premium touches only where they support the retail price',
+          'Match label language, colour palette and finish to existing products',
+          'Plan cartons or inserts for gift sets and cross-sell bundles',
+          'Keep INCI and net quantity space clear and legible on labels',
+          'Use premium packaging touches only where the retail price supports them',
         ),
         Illustration: PackagingIllustration,
       },
       {
         id: 'sample-for-customer-fit',
-        title: 'Sample for customer fit, not only founder taste',
+        title: 'Sample for customer fit, not founder preference',
         description:
-          'Beauty customers may expect your fragrance to match the sensorial promise of your products. The curated sample path helps your team compare five directions against customer expectations and brand positioning.',
+          'Beauty customers may expect the perfume to match the sensorial promise of the existing products. The curated sample path gives the team five directions to compare against customer expectations and brand positioning before packaging is committed.',
         bullets: sectionBullets(
-          'Evaluate opening, drydown and layering potential',
-          'Compare scent choices with customer reviews and product rituals',
-          'Use the sample stage before committing to packaging',
-          'Select a hero scent before building a broader collection',
+          'Evaluate opening, drydown and layering potential against the product range',
+          'Compare scent directions with existing customer reviews and rituals',
+          'Use the sample stage before committing to bottle or carton choices',
+          'Select one hero scent before planning a broader fragrance collection',
         ),
         Illustration: ScentSamplesIllustration,
       },
       {
         id: 'documentation-for-beauty',
-        title: 'Prepare documentation for beauty retail',
+        title: 'Prepare documentation for beauty retail channels',
         description:
-          'Beauty brands often sell through channels that ask for documentation. Certifications and support are available where applicable, including IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support, depending on formula, market and claims.',
+          'Beauty retailers frequently require documentation that goes beyond what a standalone perfume brand faces. Available certifications and support include IFRA, GMP, ISO 22716, COA, MoCRA support and halal certification support — scoped to the formula, market and channel, not selected for marketing effect.',
         bullets: sectionBullets(
-          'Request relevant documents during specification',
-          'Review cosmetic label requirements for target markets',
-          'Keep fragrance claims separate from skincare performance claims',
-          'Approve production samples before launch photography and stock',
+          'Request relevant documents during specification, not at the buyer meeting',
+          'Review cosmetic label requirements for each target market separately',
+          'Keep fragrance claims distinct from any skincare performance claims',
+          'Approve production samples before launch photography and stock is ordered',
         ),
         Illustration: ComplianceDocIllustration,
       },
     ],
-    faqItems: audienceFaqs({
-      audience: 'skincare and beauty brands',
-      product: 'beauty fragrance extension',
-      channel: 'DTC stores, beauty retail, bundles and gifting',
-    }),
+    faqItems: [
+      faq(
+        'Does the perfume need to match an existing product\'s scent exactly?',
+        'Not necessarily. The branded perfume can be inspired by or connected to an existing product scent without being identical. The perfume label, ingredient list and allergen disclosure must reflect the actual perfume formula — not the skincare product it draws inspiration from.',
+      ),
+      faq(
+        'How should beauty brands position a perfume alongside clean skincare claims?',
+        '"Clean" has no universal legal definition for fragrance or skincare. If the brand uses "clean" across the existing range, the fragrance should meet the same internal criteria or carry a separately substantiated positioning. Applying the term without clear criteria risks inconsistency that regulators and industry press notice.',
+      ),
+      faq(
+        'Can the fragrance be designed to layer with existing skincare?',
+        'Layering is a marketing direction; the formula is a separate specification. A layering claim used in marketing or on-pack must be testable and must not mislead consumers under applicable cosmetics claims rules in the sales market.',
+      ),
+      faq(
+        'Who handles cosmetic labelling for the fragrance extension?',
+        'The brand owner. INCI list, allergen disclosure, responsible-party details, PAO or best-before and any market-specific mandatory fields are the brand\'s responsibility. Product-side inputs — IFRA, COA, manufacturing context — are supplied to support label preparation; final label sign-off belongs to the brand.',
+      ),
+      faq(
+        'Does adding a fragrance SKU require expanding the brand\'s Responsible Person scope?',
+        'If the brand has an existing UK or EU RP relationship, adding a fragrance SKU may be possible within the existing structure depending on RP service terms and whether the fragrance formula has been separately safety assessed. Confirm this with the brand\'s existing RP or regulatory advisor — do not assume it is automatic.',
+      ),
+      faq(
+        'What documentation do beauty retailers typically request for a new fragrance SKU?',
+        'IFRA certificate, COA, INCI and allergen list, responsible-party contact and — for UK or EU retail — a completed safety assessment (CPSR). Some retailers also request PIF access or a supplier questionnaire. Preparing these during specification avoids a first-order delay while documentation is assembled after the buyer meeting.',
+      ),
+    ],
     faqTitle: 'Beauty brand fragrance questions',
     faqDescription:
-      'Answers for skincare, haircare and beauty brands extending into private label perfume or body fragrance.',
+      'Answers for skincare, haircare and beauty brands extending into private label perfume — from clean claim positioning to retailer documentation requirements.',
     ctaTitle: 'Add fragrance to your beauty line',
     ctaDescription:
-      'Share your product range, customer and scent direction. Brandsamor will curate samples and help plan a first production batch from 100 units.',
+      'Share your product range, customer profile and scent direction. Curated samples and a first production batch can be planned from that brief.',
     relatedLinks: audienceLinks,
     whatsappPrefill: 'I have a skincare or beauty brand and want to add private label perfume.',
   }),
