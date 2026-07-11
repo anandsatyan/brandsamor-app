@@ -25,15 +25,33 @@ export type PageMetadata = {
 const canonical = (path: string) =>
   path === '/' ? `${CANONICAL_ORIGIN}/` : `${CANONICAL_ORIGIN}${path}`;
 
+/**
+ * Primary keyword map (one distinct target per landing page):
+ * / → private label perfume manufacturer
+ * /start-a-perfume-line → how to start a perfume line
+ * /get-started → start a perfume business
+ * /how-it-works → private label perfume
+ * /how-your-batch-is-made → how perfume is made
+ * /packaging-branding → perfume packaging
+ * /why-brandsamor → perfume manufacturer
+ * /fragrance-products → private label fragrance
+ * /fragrance-sampling → private label perfume samples
+ * /custom-perfume-manufacturer → custom perfume manufacturer
+ * /private-label-perfume-manufacturer-usa → perfume manufacturer usa
+ * /who-we-work-with → create your own perfume brand
+ * /quality-compliance → IFRA certificate
+ * /about → private label fragrance company
+ * /contact → fragrance manufacturer
+ */
 const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/': {
     path: '/',
     pageName: 'Home',
     title: 'Private Label Perfume Manufacturer | Brandsamor',
     description:
-      'Launch private label perfumes with Brandsamor handling fragrance sampling, bottles, packaging, filling, finishing and quality checks.',
+      'Brandsamor is a private label perfume manufacturer that handles fragrance sampling, bottles, packaging, filling, finishing and quality checks for your brand.',
     canonical: canonical('/'),
-    h1: 'The Easy Way to Start Your Own Perfume Line',
+    h1: 'Private Label Perfume Manufacturer for Growing Brands',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: true,
@@ -41,11 +59,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/how-it-works': {
     path: '/how-it-works',
     pageName: 'How It Works',
-    title: 'How Private Label Perfume Manufacturing Works | Brandsamor',
+    title: 'Private Label Perfume: How It Works | Brandsamor',
     description:
-      'See how private label perfume manufacturing works, from fragrance sampling and packaging approval to filling, quality checks and delivery.',
+      'See how private label perfume moves from a brand brief and fragrance samples to packaging approval, filling, quality checks and ready-to-sell delivery.',
     canonical: canonical('/how-it-works'),
-    h1: 'How Your Perfume Line Comes Together',
+    h1: 'How Private Label Perfume Comes Together',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -55,9 +73,9 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     pageName: 'Fragrance Products',
     title: 'Private Label Fragrance Products | Brandsamor',
     description:
-      'Explore private label eau de parfum, perfume oils, body mists, room sprays, travel perfumes and gift sets for your brand.',
+      'Browse private label fragrance formats — eau de parfum, perfume oils, body mists, room sprays, travel sizes and gift sets — matched to your audience and channel.',
     canonical: canonical('/fragrance-products'),
-    h1: 'Fragrance Products You Can Launch Under Your Brand',
+    h1: 'Private Label Fragrance Formats You Can Sell',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -65,11 +83,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/fragrance-sampling': {
     path: '/fragrance-sampling',
     pageName: 'Fragrance Sampling',
-    title: 'Curated Private Label Perfume Samples | Brandsamor',
+    title: 'Private Label Perfume Samples | Brandsamor',
     description:
-      'Answer a short sampling brief about your business and customers. Brandsamor curates five private label perfume samples and ships them for evaluation before production.',
+      'Request private label perfume samples matched to your brand. Answer a short brief, receive five curated fragrances, and evaluate them before production.',
     canonical: canonical('/fragrance-sampling'),
-    h1: 'Five Fragrances, Matched to Your Brand',
+    h1: 'Private Label Perfume Samples, Curated for Your Brand',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -77,11 +95,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/packaging-branding': {
     path: '/packaging-branding',
     pageName: 'Packaging & Branding',
-    title: 'Custom Perfume Packaging and Branding | Brandsamor',
+    title: 'Perfume Packaging and Branding | Brandsamor',
     description:
-      'Choose perfume bottles, caps, sprays, labels, printing and boxes that turn your fragrance into a finished branded product.',
+      'Design perfume packaging that feels like your brand — bottles, caps, sprays, labels, printing and boxes for a finished private label product.',
     canonical: canonical('/packaging-branding'),
-    h1: 'Create Packaging That Feels Like Your Brand',
+    h1: 'Perfume Packaging That Feels Like Your Brand',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -91,9 +109,9 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     pageName: 'Start a Perfume Line',
     title: 'How to Start a Perfume Line | Brandsamor',
     description:
-      'Learn how to start a perfume line, choose fragrances, select packaging and prepare your first private label perfume launch.',
+      'Learn how to start a perfume line step by step: define your customer, choose a format, sample fragrances, select packaging and plan your first launch.',
     canonical: canonical('/start-a-perfume-line'),
-    h1: 'Start Your Own Perfume Line Without Managing a Factory',
+    h1: 'How to Start a Perfume Line Without a Factory',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -101,11 +119,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/who-we-work-with': {
     path: '/who-we-work-with',
     pageName: 'Who We Work With',
-    title: 'Private Label Perfume for Businesses | Brandsamor',
+    title: 'Create Your Own Perfume Brand | Brandsamor',
     description:
-      'Explore private label perfume options for creators, boutiques, salons, beauty brands, hotels, gifting companies and fragrance businesses.',
+      'Create your own perfume brand for a boutique, salon, beauty line, hotel, creator audience or gifting business — without building a factory.',
     canonical: canonical('/who-we-work-with'),
-    h1: 'Perfume Products for Different Businesses',
+    h1: 'Create Your Own Perfume Brand With Private Label',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: false,
@@ -113,11 +131,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/why-brandsamor': {
     path: '/why-brandsamor',
     pageName: 'Why Brandsamor',
-    title: 'Why Choose Brandsamor for Private Label Perfume?',
+    title: 'Perfume Manufacturer for Private Label Brands | Brandsamor',
     description:
-      'See how Brandsamor combines fragrance sampling, packaging experience, production coordination and quality checks for private label perfume launches.',
+      'Choose a perfume manufacturer that starts with curated samples, then coordinates packaging, filling and quality checks for your private label launch.',
     canonical: canonical('/why-brandsamor'),
-    h1: 'Why Brands Choose Brandsamor',
+    h1: 'Why Brands Choose Brandsamor as Their Perfume Manufacturer',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: false,
@@ -125,11 +143,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/quality-compliance': {
     path: '/quality-compliance',
     pageName: 'Quality & Compliance',
-    title: 'Private Label Perfume Quality and Compliance | Brandsamor',
+    title: 'IFRA Certificate and Perfume Compliance | Brandsamor',
     description:
-      'Understand IFRA documents, Certificates of Analysis, allergen information, batch records and quality checks for private label perfume.',
+      'Get IFRA certificate support, Certificates of Analysis, allergen information, batch records and quality checks for your private label perfume line.',
     canonical: canonical('/quality-compliance'),
-    h1: 'Quality and Compliance Support for Your Fragrance Line',
+    h1: 'IFRA Certificate and Compliance Support for Perfume',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -137,11 +155,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/how-your-batch-is-made': {
     path: '/how-your-batch-is-made',
     pageName: 'How Your Batch Is Made',
-    title: 'How Perfume Is Manufactured | Brandsamor',
+    title: 'How Perfume Is Made | Brandsamor',
     description:
-      'See how private label perfume is prepared, filled, crimped, branded, inspected, packed and prepared for delivery.',
+      'See how perfume is made after approval — fragrance prep, filling, crimping, labelling, inspection and packing for a repeatable private label batch.',
     canonical: canonical('/how-your-batch-is-made'),
-    h1: 'How Your Fragrance Batch Is Made',
+    h1: 'How Perfume Is Made, From Spec to Finished Batch',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -149,11 +167,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/private-label-perfume-manufacturer-usa': {
     path: '/private-label-perfume-manufacturer-usa',
     pageName: 'Private Label Perfume Manufacturer USA',
-    title: 'Private Label Perfume Manufacturer USA | Brandsamor',
+    title: 'Perfume Manufacturer USA | Brandsamor',
     description:
-      'Launch private label perfume for the US market with fragrance sampling, packaging, production coordination and compliance support.',
+      'Work with a perfume manufacturer USA brands trust for sampling, packaging, production coordination and MoCRA-aware documentation support.',
     canonical: canonical('/private-label-perfume-manufacturer-usa'),
-    h1: 'Private Label Perfume for the United States',
+    h1: 'Perfume Manufacturer USA for Private Label Brands',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -163,9 +181,9 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     pageName: 'Custom Perfume Manufacturer',
     title: 'Custom Perfume Manufacturer | Brandsamor',
     description:
-      'Develop a custom perfume with fragrance direction, packaging, production coordination, filling and quality checks.',
+      'Partner with a custom perfume manufacturer for fragrance direction, packaging, production coordination, filling and quality checks under your brand.',
     canonical: canonical('/custom-perfume-manufacturer'),
-    h1: 'Custom Perfume Manufacturing Support',
+    h1: 'Custom Perfume Manufacturer for Brand Launches',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,
@@ -175,9 +193,9 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     pageName: 'About',
     title: 'About Brandsamor | Private Label Fragrance Company',
     description:
-      'Learn how Brandsamor, operated by Packamor LLC, combines fragrance packaging experience with private label perfume support.',
+      'Brandsamor is a private label fragrance company operated by Packamor LLC, helping brands launch ready-to-sell perfume with packaging and production support.',
     canonical: canonical('/about'),
-    h1: 'About Brandsamor',
+    h1: 'About Brandsamor, a Private Label Fragrance Company',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: false,
@@ -186,11 +204,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/contact': {
     path: '/contact',
     pageName: 'Contact',
-    title: 'Contact a Private Label Perfume Manufacturer | Brandsamor',
+    title: 'Contact a Fragrance Manufacturer | Brandsamor',
     description:
-      'Contact Brandsamor to discuss fragrance sampling, packaging, production and private label perfume project requirements.',
+      'Contact Brandsamor, a fragrance manufacturer partner for sampling, packaging, production coordination and private label perfume projects.',
     canonical: canonical('/contact'),
-    h1: 'Contact Brandsamor',
+    h1: 'Contact a Fragrance Manufacturer',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: false,
@@ -198,11 +216,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/get-started': {
     path: '/get-started',
     pageName: 'Get Started',
-    title: 'Start Your Private Label Perfume Project | Brandsamor',
+    title: 'Start a Perfume Business | Brandsamor',
     description:
-      'Tell Brandsamor about your brand, scent direction, packaging needs, and launch timeline so we can guide your private label fragrance project.',
+      'Start a perfume business with a clear first step: tell us about your brand, customers and launch goals so we can guide sampling and your first batch.',
     canonical: canonical('/get-started'),
-    h1: 'Tell Us About Your Perfume Project',
+    h1: 'Start a Perfume Business With a Clear First Step',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: false,
     includeHomeGraph: false,

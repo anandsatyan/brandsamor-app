@@ -7,7 +7,7 @@ export const aboutSections: InfoSection[] = [
     id: 'about-brandsamor',
     title: 'About Brandsamor',
     paragraphs: [
-      'Brandsamor is a private-label fragrance company operated by Packamor LLC that helps businesses launch ready-to-sell fragrance products under their own brand. Instead of building a factory, brands work with Brandsamor to sample scents, choose product formats, customize packaging, and receive finished fragrance products with quality checks handled for them.',
+      'Brandsamor is a private label fragrance company operated by Packamor LLC that helps businesses launch ready-to-sell fragrance products under their own brand. Instead of building a factory, brands work with Brandsamor to sample scents, choose product formats, customize packaging, and receive finished fragrance products with quality checks handled for them.',
       'The service is designed for beauty brands, creators, boutiques, hotels, salons, home fragrance labels, gifting companies, and other businesses that want a premium branded fragrance without managing production in-house.',
     ],
   },

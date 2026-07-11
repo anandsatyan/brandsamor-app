@@ -25,7 +25,7 @@ export const whoWeWorkWithConfig: TopicPageConfig = {
     badge: 'WHO WE WORK WITH',
     title: pageMeta.h1,
     description:
-      'Brandsamor is a private label fragrance partner for businesses that want a premium branded perfume without building production in-house. Explore options for boutiques, creators, salons, beauty brands, hotels and gifting companies. ' +
+      'Ready to create your own perfume brand? Brandsamor helps boutiques, creators, salons, beauty brands, hotels and gifting companies launch private label fragrance without building production in-house. ' +
       COMMERCIAL_COPY.suitabilityNote,
     Illustration: HeroBottleIllustration,
   },

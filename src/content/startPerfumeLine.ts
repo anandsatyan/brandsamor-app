@@ -28,7 +28,7 @@ export const startPerfumeLineConfig: TopicPageConfig = {
     badge: 'START A PERFUME LINE',
     title: pageMeta.h1,
     description:
-      'To start a perfume line, define your target customer, choose a product format, evaluate fragrance samples, select packaging, approve the finished product specification and plan production. Brandsamor helps you move from [fragrance sampling](/fragrance-sampling) to a ready-to-sell first batch without managing a factory. ' +
+      'If you are learning how to start a perfume line, begin with your target customer, product format, fragrance samples, packaging and a focused first batch. Brandsamor helps you move from [fragrance sampling](/fragrance-sampling) to ready-to-sell product without managing a factory. ' +
       COMMERCIAL_COPY.unitQuantityNote,
     Illustration: WhyLaunchPerfumeImage,
   },

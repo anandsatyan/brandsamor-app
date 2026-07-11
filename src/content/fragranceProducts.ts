@@ -26,7 +26,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
     badge: 'FRAGRANCE PRODUCTS',
     title: pageMeta.h1,
     description:
-      'Explore private label fragrance products — from full-size eau de parfum to travel sprays, body mists, room sprays and gift sets. Choose the formats that fit your brand, audience and price point. ' +
+      'Private label fragrance works across more than one format — full-size eau de parfum, travel sprays, body mists, room sprays and gift sets. Choose what fits your brand, audience and price point. ' +
       COMMERCIAL_COPY.formatMinimumNote,
     Illustration: FragranceProductTypesImage,
   },
@@ -161,7 +161,7 @@ export const fragranceProductsConfig: TopicPageConfig = {
       { to: '/how-it-works', label: 'See the private label perfume manufacturing process' },
       { to: '/who-we-work-with', label: 'See which businesses launch fragrance with Brandsamor' },
       { to: '/custom-perfume-manufacturer', label: 'Explore custom perfume manufacturing support' },
-      { to: '/how-your-batch-is-made', label: 'See how perfume is manufactured' },
+      { to: '/how-your-batch-is-made', label: 'See how perfume is made' },
     ],
   },
 };

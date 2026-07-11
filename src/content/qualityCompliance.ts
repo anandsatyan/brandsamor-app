@@ -19,7 +19,7 @@ export const qualityComplianceConfig: TopicPageConfig = {
     badge: 'QUALITY & COMPLIANCE',
     title: pageMeta.h1,
     description:
-      'Private label perfume compliance needs vary by product type, market and sales channel. Brandsamor supports quality processes and documentation — including GMP-aligned production, Certificates of Analysis, IFRA certificates, allergen information and FDA MoCRA guidance where applicable.',
+      'An IFRA certificate is one of the documents brands ask for most often. Brandsamor also supports Certificates of Analysis, allergen information, batch records and GMP-aligned production — with FDA MoCRA guidance where it applies to your product and sales channel.',
     Illustration: ComplianceDocIllustration,
   },
   sections: withSteps(
@@ -98,9 +98,9 @@ export const qualityComplianceConfig: TopicPageConfig = {
       },
       {
         id: 'ifra-documentation',
-        title: 'IFRA documentation',
+        title: 'IFRA certificate',
         description:
-          'Brandsamor provides IFRA certificates to support safe fragrance use according to applicable fragrance-use standards, helping with formulation review, label planning, and market-specific documentation needs.',
+          'An IFRA certificate documents that a fragrance formula follows applicable IFRA Standards for safe use. Brandsamor provides IFRA certificates to support formulation review, label planning, and market-specific documentation needs.',
         bullets: sectionBullets(
           'Supports safe fragrance use standards',
           'Useful for formulation and label review',
