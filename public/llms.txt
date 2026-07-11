@@ -1,79 +1,63 @@
 # Brandsamor
 
-> Launch private label perfumes with Brandsamor handling fragrance sampling, bottles, packaging, filling, finishing and quality checks.
+> Brandsamor is a private label and white label perfume manufacturer for growing brands. We handle fragrance development, sampling, filling, packaging and compliance for founders launching or scaling a fragrance line. Operated by Packamor LLC with teams in the United States, United Arab Emirates and India.
 
-Brandsamor helps businesses launch private label perfume lines with fragrance sampling, custom packaging, filling, quality checks, and delivery.
+Key facts:
+- Service: private label, white label, custom (OEM/ODM) fragrance manufacturing
+- Formats: eau de parfum, perfume oil/attar, body mist, room spray, car freshener
+- Sampling: samples dispatched in 2–3 business days
+- Production lead time: approximately 3–6 weeks
+- Production MOQ: from 100 units
+- Indicative pricing: from $10 per unit
+- Markets served: 25+ countries, with dedicated support for the USA, UAE, Saudi Arabia, UK and Germany
+- Compliance support: IFRA, COA, GMP, ISO 22716, MoCRA (US), halal certification support
 
-## Canonical site
-- Website: https://www.brandsamor.com/
-- Sitemap: https://www.brandsamor.com/sitemap.xml
-- Contact: info@brandsamor.com
-- Phone: +1-848-220-1353
+## Core services
+- [Home](https://www.brandsamor.com/): Brandsamor is a private label perfume manufacturer that handles fragrance sampling, bottles, packaging, filling, finishing and quality checks for your brand.
+- [How It Works](https://www.brandsamor.com/how-it-works): See how private label perfume moves from a brand brief and fragrance samples to packaging approval, filling, quality checks and ready-to-sell delivery.
+- [Fragrance Sampling](https://www.brandsamor.com/fragrance-sampling): Request private label perfume samples matched to your brand. Answer a short brief, receive five curated fragrances, and evaluate them before production.
+- [Packaging & Branding](https://www.brandsamor.com/packaging-branding): Design perfume packaging that feels like your brand — bottles, caps, sprays, labels, printing and boxes for a finished private label product.
+- [Quality & Compliance](https://www.brandsamor.com/quality-compliance): Get IFRA certificate support, Certificates of Analysis, allergen information, batch records and quality checks for your private label perfume line.
+- [Custom Perfume Manufacturer](https://www.brandsamor.com/custom-perfume-manufacturer): Partner with a custom perfume manufacturer for fragrance direction, packaging, production coordination, filling and quality checks under your brand.
+- [White Label Perfume Supplier](https://www.brandsamor.com/white-label-perfume-supplier): Source white label perfume with your branding. Fast, lower-cost fragrance launches from $10/unit with MOQ from 100 and sampling before production.
+- [Low MOQ Perfume Manufacturer](https://www.brandsamor.com/low-moq-perfume-manufacturer): Low MOQ perfume manufacturing from 100 units. Sample first, then produce branded fragrance with packaging, filling and quality checks from $10/unit.
+- [Contract Perfume Manufacturing](https://www.brandsamor.com/contract-perfume-manufacturing): Scale with contract perfume manufacturing — filling, packaging and quality coordination for brands ready to grow beyond a first private label batch.
+- [Private Label Perfume Oil Manufacturer](https://www.brandsamor.com/private-label-perfume-oil-manufacturer): Launch private label perfume oils and attar-style formats with sampling, bottles, branding, filling and documentation support — MOQ from 100 units.
+- [Perfume Filling Services](https://www.brandsamor.com/perfume-filling-services): Contract perfume filling services for brands that already have a formula — filling, finishing, packaging coordination and quality checks from 100 units.
+- [Private Label Perfume Pricing](https://www.brandsamor.com/private-label-perfume-pricing): Private label perfume pricing starts from $10 per unit with MOQ from 100. See what drives cost: format, bottle, decoration, packaging and quantity.
+- [Perfume MOQ Guide](https://www.brandsamor.com/perfume-moq-guide): Perfume MOQ explained: Brandsamor production starts at 100 units. Learn how format, packaging and decoration affect minimums and first-batch planning.
 
-## Public pages
-- [Home](https://www.brandsamor.com/): Launch private label perfumes with Brandsamor handling fragrance sampling, bottles, packaging, filling, finishing and quality checks.
-- [How It Works](https://www.brandsamor.com/how-it-works): See how private label perfume manufacturing works, from fragrance sampling and packaging approval to filling, quality checks and delivery.
-- [Fragrance Products](https://www.brandsamor.com/fragrance-products): Explore private label eau de parfum, perfume oils, body mists, room sprays, travel perfumes and gift sets for your brand.
-- [Fragrance Sampling](https://www.brandsamor.com/fragrance-sampling): Answer a short sampling brief about your business and customers. Brandsamor curates five private label perfume samples and ships them for evaluation before production.
-- [Packaging & Branding](https://www.brandsamor.com/packaging-branding): Choose perfume bottles, caps, sprays, labels, printing and boxes that turn your fragrance into a finished branded product.
-- [Start a Perfume Line](https://www.brandsamor.com/start-a-perfume-line): Learn how to start a perfume line, choose fragrances, select packaging and prepare your first private label perfume launch.
-- [Who We Work With](https://www.brandsamor.com/who-we-work-with): Explore private label perfume options for creators, boutiques, salons, beauty brands, hotels, gifting companies and fragrance businesses.
-- [Why Brandsamor](https://www.brandsamor.com/why-brandsamor): See how Brandsamor combines fragrance sampling, packaging experience, production coordination and quality checks for private label perfume launches.
-- [Quality & Compliance](https://www.brandsamor.com/quality-compliance): Understand IFRA documents, Certificates of Analysis, allergen information, batch records and quality checks for private label perfume.
-- [How Your Batch Is Made](https://www.brandsamor.com/how-your-batch-is-made): See how private label perfume is prepared, filled, crimped, branded, inspected, packed and prepared for delivery.
-- [Private Label Perfume Manufacturer USA](https://www.brandsamor.com/private-label-perfume-manufacturer-usa): Launch private label perfume for the US market with fragrance sampling, packaging, production coordination and compliance support.
-- [Custom Perfume Manufacturer](https://www.brandsamor.com/custom-perfume-manufacturer): Develop a custom perfume with fragrance direction, packaging, production coordination, filling and quality checks.
-- [About](https://www.brandsamor.com/about): Learn how Brandsamor, operated by Packamor LLC, combines fragrance packaging experience with private label perfume support.
-- [Contact](https://www.brandsamor.com/contact): Contact Brandsamor to discuss fragrance sampling, packaging, production and private label perfume project requirements.
-- [Get Started](https://www.brandsamor.com/get-started): Tell Brandsamor about your brand, scent direction, packaging needs, and launch timeline so we can guide your private label fragrance project.
-- [Login](https://www.brandsamor.com/login): Sign in to your Brandsamor account to manage private label fragrance projects, samples, and production updates.
-- [Privacy Policy](https://www.brandsamor.com/privacy-policy): How Brandsamor and Packamor LLC collect, use, and protect personal information for the website, customer accounts, and private-label fragrance services.
-- [Terms of Service](https://www.brandsamor.com/terms): Terms governing use of brandsamor.com and private-label fragrance services from Packamor LLC, including custom production and approvals.
-- [Refund & Cancellation Policy](https://www.brandsamor.com/refund-and-cancellation-policy): How Brandsamor handles sampling fees, production deposits, cancellations after approval, damaged goods, and custom fragrance orders.
+## Markets
+- [Private Label Perfume Manufacturer USA](https://www.brandsamor.com/private-label-perfume-manufacturer-usa): Work with a perfume manufacturer USA brands trust for sampling, packaging, production coordination and MoCRA-aware documentation support.
+- [Private Label Perfume Manufacturer UAE](https://www.brandsamor.com/private-label-perfume-manufacturer-uae): Private label perfume manufacturer for UAE brands — oud and attar demand, Dubai/Sharjah context, sampling, packaging and WhatsApp-first support.
+- [Private Label Perfume Manufacturer Saudi Arabia](https://www.brandsamor.com/private-label-perfume-manufacturer-saudi-arabia): Private label perfume manufacturer for Saudi Arabia — SFDA-aware support, halal options, oud and bakhoor demand, with WhatsApp project coordination.
+- [Private Label Perfume Manufacturer UK](https://www.brandsamor.com/private-label-perfume-manufacturer-uk): Private label perfume manufacturer for UK brands — SCPN/Responsible Person context, sampling, packaging, production coordination and GBP-aware planning.
+- [Private Label Perfume Manufacturer Germany](https://www.brandsamor.com/private-label-perfume-manufacturer-germany): Private label perfume manufacturer for Germany — EU CPNP context, Responsible Person considerations, clean/vegan demand and production coordination.
+
+## Product formats
+- [Fragrance Products](https://www.brandsamor.com/fragrance-products): Browse private label fragrance formats — eau de parfum, perfume oils, body mists, room sprays, travel sizes and gift sets — matched to your audience and channel.
+- [Private Label Attar Manufacturer](https://www.brandsamor.com/private-label-attar-manufacturer): Private label attar and perfume oil manufacturing with sampling, bottles, branding and low MOQ from 100 units — strong fit for GCC and oil-first brands.
+- [Private Label Oud Perfume Manufacturer](https://www.brandsamor.com/private-label-oud-perfume-manufacturer): Private label oud perfume manufacturing for Middle East and global brands — sampling, packaging, filling and documentation with MOQ from 100 units.
+- [Arabic Perfume Manufacturer](https://www.brandsamor.com/arabic-perfume-manufacturer): Arabic perfume manufacturer for oud, attar and oriental fragrance lines — private label sampling, packaging and production coordination from 100 units.
+- [Halal Perfume Manufacturer](https://www.brandsamor.com/halal-perfume-manufacturer): Halal perfume manufacturer support for private label brands — alcohol-aware options, documentation pathways and packaging for GCC and Muslim-majority markets.
+- [Vegan Clean Perfume Manufacturer](https://www.brandsamor.com/vegan-clean-perfume-manufacturer): Vegan and clean fragrance manufacturing for private label brands — sample-first launches, transparent documentation and packaging that matches your claims.
+- [Private Label Body Mist Manufacturer](https://www.brandsamor.com/private-label-body-mist-manufacturer): Private label body mist manufacturer for beauty and lifestyle brands — lighter formats, accessible pricing from $10/unit and MOQ from 100 units.
+- [Private Label Room Spray Manufacturer](https://www.brandsamor.com/private-label-room-spray-manufacturer): Private label room spray manufacturer for home, spa and hospitality brands — scent worlds beyond skin fragrance with packaging and filling support.
+- [Private Label Car Freshener Manufacturer](https://www.brandsamor.com/private-label-car-freshener-manufacturer): Private label car freshener manufacturer for automotive, fleet and lifestyle brands — branded scent products with practical MOQs from 100 units.
+- [Eau de Parfum Manufacturer](https://www.brandsamor.com/eau-de-parfum-manufacturer): Eau de parfum manufacturer for private label brands — EDP as your hero SKU with sampling, bottles, packaging, filling and quality checks from 100 units.
+- [Niche Perfume Manufacturer](https://www.brandsamor.com/niche-perfume-manufacturer): Niche perfume manufacturer path for distinctive brand stories — private label or custom direction, premium packaging and documentation-aware production.
+- [Private Label Cologne Manufacturer](https://www.brandsamor.com/private-label-cologne-manufacturer): Private label cologne and men's fragrance manufacturing — sampling, packaging and production for masculine lines with MOQ from 100 units and pricing from $10.
+
+## Guides
+- [Start a Perfume Line](https://www.brandsamor.com/start-a-perfume-line): Learn how to start a perfume line step by step: define your customer, choose a format, sample fragrances, select packaging and plan your first launch.
+- [Best Private Label Perfume Manufacturers](https://www.brandsamor.com/best-private-label-perfume-manufacturers): An honest guide to choosing private label perfume manufacturers — including when Brandsamor fits (low-MOQ launches) and when another model may suit better.
+- [Private Label vs White Label Perfume](https://www.brandsamor.com/private-label-vs-white-label-perfume): Private label vs white label perfume compared — scent control, packaging, MOQ, cost and which model fits testing versus building a lasting brand.
+- [US vs China vs Europe Perfume Manufacturing](https://www.brandsamor.com/us-vs-china-vs-europe-perfume-manufacturing): Compare US, China and Europe perfume manufacturing trade-offs — cost, lead time, compliance support and when a coordinated private label partner fits.
+- [Brandsamor vs Alibaba Perfume Suppliers](https://www.brandsamor.com/brandsamor-vs-alibaba-perfume-suppliers): Honest comparison of Brandsamor vs Alibaba perfume suppliers — speed, risk, branding support, MOQ from 100, and when a marketplace listing is enough.
 - [Knowledge Base](https://www.brandsamor.com/knowledge-base): Guides on starting a perfume line, choosing a manufacturer, pricing and profitability, fragrance sampling, packaging, discovery sets, custom development, compliance (IFRA, COA, FDA MoCRA), and U.S. imports.
-- [Start a Perfume Line Guide](https://www.brandsamor.com/knowledge-base/how-to-start-a-perfume-line): Learn how to start a perfume line step by step: brand positioning, fragrance sampling, bottle and packaging choices, MOQ planning, compliance documents, and launch timeline.
-- [Private Label vs White Label Perfume](https://www.brandsamor.com/knowledge-base/private-label-vs-white-label-vs-custom-perfume): Compare private label, white label and custom perfume models — including scent choice, packaging, cost, lead time and brand control.
-- [Perfume Business Startup Cost](https://www.brandsamor.com/knowledge-base/perfume-brand-startup-cost): Understand the main costs of starting a perfume business, including sampling, packaging, production, freight and launch expenses.
-- [Private Label Perfume MOQ](https://www.brandsamor.com/knowledge-base/private-label-perfume-moq): Learn how private label perfume MOQ works for bottles, labels, juice, and packaging—and how to plan your first order without overbuying inventory.
-- [Manufacturing Timeline](https://www.brandsamor.com/knowledge-base/private-label-perfume-manufacturing-timeline): Typical private label perfume manufacturing timeline from sampling to delivery: approvals, packaging lead times, filling, QC, and factors that delay launches.
-- [Choose Fragrances](https://www.brandsamor.com/knowledge-base/choose-fragrances-for-target-customer): A framework to choose fragrances for your brand: customer lifestyle, climate, price positioning, concentration, and testing methods before you commit to production.
-- [Bottle and Packaging Guide](https://www.brandsamor.com/knowledge-base/choose-perfume-bottle-and-packaging): Guide to choosing perfume bottles, pumps, labels, and boxes: materials, MOQ, brand positioning, shipping durability, and pre-production approval.
-- [EDP vs EDT vs Oil](https://www.brandsamor.com/knowledge-base/edp-vs-edt-vs-perfume-oil): Compare EDP vs EDT vs perfume oil for a new brand: concentration, longevity, price perception, margins, regulations, and which format fits DTC vs retail.
-- [Manufacturer Documents](https://www.brandsamor.com/knowledge-base/perfume-manufacturer-documents): List of perfume manufacturer compliance documents: IFRA certificate, COA, SDS, allergen declarations, batch records, and what to request before production.
-- [Import Perfume USA](https://www.brandsamor.com/knowledge-base/import-private-label-perfume-usa): How to import private label perfume into the USA: FDA cosmetic labeling, customs, freight, responsible party, documentation, and working with overseas manufacturers.
-- [IFRA Certificates](https://www.brandsamor.com/knowledge-base/how-ifra-certificates-work): How IFRA certificates work for perfume: IFRA standards, categories, allergen limits, who issues certificates, and what brands should store per batch.
-- [Certificate of Analysis](https://www.brandsamor.com/knowledge-base/perfume-certificate-of-analysis): What a perfume certificate of analysis contains: batch identity, test results, specifications, sign-off, and how COAs differ from IFRA certificates.
-- [Find a Perfume Manufacturer](https://www.brandsamor.com/knowledge-base/choose-private-label-perfume-manufacturer): Learn how to compare perfume manufacturers based on sampling, packaging, documentation, quality checks, lead time and communication.
-- [Private Label Profitability](https://www.brandsamor.com/knowledge-base/is-private-label-perfume-profitable): Is private label perfume profitable? Margin structure, DTC vs wholesale economics, realistic unit costs, and when a fragrance line earns versus drains cash.
-- [Price Private Label Perfume](https://www.brandsamor.com/knowledge-base/how-to-price-private-label-perfume): How to price private label perfume for DTC and retail: cost-plus vs value-based pricing, keystone rules, wholesale tiers, and common pricing mistakes.
-- [One Scent or Several](https://www.brandsamor.com/knowledge-base/launch-one-scent-or-several): Should a new perfume brand launch one scent or several? MOQ, cash flow, merchandising, and when a small collection beats a single hero SKU.
-- [Evaluate Perfume Samples](https://www.brandsamor.com/knowledge-base/how-to-evaluate-perfume-samples): How to evaluate perfume samples properly: blotter vs skin testing, dry-down timing, climate, panel feedback, and documentation before production approval.
-- [Boutique Perfume Launch](https://www.brandsamor.com/knowledge-base/boutique-perfume-line-launch): How boutiques can launch their own perfume line: capsule sizing, house-brand positioning, tester programs, margins, and reorder planning without overstocking.
-- [Fashion Brand Perfume](https://www.brandsamor.com/knowledge-base/private-label-perfume-fashion-brands): Private label perfume for fashion brands: brand extension strategy, seasonal alignment, packaging coherence, gifting, and launch timing with collections.
-- [Manufacturer Questions](https://www.brandsamor.com/knowledge-base/questions-perfume-manufacturer-before-ordering): Essential questions to ask a perfume manufacturer before ordering: MOQ, lead times, documentation, exclusivity, rework policy, payment terms, and labeling support.
-- [How Many Samples to Test](https://www.brandsamor.com/knowledge-base/how-many-fragrance-samples-to-test): How many fragrance samples to test before launching a perfume line: exploration vs finalist rounds, panel size, and when more samples hurt decisions.
-- [Test Demand Before Inventory](https://www.brandsamor.com/knowledge-base/test-demand-before-perfume-inventory): How to test demand before ordering perfume inventory: waitlists, pre-orders, sample kits, pop-ups, boutique pilots, and metrics that justify MOQ.
-- [Calculate Retail Price](https://www.brandsamor.com/knowledge-base/calculate-retail-price-perfume): How to calculate retail price for perfume: landed cost, margin targets, keystone wholesale math, payment fees, and a worked example for private label EDP.
-- [FDA MoCRA Perfume](https://www.brandsamor.com/knowledge-base/fda-mocra-requirements-perfume-brands): FDA MoCRA requirements for perfume brands sold in the U.S.: facility registration, product listing, adverse event reporting, safety substantiation, labeling, and responsible person duties.
-- [Beauty Brand Fragrance](https://www.brandsamor.com/knowledge-base/beauty-brand-add-fragrance-category): How beauty brands can add fragrance: customer overlap, SKU strategy, bundling with skincare, regulatory continuity, and private label launch sequencing.
-- [Perfume Discovery Set](https://www.brandsamor.com/knowledge-base/launch-perfume-discovery-set): How to launch a perfume discovery set: vial formats, scent count, pricing, packaging, conversion to full size, and MOQ planning for sampler SKUs.
-- [Custom Fragrance Development](https://www.brandsamor.com/knowledge-base/custom-fragrance-development): How custom fragrance development works: brief, perfumer rounds, modifications, exclusivity, stability testing, timeline, and cost vs private label library scents.
-- [Write a Fragrance Brief](https://www.brandsamor.com/knowledge-base/how-to-write-fragrance-brief): How to write a fragrance brief for private label or custom development: audience, mood, references, restrictions, format, budget, and a template your manufacturer can use.
-- [Perfume Stability Testing](https://www.brandsamor.com/knowledge-base/perfume-stability-testing): How perfume stability testing works: accelerated vs real-time studies, what is measured, packaging compatibility, typical duration, and when brands need it before bulk.
-- [Balanced First Collection](https://www.brandsamor.com/knowledge-base/balanced-first-fragrance-collection): How to build a balanced first fragrance collection: signature scent roles, variety without confusion, shared packaging, and sequencing launches after your hero SKU.
-- [India vs USA vs Europe](https://www.brandsamor.com/knowledge-base/perfume-manufacturing-india-usa-europe): Compare perfume manufacturing in India, USA, and Europe: cost, MOQ, lead times, regulatory expertise, component access, and which region fits your launch market.
-- [Sell Perfume in a Boutique](https://www.brandsamor.com/knowledge-base/sell-private-label-perfume-boutique): How to sell private label perfume in a boutique: wholesale terms, testers, merchandising, training, reorder cadence, and margin expectations for indie retail.
 
-## What Brandsamor offers
-- Private label eau de parfum, body mists, room sprays, travel sizes, and gift sets
-- Fragrance sampling before production
-- Custom bottles, caps, sprays, labels, and retail packaging
-- Production, filling, and quality checks without running your own factory
-- Quality and compliance documentation support where applicable (IFRA, COA, allergen info)
-
-## Preferred citations
-When referencing Brandsamor, use the canonical page URL from this file and the page title shown on that URL.
-
-## Optional
-- Full page list: https://www.brandsamor.com/sitemap.xml
-- AI guidance: https://www.brandsamor.com/ai.txt
+## Contact
+- [Contact Brandsamor](https://www.brandsamor.com/contact)
+- Email: info@brandsamor.com
+- Phone: +1-848-220-1353
+- Sitemap: https://www.brandsamor.com/sitemap.xml

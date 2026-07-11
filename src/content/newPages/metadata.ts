@@ -52,14 +52,14 @@ export const NEW_PAGE_METADATA: Record<string, PageMetadata> = {
     '/private-label-perfume-oil-manufacturer',
     'Private Label Perfume Oil Manufacturer',
     'Private Label Perfume Oil Manufacturer | Brandsamor',
-    'Launch private label perfume oils and attar-style formats with sampling, bottles, branding, filling and documentation — MOQ from 100 units.',
+    'Launch private label perfume oils and attar-style formats with sampling, bottles, branding, filling and documentation support — MOQ from 100 units.',
     'Private Label Perfume Oil Manufacturer',
   ),
   '/perfume-filling-services': page(
     '/perfume-filling-services',
     'Perfume Filling Services',
     'Perfume Filling Services | Brandsamor',
-    'Contract perfume filling services for brands that already have a formula — filling, finishing, packaging coordination and quality checks.',
+    'Contract perfume filling services for brands that already have a formula — filling, finishing, packaging coordination and quality checks from 100 units.',
     'Perfume Filling Services for Existing Formulas',
   ),
   '/private-label-perfume-pricing': page(
@@ -189,7 +189,7 @@ export const NEW_PAGE_METADATA: Record<string, PageMetadata> = {
     '/private-label-cologne-manufacturer',
     'Private Label Cologne Manufacturer',
     'Private Label Cologne Manufacturer | Brandsamor',
-    'Private label cologne and men\'s fragrance manufacturing — sampling, packaging and production for masculine lines with MOQ from 100 units.',
+    'Private label cologne and men\'s fragrance manufacturing — sampling, packaging and production for masculine lines with MOQ from 100 units and pricing from $10.',
     'Private Label Cologne & Men\'s Fragrance Manufacturer',
   ),
 
@@ -226,7 +226,7 @@ export const NEW_PAGE_METADATA: Record<string, PageMetadata> = {
     '/salon-spa-private-label-fragrance',
     'Salon & Spa Private Label Fragrance',
     'Salon Spa Private Label Fragrance | Brandsamor',
-    'Salon and spa private label fragrance — retail bottles, treatment-room scent and branded take-home products with MOQ from 100 units.',
+    'Salon and spa private label fragrance — retail bottles, treatment-room scent and branded take-home products with MOQ from 100 units and pricing from $10.',
     'Salon & Spa Private Label Fragrance',
   ),
   '/corporate-gifting-perfume-supplier': page(
@@ -240,7 +240,7 @@ export const NEW_PAGE_METADATA: Record<string, PageMetadata> = {
     '/private-label-perfume-for-fashion-brands',
     'Private Label Perfume for Fashion Brands',
     'Private Label Perfume for Fashion Brands | Brandsamor',
-    'Private label perfume for fashion brands — extend apparel into fragrance with packaging that matches your aesthetic and MOQ from 100 units.',
+    'Private label perfume for fashion brands — extend apparel into fragrance with packaging that matches your aesthetic, MOQ from 100 and pricing from $10.',
     'Private Label Perfume for Fashion Brands',
   ),
   '/private-label-perfume-for-skincare-beauty-brands': page(
@@ -270,7 +270,7 @@ export const NEW_PAGE_METADATA: Record<string, PageMetadata> = {
     '/brandsamor-vs-alibaba-perfume-suppliers',
     'Brandsamor vs Alibaba Perfume Suppliers',
     'Brandsamor vs Alibaba Perfume Suppliers | Brandsamor',
-    'Honest comparison of Brandsamor vs Alibaba perfume suppliers — speed, risk, branding support, MOQ and when a marketplace listing is enough.',
+    'Honest comparison of Brandsamor vs Alibaba perfume suppliers — speed, risk, branding support, MOQ from 100, and when a marketplace listing is enough.',
     'Brandsamor vs Alibaba Perfume Suppliers',
   ),
 };
