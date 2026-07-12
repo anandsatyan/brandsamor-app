@@ -1,24 +1,5 @@
 import type { TopicPageConfig } from '../../components/topic/types';
 import {
-  BodyMistIllustration,
-  BrandBriefIllustration,
-  ComplianceDocIllustration,
-  DeliveryIllustration,
-  FlatLayIllustration,
-  FragranceFamilyIllustration,
-  GiftSetIllustration,
-  HeroBottleIllustration,
-  LabelIllustration,
-  LaunchPlanningIllustration,
-  MarbleBottleIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  ProductionIllustration,
-  QualityCheckIllustration,
-  RoomSprayIllustration,
-  ScentSamplesIllustration,
-} from '../../components/Illustrations';
-import {
   buildCommercialPage,
   defaultKeyFacts,
   faq,
@@ -40,8 +21,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Private label perfume built around Amazon channel realities: hazmat-aware documentation, listing-ready packaging, production from 100 units and clear responsibility lines between what the manufacturer provides and what the seller owns.',
     eyebrowPrefix: 'AMAZON LAUNCH',
-    heroIllustration: PackagingIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Amazon seller launch facts',
       description:
@@ -84,7 +63,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Use packaging that photographs clearly for marketplace thumbnails',
           'Keep claims realistic and supportable for the formula and channel',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'sample-before-inventory',
@@ -97,7 +75,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Use sample feedback to sharpen product page language',
           'Move to production only after scent and packaging decisions are clear',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'packaging-for-online-retail',
@@ -110,7 +87,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Include insert or box choices that reduce damage risk in fulfilment',
           'Confirm barcode, net quantity and responsible-party field space early',
         ),
-        Illustration: FlatLayIllustration,
       },
       {
         id: 'documentation-and-compliance',
@@ -123,7 +99,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Review destination and marketplace rules before purchasing inventory',
           'Keep label text aligned with the actual formula and product format',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'reorder-path',
@@ -136,7 +111,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Use reviews and return reasons to improve future batches',
           'Plan production lead time before inventory reaches zero',
         ),
-        Illustration: ProductionIllustration,
       },
     ],
     faqItems: [
@@ -181,8 +155,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Creators and influencers can turn audience loyalty into a wearable, giftable product — private label perfume with curated samples, branded packaging and realistic production timelines that fit a content calendar rather than fight it.',
     eyebrowPrefix: 'CREATOR LINE',
-    heroIllustration: HeroBottleIllustration,
-    ctaIllustration: BrandBriefIllustration,
     keyFacts: {
       title: 'Creator launch facts',
       description:
@@ -225,7 +197,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Choose packaging that reads as merchandise, not a giveaway',
           'Keep the first line focused so launch messaging stays clear',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'sample-with-small-circle',
@@ -238,7 +209,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Build launch content around the selected scent story',
           'Approve the hero scent before packaging is locked',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'packaging-for-fans',
@@ -251,7 +221,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Use travel sizes or gift sets where they fit the audience',
           'Keep decoration choices practical for a first production run',
         ),
-        Illustration: GiftSetIllustration,
       },
       {
         id: 'launch-calendar',
@@ -264,7 +233,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Confirm fulfilment and customer service responsibilities early',
           'Use a first batch to learn before expanding into variants',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
       {
         id: 'responsible-claims',
@@ -277,7 +245,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Review ingredient and label wording for your sales market',
           'Keep all approvals documented before production is released',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqItems: [
@@ -322,8 +289,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'A boutique-exclusive perfume that fits the shop floor, sells as a gift and keeps customers coming back — curated sampling, packaging coordination, production from 100 units and documentation for retail-ready private label fragrance.',
     eyebrowPrefix: 'BOUTIQUE RETAIL',
-    heroIllustration: FlatLayIllustration,
-    ctaIllustration: PackagingIllustration,
     keyFacts: {
       title: 'Boutique launch facts',
       description:
@@ -358,7 +323,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Start with one scent rather than a scattered collection',
           'Plan display, gifting and online merchandising at the same time',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'giftable-packaging',
@@ -371,7 +335,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Plan gift sets when customers frequently buy for occasions',
           'Align colour and finish with the boutique visual identity',
         ),
-        Illustration: GiftSetIllustration,
       },
       {
         id: 'sampling-for-merchants',
@@ -384,7 +347,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Choose a scent that is distinctive but easy to describe',
           'Use sample notes to prepare front-of-house talking points',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'quality-for-repeat-sales',
@@ -397,7 +359,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Quality checks cover fill, spray, label and carton condition',
           'Plan reorder timing around gift seasons and sell-through data',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'expand-carefully',
@@ -410,7 +371,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Add variants only when the hero scent shows clear repeat demand',
           'Keep the brand story consistent across future batches and formats',
         ),
-        Illustration: ProductionIllustration,
       },
     ],
     faqItems: [
@@ -455,8 +415,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'A hotel signature scent guests can remember, buy and take home — production from 100 units, curated samples matched to the property brief, and formats built for gift shops, spa retail, VIP programmes and room amenities.',
     eyebrowPrefix: 'HOTEL SCENT',
-    heroIllustration: RoomSprayIllustration,
-    ctaIllustration: BrandBriefIllustration,
     keyFacts: {
       title: 'Hospitality launch facts',
       description:
@@ -491,7 +449,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Avoid overpowering notes in spaces guests share for extended periods',
           'Keep the retail product aligned with the on-property atmosphere',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'product-formats',
@@ -504,7 +461,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Travel sizes for amenities, signature events and VIP stays',
           'Gift sets for premium rooms, weddings and corporate programmes',
         ),
-        Illustration: GiftSetIllustration,
       },
       {
         id: 'hospitality-packaging',
@@ -517,7 +473,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Consider compact formats for luggage-friendly and travel retail use',
           'Label content should meet destination-market cosmetic requirements',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'operations-and-reorders',
@@ -530,7 +485,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Track consumption by channel before scaling quantities',
           'Keep reorder specs documented so future batches match the original',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'documents-and-claims',
@@ -543,7 +497,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Request relevant certificates during the specification stage',
           'Avoid wellness or therapeutic claims unless properly substantiated',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqItems: [
@@ -588,8 +541,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Salons and spas can extend the treatment-room experience with a branded fragrance clients take home — sample-first private label perfume, body mist or room spray with packaging that fits the service environment and a retail price the client recognises as fair.',
     eyebrowPrefix: 'SALON & SPA',
-    heroIllustration: MarbleBottleIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Salon and spa launch facts',
       description:
@@ -624,7 +575,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Connect fragrance to treatments, retail shelves or memberships',
           'Avoid generic "spa" notes when the brand has a stronger identity',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'format-and-price',
@@ -637,7 +587,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Perfume oil for intimate or ritual-style positioning',
           'Room spray for treatment rooms, reception and home atmosphere',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'sample-with-team',
@@ -650,7 +599,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Choose a hero direction before adding seasonal or supplementary products',
           'Use sample feedback to plan merchandising positions and selling scripts',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'retail-merchandising',
@@ -663,7 +611,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Build gift bundles around services, memberships or seasonal occasions',
           'Keep packaging aligned with towels, robes, skincare and brand materials',
         ),
-        Illustration: FlatLayIllustration,
       },
       {
         id: 'documents-and-quality',
@@ -676,7 +623,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Keep documents available for retail or wholesale conversations',
           'Plan reorders around appointment peaks and gift-giving seasons',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     faqItems: [
@@ -721,8 +667,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Branded perfume gifts for clients, events, employees and partners — production from 100 units, gift-ready packaging options, realistic procurement timelines and clear documentation support for corporate gifting programmes.',
     eyebrowPrefix: 'GIFT PROGRAM',
-    heroIllustration: GiftSetIllustration,
-    ctaIllustration: DeliveryIllustration,
     keyFacts: {
       title: 'Corporate gifting facts',
       description:
@@ -757,7 +701,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Avoid over-branding when premium perception matters more than visibility',
           'Match the product tone to the occasion and the recipient relationship',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'gift-packaging',
@@ -770,7 +713,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Keep recipient unboxing and safe delivery in mind throughout',
           'Confirm artwork approvals well before production is released',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'sample-for-stakeholders',
@@ -783,7 +725,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Confirm packaging materials alongside the scent approval',
           'Document the full approved spec before the purchase order is released',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'timelines-and-logistics',
@@ -796,7 +737,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Confirm shipping responsibilities and destination requirements early',
           'Account for staggered delivery across multiple offices or countries',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
       {
         id: 'documents-and-restrictions',
@@ -809,7 +749,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Request documentation during specification, not after production',
           'Keep claims simple, accurate and appropriate for diverse recipients',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqItems: [
@@ -854,8 +793,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Fashion brands can extend apparel, accessories or lifestyle collections into fragrance — private label perfume with curated sampling against the collection brief, packaging designed as an accessory and production timelines that respect the buying calendar.',
     eyebrowPrefix: 'FASHION EXTENSION',
-    heroIllustration: LabelIllustration,
-    ctaIllustration: HeroBottleIllustration,
     keyFacts: {
       title: 'Fashion fragrance facts',
       description:
@@ -890,7 +827,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Avoid a generic trend scent if it conflicts with the existing brand',
           'Treat fragrance as part of the product line, not a marketing add-on',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'packaging-as-accessory',
@@ -903,7 +839,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Use gift-ready details for drops, bundles or seasonal campaigns',
           'Keep decoration practical for the production volume and retail price',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'drop-strategy',
@@ -916,7 +851,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Bundle fragrance with apparel or accessories where it makes editorial sense',
           'Review customer response before building out flankers or a wardrobe',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'sampling-with-brand-team',
@@ -929,7 +863,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Align naming and packaging decisions after the scent direction is chosen',
           'Use cross-team feedback to avoid a niche first launch',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'quality-and-compliance',
@@ -942,7 +875,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Keep documents available for wholesale buyers and retail partners',
           'Plan reorder timing before seasonal demand peaks arrive',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     faqItems: [
@@ -987,8 +919,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Skincare and beauty brands can add a fragrance extension that sits coherently inside the existing line — sample-first private label perfume, packaging coordination, production from 100 units and certification pathways matched to the brand\'s compliance position.',
     eyebrowPrefix: 'BEAUTY EXTENSION',
-    heroIllustration: FragranceFamilyIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Beauty brand launch facts',
       description:
@@ -1023,7 +953,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Decide whether the direction is clean, sensual, fresh or ritual-led',
           'Keep the first scent recognisably connected to the brand customers know',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'choose-beauty-format',
@@ -1036,7 +965,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Perfume oil for concentrated or ritual-style positioning',
           'Travel sizes for discovery sets, checkout add-ons and gifting',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'packaging-coherence',
@@ -1049,7 +977,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Keep INCI and net quantity space clear and legible on labels',
           'Use premium packaging touches only where the retail price supports them',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'sample-for-customer-fit',
@@ -1062,7 +989,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Use the sample stage before committing to bottle or carton choices',
           'Select one hero scent before planning a broader fragrance collection',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'documentation-for-beauty',
@@ -1075,7 +1001,6 @@ export const audiencePageConfigs: Record<string, TopicPageConfig> = {
           'Keep fragrance claims distinct from any skincare performance claims',
           'Approve production samples before launch photography and stock is ordered',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqItems: [

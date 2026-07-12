@@ -1,18 +1,5 @@
 import type { TopicPageConfig } from '../../components/topic/types';
 import {
-  BrandBriefIllustration,
-  ComplianceDocIllustration,
-  DeliveryIllustration,
-  FragranceFamilyIllustration,
-  GiftSetIllustration,
-  LaunchPlanningIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  ProductionIllustration,
-  QualityCheckIllustration,
-  ScentSamplesIllustration,
-} from '../../components/Illustrations';
-import {
   buildCommercialPage,
   defaultKeyFacts,
   faq,
@@ -34,8 +21,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Compare private label and white label perfume honestly: speed, scent control, packaging flexibility, MOQ, cost and when each model is the better fit for a launch.',
     eyebrowPrefix: 'COMPARE',
-    heroIllustration: LaunchPlanningIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Decision facts',
       description:
@@ -70,7 +55,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Usually requires more decisions before production',
           'Works well when fragrance should become a repeatable product line',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'white-label-defined',
@@ -83,7 +67,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Less opportunity to create a distinctive brand experience',
           'Useful for buyers who value simplicity over customization',
         ),
-        Illustration: GiftSetIllustration,
       },
       {
         id: 'when-private-label-wins',
@@ -96,7 +79,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'You want a hero SKU that can be reordered or expanded',
           'You need documentation and production context for retail partners',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'when-white-label-wins',
@@ -109,7 +91,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'You are comfortable with limited bottle and packaging control',
           'You care more about availability than long-term line building',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'cost-and-moq',
@@ -122,7 +103,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Use samples before committing to production',
           'Keep the first batch focused enough to learn from demand',
         ),
-        Illustration: ProductionIllustration,
       },
     ],
     comparison: {
@@ -218,8 +198,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Compare US, China and Europe perfume manufacturing trade-offs without the hype. Brandsamor acts as a coordinated private-label partner and does not claim to be a US factory or EU laboratory.',
     eyebrowPrefix: 'REGION GUIDE',
-    heroIllustration: ProcessTimelineIllustration,
-    ctaIllustration: BrandBriefIllustration,
     keyFacts: {
       title: 'Region comparison facts',
       description:
@@ -254,7 +232,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'May have higher costs or narrower component options',
           'Domestic production does not remove brand-owner compliance duties',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'china-tradeoffs',
@@ -267,7 +244,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Requires careful sampling, approval and quality control',
           'Freight, duties and communication should be planned early',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'europe-tradeoffs',
@@ -280,7 +256,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Can involve higher costs or more formal development steps',
           'EU compliance still requires the correct Responsible Person path',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'coordinated-partner',
@@ -293,7 +268,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Use sample approval before bulk production',
           'Keep documentation needs visible from the beginning',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'documentation-market-fit',
@@ -306,7 +280,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Request formula and batch documents relevant to your market',
           'Use qualified advisors for final compliance decisions',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     comparison: {
@@ -416,8 +389,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Compare Brandsamor and Alibaba perfume suppliers with real trade-offs. Brandsamor offers guided private-label coordination; Alibaba offers a broad supplier marketplace that may be cheaper or faster for buyers who already know exactly what they need.',
     eyebrowPrefix: 'BUYER GUIDE',
-    heroIllustration: BrandBriefIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: {
       title: 'Buyer comparison facts',
       description:
@@ -458,7 +429,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Marketplace buying requires more buyer-side sourcing skill',
           'Guided private label reduces decision sprawl but gives fewer listing choices',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'price-tradeoff',
@@ -471,7 +441,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Brandsamor starts from $10 per unit for qualifying private label specs',
           'Alibaba prices vary by supplier, quantity, components and negotiation',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'sampling-path',
@@ -484,7 +453,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Sample-first approval reduces the risk of blind fragrance decisions',
           'The guided path is not ideal for buyers who refuse review steps',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'quality-documents',
@@ -497,7 +465,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'Do not assume a listing badge covers your destination-market duties',
           'Keep final labels and claims under brand-owner review',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'who-should-pick-alibaba',
@@ -510,7 +477,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'You only need unbranded or lightly branded stock',
           'You can handle supplier verification and compliance checks yourself',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'who-should-pick-brandsamor',
@@ -523,7 +489,6 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
           'You need packaging decisions coordinated with scent and price point',
           'You want documentation support available for the planned product',
         ),
-        Illustration: PackagingIllustration,
       },
     ],
     comparison: {

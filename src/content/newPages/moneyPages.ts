@@ -1,17 +1,4 @@
 import {
-  BodyMistIllustration,
-  BrandBriefIllustration,
-  ComplianceDocIllustration,
-  DeliveryIllustration,
-  FragranceFamilyIllustration,
-  LaunchPlanningIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  ProductionIllustration,
-  QualityCheckIllustration,
-  ScentSamplesIllustration,
-} from '../../components/Illustrations';
-import {
   buildCommercialPage,
   faq,
   sectionBullets,
@@ -231,7 +218,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Choose white label when the commercial job is simple: put a credible branded fragrance in market quickly, test demand, and avoid a long custom formula project before you know what sells.',
     eyebrowPrefix: 'WHITE LABEL',
-    heroIllustration: ProcessTimelineIllustration,
     keyFacts: {
       title: 'White label launch facts',
       description:
@@ -267,7 +253,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Choose stock components when reorder speed matters.',
           'Keep the first SKU simple enough to learn from customer response.',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'cost-control',
@@ -279,7 +264,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Use label-first branding before moving into expensive decoration.',
           'Plan the margin before choosing a bottle that looks good only in mockups.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'white-label-vs-private-label',
@@ -291,7 +275,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Private label fits brands building fragrance as a repeatable category.',
           'Custom OEM fits teams that can fund longer development and deeper testing.',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'documentation-and-approvals',
@@ -302,7 +285,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Keep claim language specific instead of using broad approval wording.',
           'Make documentation part of the brief, not a last-minute request.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'first-batch-plan',
@@ -314,7 +296,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Match packaging to the channel where the first units will sell.',
           'Keep reorder notes from the start so the second run is easier.',
         ),
-        Illustration: PackagingIllustration,
       },
     ],
     comparison: whiteLabelComparison,
@@ -346,7 +327,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Start with a focused white label perfume brief',
     ctaDescription:
       'Share your customer, sales channel, target price and packaging expectations. We will help decide whether a white label path or a deeper private label path makes better commercial sense.',
-    ctaIllustration: DeliveryIllustration,
     relatedLinks: [
       { to: '/low-moq-perfume-manufacturer', label: 'Low MOQ perfume manufacturer' },
       { to: '/private-label-perfume-pricing', label: 'Private label perfume pricing' },
@@ -361,7 +341,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'A low MOQ matters when the real question is not "can we make perfume?" but "can we sell this scent, package and price without tying up too much cash?"',
     eyebrowPrefix: 'LOW MOQ',
-    heroIllustration: LaunchPlanningIllustration,
     keyFacts: {
       title: 'Low MOQ facts',
       description:
@@ -397,7 +376,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Adjust scent, packaging or channel before a bigger reorder.',
           'Use finished goods to test photography, reviews, events and retail conversations.',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'sample-before-moq',
@@ -409,7 +387,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Use feedback to narrow the first SKU instead of widening the range too early.',
           'Approve fragrance and packaging before the production clock starts.',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'what-affects-low-moq',
@@ -421,7 +398,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Outer boxes and inserts add more artwork and approval points.',
           'Destination requirements should be discussed before labels are finalized.',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'low-moq-unit-cost',
@@ -433,7 +409,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Treat the first batch as demand validation.',
           'Reorder after customer response is clearer.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'low-moq-compliance',
@@ -444,7 +419,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Keep claims grounded in available support and applicable market rules.',
           'Use quality checks to confirm fill, packaging, labeling and batch details.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'scaling-low-moq',
@@ -456,7 +430,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Keep approved artwork and component choices organized.',
           'Scale the winning SKU before expanding into a full collection.',
         ),
-        Illustration: ProductionIllustration,
       },
     ],
     faqTitle: 'Low MOQ perfume manufacturer FAQ',
@@ -486,7 +459,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Plan a low-MOQ perfume launch',
     ctaDescription:
       'Send your format, audience, price point and channel. We will help shape a first batch that uses the MOQ responsibly.',
-    ctaIllustration: QualityCheckIllustration,
     relatedLinks: [
       { to: '/perfume-moq-guide', label: 'Perfume MOQ guide' },
       { to: '/private-label-perfume-pricing', label: 'Private label perfume pricing' },
@@ -501,7 +473,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Contract perfume manufacturing is for brands that need repeatable production planning: clear specifications, filling, packaging, quality checks and documentation coordination across launches and reorders.',
     eyebrowPrefix: 'CONTRACT',
-    heroIllustration: ProductionIllustration,
     keyFacts: {
       title: 'Contract manufacturing facts',
       description:
@@ -537,7 +508,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Coordinate bottle, closure, decoration and carton decisions before production.',
           'Plan reorders around sales velocity and component lead times.',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
       {
         id: 'brand-supplied-formula',
@@ -549,7 +519,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Confirm bottle and closure compatibility before production assumptions are made.',
           'Separate formula ownership questions from filling, packaging and logistics needs.',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'production-controls',
@@ -561,7 +530,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Use a clear component list so reorders can reference the same decisions.',
           'Keep quality expectations specific: fill level, spray test, label alignment and carton finish.',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'documentation-for-contract-orders',
@@ -572,7 +540,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Request IFRA, COA, MoCRA or halal support where relevant to the product.',
           'Avoid broad claims that are not supported by the project documentation.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'commercial-planning',
@@ -584,7 +551,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Build launch calendars around post-approval production timing.',
           'Evaluate packaging upgrades against expected retail price and reorder volume.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'handoff-and-delivery',
@@ -596,7 +562,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Plan delivery timing around launch dates, retail windows or campaign drops.',
           'Keep reorder notes so successful production details are easy to repeat.',
         ),
-        Illustration: DeliveryIllustration,
       },
     ],
     faqTitle: 'Contract perfume manufacturing FAQ',
@@ -627,7 +592,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Build a repeatable perfume production plan',
     ctaDescription:
       'Send your SKU goals, formula status, packaging direction and target order quantity. We will help define the next production-ready step.',
-    ctaIllustration: PackagingIllustration,
     relatedLinks: [
       { to: '/perfume-filling-services', label: 'Perfume filling services' },
       { to: '/custom-perfume-manufacturer', label: 'Custom perfume manufacturer' },
@@ -642,7 +606,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Perfume oil is a format decision, not just a cheaper spray alternative. It changes application, bottle choice, customer ritual, claims and the way the product is sold.',
     eyebrowPrefix: 'PERFUME OIL',
-    heroIllustration: FragranceFamilyIllustration,
     keyFacts: {
       title: 'Perfume oil launch facts',
       description:
@@ -678,7 +641,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Use sprays when projection and classic presentation matter more.',
           'Let customer ritual and channel expectations drive the format decision.',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'gcc-scent-direction',
@@ -690,7 +652,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Consider layering sets when your audience understands fragrance wardrobes.',
           'Balance regional familiarity with your brand voice and price point.',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'oil-packaging',
@@ -702,7 +663,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Keep label information legible on smaller oil bottles.',
           'Use outer packaging when giftability or premium positioning justifies the cost.',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'halal-and-documentation',
@@ -713,7 +673,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Confirm which documents your destination market or retailer expects.',
           'Avoid broad compliance language that the specific project cannot support.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'oil-moq-pricing',
@@ -725,7 +684,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Do not launch too many oils before one hero scent proves demand.',
           'Plan reorders around scent winners rather than a broad opening range.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'oil-production',
@@ -737,7 +695,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Confirm label copy, carton artwork and certificate needs early.',
           'Keep production notes for reorders if the first batch sells well.',
         ),
-        Illustration: ProductionIllustration,
       },
     ],
     faqTitle: 'Private label perfume oil FAQ',
@@ -768,7 +725,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Create a private label perfume oil line',
     ctaDescription:
       'Tell us your customer, scent direction, market and preferred oil format. We will help shape a practical path for the first production batch.',
-    ctaIllustration: DeliveryIllustration,
     areaServed: ['United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Bahrain', 'Oman', 'Worldwide'],
     relatedLinks: [
       { to: '/private-label-attar-manufacturer', label: 'Private label attar manufacturer' },
@@ -784,7 +740,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Perfume filling services fit brands that already have a formula, fragrance concentrate or approved scent direction and need finished, packaged units produced with the right checks.',
     eyebrowPrefix: 'FILLING',
-    heroIllustration: ProductionIllustration,
     keyFacts: {
       title: 'Filling service facts',
       description:
@@ -820,7 +775,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Share available IFRA, COA, allergen or formula-related documents early.',
           'Confirm whether the project needs filling only or full packaging coordination.',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'component-compatibility',
@@ -832,7 +786,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Confirm label material and decoration method for the bottle surface.',
           'Make sure cartons or shipping packs protect the finished product.',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'filling-quality-checks',
@@ -844,7 +797,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Check label alignment and packaging appearance before delivery.',
           'Keep batch and documentation records organized for future reorders.',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'filling-documentation',
@@ -855,7 +807,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Identify destination markets and sales channels before label claims are finalized.',
           'Use honest compliance language rather than unsupported approval claims.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'filling-moq-timeline',
@@ -867,7 +818,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Do not start the timeline clock until approvals and materials are ready.',
           'Expect final pricing to reflect handling, format and packaging requirements.',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
       {
         id: 'after-filling',
@@ -879,7 +829,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Align production completion with campaign dates or retail windows.',
           'Save the approved specifications so the next filling run is easier.',
         ),
-        Illustration: DeliveryIllustration,
       },
     ],
     faqTitle: 'Perfume filling services FAQ',
@@ -910,7 +859,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Scope your perfume filling project',
     ctaDescription:
       'Send your formula status, component list, target quantity and destination. We will help clarify whether you need filling only or broader manufacturing support.',
-    ctaIllustration: ComplianceDocIllustration,
     relatedLinks: [
       { to: '/contract-perfume-manufacturing', label: 'Contract perfume manufacturing' },
       { to: '/private-label-perfume-pricing', label: 'Private label perfume pricing' },
@@ -925,7 +873,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Private label perfume pricing should be read from the finished unit backward: format, bottle, closure, decoration, packaging, order size, destination and documentation all affect the quote.',
     eyebrowPrefix: 'PRICING',
-    heroIllustration: LaunchPlanningIllustration,
     keyFacts: {
       title: 'Pricing facts',
       description:
@@ -961,7 +908,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Expect bottle, cap, carton or decoration upgrades to change the quote.',
           'Confirm final pricing only after the production scope is defined.',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'format-cost',
@@ -973,7 +919,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Choose oils for close-wearing formats, layering or attar-style positioning.',
           'Choose mists or travel sizes when accessibility and repeat use matter more.',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'packaging-cost',
@@ -985,7 +930,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Add decoration only when it helps customers understand value.',
           'Consider freight weight and damage risk, not only shelf appearance.',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'moq-and-cash-flow',
@@ -997,7 +941,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Compare unit savings against cash tied up in inventory.',
           'Plan reorder timing before the first batch sells out.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'documentation-cost',
@@ -1008,7 +951,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Discuss halal certification support before making halal-facing claims.',
           'Use specific documentation language instead of broad approval language.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'pricing-model',
@@ -1020,7 +962,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Include fulfillment, shipping, ads, returns and platform fees in margin planning.',
           'Protect cash for reorder if the first batch sells faster than expected.',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
     ],
     comparison: pricingComparison,
@@ -1052,7 +993,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Get a practical private label perfume quote',
     ctaDescription:
       'Share your format, target retail price, packaging direction and quantity. We will help translate the idea into a quoteable launch scope.',
-    ctaIllustration: DeliveryIllustration,
     relatedLinks: [
       { to: '/low-moq-perfume-manufacturer', label: 'Low MOQ perfume manufacturer' },
       { to: '/perfume-moq-guide', label: 'Perfume MOQ guide' },
@@ -1067,7 +1007,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'MOQ is a cash-flow and learning decision. The right first perfume run gives you enough finished product to sell, photograph and review without forcing the brand into oversized inventory.',
     eyebrowPrefix: 'MOQ GUIDE',
-    heroIllustration: LaunchPlanningIllustration,
     keyFacts: {
       title: 'MOQ facts',
       description:
@@ -1103,7 +1042,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Move into production after fragrance, packaging, artwork and details are approved.',
           'Keep the first run focused enough to learn from real demand.',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'moq-and-packaging',
@@ -1115,7 +1053,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Custom decoration can increase cost, setup requirements or component minimums.',
           'Packaging ambition should match the first batch sales plan.',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'moq-and-unit-cost',
@@ -1127,7 +1064,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Use customer response to decide whether larger runs are justified.',
           'Avoid overbuying packaging before product-market fit is clearer.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'moq-by-format',
@@ -1139,7 +1075,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Check whether each format needs different packaging or documentation.',
           'Avoid launching too many formats before one hero SKU proves demand.',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'moq-documents',
@@ -1150,7 +1085,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Keep certificate requests specific rather than asking for everything by default.',
           'Do not use unsupported approval claims in product listings or packaging.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'moq-reorder-strategy',
@@ -1162,7 +1096,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Keep approved artwork and component details organized.',
           'Scale the strongest SKU before expanding into a broad collection.',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
     ],
     comparison: {
@@ -1231,7 +1164,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Use MOQ as a launch planning tool',
     ctaDescription:
       'Tell us your channel, target retail price and expected first-batch quantity. We will help decide whether the starting MOQ is the right commercial step.',
-    ctaIllustration: DeliveryIllustration,
     relatedLinks: [
       { to: '/low-moq-perfume-manufacturer', label: 'Low MOQ perfume manufacturer' },
       { to: '/private-label-perfume-pricing', label: 'Private label perfume pricing' },
@@ -1246,7 +1178,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'The best private label perfume manufacturer depends on stage, budget, order size, compliance needs and how much project management your team can handle.',
     eyebrowPrefix: 'MANUFACTURERS',
-    heroIllustration: BrandBriefIllustration,
     keyFacts: {
       title: 'Brandsamor fit',
       description:
@@ -1282,7 +1213,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Ask what documentation is available for your product and destination.',
           'Compare total launch support, not only unit price.',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'brandsamor-best-fit',
@@ -1294,7 +1224,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Good fit when scent choice and packaging need to be planned together.',
           'Good fit when a smaller first batch is commercially safer than a large opening order.',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'us-contract-houses',
@@ -1306,7 +1235,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Expect onboarding and minimums to vary significantly by supplier.',
           'Ask whether they support small first launches before investing time in a quote.',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'china-oem-marketplaces',
@@ -1318,7 +1246,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Confirm sample quality, production quality and packaging consistency separately.',
           'Avoid choosing on headline unit price without freight, duties and risk planning.',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'eu-and-gcc-options',
@@ -1330,7 +1257,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Consider GCC fillers for regional oil, attar or oud-centered commercial needs.',
           'Verify documentation, export support and reorder process before committing.',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'documentation-for-manufacturer-choice',
@@ -1341,7 +1267,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Ask how batch records and certificates are handled on reorders.',
           'Avoid suppliers that answer compliance questions only with broad badges.',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'when-not-to-choose-brandsamor',
@@ -1353,7 +1278,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
           'Not ideal when custom molds and large-scale tooling are already approved.',
           'Not ideal when procurement requires a very specific enterprise manufacturing profile.',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     comparison: manufacturerComparison,
@@ -1385,7 +1309,6 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
     ctaTitle: 'Choose the manufacturer model that fits your launch',
     ctaDescription:
       'Tell us your order size, market, formula needs and packaging goals. If Brandsamor is not the right fit, the comparison will still help you choose a better route.',
-    ctaIllustration: QualityCheckIllustration,
     relatedLinks: [
       { to: '/low-moq-perfume-manufacturer', label: 'Low MOQ perfume manufacturer' },
       { to: '/contract-perfume-manufacturing', label: 'Contract perfume manufacturing' },
