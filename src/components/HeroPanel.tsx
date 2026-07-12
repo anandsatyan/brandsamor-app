@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { HeroMistEffect } from './HeroMistEffect';
+import { HeroMistEffect, type HeroCursorEffect } from './HeroMistEffect';
 
 const HERO_BLEED = '-mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12';
 
@@ -11,6 +11,7 @@ export const HeroPanel = ({
   backgroundSrc = '/hero-background.png',
   backgroundPosition = 'center center',
   footer,
+  cursorEffect = 'none',
 }: {
   children: ReactNode;
   className?: string;
@@ -19,6 +20,11 @@ export const HeroPanel = ({
   backgroundSrc?: string;
   backgroundPosition?: string;
   footer?: ReactNode;
+  /**
+   * Pointer-reactive grain overlay.
+   * `bubbling` = original bubbling cursor wake + particle scatter.
+   */
+  cursorEffect?: HeroCursorEffect;
 }) => {
   const isViewport = layout === 'viewport';
 
@@ -40,7 +46,7 @@ export const HeroPanel = ({
         fetchPriority="high"
         decoding="async"
       />
-      <HeroMistEffect />
+      <HeroMistEffect cursorEffect={cursorEffect} />
       <div
         className={`relative z-[2] ${
           isViewport

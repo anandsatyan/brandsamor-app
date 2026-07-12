@@ -1,11 +1,28 @@
 import { useEffect, useRef } from 'react';
 
+/**
+ * Hero grain cursor modes:
+ * - `none` — ambient mist + grain only
+ * - `bubbling` — original bubbling cursor wake + particle scatter
+ */
+export type HeroCursorEffect = 'none' | 'bubbling';
+
 type MistBlob = {
   x: number;
   y: number;
   radius: number;
   speed: number;
   phase: number;
+};
+
+type Speck = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+  size: number;
 };
 
 const MIST_BLOBS: MistBlob[] = [
@@ -16,8 +33,13 @@ const MIST_BLOBS: MistBlob[] = [
 ];
 
 const WISP_COUNT = 5;
+const MAX_SPECKS = 140;
 
-export const HeroMistEffect = () => {
+export const HeroMistEffect = ({
+  cursorEffect = 'none',
+}: {
+  cursorEffect?: HeroCursorEffect;
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -31,6 +53,10 @@ export const HeroMistEffect = () => {
     const grainCtx = grainCanvas.getContext('2d', { alpha: true });
     if (!grainCtx) return undefined;
 
+    const grainLayer = document.createElement('canvas');
+    const grainLayerCtx = grainLayer.getContext('2d', { alpha: true });
+    if (!grainLayerCtx) return undefined;
+
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let reducedMotion = motionQuery.matches;
 
@@ -38,6 +64,8 @@ export const HeroMistEffect = () => {
       reducedMotion = event.matches;
     };
     motionQuery.addEventListener('change', onMotionChange);
+
+    const interactive = cursorEffect === 'bubbling';
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = 0;
@@ -47,6 +75,18 @@ export const HeroMistEffect = () => {
     let raf = 0;
     let start = performance.now();
     let staticGrainDrawn = false;
+    let lastFrame = performance.now();
+
+    let pointerActive = false;
+    let targetX = 0;
+    let targetY = 0;
+    let softX = 0;
+    let softY = 0;
+    let influence = 0;
+    let spawnCarry = 0;
+    const specks: Speck[] = [];
+
+    const host = canvas.closest('.hero-panel') as HTMLElement | null;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -60,6 +100,9 @@ export const HeroMistEffect = () => {
       grainHeight = Math.max(1, height * 2);
       grainCanvas.width = grainWidth;
       grainCanvas.height = grainHeight;
+      grainLayer.width = Math.floor(width * dpr);
+      grainLayer.height = Math.floor(height * dpr);
+      grainLayerCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
       staticGrainDrawn = false;
     };
 
@@ -112,8 +155,121 @@ export const HeroMistEffect = () => {
       ctx.restore();
     };
 
+    const spawnSpecks = (count: number) => {
+      for (let i = 0; i < count; i += 1) {
+        if (specks.length >= MAX_SPECKS) specks.shift();
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 28 + Math.random() * 90;
+        const life = 0.35 + Math.random() * 0.55;
+        specks.push({
+          x: softX + (Math.random() - 0.5) * 18,
+          y: softY + (Math.random() - 0.5) * 18,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life,
+          maxLife: life,
+          size: 0.6 + Math.random() * 1.6,
+        });
+      }
+    };
+
+    const updateSpecks = (dt: number) => {
+      for (let i = specks.length - 1; i >= 0; i -= 1) {
+        const speck = specks[i];
+        speck.life -= dt;
+        if (speck.life <= 0) {
+          specks.splice(i, 1);
+          continue;
+        }
+        speck.x += speck.vx * dt;
+        speck.y += speck.vy * dt;
+        speck.vx *= 0.96;
+        speck.vy *= 0.96;
+      }
+    };
+
+    const drawSpecks = () => {
+      if (specks.length === 0) return;
+      grainLayerCtx.save();
+      for (const speck of specks) {
+        const alpha = (speck.life / speck.maxLife) * 0.28;
+        grainLayerCtx.fillStyle = `rgba(255, 248, 240, ${alpha})`;
+        grainLayerCtx.beginPath();
+        grainLayerCtx.arc(speck.x, speck.y, speck.size, 0, Math.PI * 2);
+        grainLayerCtx.fill();
+      }
+      grainLayerCtx.restore();
+    };
+
+    const drawBubblingCursor = (dt: number) => {
+      softX += (targetX - softX) * Math.min(1, dt * 10);
+      softY += (targetY - softY) * Math.min(1, dt * 10);
+      influence += ((pointerActive ? 1 : 0) - influence) * Math.min(1, dt * 6);
+
+      grainLayerCtx.clearRect(0, 0, width, height);
+      grainLayerCtx.imageSmoothingEnabled = false;
+      grainLayerCtx.drawImage(grainCanvas, 0, 0, width, height);
+
+      if (influence > 0.01) {
+        const clearRadius = Math.min(width, height) * (0.16 + influence * 0.08);
+        grainLayerCtx.save();
+        grainLayerCtx.globalCompositeOperation = 'destination-out';
+        const clear = grainLayerCtx.createRadialGradient(
+          softX,
+          softY,
+          0,
+          softX,
+          softY,
+          clearRadius,
+        );
+        clear.addColorStop(0, `rgba(0, 0, 0, ${0.92 * influence})`);
+        clear.addColorStop(0.4, `rgba(0, 0, 0, ${0.45 * influence})`);
+        clear.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        grainLayerCtx.fillStyle = clear;
+        grainLayerCtx.fillRect(0, 0, width, height);
+        grainLayerCtx.restore();
+
+        grainLayerCtx.save();
+        grainLayerCtx.globalCompositeOperation = 'lighter';
+        const glow = grainLayerCtx.createRadialGradient(
+          softX,
+          softY,
+          0,
+          softX,
+          softY,
+          clearRadius * 0.85,
+        );
+        glow.addColorStop(0, `rgba(255, 244, 232, ${0.06 * influence})`);
+        glow.addColorStop(0.55, `rgba(255, 220, 200, ${0.02 * influence})`);
+        glow.addColorStop(1, 'rgba(255, 220, 200, 0)');
+        grainLayerCtx.fillStyle = glow;
+        grainLayerCtx.fillRect(0, 0, width, height);
+        grainLayerCtx.restore();
+
+        if (pointerActive) {
+          spawnCarry += dt * 55 * influence;
+          const toSpawn = spawnCarry | 0;
+          if (toSpawn > 0) {
+            spawnCarry -= toSpawn;
+            spawnSpecks(toSpawn);
+          }
+        }
+      }
+
+      updateSpecks(dt);
+      drawSpecks();
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(grainLayer, 0, 0, width, height);
+      ctx.restore();
+    };
+
     const draw = (now: number) => {
       const elapsed = (now - start) / 1000;
+      const dt = Math.min(0.05, (now - lastFrame) / 1000);
+      lastFrame = now;
       ctx.clearRect(0, 0, width, height);
 
       drawMist(elapsed);
@@ -123,25 +279,57 @@ export const HeroMistEffect = () => {
         staticGrainDrawn = true;
       }
 
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(grainCanvas, 0, 0, width, height);
-      ctx.restore();
+      if (interactive && !reducedMotion) {
+        drawBubblingCursor(dt);
+      } else {
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(grainCanvas, 0, 0, width, height);
+        ctx.restore();
+      }
 
       raf = requestAnimationFrame(draw);
     };
 
+    const setPointerFromEvent = (event: PointerEvent) => {
+      if (!interactive || reducedMotion || !host) return;
+      const rect = host.getBoundingClientRect();
+      targetX = event.clientX - rect.left;
+      targetY = event.clientY - rect.top;
+      if (!pointerActive) {
+        softX = targetX;
+        softY = targetY;
+      }
+      pointerActive = true;
+    };
+
+    const onPointerLeave = () => {
+      pointerActive = false;
+    };
+
     resize();
     window.addEventListener('resize', resize);
+
+    if (interactive && host) {
+      host.addEventListener('pointermove', setPointerFromEvent);
+      host.addEventListener('pointerenter', setPointerFromEvent);
+      host.addEventListener('pointerleave', onPointerLeave);
+    }
+
     raf = requestAnimationFrame(draw);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
       motionQuery.removeEventListener('change', onMotionChange);
+      if (interactive && host) {
+        host.removeEventListener('pointermove', setPointerFromEvent);
+        host.removeEventListener('pointerenter', setPointerFromEvent);
+        host.removeEventListener('pointerleave', onPointerLeave);
+      }
     };
-  }, []);
+  }, [cursorEffect]);
 
   return (
     <canvas

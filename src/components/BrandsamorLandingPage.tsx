@@ -402,6 +402,7 @@ export const BrandsamorLandingPage = () => {
         backgroundPosition="50% 60%"
         className="mb-8 sm:mb-12 text-center"
         footer={<HeroServicesTicker />}
+        cursorEffect="bubbling"
       >
         <div className="mx-auto flex max-w-3xl flex-col items-center space-y-3 sm:space-y-8">
           <span className="inline-block px-3 py-1 bg-white/20 text-white type-caption font-semibold uppercase tracking-wider rounded-full border border-white/30">
