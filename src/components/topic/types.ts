@@ -83,4 +83,6 @@ export type TopicPageConfig = {
   showWhatsApp?: boolean;
   whatsappPrefill?: string;
   areaServed?: string | string[];
+  /** Mid-page curated sampling CTA for commercial pages. */
+  showSamplingCta?: boolean;
 };

@@ -1,26 +1,5 @@
 import type { TopicPageConfig } from '../../components/topic/types';
 import {
-  ApprovalIllustration,
-  BodyMistIllustration,
-  BrandBriefIllustration,
-  ComplianceDocIllustration,
-  DeliveryIllustration,
-  FlatLayIllustration,
-  FragranceFamilyIllustration,
-  GiftSetIllustration,
-  HeroBottleIllustration,
-  LabelIllustration,
-  LaunchPlanningIllustration,
-  MarbleBottleIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  ProductionIllustration,
-  QualityCheckIllustration,
-  RigidBoxIllustration,
-  RoomSprayIllustration,
-  ScentSamplesIllustration,
-} from '../../components/Illustrations';
-import {
   BUSINESS_FACTS,
   buildCommercialPage,
   defaultKeyFacts,
@@ -49,8 +28,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Launch private label attar and perfume oil with a sample-first process, branded bottles, packaging support and production from 100 units. Brandsamor is a strong fit for oil-first lines serving UAE, Saudi Arabia and global fragrance customers.',
     eyebrowPrefix: 'ATTAR',
-    heroIllustration: MarbleBottleIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: keyFactsFor('Attar / perfume oil', 'UAE, Saudi Arabia and worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -83,7 +60,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Position oud, amber, musk, rose and saffron directions with cultural relevance',
           'Start lean with 100 units before expanding the oil line',
         ),
-        Illustration: MarbleBottleIllustration,
       },
       {
         id: 'attar-sampling',
@@ -96,7 +72,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use customer feedback to choose a hero scent or small set',
           'Connect sampling decisions to [fragrance sampling](/fragrance-sampling)',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'attar-packaging',
@@ -109,7 +84,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Plan packaging through [packaging and branding](/packaging-branding)',
           'Balance premium feel with the first-batch budget',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'attar-compliance',
@@ -122,7 +96,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [quality and compliance](/quality-compliance) to understand support',
           'Keep claims aligned with formula records and market requirements',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'attar-launch-plan',
@@ -135,7 +108,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Keep launch quantities focused around proven scent choices',
           'Prepare repeat orders once your best oil format is clear',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
     ],
     faqTitle: 'Private label attar manufacturing questions',
@@ -189,8 +161,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Build a private label oud perfume line with curated sampling, premium packaging support and production from 100 units. Brandsamor helps UAE, Saudi Arabia and worldwide brands translate oud direction into a retail-ready fragrance product.',
     eyebrowPrefix: 'OUD',
-    heroIllustration: HeroBottleIllustration,
-    ctaIllustration: FragranceFamilyIllustration,
     keyFacts: keyFactsFor('Oud perfume', 'UAE, Saudi Arabia and worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -223,7 +193,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use customer taste and market to guide intensity',
           'Avoid overcomplicated first launches with too many oud variants',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'oud-sampling',
@@ -236,7 +205,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Start through [fragrance sampling](/fragrance-sampling)',
           'Select a hero profile before scaling packaging spend',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'oud-premium-packaging',
@@ -249,7 +217,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Coordinate packaging through [packaging and branding](/packaging-branding)',
           'Keep artwork readable for retail and marketplace photos',
         ),
-        Illustration: RigidBoxIllustration,
       },
       {
         id: 'oud-production',
@@ -262,7 +229,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) for budget planning',
           'Plan reorder timing once sell-through begins',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'oud-documentation',
@@ -275,7 +241,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Review support on [quality and compliance](/quality-compliance)',
           'Keep halal or clean claims tied to verified records',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqTitle: 'Private label oud perfume questions',
@@ -329,8 +294,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Create Arabic perfume products with oud, amber, musk, rose, saffron and modern oriental directions. Brandsamor supports private label sampling, packaging, filling and documentation from 100 units for UAE, Saudi Arabia and worldwide brands.',
     eyebrowPrefix: 'ARABIC PERFUME',
-    heroIllustration: FlatLayIllustration,
-    ctaIllustration: ProcessTimelineIllustration,
     keyFacts: keyFactsFor('Arabic perfume', 'UAE, Saudi Arabia and worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -363,7 +326,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Develop one hero scent or a coordinated small set',
           'Use scent family decisions to guide naming and packaging',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'arabic-sample-path',
@@ -376,7 +338,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Begin with [fragrance sampling](/fragrance-sampling)',
           'Document feedback before selecting the launch scent',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'arabic-packaging',
@@ -389,7 +350,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Keep product photography and retail display in mind',
           'Avoid packaging spend that the first batch cannot support',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'arabic-format-options',
@@ -402,7 +362,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Choose oil formats for intimate application and GCC relevance',
           'Consider gift sets once the hero scent is proven',
         ),
-        Illustration: GiftSetIllustration,
       },
       {
         id: 'arabic-quality',
@@ -415,7 +374,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [quality and compliance](/quality-compliance) for documentation context',
           'Keep claims grounded in the approved formula and records',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     faqTitle: 'Arabic perfume manufacturing questions',
@@ -469,8 +427,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Develop halal-aware private label perfume with honest alcohol-free options, documentation planning and certification support pathways. Brandsamor helps brands sample, package and produce fragrance from 100 units while keeping claims tied to formula records.',
     eyebrowPrefix: 'HALAL',
-    heroIllustration: ComplianceDocIllustration,
-    ctaIllustration: BrandBriefIllustration,
     keyFacts: keyFactsFor('Halal-aware perfume', 'GCC, Muslim-majority markets and worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -503,7 +459,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Avoid unsupported claims before formula and records are reviewed',
           'Use [quality and compliance](/quality-compliance) as an early planning step',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'halal-format-options',
@@ -516,7 +471,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Check packaging compatibility for the selected base',
           'Compare formats through [fragrance products](/fragrance-products)',
         ),
-        Illustration: MarbleBottleIllustration,
       },
       {
         id: 'halal-sampling',
@@ -529,7 +483,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Start through [fragrance sampling](/fragrance-sampling)',
           'Keep notes for formula approval and claim review',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'halal-packaging-claims',
@@ -542,7 +495,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Keep certification marks off artwork unless approved',
           'Make ingredient and destination requirements visible in the brief',
         ),
-        Illustration: LabelIllustration,
       },
       {
         id: 'halal-production',
@@ -555,7 +507,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) to plan first-batch size',
           'Request documentation needs before final quote and artwork approval',
         ),
-        Illustration: ProductionIllustration,
       },
     ],
     faqTitle: 'Halal perfume manufacturing questions',
@@ -609,8 +560,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Launch vegan or clean-positioned private label fragrance with careful claim planning, documentation support and packaging that matches your brand values. Brandsamor supports sampling and production from 100 units, while brands remain responsible for substantiating final claims.',
     eyebrowPrefix: 'CLEAN FRAGRANCE',
-    heroIllustration: FragranceFamilyIllustration,
-    ctaIllustration: ComplianceDocIllustration,
     keyFacts: keyFactsFor('Vegan / clean-positioned perfume', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -643,7 +592,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Avoid vague clean language that cannot be supported',
           'Use documentation availability to guide final wording',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'vegan-documentation',
@@ -656,7 +604,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Review available support through [quality and compliance](/quality-compliance)',
           'Keep vegan wording consistent across label, website and ads',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'clean-sampling',
@@ -669,7 +616,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Start through [fragrance sampling](/fragrance-sampling)',
           'Document why the chosen profile fits the brand promise',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'clean-packaging',
@@ -682,7 +628,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Plan label space for required information',
           'Choose packaging materials that match the brand value story',
         ),
-        Illustration: LabelIllustration,
       },
       {
         id: 'clean-low-moq',
@@ -695,7 +640,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) to plan first-batch risk',
           'Prepare reorder rules once customer feedback is validated',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
     ],
     faqTitle: 'Vegan and clean perfume manufacturing questions',
@@ -746,8 +690,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Create private label body mist for beauty, lifestyle, creator and retail brands. Brandsamor supports lighter scent profiles, accessible packaging, production from 100 units and documentation support with indicative pricing from $10/unit.',
     eyebrowPrefix: 'BODY MIST',
-    heroIllustration: BodyMistIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     keyFacts: keyFactsFor('Body mist', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -780,7 +722,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Match bottle size to price point and channel',
           'Use body mist to enter fragrance with lower customer commitment',
         ),
-        Illustration: BodyMistIllustration,
       },
       {
         id: 'body-mist-sampling',
@@ -793,7 +734,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Select one hero mist before expanding to multiple variants',
           'Keep customer age, channel and price point in the brief',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'body-mist-packaging',
@@ -806,7 +746,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use clear artwork for marketplace thumbnails',
           'Consider bundle packaging with perfume or skincare',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'body-mist-production',
@@ -819,7 +758,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) to plan the launch',
           'Prepare repeat orders once the mist proves its sales velocity',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'body-mist-documentation',
@@ -832,7 +770,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Review [quality and compliance](/quality-compliance) for documentation support',
           'Keep body and beauty claims tied to available evidence',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     faqTitle: 'Private label body mist questions',
@@ -882,8 +819,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Launch private label room spray for home, spa, hotel, boutique and lifestyle brands. Brandsamor supports scent sampling, packaging, filling, quality checks and available documentation from 100 units with pricing from $10/unit.',
     eyebrowPrefix: 'ROOM SPRAY',
-    heroIllustration: RoomSprayIllustration,
-    ctaIllustration: FlatLayIllustration,
     keyFacts: keyFactsFor('Room spray', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -916,7 +851,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Consider refill, amenity or retail pack strategies',
           'Keep usage instructions clear for customers',
         ),
-        Illustration: RoomSprayIllustration,
       },
       {
         id: 'room-spray-sampling',
@@ -929,7 +863,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Choose a profile that supports your brand environment',
           'Avoid skin-wear assumptions when judging room spray performance',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'room-spray-packaging',
@@ -942,7 +875,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use packaging cues that fit home or hospitality interiors',
           'Consider gift boxes for premium retail versions',
         ),
-        Illustration: LabelIllustration,
       },
       {
         id: 'room-spray-production',
@@ -955,7 +887,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Plan first-batch economics through [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer)',
           'Use feedback to refine reorder quantities or companion formats',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'room-spray-documentation',
@@ -968,7 +899,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Review certificate support on [quality and compliance](/quality-compliance)',
           'Keep room spray claims separate from skin fragrance claims',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqTitle: 'Private label room spray questions',
@@ -1018,8 +948,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Create private label car freshener products for automotive, fleet, creator, dealership and lifestyle brands. Brandsamor supports scent direction, branding, packaging coordination and production planning from 100 units with pricing from $10/unit.',
     eyebrowPrefix: 'CAR FRESHENER',
-    heroIllustration: DeliveryIllustration,
-    ctaIllustration: LaunchPlanningIllustration,
     keyFacts: keyFactsFor('Car freshener', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -1052,7 +980,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Decide whether the product is sold, gifted or bundled',
           'Keep reorder timing in mind for service businesses',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'car-freshener-scent',
@@ -1065,7 +992,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Choose scent names that match the automotive brand world',
           'Validate customer preference before broader rollout',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'car-freshener-branding',
@@ -1078,7 +1004,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use presentation that fits automotive retail or service counters',
           'Design for photos, unboxing and repeat customer recognition',
         ),
-        Illustration: LabelIllustration,
       },
       {
         id: 'car-freshener-production',
@@ -1091,7 +1016,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) to plan launch cost',
           'Scale once customer response and reorder cadence are proven',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'car-freshener-documentation',
@@ -1104,7 +1028,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Review [quality and compliance](/quality-compliance) for support details',
           'Keep automotive-use language clear and specific',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqTitle: 'Private label car freshener questions',
@@ -1154,8 +1077,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Launch eau de parfum as a hero private label fragrance with curated sampling, bottle and packaging support, filling, quality checks and documentation from 100 units. Indicative pricing starts from $10/unit depending on specifications.',
     eyebrowPrefix: 'EDP',
-    heroIllustration: HeroBottleIllustration,
-    ctaIllustration: ApprovalIllustration,
     keyFacts: keyFactsFor('Eau de parfum', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -1188,7 +1109,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use the format for retail, online and gift sales',
           'Expand later into body mist, oil or travel sizes',
         ),
-        Illustration: HeroBottleIllustration,
       },
       {
         id: 'edp-sampling',
@@ -1201,7 +1121,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Evaluate wear, drydown and perceived value',
           'Select the hero fragrance before approving packaging',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'edp-bottle-packaging',
@@ -1214,7 +1133,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Match decoration complexity to the first-batch budget',
           'Leave label space for required information',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'edp-production',
@@ -1227,7 +1145,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) to manage inventory risk',
           'Plan reorder timing around sales velocity',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'edp-compliance',
@@ -1240,7 +1157,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Review [quality and compliance](/quality-compliance) for support',
           'Keep claims aligned with formula documentation',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     faqTitle: 'Eau de parfum manufacturing questions',
@@ -1290,8 +1206,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Create a distinctive niche perfume line with sharper scent direction, refined packaging and documentation-aware production. Brandsamor supports sample-first private label launches from 100 units with pricing from $10/unit depending on specifications.',
     eyebrowPrefix: 'NICHE PERFUME',
-    heroIllustration: FlatLayIllustration,
-    ctaIllustration: RigidBoxIllustration,
     keyFacts: keyFactsFor('Niche perfume', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -1324,7 +1238,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Limit the first launch to one strong idea or a small edit',
           'Avoid copying a luxury reference without brand meaning',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'niche-sampling',
@@ -1337,7 +1250,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Document why the chosen scent fits the brand story',
           'Approve one direction before investing in premium packaging',
         ),
-        Illustration: ScentSamplesIllustration,
       },
       {
         id: 'niche-packaging',
@@ -1350,7 +1262,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Protect margins by limiting first-batch decoration complexity',
           'Design for photography, unboxing and boutique display',
         ),
-        Illustration: RigidBoxIllustration,
       },
       {
         id: 'niche-low-moq',
@@ -1363,7 +1274,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) for launch planning',
           'Scale only after customer response supports the concept',
         ),
-        Illustration: LaunchPlanningIllustration,
       },
       {
         id: 'niche-documentation',
@@ -1376,7 +1286,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Align claims with formula records and certificates',
           'Prepare batch records for reorders and wholesale conversations',
         ),
-        Illustration: ComplianceDocIllustration,
       },
     ],
     faqTitle: 'Niche perfume manufacturing questions',
@@ -1426,8 +1335,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Launch private label cologne and men\'s fragrance with sample-first scent direction, packaging support and production from 100 units. Brandsamor helps brands build fresh, woody, aromatic, amber or sporty masculine products from $10/unit.',
     eyebrowPrefix: 'COLOGNE',
-    heroIllustration: HeroBottleIllustration,
-    ctaIllustration: FragranceFamilyIllustration,
     keyFacts: keyFactsFor('Cologne / men\'s fragrance', 'Worldwide'),
     trustBar: documentationTrustBar,
     answerBlocks: [
@@ -1460,7 +1367,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Decide whether the tone is classic, modern or niche',
           'Keep the first launch focused around a clear hero product',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'cologne-sampling',
@@ -1473,7 +1379,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Gather feedback from the target customer group',
           'Approve scent direction before packaging investment',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'cologne-packaging',
@@ -1486,7 +1391,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Design for product photography and shelf clarity',
           'Keep label requirements visible and readable',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'cologne-production',
@@ -1499,7 +1403,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Use [low MOQ perfume manufacturing](/low-moq-perfume-manufacturer) to plan launch risk',
           'Add travel sprays or gift sets after the hero scent proves demand',
         ),
-        Illustration: ProductionIllustration,
       },
       {
         id: 'cologne-documentation',
@@ -1512,7 +1415,6 @@ export const productPageConfigs: Record<string, TopicPageConfig> = {
           'Keep performance and clean claims evidence-based',
           'Use batch records to support reorders and wholesale growth',
         ),
-        Illustration: QualityCheckIllustration,
       },
     ],
     faqTitle: 'Private label cologne questions',

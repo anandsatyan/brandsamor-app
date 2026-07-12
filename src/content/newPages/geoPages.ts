@@ -1,14 +1,4 @@
 import {
-  BrandBriefIllustration,
-  ComplianceDocIllustration,
-  DeliveryIllustration,
-  FragranceFamilyIllustration,
-  PackagingIllustration,
-  ProcessTimelineIllustration,
-  QualityCheckIllustration,
-  ScentSamplesIllustration,
-} from '../../components/Illustrations';
-import {
   buildCommercialPage,
   defaultKeyFacts,
   faq,
@@ -26,8 +16,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Private label perfume for UAE founders, retailers and fragrance houses — sample-first development, MOQ from 100 units, indicative pricing from $10 per unit, and WhatsApp-first coordination for Dubai, Sharjah, Abu Dhabi and re-export through Jebel Ali.',
     eyebrowPrefix: 'UAE LAUNCH',
-    heroIllustration: ProcessTimelineIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     showWhatsApp: true,
     whatsappPrefill:
       'Hi Brandsamor, I want to discuss UAE private label perfume. Please share sampling, MOQ, pricing and Dubai Municipality documentation guidance.',
@@ -74,7 +62,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Gifting formats for weddings, Ramadan, Eid and corporate seasons',
           'One hero scent first — flankers only after real sell-through data',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'uae-whatsapp-first',
@@ -87,7 +74,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Packaging and artwork revisions without long discovery calls',
           'Formal quote and PO once the spec is locked',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'uae-dubai-municipality',
@@ -100,7 +86,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Importer trade licence and origin documentation for customs',
           'Claim wording reviewed before printed cartons are approved',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'uae-reexport-hub',
@@ -113,7 +98,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Master cartons and pallet plans built around the freight route',
           'Reorder cadence anchored to the fastest-selling destination',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'uae-aed-costing',
@@ -126,7 +110,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Test a 100-unit run before overcommitting to premium components',
           'Model reorder economics separately once packaging tooling exists',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'uae-sampling-production',
@@ -139,7 +122,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'IFRA, COA and manufacturing context on request',
           'Per-batch documentation kept for faster reorders',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
     ],
     faqTitle: 'UAE private label perfume FAQ',
@@ -190,8 +172,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Private label perfume for Saudi Arabia — SFDA-aware planning, halal ingredient documentation, oud and bakhoor formats, MOQ from 100 units, indicative pricing from $10 per unit and WhatsApp project coordination for Riyadh, Jeddah, Dammam and beyond.',
     eyebrowPrefix: 'KSA LAUNCH',
-    heroIllustration: FragranceFamilyIllustration,
-    ctaIllustration: BrandBriefIllustration,
     showWhatsApp: true,
     whatsappPrefill:
       'Hi Brandsamor, I want to discuss private label perfume for Saudi Arabia. Please share sampling, MOQ, pricing, halal support and SFDA documentation guidance.',
@@ -238,7 +218,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Formats built for gifting, Ramadan and Eid seasons',
           'Names and packaging cues that read to a Saudi customer',
         ),
-        Illustration: FragranceFamilyIllustration,
       },
       {
         id: 'ksa-halal-support',
@@ -251,7 +230,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Certifier options discussed in the context of the destination market',
           'Claim wording checked against the actual audit, not marketing language',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'ksa-sfda-arabic-labels',
@@ -264,7 +242,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'IFRA and COA prepared per batch for the SFDA submission',
           'Claim wording — including halal — signed off before printing',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'ksa-importer-cr',
@@ -277,7 +254,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Landed cost, distributor margin and retail margin modelled together',
           'Reorder cadence tied to actual sell-through, not launch enthusiasm',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'ksa-retail-formats',
@@ -290,7 +266,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Online marketplaces — clean photography and Arabic listing copy',
           'Event and corporate gifting — sets, sleeves and message cards',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'ksa-sampling-production',
@@ -303,7 +278,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Documentation package handed off to the importer for SFDA',
           'WhatsApp for coordination, email for formal contracting',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
     ],
     faqTitle: 'Saudi Arabia private label perfume FAQ',
@@ -355,8 +329,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Private label perfume for UK brands — UK Responsible Person aware, SCPN notification aware, curated sampling, packaging coordination, MOQ from 100 units and indicative pricing from $10 per unit before UK freight, duty and VAT are added.',
     eyebrowPrefix: 'UK LAUNCH',
-    heroIllustration: PackagingIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     areaServed: 'GB',
     keyFacts: {
       title: 'UK private label perfume facts',
@@ -398,7 +370,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'SCPN notification filed for each variant before dispatch',
           'Product-side IFRA and COA supplied per batch on request',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'uk-post-brexit-eu',
@@ -411,7 +382,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Label real estate reserved for both address blocks where needed',
           'Translation and INCI review scoped once for both markets',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'uk-northern-ireland-detail',
@@ -424,7 +394,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'EU RP contact confirmed before NI shipments dispatch',
           'Customer service and returns paths mapped for NI addresses',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'uk-gbp-costing',
@@ -437,7 +406,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'RP retainer and CPSR are fixed costs — plan them per range, not per unit',
           'Channel margin for Shopify, wholesale and marketplace all differ',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'uk-channels',
@@ -450,7 +418,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Amazon / TikTok Shop — hazmat pathway and listing hero image plan',
           'Creator drops — press minis, gift outer and campaign carton design',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'uk-sampling-production',
@@ -463,7 +430,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Documentation pack handed to the UK RP for SCPN and PIF',
           'Shipping timeline treated separately from production timeline',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
     ],
     faqTitle: 'UK private label perfume FAQ',
@@ -514,8 +480,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
     heroDescription:
       'Private label perfume for Germany — CPNP-aware planning, PIF-ready documentation, disciplined clean and vegan claim substantiation, MOQ from 100 units and indicative pricing from $10 per unit before EU freight, duty and RP fees.',
     eyebrowPrefix: 'GERMANY LAUNCH',
-    heroIllustration: ComplianceDocIllustration,
-    ctaIllustration: ScentSamplesIllustration,
     areaServed: 'DE',
     keyFacts: {
       title: 'Germany private label perfume facts',
@@ -557,7 +521,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'CPNP notification filed per variant and per manufacturer',
           'IFRA, COA and batch information supplied on the product side',
         ),
-        Illustration: ComplianceDocIllustration,
       },
       {
         id: 'germany-claims-discipline',
@@ -570,7 +533,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'ISO 16128 references used correctly when "natural" is claimed',
           'Free-from claims kept inside the regulator’s allowed exceptions',
         ),
-        Illustration: QualityCheckIllustration,
       },
       {
         id: 'germany-label-language',
@@ -583,7 +545,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'RP name and EU address printed and legible on the outer',
           'Retailer-specific label QA (dm, Rossmann, Douglas) run before print',
         ),
-        Illustration: BrandBriefIllustration,
       },
       {
         id: 'germany-vs-uk',
@@ -596,7 +557,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Label real estate reserved for both address blocks where relevant',
           'Reorder cadence anchored to the slower of the two files',
         ),
-        Illustration: DeliveryIllustration,
       },
       {
         id: 'germany-channels',
@@ -609,7 +569,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'DTC Shopify / niche boutiques — full regulatory backbone, smaller run',
           'Amazon.de — hazmat pathway, listing hero image and review strategy',
         ),
-        Illustration: PackagingIllustration,
       },
       {
         id: 'germany-sampling-production',
@@ -622,7 +581,6 @@ export const geoPageConfigs: Record<string, TopicPageConfig> = {
           'Documentation pack handed to the EU RP for CPNP and PIF',
           'EU inbound and customs treated as a separate line on the timeline',
         ),
-        Illustration: ProcessTimelineIllustration,
       },
     ],
     faqTitle: 'Germany private label perfume FAQ',

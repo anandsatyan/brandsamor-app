@@ -2,7 +2,7 @@ import type { TopicPageConfig } from '../../components/topic/types';
 import { BUSINESS_FACTS, COMMERCIAL_COPY } from '../../seo/businessFacts';
 import { createTopicPageMeta } from '../../seo/topicPageMeta';
 import type { FaqItem } from '../../seo/siteConfig';
-import type { IllustrationComponent } from '../../components/topic/types';
+import { CURATED_SAMPLING_PATH } from '../../routes/leadForm';
 import { sectionBullets, withSteps } from '../sectionHelpers';
 
 export const defaultKeyFacts = (overrides: { format?: string; market?: string } = {}) => [
@@ -15,12 +15,29 @@ export const defaultKeyFacts = (overrides: { format?: string; market?: string } 
   { label: 'Documentation', value: 'IFRA, COA, GMP, ISO 22716, MoCRA support' },
 ];
 
+const SAMPLING_MARKDOWN = `[Start with sampling](${CURATED_SAMPLING_PATH})`;
+const SAMPLING_RELATED = {
+  to: CURATED_SAMPLING_PATH,
+  label: 'Start with curated fragrance sampling',
+};
+
+/** Append a curated-sampling CTA when Brandsamor is discussed and no sampling link exists yet. */
+export const withSamplingCta = (text: string): string => {
+  if (!text) return text;
+  if (text.includes(CURATED_SAMPLING_PATH) || text.includes('/curated-sampling')) return text;
+  if (!/Brandsamor/i.test(text)) return text;
+  const trimmed = text.trim();
+  const joiner = /[.!?]$/.test(trimmed) ? ' ' : '. ';
+  return `${trimmed}${joiner}${SAMPLING_MARKDOWN} to compare scents before production.`;
+};
+
 type SectionInput = {
   id: string;
   title: string;
   description: string;
   bullets: string[];
-  Illustration?: IllustrationComponent;
+  /** Ignored on commercial pages — illustrations are stripped. */
+  Illustration?: unknown;
 };
 
 type BuildArgs = {
@@ -42,8 +59,10 @@ type BuildArgs = {
   showWhatsApp?: boolean;
   whatsappPrefill?: string;
   areaServed?: string | string[];
-  heroIllustration?: IllustrationComponent;
-  ctaIllustration?: IllustrationComponent;
+  /** @deprecated Commercial pages ship without illustrations. */
+  heroIllustration?: unknown;
+  /** @deprecated Commercial pages ship without illustrations. */
+  ctaIllustration?: unknown;
 };
 
 export const buildCommercialPage = ({
@@ -65,27 +84,40 @@ export const buildCommercialPage = ({
   showWhatsApp,
   whatsappPrefill,
   areaServed,
-  heroIllustration,
-  ctaIllustration,
 }: BuildArgs): TopicPageConfig => {
   const pageMeta = createTopicPageMeta(path);
+
+  const cleanedSections = sections.map(({ Illustration: _ignored, ...section }) => ({
+    ...section,
+    description: withSamplingCta(section.description),
+  }));
+
+  const cleanedAnswerBlocks = answerBlocks?.map((block) => ({
+    ...block,
+    answer: withSamplingCta(block.answer),
+    detail: block.detail ? withSamplingCta(block.detail) : block.detail,
+  }));
+
+  const links = [
+    SAMPLING_RELATED,
+    ...relatedLinks.filter((link) => link.to !== CURATED_SAMPLING_PATH),
+  ];
 
   return {
     seo: pageMeta.seo,
     hero: {
       badge,
       title: pageMeta.h1,
-      description: heroDescription,
-      Illustration: heroIllustration,
+      description: withSamplingCta(heroDescription),
     },
     keyFacts: keyFacts ?? {
       title: 'Key facts',
       description: COMMERCIAL_COPY.minimumOrderValue,
       facts: defaultKeyFacts(),
     },
-    answerBlocks,
+    answerBlocks: cleanedAnswerBlocks,
     trustBar,
-    sections: withSteps(sections, eyebrowPrefix),
+    sections: withSteps(cleanedSections, eyebrowPrefix),
     comparison,
     faq: {
       id: `${path.replace(/\//g, '').replace(/^-/, '') || 'page'}-faq`,
@@ -97,13 +129,13 @@ export const buildCommercialPage = ({
     cta: {
       eyebrow: 'NEXT STEP',
       title: ctaTitle,
-      description: ctaDescription,
-      Illustration: ctaIllustration,
+      description: withSamplingCta(ctaDescription),
     },
-    relatedLinks: { title: 'Related pages', links: relatedLinks },
+    relatedLinks: { title: 'Related pages', links },
     showWhatsApp,
     whatsappPrefill,
     areaServed,
+    showSamplingCta: true,
   };
 };
 

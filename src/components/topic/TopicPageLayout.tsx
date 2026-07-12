@@ -1,5 +1,6 @@
 import { AnswerBlock } from '../aeo/AnswerBlock';
 import { QuoteCtaGroup } from '../aeo/QuoteCtaGroup';
+import { SamplingCtaBlock } from '../aeo/SamplingCtaBlock';
 import { SpecTable } from '../aeo/SpecTable';
 import { StickyCtaBar } from '../aeo/StickyCtaBar';
 import { TrustBar } from '../aeo/TrustBar';
@@ -21,6 +22,9 @@ import type { TopicPageConfig } from './types';
 
 export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig; children?: React.ReactNode }) => {
   const pageMeta = getPageMetadata(config.seo.path);
+  const midpoint = Math.max(1, Math.ceil(config.sections.length / 2));
+  const sectionsBeforeCta = config.showSamplingCta ? config.sections.slice(0, midpoint) : config.sections;
+  const sectionsAfterCta = config.showSamplingCta ? config.sections.slice(midpoint) : [];
 
   return (
   <div className={`min-h-screen bg-surface font-sans overflow-x-hidden ${config.showWhatsApp ? 'pb-20 md:pb-0' : ''}`}>
@@ -47,7 +51,11 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
         <AnswerBlock key={block.question} {...block} />
       ))}
       {config.trustBar && <TrustBar {...config.trustBar} />}
-      <ContentSections sections={config.sections} />
+      <ContentSections sections={sectionsBeforeCta} />
+      {config.showSamplingCta && (
+        <SamplingCtaBlock trackingLocation={`topic_sampling${config.seo.path}`} />
+      )}
+      {sectionsAfterCta.length > 0 && <ContentSections sections={sectionsAfterCta} />}
       {config.comparison && <ComparisonTable {...config.comparison} />}
       {children}
       {config.beforeFaq}
