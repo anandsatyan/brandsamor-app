@@ -21,14 +21,30 @@
     <meta name="twitter:description" content="Brandsamor is a private label perfume manufacturer that handles fragrance sampling, bottles, packaging, filling, finishing and quality checks for your brand." />
     <meta name="twitter:image" content="https://www.brandsamor.com/perfume-bottle-silhouette-bg-3.png" />
     <!-- brandsamor-seo:end -->
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script>
+      // Production server replaces placeholders below.
+      window.__VISITOR_COUNTRY__ = '__BRANDSAMOR_VISITOR_COUNTRY__';
+      window.__ANALYTICS_ENABLED__ = '__BRANDSAMOR_ANALYTICS_ENABLED__';
+      if (!/^[A-Z]{2}$/.test(window.__VISITOR_COUNTRY__)) window.__VISITOR_COUNTRY__ = '';
+      if (window.__ANALYTICS_ENABLED__ !== 'false') window.__ANALYTICS_ENABLED__ = 'true';
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        visitor_country: window.__VISITOR_COUNTRY__ || '',
+        analytics_enabled: window.__ANALYTICS_ENABLED__ !== 'false',
+      });
+    </script>
+    <!-- Google Tag Manager: skipped when analytics_enabled is false (e.g. India) -->
+    <script>
+      if (window.__ANALYTICS_ENABLED__ !== 'false') {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KRZ7PLJZ');</script>
+})(window,document,'script','dataLayer','GTM-KRZ7PLJZ');
+      }
+    </script>
     <!-- End Google Tag Manager -->
-    <!-- gtag bridge: queues SPA pageviews/events for the GA4 tag loaded via GTM (do not also load gtag.js here) -->
+    <!-- gtag bridge: queues SPA pageviews/events for the GA4 tag loaded via GTM -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -142,8 +158,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRZ7PLJZ"
+    <!-- Google Tag Manager (noscript): skipped when server marks visitor as India -->
+    <noscript><iframe id="gtm-noscript" src="https://www.googletagmanager.com/ns.html?id=GTM-KRZ7PLJZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- brandsamor-static:start -->

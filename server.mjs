@@ -20,6 +20,11 @@ import {
   handleAdminOrdersList,
   handleAdminSession,
 } from './server/admin/handlers.mjs';
+import {
+  buildVisitorCountryCookie,
+  getVisitorCountryFromHeaders,
+  isAnalyticsExcludedCountry,
+} from './server/geo/visitorCountry.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, 'dist');
@@ -434,9 +439,36 @@ const server = http.createServer(async (req, res) => {
 
   const ext = path.extname(resolved.filePath).toLowerCase();
   const type = contentTypes[ext] || 'application/octet-stream';
-  const body = fs.readFileSync(resolved.filePath);
+  const visitorCountry = getVisitorCountryFromHeaders(req.headers);
+  const countryCookie = buildVisitorCountryCookie(visitorCountry);
+  const responseHeaders = { 'Content-Type': type };
 
-  res.writeHead(resolved.status, { 'Content-Type': type });
+  if (countryCookie) {
+    responseHeaders['Set-Cookie'] = countryCookie;
+  }
+
+  if (ext === '.html') {
+    let html = fs.readFileSync(resolved.filePath, 'utf8');
+    const analyticsEnabled = !isAnalyticsExcludedCountry(visitorCountry);
+    html = html
+      .replaceAll('__BRANDSAMOR_VISITOR_COUNTRY__', visitorCountry || '')
+      .replaceAll('__BRANDSAMOR_ANALYTICS_ENABLED__', analyticsEnabled ? 'true' : 'false');
+
+    if (!analyticsEnabled) {
+      // Remove noscript GTM iframe for excluded countries (script already gated in HTML).
+      html = html.replace(
+        /<!-- Google Tag Manager \(noscript\):[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->/g,
+        '',
+      );
+    }
+
+    res.writeHead(resolved.status, responseHeaders);
+    res.end(html);
+    return;
+  }
+
+  const body = fs.readFileSync(resolved.filePath);
+  res.writeHead(resolved.status, responseHeaders);
   res.end(body);
 });
 
