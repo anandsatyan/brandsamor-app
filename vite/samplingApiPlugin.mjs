@@ -47,11 +47,16 @@ export const samplingApiPlugin = () => ({
             return;
           }
 
-          if (step === 'contact') {
+          if (step === 'contact' || step === 'save_exit') {
             const email = String(lead.email ?? '').trim();
             const phone = String(lead.phone ?? '').trim();
             if (!email || !phone) {
-              sendJson(res, 400, { error: 'Contact step requires email and phone' });
+              sendJson(res, 400, {
+                error:
+                  step === 'save_exit'
+                    ? 'Save requires contact details. Exit without saving until the contact step is completed.'
+                    : 'Contact step requires email and phone',
+              });
               return;
             }
           }

@@ -303,14 +303,20 @@ export const SamplingExperience = () => {
   };
 
   const handleSaveExit = async () => {
-    await saveSamplingStep({
-      sessionId,
-      step: 'save_exit',
-      lead,
-      answers,
-      currentStep,
-    });
-    persist(state);
+    // Only persist after contact is completed (session exists / past step 1).
+    const canPersistExit = Boolean(sessionId) || currentStep > STEP_CONTACT;
+
+    if (canPersistExit) {
+      await saveSamplingStep({
+        sessionId,
+        step: 'save_exit',
+        lead,
+        answers,
+        currentStep,
+      });
+      persist(state);
+    }
+
     goToStep(STEP_WELCOME);
   };
 
@@ -1125,6 +1131,7 @@ export const SamplingExperience = () => {
   };
 
   const isQuestionnaireStep = currentStep >= STEP_CONTACT && currentStep <= STEP_REVIEW;
+  const canPersistExit = Boolean(sessionId) || currentStep > STEP_CONTACT;
   const contentClassName =
     currentStep === STEP_WELCOME
       ? 'max-w-2xl'
@@ -1143,6 +1150,7 @@ export const SamplingExperience = () => {
         onSaveExit={handleSaveExit}
         saved={saveFlash}
         exitOnly={
+          !canPersistExit ||
           currentStep === STEP_COMPLETE ||
           currentStep === STEP_CHECKOUT ||
           currentStep === STEP_RESULTS ||
