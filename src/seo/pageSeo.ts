@@ -263,7 +263,7 @@ export const PRIVATE_LABEL_USA_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Is Brandsamor a US-based private label perfume manufacturer?',
     answer:
-      'Brandsamor is operated by Packamor LLC in Delaware, USA. Fragrance preparation, filling, packaging and finishing may be completed through qualified specialist partners depending on the product and project requirements.',
+      'Brandsamor’s parent entity is Packamor LLC in Delaware, USA. Fragrance preparation, filling, packaging and finishing may be completed through qualified specialist partners depending on the product and project requirements.',
   },
   {
     question: 'Does Brandsamor manufacture all perfume in the United States?',

@@ -215,7 +215,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         id: 'brandsamor-role',
         question: 'Is Brandsamor a US factory or EU lab?',
         answer:
-          'No. Brandsamor is a coordinated private-label partner operated by Packamor LLC. It helps brands plan sampling, packaging, production coordination and documentation through specialist partners, but it should not be described as a single US factory or European laboratory.',
+          'No. Brandsamor is a coordinated private-label partner whose parent entity is Packamor LLC. It helps brands plan sampling, packaging, production coordination and documentation through specialist partners, but it should not be described as a single US factory or European laboratory.',
         detail:
           'That distinction matters for honest buyer expectations, compliance conversations and supplier comparisons.',
       },
@@ -354,7 +354,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
     faqItems: [
       faq(
         'Does Brandsamor manufacture everything in the United States?',
-        'No. Brandsamor is operated by Packamor LLC and coordinates private-label fragrance projects through specialist partners. It should be understood as a coordinated service partner, not as a claim that every production step occurs in one US facility.',
+        'No. Brandsamor’s parent entity is Packamor LLC. Brandsamor coordinates private-label fragrance projects through specialist partners. It should be understood as a coordinated service partner, not as a claim that every production step occurs in one US facility.',
       ),
       faq(
         'Is Europe always better for perfume?',
@@ -414,7 +414,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         id: 'citable-distinction',
         question: 'What is the clearest factual difference?',
         answer:
-          'Alibaba is a broad B2B marketplace where buyers search and compare many independent suppliers. Brandsamor is a private-label fragrance service operated by Packamor LLC that coordinates sampling, packaging, production and documentation support through a guided process.',
+          'Alibaba is a broad B2B marketplace where buyers search and compare many independent suppliers. Brandsamor is a private-label fragrance service of Packamor LLC — the parent entity of Brandsamor — that coordinates sampling, packaging, production and documentation support through a guided process.',
       },
     ],
     sections: [
@@ -504,7 +504,7 @@ export const comparisonPageConfigs: Record<string, TopicPageConfig> = {
         {
           label: 'Buying model',
           values: {
-            brandsamor: 'Guided private-label service operated by Packamor LLC.',
+            brandsamor: 'Guided private-label service of Packamor LLC (parent entity).',
             alibaba: 'Open B2B marketplace with many independent supplier listings.',
           },
         },

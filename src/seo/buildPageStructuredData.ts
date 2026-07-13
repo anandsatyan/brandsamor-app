@@ -32,6 +32,8 @@ const breadcrumbList = (meta: PageMetadata) => ({
   ],
 });
 
+const parentOrganizationId = `${CANONICAL_ORIGIN}/#parent-organization`;
+
 const organizationNode = (description: string) => ({
   '@type': 'Organization',
   '@id': organizationId,
@@ -45,6 +47,17 @@ const organizationNode = (description: string) => ({
   address: {
     '@type': 'PostalAddress',
     ...ORGANIZATION.address,
+  },
+  parentOrganization: {
+    '@type': 'Organization',
+    '@id': parentOrganizationId,
+    name: ORGANIZATION.legalName,
+    legalName: ORGANIZATION.legalName,
+    url: ORGANIZATION.sameAs[0] ?? CANONICAL_ORIGIN,
+    address: {
+      '@type': 'PostalAddress',
+      ...ORGANIZATION.address,
+    },
   },
   ...(ORGANIZATION.sameAs.length > 0 ? { sameAs: ORGANIZATION.sameAs } : {}),
 });

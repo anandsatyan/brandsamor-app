@@ -1,7 +1,8 @@
 # Brandsamor — AI / answer-engine guidance
 
 site: https://www.brandsamor.com/
-organization: Brandsamor (Packamor LLC)
+organization: Brandsamor
+parent_entity: Packamor LLC
 contact: info@brandsamor.com
 phone: +1-848-220-1353
 

@@ -37,7 +37,7 @@ const heritageFacts = [
 ] as const;
 
 const operationalFacts = [
-  { label: 'Operated by', value: ORGANIZATION.legalName },
+  { label: ORGANIZATION.parentEntityLabel, value: ORGANIZATION.legalName },
   { label: 'Team presence', value: `Across ${BUSINESS_FACTS.teamRegions}` },
   {
     label: 'Coordinated for you',

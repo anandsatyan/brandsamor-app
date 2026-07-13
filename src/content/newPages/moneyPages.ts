@@ -8,7 +8,7 @@ import {
 import type { TopicPageConfig } from '../../components/topic/types';
 
 const PACKAMOR_OPERATOR =
-  'Brandsamor is operated by Packamor LLC at 1111B S Governors Ave, Dover, DE 19904.';
+  'Packamor LLC is the parent entity of Brandsamor, based at 1111B S Governors Ave, Dover, DE 19904.';
 
 const QUALITY_DOCUMENTATION_SENTENCE =
   '[Quality and compliance](/quality-compliance) covers available IFRA, COA, GMP, ISO 22716, MoCRA and halal certification support.';
@@ -1218,7 +1218,7 @@ export const moneyPageConfigs: Record<string, TopicPageConfig> = {
         id: 'brandsamor-best-fit',
         title: 'Where is Brandsamor the best fit?',
         description:
-          'Brandsamor fits brands that want a guided private label path with a low-MOQ production route. It is especially relevant when you need [fragrance sampling](/fragrance-sampling), practical [packaging and branding](/packaging-branding), and a first batch that does not require enterprise inventory risk. Packamor LLC operates the service from Delaware and supports global customers subject to product, destination, logistics and compliance requirements.',
+          'Brandsamor fits brands that want a guided private label path with a low-MOQ production route. It is especially relevant when you need [fragrance sampling](/fragrance-sampling), practical [packaging and branding](/packaging-branding), and a first batch that does not require enterprise inventory risk. Packamor LLC — the parent entity of Brandsamor — operates from Delaware and supports global customers subject to product, destination, logistics and compliance requirements.',
         bullets: sectionBullets(
           'Good fit for first launches, creator lines, boutiques, beauty brands and gifting concepts.',
           'Good fit when scent choice and packaging need to be planned together.',

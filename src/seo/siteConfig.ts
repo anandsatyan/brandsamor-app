@@ -16,7 +16,9 @@ export const DEFAULT_DESCRIPTION = PAGE_METADATA['/'].description;
 
 export const ORGANIZATION = {
   name: 'Brandsamor',
+  /** Parent entity and legal contracting party for Brandsamor. */
   legalName: 'Packamor LLC',
+  parentEntityLabel: 'Parent entity',
   phone: '+1-848-220-1353',
   email: 'info@brandsamor.com',
   address: {
