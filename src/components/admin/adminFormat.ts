@@ -96,3 +96,16 @@ export function formatList(values?: string[] | null) {
   if (!values?.length) return '—';
   return values.join(', ');
 }
+
+export function formatFragranceRecommendation(rec?: {
+  fragranceNumber?: string | number | null;
+  fragranceName?: string | null;
+  fragranceSlug?: string | null;
+  fragranceId?: string | null;
+} | null) {
+  const name = rec?.fragranceName || rec?.fragranceSlug || rec?.fragranceId || 'Fragrance';
+  if (rec?.fragranceNumber != null && rec.fragranceNumber !== '') {
+    return `No. ${rec.fragranceNumber} — ${name}`;
+  }
+  return name;
+}

@@ -568,6 +568,7 @@ export function buildSelectionProfileFromMongo(fragrance, notePyramid = null) {
 
   return {
     id: fragrance.slug || fragrance.id,
+    number: fragrance.number ?? null,
     name: fragrance.customerFacingName || fragrance.name || fragrance.slug || fragrance.id,
     primaryFamily: normalize(fragrance.primaryFamily),
     secondaryFamilies,
@@ -604,6 +605,7 @@ export function buildSelectionProfileFromClient(profile) {
 
   return {
     id: profile.id,
+    number: profile.fragranceNumber ?? profile.number ?? null,
     name: profile.customerName || profile.id,
     primaryFamily,
     secondaryFamilies: uniqueNormalized(profile.secondaryFamilies ?? tags),

@@ -1,7 +1,9 @@
 import { getMongoDb } from '../db/mongo.mjs';
+import { enrichDocumentsRecommendations } from '../fragrance/resolveRecommendationLabels.mjs';
 
 function serializeOrder(doc) {
   if (!doc) return null;
+  const recommendations = Array.isArray(doc.recommendations) ? doc.recommendations : [];
   return {
     sessionId: doc.sessionId,
     status: doc.status,
@@ -18,7 +20,14 @@ function serializeOrder(doc) {
           country: doc.lead.country,
         }
       : null,
-    recommendations: doc.recommendations ?? [],
+    recommendations: recommendations.map((rec) => ({
+      fragranceSlug: rec.fragranceSlug ?? rec.fragranceId ?? null,
+      fragranceNumber: rec.fragranceNumber ?? rec.number ?? null,
+      fragranceName: rec.fragranceName ?? rec.customerFacingName ?? null,
+      fragranceId: rec.fragranceId ?? null,
+      role: rec.role ?? null,
+      reason: rec.reason ?? null,
+    })),
     selectionSummary: doc.selectionSummary ?? null,
     answers: doc.answers ?? null,
     createdAt: doc.createdAt ?? null,
@@ -36,7 +45,7 @@ export async function listPaidOrders({ limit = 100 } = {}) {
     .limit(Math.min(Math.max(limit, 1), 500))
     .toArray();
 
-  return docs.map(serializeOrder);
+  return enrichDocumentsRecommendations(docs.map(serializeOrder));
 }
 
 export async function getPaidOrderByNumber(sampleOrderNumber) {
@@ -49,7 +58,10 @@ export async function getPaidOrderByNumber(sampleOrderNumber) {
     'order.sampleOrderNumber': number,
   });
 
-  return serializeOrder(doc);
+  const serialized = serializeOrder(doc);
+  if (!serialized) return null;
+  const [enriched] = await enrichDocumentsRecommendations([serialized]);
+  return enriched;
 }
 
 export async function getPaidOrderBySessionId(sessionId) {
@@ -58,5 +70,8 @@ export async function getPaidOrderBySessionId(sessionId) {
     sessionId,
     status: 'paid',
   });
-  return serializeOrder(doc);
+  const serialized = serializeOrder(doc);
+  if (!serialized) return null;
+  const [enriched] = await enrichDocumentsRecommendations([serialized]);
+  return enriched;
 }

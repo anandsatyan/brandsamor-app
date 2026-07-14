@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AdminShell, type AdminStats } from './admin/AdminShell';
-import { formatDateTime, formatMoney, statusMeta } from './admin/adminFormat';
+import {
+  formatDateTime,
+  formatFragranceRecommendation,
+  formatMoney,
+  statusMeta,
+} from './admin/adminFormat';
 
 type AdminOrder = {
   sessionId: string;
@@ -26,6 +31,8 @@ type AdminOrder = {
   recommendations: Array<{
     fragranceId?: string;
     fragranceSlug?: string;
+    fragranceNumber?: string | number | null;
+    fragranceName?: string | null;
     role?: string;
     reason?: string;
   }>;
@@ -263,8 +270,20 @@ export const AdminOrdersPage = () => {
                       key={`${rec.fragranceSlug ?? rec.fragranceId}-${index}`}
                       className="rounded-[2px] bg-surface p-3"
                     >
-                      <p className="font-medium text-heading">
-                        {rec.fragranceSlug ?? rec.fragranceId} · {rec.role}
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        {rec.fragranceNumber != null && rec.fragranceNumber !== '' && (
+                          <span className="type-caption font-semibold uppercase tracking-[0.12em] text-accent">
+                            No. {rec.fragranceNumber}
+                          </span>
+                        )}
+                        {rec.role ? (
+                          <span className="text-xs capitalize text-body">
+                            {String(rec.role).replace(/-/g, ' ')}
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="mt-1 font-medium text-heading">
+                        {rec.fragranceName || formatFragranceRecommendation(rec)}
                       </p>
                       <p className="mt-1">{rec.reason}</p>
                     </li>

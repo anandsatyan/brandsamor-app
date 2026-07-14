@@ -1,4 +1,8 @@
-import { getMongoDb } from '../db/mongo.mjs';
+import {
+  formatFragranceLabel,
+  loadFragranceDocsBySlugs,
+  resolveRecommendationLabel,
+} from '../fragrance/resolveRecommendationLabels.mjs';
 import { getBrandsamorFromAddress, sendBrandsamorMail } from '../mail/smtp.mjs';
 
 const SITE_URL = (process.env.VITE_SITE_URL || 'https://www.brandsamor.com').replace(/\/$/, '');
@@ -59,47 +63,23 @@ const notesOneLiner = (doc) => {
 };
 
 export async function resolveCustomerFragranceDetails(recommendations = []) {
-  const slugs = recommendations
-    .map((rec) => rec.fragranceSlug ?? rec.fragranceId)
-    .filter(Boolean)
-    .map(String);
+  const list = Array.isArray(recommendations) ? recommendations : [];
+  const bySlug = await loadFragranceDocsBySlugs(
+    list.map((rec) => rec.fragranceSlug ?? rec.fragranceId),
+  );
 
-  if (slugs.length === 0) return [];
-
-  let bySlug = new Map();
-  try {
-    const db = await getMongoDb();
-    const docs = await db
-      .collection('fragrances')
-      .find(
-        { slug: { $in: slugs } },
-        {
-          projection: {
-            slug: 1,
-            number: 1,
-            customerFacingName: 1,
-            shortDescription: 1,
-            notes: 1,
-            primaryFamily: 1,
-          },
-        },
-      )
-      .toArray();
-    bySlug = new Map(docs.map((doc) => [doc.slug, doc]));
-  } catch {
-    // Fall through to slug-only labels when Mongo is unavailable (e.g. preview scripts).
-  }
-
-  return recommendations.map((rec, index) => {
-    const slug = String(rec.fragranceSlug ?? rec.fragranceId ?? '');
-    const doc = bySlug.get(slug);
+  return list.map((rec, index) => {
+    const slug = String(rec.fragranceSlug ?? rec.fragranceId ?? '').trim();
+    const doc = bySlug.get(slug) ?? null;
+    const resolved = resolveRecommendationLabel(rec, doc);
     return {
       index: index + 1,
-      slug,
-      number: doc?.number ?? null,
-      name: doc?.customerFacingName || slug || `Fragrance ${index + 1}`,
+      slug: resolved.fragranceSlug || '',
+      number: resolved.fragranceNumber,
+      name: resolved.fragranceName || `Fragrance ${index + 1}`,
+      label: formatFragranceLabel(resolved),
       notesLine: notesOneLiner(doc),
-      role: rec.role || null,
+      role: resolved.role || null,
       primaryFamily: doc?.primaryFamily || null,
     };
   });
@@ -138,7 +118,9 @@ export function buildCustomerOrderConfirmationEmail({
     fragrances.length > 0
       ? fragrances
           .map((f) => {
-            const label = f.number != null ? `No. ${f.number} — ${f.name}` : f.name;
+            const label =
+              f.label ||
+              (f.number != null ? `No. ${f.number} — ${f.name}` : f.name);
             return `${f.index}. ${label}\n   ${f.notesLine}`;
           })
           .join('\n\n')
@@ -177,15 +159,16 @@ export function buildCustomerOrderConfirmationEmail({
     fragrances.length > 0
       ? fragrances
           .map((f) => {
-            const numberLabel = f.number != null ? `No. ${f.number}` : `Sample ${f.index}`;
+            const numberLabel =
+              f.number != null && f.number !== '' ? `Fragrance No. ${f.number}` : `Sample ${f.index}`;
             return `
               <tr>
                 <td style="padding: 0 0 14px 0;">
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #ffffff; border: 1px solid #e8e0d8; border-radius: 4px;">
                     <tr>
                       <td style="width: 56px; vertical-align: top; padding: 16px 0 16px 16px;">
-                        <div style="width: 40px; height: 40px; border-radius: 2px; background: #2b180a; color: #f3efe3; font-family: Georgia, 'Times New Roman', serif; font-size: 13px; line-height: 40px; text-align: center;">
-                          ${escapeHtml(String(f.index).padStart(2, '0'))}
+                        <div style="width: 40px; height: 40px; border-radius: 2px; background: #2b180a; color: #f3efe3; font-family: Georgia, 'Times New Roman', serif; font-size: 12px; line-height: 40px; text-align: center;">
+                          ${escapeHtml(f.number != null && f.number !== '' ? String(f.number) : String(f.index).padStart(2, '0'))}
                         </div>
                       </td>
                       <td style="padding: 16px 18px 16px 12px; vertical-align: top;">

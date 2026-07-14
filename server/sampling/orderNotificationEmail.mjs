@@ -1,5 +1,8 @@
 import nodemailer from 'nodemailer';
-import { getMongoDb } from '../db/mongo.mjs';
+import {
+  enrichRecommendations,
+  formatFragranceLabel,
+} from '../fragrance/resolveRecommendationLabels.mjs';
 
 const ORDER_RECIPIENT =
   process.env.SAMPLE_ORDER_RECIPIENT ||
@@ -56,36 +59,11 @@ const formatAddress = (address) => {
 };
 
 async function resolveFragranceLabels(recommendations = []) {
-  const slugs = recommendations
-    .map((rec) => rec.fragranceSlug ?? rec.fragranceId)
-    .filter(Boolean)
-    .map(String);
-
-  if (slugs.length === 0) return [];
-
-  try {
-    const db = await getMongoDb();
-    const docs = await db
-      .collection('fragrances')
-      .find({ slug: { $in: slugs } }, { projection: { slug: 1, number: 1, customerFacingName: 1 } })
-      .toArray();
-    const bySlug = new Map(docs.map((doc) => [doc.slug, doc]));
-
-    return recommendations.map((rec) => {
-      const slug = String(rec.fragranceSlug ?? rec.fragranceId ?? '');
-      const doc = bySlug.get(slug);
-      const number = doc?.number != null ? `No. ${doc.number}` : null;
-      const name = doc?.customerFacingName || slug || 'Unknown fragrance';
-      const role = rec.role ? ` (${rec.role})` : '';
-      return [number, name].filter(Boolean).join(' — ') + role;
-    });
-  } catch {
-    return recommendations.map((rec) => {
-      const slug = rec.fragranceSlug ?? rec.fragranceId ?? 'unknown';
-      const role = rec.role ? ` (${rec.role})` : '';
-      return `${slug}${role}`;
-    });
-  }
+  const enriched = await enrichRecommendations(recommendations);
+  return enriched.map((rec) => {
+    const role = rec.role ? ` (${String(rec.role).replace(/-/g, ' ')})` : '';
+    return `${formatFragranceLabel(rec)}${role}`;
+  });
 }
 
 function buildEmailContent({ session, order, payment, fragranceLines }) {

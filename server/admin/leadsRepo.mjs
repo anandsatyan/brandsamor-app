@@ -1,4 +1,5 @@
 import { getMongoDb } from '../db/mongo.mjs';
+import { enrichDocumentsRecommendations } from '../fragrance/resolveRecommendationLabels.mjs';
 
 function serializeLead(doc) {
   if (!doc) return null;
@@ -45,6 +46,8 @@ function serializeLead(doc) {
     },
     recommendations: recommendations.map((rec) => ({
       fragranceSlug: rec.fragranceSlug ?? rec.fragranceId ?? null,
+      fragranceNumber: rec.fragranceNumber ?? rec.number ?? null,
+      fragranceName: rec.fragranceName ?? rec.customerFacingName ?? null,
       role: rec.role ?? null,
       reason: rec.reason ?? null,
       preferenceScore: rec.preferenceScore ?? null,
@@ -127,14 +130,17 @@ export async function listLeads({ limit = 200, status, q } = {}) {
     .limit(Math.min(Math.max(Number(limit) || 200, 1), 500))
     .toArray();
 
-  return docs.map(serializeLead);
+  return enrichDocumentsRecommendations(docs.map(serializeLead));
 }
 
 export async function getLeadBySessionId(sessionId) {
   if (!sessionId) return null;
   const db = await getMongoDb();
   const doc = await db.collection('samplingSessions').findOne({ sessionId: String(sessionId) });
-  return serializeLead(doc);
+  const serialized = serializeLead(doc);
+  if (!serialized) return null;
+  const [enriched] = await enrichDocumentsRecommendations([serialized]);
+  return enriched;
 }
 
 export async function getAdminDashboardStats() {

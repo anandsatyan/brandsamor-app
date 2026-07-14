@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AdminShell, type AdminStats } from './admin/AdminShell';
 import {
   formatDateTime,
+  formatFragranceRecommendation,
   formatList,
   formatMoney,
   statusMeta,
@@ -40,6 +41,8 @@ type AdminLead = {
   };
   recommendations: Array<{
     fragranceSlug?: string | null;
+    fragranceNumber?: string | number | null;
+    fragranceName?: string | null;
     role?: string | null;
     reason?: string | null;
   }>;
@@ -383,13 +386,20 @@ function LeadDetail({ lead }: { lead: AdminLead }) {
                 key={`${rec.fragranceSlug}-${index}`}
                 className="rounded-[2px] border border-border/50 bg-surface px-3 py-2.5 text-sm"
               >
-                <p className="font-medium text-heading">
-                  {rec.fragranceSlug || 'Fragrance'}
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                  {rec.fragranceNumber != null && rec.fragranceNumber !== '' && (
+                    <span className="type-caption font-semibold uppercase tracking-[0.12em] text-accent">
+                      No. {rec.fragranceNumber}
+                    </span>
+                  )}
                   {rec.role ? (
-                    <span className="ml-2 text-xs font-normal capitalize text-body">
+                    <span className="text-xs capitalize text-body">
                       {rec.role.replace(/-/g, ' ')}
                     </span>
                   ) : null}
+                </div>
+                <p className="mt-1 font-medium text-heading">
+                  {rec.fragranceName || formatFragranceRecommendation(rec)}
                 </p>
                 {rec.reason && <p className="mt-1 text-body">{rec.reason}</p>}
               </li>

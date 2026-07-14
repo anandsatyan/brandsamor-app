@@ -162,6 +162,8 @@ export function recommendFiveFromRows(rows, answers, options = {}) {
   return {
     recommendations: selected.map((item) => ({
       fragranceSlug: item.profile.id,
+      fragranceNumber: item.profile.number ?? item.profile.raw?.number ?? null,
+      fragranceName: item.profile.name ?? null,
       role: item.role,
       reason: item.reason,
       recommendationType: item.recommendationType,
