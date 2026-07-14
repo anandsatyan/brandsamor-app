@@ -15,11 +15,14 @@ import {
   createSampleKitPaymentIntent,
 } from '../server/stripe/sampleKitPayment.mjs';
 import {
+  handleAdminLeadDetail,
+  handleAdminLeadsList,
   handleAdminLogin,
   handleAdminLogout,
   handleAdminOrderDetail,
   handleAdminOrdersList,
   handleAdminSession,
+  handleAdminStats,
 } from '../server/admin/handlers.mjs';
 
 /**
@@ -161,6 +164,22 @@ export const samplingApiPlugin = () => ({
 
         if (pathname === '/api/admin/session' && req.method === 'GET') {
           await handleAdminSession(req, res);
+          return;
+        }
+
+        if (pathname === '/api/admin/stats' && req.method === 'GET') {
+          await handleAdminStats(req, res);
+          return;
+        }
+
+        if (pathname === '/api/admin/leads' && req.method === 'GET') {
+          await handleAdminLeadsList(req, res);
+          return;
+        }
+
+        if (pathname.startsWith('/api/admin/leads/') && req.method === 'GET') {
+          const sessionId = decodeURIComponent(pathname.replace('/api/admin/leads/', ''));
+          await handleAdminLeadDetail(req, res, sessionId);
           return;
         }
 

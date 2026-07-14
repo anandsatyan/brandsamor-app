@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { BrandLogo } from './BrandLogo';
-import { SeoHead } from './SeoHead';
+import { AdminShell, type AdminStats } from './admin/AdminShell';
+import { formatDateTime, formatMoney, statusMeta } from './admin/adminFormat';
 
 type AdminOrder = {
   sessionId: string;
@@ -23,24 +23,20 @@ type AdminOrder = {
     country?: string;
   } | null;
   checkout: Record<string, unknown> | null;
-  recommendations: Array<{ fragranceId?: string; role?: string; reason?: string }>;
+  recommendations: Array<{
+    fragranceId?: string;
+    fragranceSlug?: string;
+    role?: string;
+    reason?: string;
+  }>;
   paidAt?: string | null;
   updatedAt?: string | null;
-};
-
-const money = (amount?: number, currency = 'usd') => {
-  if (typeof amount !== 'number') return '—';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currency.toUpperCase(),
-  }).format(amount / 100);
 };
 
 export const AdminOrdersPage = () => {
   const navigate = useNavigate();
   const { orderNumber } = useParams();
-  const [authChecked, setAuthChecked] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [selected, setSelected] = useState<AdminOrder | null>(null);
   const [error, setError] = useState('');
@@ -50,28 +46,22 @@ export const AdminOrdersPage = () => {
     let cancelled = false;
     (async () => {
       try {
-        const sessionRes = await fetch('/api/admin/session', { credentials: 'include' });
-        const sessionData = await sessionRes.json();
-        if (!sessionData?.authenticated) {
-          if (!cancelled) {
-            setAuthenticated(false);
-            setAuthChecked(true);
-            navigate('/login?next=/admin/orders', { replace: true });
-          }
-          return;
-        }
-        if (!cancelled) {
-          setAuthenticated(true);
-          setAuthChecked(true);
-        }
+        const [statsRes, listRes] = await Promise.all([
+          fetch('/api/admin/stats', { credentials: 'include' }),
+          fetch('/api/admin/orders', { credentials: 'include' }),
+        ]);
 
-        const listRes = await fetch('/api/admin/orders', { credentials: 'include' });
-        if (listRes.status === 401) {
+        if (statsRes.status === 401 || listRes.status === 401) {
           navigate('/login?next=/admin/orders', { replace: true });
           return;
         }
+
+        const statsData = await statsRes.json();
         const listData = await listRes.json();
-        if (!cancelled) setOrders(listData.orders ?? []);
+        if (!cancelled) {
+          setStats(statsData.stats ?? null);
+          setOrders(listData.orders ?? []);
+        }
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : 'Failed to load orders');
       } finally {
@@ -84,7 +74,7 @@ export const AdminOrdersPage = () => {
   }, [navigate]);
 
   useEffect(() => {
-    if (!orderNumber || !authenticated) {
+    if (!orderNumber) {
       setSelected(null);
       return;
     }
@@ -111,60 +101,34 @@ export const AdminOrdersPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [orderNumber, authenticated, navigate]);
-
-  const handleLogout = async () => {
-    await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
-    navigate('/login', { replace: true });
-  };
-
-  if (!authChecked || loading) {
-    return (
-      <div className="min-h-screen bg-surface px-4 py-16 text-center type-body text-body">
-        Loading orders…
-      </div>
-    );
-  }
-
-  if (!authenticated) return null;
+  }, [orderNumber, navigate]);
 
   return (
-    <div className="min-h-screen bg-surface text-heading">
-      <SeoHead
-        title="Admin Orders | Brandsamor"
-        description="Private Brandsamor sample kit order administration."
-        url="https://www.brandsamor.com/admin/orders"
-        robots="noindex, nofollow"
-      />
-      <header className="border-b border-border/60 bg-surface px-4 py-4 sm:px-8">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
-          <Link to="/">
-            <BrandLogo />
-          </Link>
-          <div className="flex items-center gap-4">
-            <p className="type-eyebrow">Admin orders</p>
-            <button
-              type="button"
-              onClick={() => void handleLogout()}
-              className="text-sm font-semibold text-accent"
-            >
-              Log out
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+    <AdminShell
+      title="Admin Orders | Brandsamor"
+      description="Private Brandsamor sample kit order administration."
+      canonicalUrl="https://www.brandsamor.com/admin/orders"
+      activeTab="orders"
+      loading={loading && orders.length === 0}
+      stats={stats}
+    >
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <section className="rounded-[2px] border border-border/60 bg-secondary/40">
-          <div className="border-b border-border/50 px-4 py-3">
-            <h1 className="type-h4">Sample kit orders</h1>
-            <p className="mt-1 type-caption text-body">{orders.length} paid orders</p>
+          <div className="flex items-start justify-between gap-3 border-b border-border/50 px-4 py-4">
+            <div>
+              <h2 className="type-h4">Sample kit orders</h2>
+              <p className="mt-1 type-caption text-body">{orders.length} paid orders</p>
+            </div>
+            <Link to="/admin" className="shrink-0 text-sm font-semibold text-accent hover:underline">
+              ← Leads
+            </Link>
           </div>
           {error && <p className="px-4 py-3 text-sm text-[#B42318]">{error}</p>}
-          <ul className="divide-y divide-border/50">
+          <ul className="max-h-[70vh] divide-y divide-border/50 overflow-y-auto">
             {orders.map((order) => {
               const number = order.order?.sampleOrderNumber;
               const active = String(number) === String(orderNumber);
+              const meta = statusMeta('paid');
               return (
                 <li key={order.sessionId}>
                   <button
@@ -175,28 +139,39 @@ export const AdminOrdersPage = () => {
                     onClick={() => navigate(`/admin/orders/${number}`)}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <div>
+                      <div className="min-w-0">
                         <p className="font-semibold text-heading">
                           {order.order?.sampleOrderLabel ?? `SO-${number ?? '—'}`}
                         </p>
-                        <p className="mt-1 text-sm text-body">
+                        <p className="mt-1 truncate text-sm text-body">
                           {order.lead?.fullName || 'Unknown'} · {order.lead?.email || 'No email'}
                         </p>
+                        <p className="mt-1 type-caption text-body/80">
+                          {formatDateTime(order.order?.paidAt || order.paidAt)}
+                        </p>
                       </div>
-                      <p className="text-sm font-medium text-heading">
-                        {money(
-                          typeof order.payment?.amount === 'number'
-                            ? (order.payment.amount as number)
-                            : order.order?.amount,
-                          String(order.payment?.currency ?? order.order?.currency ?? 'usd'),
-                        )}
-                      </p>
+                      <div className="shrink-0 text-right">
+                        <p className="text-sm font-medium text-heading">
+                          {formatMoney(
+                            typeof order.payment?.amount === 'number'
+                              ? (order.payment.amount as number)
+                              : order.order?.amount,
+                            String(order.payment?.currency ?? order.order?.currency ?? 'usd'),
+                          )}
+                        </p>
+                        <span
+                          className={`mt-1 inline-flex items-center gap-1 rounded-[2px] border px-2 py-0.5 text-[11px] font-semibold ${meta.className}`}
+                        >
+                          <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClassName}`} />
+                          Paid
+                        </span>
+                      </div>
                     </div>
                   </button>
                 </li>
               );
             })}
-            {orders.length === 0 && (
+            {!loading && orders.length === 0 && (
               <li className="px-4 py-8 text-sm text-body">No paid sample kit orders yet.</li>
             )}
           </ul>
@@ -231,7 +206,7 @@ export const AdminOrdersPage = () => {
                 <div>
                   <dt className="text-body">Amount</dt>
                   <dd className="mt-1 text-heading">
-                    {money(
+                    {formatMoney(
                       typeof selected.payment?.amount === 'number'
                         ? (selected.payment.amount as number)
                         : selected.order?.amount,
@@ -242,9 +217,7 @@ export const AdminOrdersPage = () => {
                 <div>
                   <dt className="text-body">Paid at</dt>
                   <dd className="mt-1 text-heading">
-                    {selected.order?.paidAt || selected.paidAt
-                      ? new Date(String(selected.order?.paidAt || selected.paidAt)).toLocaleString()
-                      : '—'}
+                    {formatDateTime(selected.order?.paidAt || selected.paidAt)}
                   </dd>
                 </div>
               </dl>
@@ -258,6 +231,14 @@ export const AdminOrdersPage = () => {
                   <p>{selected.lead?.brandName}</p>
                   <p>{selected.lead?.country}</p>
                 </div>
+                {selected.sessionId && (
+                  <Link
+                    to={`/admin/leads/${selected.sessionId}`}
+                    className="mt-3 inline-flex text-sm font-semibold text-accent hover:underline"
+                  >
+                    Open full lead CRM →
+                  </Link>
+                )}
               </div>
 
               <div>
@@ -278,9 +259,12 @@ export const AdminOrdersPage = () => {
                 <h3 className="type-h5">Recommendations</h3>
                 <ul className="mt-2 space-y-2 text-sm text-body">
                   {selected.recommendations.map((rec, index) => (
-                    <li key={`${rec.fragranceId}-${index}`} className="rounded-[2px] bg-surface p-3">
+                    <li
+                      key={`${rec.fragranceSlug ?? rec.fragranceId}-${index}`}
+                      className="rounded-[2px] bg-surface p-3"
+                    >
                       <p className="font-medium text-heading">
-                        {rec.fragranceId} · {rec.role}
+                        {rec.fragranceSlug ?? rec.fragranceId} · {rec.role}
                       </p>
                       <p className="mt-1">{rec.reason}</p>
                     </li>
@@ -290,8 +274,8 @@ export const AdminOrdersPage = () => {
             </div>
           )}
         </section>
-      </main>
-    </div>
+      </div>
+    </AdminShell>
   );
 };
 

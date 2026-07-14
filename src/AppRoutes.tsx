@@ -54,6 +54,7 @@ const ThankYouPreviewPage = lazyNamed(
   'ThankYouPreviewPage',
 );
 const AdminOrdersPage = lazyNamed(() => import('./components/AdminOrdersPage'), 'AdminOrdersPage');
+const AdminLeadsPage = lazyNamed(() => import('./components/AdminLeadsPage'), 'AdminLeadsPage');
 
 const commercialPageElements = Object.fromEntries(
   NEW_PAGE_PATHS.map((path) => [
@@ -93,6 +94,9 @@ export const AppRoutes = () => (
         <Route path="/curated-sampling" element={<CuratedSamplingPage />} />
         <Route path="/curated-sampling/thank-you-preview" element={<ThankYouPreviewPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={<AdminLeadsPage />} />
+        <Route path="/admin/leads" element={<AdminLeadsPage />} />
+        <Route path="/admin/leads/:sessionId" element={<AdminLeadsPage />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route path="/admin/orders/:orderNumber" element={<AdminOrdersPage />} />
         <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />

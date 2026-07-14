@@ -36,8 +36,8 @@ export const LoginPage = () => {
       if (!res.ok) {
         throw new Error(data?.error ?? 'Wrong email or password.');
       }
-      const next = searchParams.get('next') || '/admin/orders';
-      navigate(next.startsWith('/') ? next : '/admin/orders', { replace: true });
+      const next = searchParams.get('next') || '/admin';
+      navigate(next.startsWith('/') ? next : '/admin', { replace: true });
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Wrong email or password.');
     } finally {
@@ -67,7 +67,9 @@ export const LoginPage = () => {
         >
           <div className="space-y-1">
             <h1 className="type-h3">Admin sign in</h1>
-            <p className="type-body-sm text-body">Access sample kit orders and payment records.</p>
+            <p className="type-body-sm text-body">
+              Access sampling leads CRM and paid sample kit orders.
+            </p>
           </div>
 
           <div className="space-y-2">

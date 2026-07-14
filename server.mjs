@@ -14,11 +14,14 @@ import {
   createSampleKitPaymentIntent,
 } from './server/stripe/sampleKitPayment.mjs';
 import {
+  handleAdminLeadDetail,
+  handleAdminLeadsList,
   handleAdminLogin,
   handleAdminLogout,
   handleAdminOrderDetail,
   handleAdminOrdersList,
   handleAdminSession,
+  handleAdminStats,
 } from './server/admin/handlers.mjs';
 import {
   buildVisitorCountryCookie,
@@ -49,6 +52,8 @@ const PUBLIC_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
   '/login',
+  '/admin',
+  '/admin/leads',
   '/admin/orders',
   '/privacy-policy',
   '/terms',
@@ -92,6 +97,8 @@ const PUBLIC_ROUTES = new Set([
 const SPA_ONLY_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
+  '/admin',
+  '/admin/leads',
   '/admin/orders',
   '/login',
 ]);
@@ -191,7 +198,7 @@ const resolveFile = (urlPath) => {
 
   if (
     PUBLIC_ROUTES.has(normalized) ||
-    normalized.startsWith('/admin/orders/') ||
+    normalized.startsWith('/admin/') ||
     normalized.startsWith('/curated-sampling/')
   ) {
     const htmlPath =
@@ -203,7 +210,7 @@ const resolveFile = (urlPath) => {
     }
     if (
       SPA_ONLY_ROUTES.has(normalized) ||
-      normalized.startsWith('/admin/orders') ||
+      normalized.startsWith('/admin') ||
       normalized.startsWith('/curated-sampling')
     ) {
       const spaIndex = path.join(distDir, 'index.html');
@@ -332,6 +339,22 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === '/api/admin/session' && req.method === 'GET') {
     await handleAdminSession(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/admin/stats' && req.method === 'GET') {
+    await handleAdminStats(req, res);
+    return;
+  }
+
+  if (url.pathname === '/api/admin/leads' && req.method === 'GET') {
+    await handleAdminLeadsList(req, res);
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/admin/leads/') && req.method === 'GET') {
+    const sessionId = decodeURIComponent(url.pathname.replace('/api/admin/leads/', ''));
+    await handleAdminLeadDetail(req, res, sessionId);
     return;
   }
 
