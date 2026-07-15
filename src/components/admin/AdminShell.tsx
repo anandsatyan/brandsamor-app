@@ -140,11 +140,11 @@ export const AdminShell = ({
           <MetricCard
             label="Leads"
             value={localStats?.leadsCount ?? '—'}
-            hint="All sampling sessions with contact"
+            hint="Sampling contacts (one open lead per email)"
             accent="border-l-heading"
           />
           <MetricCard
-            label="Sample orders"
+            label="Paid"
             value={localStats?.ordersCount ?? '—'}
             hint="Paid curated sample kits"
             accent="border-l-emerald-500"
@@ -157,9 +157,9 @@ export const AdminShell = ({
             accent="border-l-amber-500"
           />
           <MetricCard
-            label="Checkout / paid"
-            value={(byStatus.checkout_started ?? 0) + (byStatus.paid ?? 0)}
-            hint={`${byStatus.checkout_started ?? 0} started · ${byStatus.paid ?? 0} paid`}
+            label="Checkout started"
+            value={byStatus.checkout_started ?? 0}
+            hint="Reached checkout, not paid yet"
             accent="border-l-violet-500"
           />
         </div>

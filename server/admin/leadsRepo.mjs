@@ -1,5 +1,6 @@
 import { getMongoDb } from '../db/mongo.mjs';
 import { enrichDocumentsRecommendations } from '../fragrance/resolveRecommendationLabels.mjs';
+import { consolidateOpenEmailDuplicates } from '../sampling/repo.mjs';
 
 function serializeLead(doc) {
   if (!doc) return null;

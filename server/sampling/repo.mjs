@@ -34,99 +34,179 @@ const normalizeLead = (lead) => ({
   consent: Boolean(lead?.consent),
 });
 
+/** Open (non-paid) sessions are reusable lead records; paid sessions stay as order history. */
+async function findOpenSessionByEmail(db, email) {
+  const normalized = String(email ?? '').trim().toLowerCase();
+  if (!normalized) return null;
+  return db.collection('samplingSessions').findOne(
+    { 'lead.email': normalized, status: { $ne: 'paid' } },
+    { sort: { updatedAt: -1, createdAt: -1 } },
+  );
+}
+
+/**
+ * Keep a single open session per email. Deletes older open duplicates.
+ * Paid sessions are never removed.
+ */
+async function removeOpenDuplicateSessions(db, email, keepSessionId) {
+  const normalized = String(email ?? '').trim().toLowerCase();
+  if (!normalized || !keepSessionId) return;
+
+  await db.collection('samplingSessions').deleteMany({
+    'lead.email': normalized,
+    status: { $ne: 'paid' },
+    sessionId: { $ne: keepSessionId },
+  });
+}
+
+/**
+ * One-time-per-process cleanup of existing open duplicates (e.g. ovakuma@gmail.com).
+ */
+let openDuplicatesConsolidated = false;
+export async function consolidateOpenEmailDuplicates(db = null) {
+  if (openDuplicatesConsolidated) return;
+  const mongo = db || (await getMongoDb());
+  openDuplicatesConsolidated = true;
+
+  try {
+    const groups = await mongo
+      .collection('samplingSessions')
+      .aggregate([
+        {
+          $match: {
+            status: { $ne: 'paid' },
+            'lead.email': { $type: 'string', $ne: '' },
+          },
+        },
+        { $sort: { updatedAt: -1, createdAt: -1 } },
+        {
+          $group: {
+            _id: '$lead.email',
+            count: { $sum: 1 },
+            keepSessionId: { $first: '$sessionId' },
+          },
+        },
+        { $match: { count: { $gt: 1 } } },
+      ])
+      .toArray();
+
+    for (const group of groups) {
+      await removeOpenDuplicateSessions(mongo, group._id, group.keepSessionId);
+    }
+
+    if (groups.length > 0) {
+      console.log(
+        `[sampling] Consolidated open lead duplicates for ${groups.length} email(s)`,
+      );
+    }
+  } catch (error) {
+    openDuplicatesConsolidated = false;
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn('[sampling] Failed to consolidate open lead duplicates:', message);
+  }
+}
+
+/**
+ * Resolve which session to update for a lead email.
+ * Prefer the latest open session for that email so restarts don't create duplicates.
+ */
+async function resolveSessionIdForLead(db, { sessionId, email }) {
+  const openByEmail = await findOpenSessionByEmail(db, email);
+  if (openByEmail?.sessionId) {
+    return openByEmail.sessionId;
+  }
+
+  if (sessionId) {
+    const byId = await db.collection('samplingSessions').findOne({ sessionId: String(sessionId) });
+    if (byId?.sessionId) {
+      // Paid sessions are frozen order records — start a new open lead instead.
+      if (byId.status === 'paid') return null;
+      return byId.sessionId;
+    }
+  }
+
+  return null;
+}
+
 export async function upsertSamplingSession({ sessionId, step, lead, answers, currentStep }) {
   await ensureSamplingIndexes();
   const db = await getMongoDb();
+  await consolidateOpenEmailDuplicates(db);
+
   const now = new Date();
   const normalizedLead = normalizeLead(lead);
   const stepEntry = { step, completedAt: now };
+  const targetSessionId = await resolveSessionIdForLead(db, {
+    sessionId,
+    email: normalizedLead.email,
+  });
 
-  if (!sessionId) {
-    const newSessionId = randomUUID();
-    await db.collection('samplingSessions').insertOne({
-      sessionId: newSessionId,
-      lead: normalizedLead,
-      answers: answers ?? {},
-      currentStep: currentStep ?? 1,
-      lastCompletedStep: step,
-      stepHistory: [stepEntry],
-      status: 'in_progress',
-      recommendations: [],
-      selectionSummary: null,
-      createdAt: now,
-      updatedAt: now,
-    });
-    return newSessionId;
-  }
-
-  const result = await db.collection('samplingSessions').updateOne(
-    { sessionId },
-    {
-      $set: {
-        lead: normalizedLead,
-        answers: answers ?? {},
-        currentStep: currentStep ?? 1,
-        lastCompletedStep: step,
-        status: 'in_progress',
-        updatedAt: now,
+  if (targetSessionId) {
+    await db.collection('samplingSessions').updateOne(
+      { sessionId: targetSessionId },
+      {
+        $set: {
+          lead: normalizedLead,
+          answers: answers ?? {},
+          currentStep: currentStep ?? 1,
+          lastCompletedStep: step,
+          status: 'in_progress',
+          updatedAt: now,
+        },
+        $push: { stepHistory: stepEntry },
       },
-      $push: { stepHistory: stepEntry },
-    },
-  );
-
-  if (result.matchedCount === 0) {
-    await db.collection('samplingSessions').insertOne({
-      sessionId,
-      lead: normalizedLead,
-      answers: answers ?? {},
-      currentStep: currentStep ?? 1,
-      lastCompletedStep: step,
-      stepHistory: [stepEntry],
-      status: 'in_progress',
-      recommendations: [],
-      selectionSummary: null,
-      createdAt: now,
-      updatedAt: now,
-    });
+    );
+    await removeOpenDuplicateSessions(db, normalizedLead.email, targetSessionId);
+    return targetSessionId;
   }
 
-  return sessionId;
+  // Always mint a fresh id when opening a new lead (never reuse a paid sessionId).
+  const newSessionId = randomUUID();
+  await db.collection('samplingSessions').insertOne({
+    sessionId: newSessionId,
+    lead: normalizedLead,
+    answers: answers ?? {},
+    currentStep: currentStep ?? 1,
+    lastCompletedStep: step,
+    stepHistory: [stepEntry],
+    status: 'in_progress',
+    recommendations: [],
+    selectionSummary: null,
+    createdAt: now,
+    updatedAt: now,
+  });
+  await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
+  return newSessionId;
 }
 
 export async function finalizeCuration({ sessionId, lead, answers, recommendations, selectionSummary }) {
   await ensureSamplingIndexes();
   const db = await getMongoDb();
-  const now = new Date();
+  await consolidateOpenEmailDuplicates(db);
 
-  if (!sessionId) {
-    return upsertSamplingSession({
+  const now = new Date();
+  const normalizedLead = normalizeLead(lead);
+
+  let targetSessionId = await resolveSessionIdForLead(db, {
+    sessionId,
+    email: normalizedLead.email,
+  });
+
+  if (!targetSessionId) {
+    targetSessionId = await upsertSamplingSession({
       sessionId: null,
-      step: 'curation',
-      lead,
+      step: 'contact',
+      lead: normalizedLead,
       answers,
       currentStep: 8,
-    }).then(async (newSessionId) => {
-      await db.collection('samplingSessions').updateOne(
-        { sessionId: newSessionId },
-        {
-          $set: {
-            recommendations,
-            selectionSummary: selectionSummary ?? null,
-            status: 'curated',
-            updatedAt: now,
-          },
-          $push: { stepHistory: { step: 'curation', completedAt: now } },
-        },
-      );
-      return newSessionId;
     });
   }
 
   await db.collection('samplingSessions').updateOne(
-    { sessionId },
+    { sessionId: targetSessionId },
     {
       $set: {
-        lead: normalizeLead(lead),
+        lead: normalizedLead,
         answers: answers ?? {},
         recommendations,
         selectionSummary: selectionSummary ?? null,
@@ -139,7 +219,8 @@ export async function finalizeCuration({ sessionId, lead, answers, recommendatio
     },
   );
 
-  return sessionId;
+  await removeOpenDuplicateSessions(db, normalizedLead.email, targetSessionId);
+  return targetSessionId;
 }
 
 export async function attachCheckoutDetails(sessionId, checkout) {
