@@ -46,6 +46,8 @@ type AdminLead = {
     inspiredBy?: { brand?: string | null; fragrance?: string | null } | null;
     role?: string | null;
     reason?: string | null;
+    stretch?: boolean;
+    exclusionConflicts?: string[];
   }>;
   selectionSummary?: string | null;
   checkout?: {
@@ -398,6 +400,14 @@ function LeadDetail({ lead }: { lead: AdminLead }) {
                       {rec.role.replace(/-/g, ' ')}
                     </span>
                   ) : null}
+                  {rec.stretch && (
+                    <span className="rounded-[2px] border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-[11px] font-semibold text-amber-900">
+                      Stretch — touches an exclusion
+                      {rec.exclusionConflicts?.length
+                        ? ` (${rec.exclusionConflicts.map((c) => c.replace(/-/g, ' ')).join(', ')})`
+                        : ''}
+                    </span>
+                  )}
                 </div>
                 <p className="mt-1 font-medium text-heading">
                   {rec.fragranceName || formatFragranceRecommendation(rec)}

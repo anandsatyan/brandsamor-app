@@ -39,7 +39,20 @@ const EXCLUSION_SIGNALS = {
   spicy: ['spicy', 'spice', 'pepper'],
 };
 
+const SLOT_META = [
+  { role: 'best-match', recommendationType: 'core_match' },
+  { role: 'close-match', recommendationType: 'core_match' },
+  { role: 'safe-option', recommendationType: 'adjacent_discovery' },
+  { role: 'adjacent', recommendationType: 'adjacent_discovery' },
+  { role: 'wildcard', recommendationType: 'wildcard' },
+];
+
 const normalize = (value) => String(value ?? '').trim().toLowerCase();
+
+const activeExclusions = (answers) =>
+  (Array.isArray(answers?.exclusions) ? answers.exclusions : [])
+    .map(normalize)
+    .filter((e) => e && e !== 'none' && e !== 'unsure');
 
 const resolveExpression = (answers) => {
   const expr = normalize(answers?.scentExpression);
@@ -72,18 +85,23 @@ const profileTokens = (profile) =>
     ...(profile.drydownProfile ?? []).map(normalize),
   ]);
 
-const isHardExcluded = (profile, answers) => {
-  const exclusions = (Array.isArray(answers?.exclusions) ? answers.exclusions : [])
-    .map(normalize)
-    .filter((e) => e && e !== 'none' && e !== 'unsure');
-  if (!exclusions.length) return false;
+/** @returns {{ exclusion: string, signals: string[] }[]} */
+export function getExclusionConflicts(profile, answers) {
+  const exclusions = activeExclusions(answers);
+  if (!exclusions.length) return [];
 
   const tokens = profileTokens(profile);
-  return exclusions.some((ex) => {
-    const signals = EXCLUSION_SIGNALS[ex] ?? [ex];
-    return signals.some((signal) => tokens.has(signal));
-  });
-};
+  const conflicts = [];
+  for (const ex of exclusions) {
+    const signals = (EXCLUSION_SIGNALS[ex] ?? [ex]).filter((signal) => tokens.has(signal));
+    if (signals.length) {
+      conflicts.push({ exclusion: ex, signals });
+    }
+  }
+  return conflicts;
+}
+
+export const isHardExcluded = (profile, answers) => getExclusionConflicts(profile, answers).length > 0;
 
 const scorePreference = (profile, answers) => {
   let s = 0;
@@ -123,8 +141,85 @@ const scorePreference = (profile, answers) => {
   return Math.max(0, s);
 };
 
+const toRecommendation = (item, { stretch = false, exclusionConflicts = [] } = {}) => ({
+  fragranceSlug: item.profile.id,
+  fragranceNumber: item.profile.number ?? item.profile.raw?.number ?? null,
+  fragranceName: item.profile.name ?? null,
+  role: item.role,
+  reason: item.reason,
+  recommendationType: item.recommendationType,
+  preferenceScore: item.preferenceScore,
+  diversityScore: item.diversityScore ?? null,
+  finalScore: item.finalScore ?? item.preferenceScore,
+  reasons: item.reasons ?? [item.reason].filter(Boolean),
+  stretch: Boolean(stretch),
+  exclusionConflicts: exclusionConflicts.map((c) => c.exclusion ?? c).filter(Boolean),
+});
+
+/**
+ * Pad a short exclusion-safe set to five using least-conflicting remaining profiles.
+ */
+function padWithLeastConflict(selected, allProfiles, answers, preferenceById) {
+  const used = new Set(selected.map((item) => item.profile.id));
+  const result = selected.map((item) => ({
+    ...item,
+    stretch: false,
+    exclusionConflicts: [],
+  }));
+
+  while (result.length < 5) {
+    const ranked = allProfiles
+      .filter((profile) => !used.has(profile.id))
+      .map((profile) => {
+        const conflicts = getExclusionConflicts(profile, answers);
+        const signalCount = conflicts.reduce((sum, c) => sum + c.signals.length, 0);
+        return {
+          profile,
+          conflicts,
+          conflictCount: conflicts.length,
+          signalCount,
+          preferenceScore: preferenceById.get(profile.id) ?? 0,
+        };
+      })
+      .sort(
+        (a, b) =>
+          a.conflictCount - b.conflictCount ||
+          a.signalCount - b.signalCount ||
+          b.preferenceScore - a.preferenceScore,
+      );
+
+    if (!ranked.length) break;
+
+    const next = ranked[0];
+    used.add(next.profile.id);
+    const slot = SLOT_META[result.length] ?? SLOT_META[SLOT_META.length - 1];
+    const conflictLabels = next.conflicts.map((c) => c.exclusion.replace(/-/g, ' '));
+    const reason =
+      next.conflicts.length > 0
+        ? `Stretch pick to complete your five-sample kit — closest available option despite some overlap with your exclusions (${conflictLabels.join(', ')}).`
+        : 'Added to complete your five-sample kit while staying as close as possible to your brief.';
+
+    result.push({
+      profile: next.profile,
+      preferenceScore: next.preferenceScore,
+      diversityScore: 0,
+      finalScore: next.preferenceScore,
+      recommendationType: slot.recommendationType,
+      role: slot.role,
+      reasons: [reason],
+      reason,
+      stretch: next.conflicts.length > 0,
+      exclusionConflicts: next.conflicts,
+    });
+  }
+
+  return result;
+}
+
 /**
  * Score + diversify selection from already-loaded fragrance rows.
+ * Always targets five picks: exclusion-safe first, then least-conflict stretch pads.
+ *
  * @param {Array<{ fragrance: object, notePyramid?: object|null }>} rows
  * @param {object} answers
  * @param {{ isDev?: boolean }} [options]
@@ -135,55 +230,61 @@ export function recommendFiveFromRows(rows, answers, options = {}) {
   const defaultIndex = new Map(defaults.map((slug, idx) => [slug, idx]));
   const resolvedFamilies = resolveFamilies(answers);
 
-  const profiles = rows
-    .map(({ fragrance, notePyramid }) => buildSelectionProfileFromMongo(fragrance, notePyramid))
-    // Hard exclusions are never bypassed — better a smaller kit than disliked notes.
-    .filter((profile) => !isHardExcluded(profile, answers));
+  const allProfiles = rows.map(({ fragrance, notePyramid }) =>
+    buildSelectionProfileFromMongo(fragrance, notePyramid),
+  );
 
-  if (profiles.length === 0) {
+  if (allProfiles.length === 0) {
     return {
       recommendations: [],
-      selectionSummary:
-        'No fragrances in the current library fully avoid your exclusions. Relax one or two dislike filters to unlock a curated set.',
-      exclusionFilteredCount: 0,
+      selectionSummary: 'No fragrances are available to curate right now.',
+      exclusionSafeCount: 0,
+      stretchCount: 0,
     };
   }
 
-  const scoredRaw = profiles.map((profile) => {
+  const scoredRaw = allProfiles.map((profile) => {
     const base = scorePreference(profile, answers);
     const boostIdx = defaultIndex.has(profile.id) ? defaultIndex.get(profile.id) : null;
     const boosted = boostIdx == null ? base : base + (defaults.length - boostIdx) * 2;
     return { profile, rawScore: boosted };
   });
+  const scoredAll = normalizePreferenceScores(scoredRaw);
+  const preferenceById = new Map(scoredAll.map((row) => [row.profile.id, row.preferenceScore]));
 
-  const scored = normalizePreferenceScores(scoredRaw);
-  const selected = selectDiversifiedRecommendations(
-    scored,
-    { ...answers, resolvedFamilies },
-    { isDev: options.isDev ?? process.env.NODE_ENV === 'development' },
-  );
+  const safeScored = scoredAll.filter((row) => !isHardExcluded(row.profile, answers));
+  let selected = [];
 
-  const families = [...new Set(selected.map((item) => item.profile.primaryFamily))];
-  const count = selected.length;
+  if (safeScored.length > 0) {
+    selected = selectDiversifiedRecommendations(
+      safeScored,
+      { ...answers, resolvedFamilies },
+      { isDev: options.isDev ?? process.env.NODE_ENV === 'development' },
+    ).map((item) => ({
+      ...item,
+      stretch: false,
+      exclusionConflicts: [],
+    }));
+  }
+
+  const filled = padWithLeastConflict(selected, allProfiles, answers, preferenceById).slice(0, 5);
+  const stretchCount = filled.filter((item) => item.stretch).length;
+  const families = [...new Set(filled.map((item) => item.profile.primaryFamily))];
+
   const selectionSummary =
-    count < 5
-      ? `We found ${count} fragrance${count === 1 ? '' : 's'} that fit your brief while respecting your exclusions. A narrower dislike set can yield a fuller five-sample kit.`
+    stretchCount > 0
+      ? 'We built a full five-sample kit prioritizing matches that avoid your dislikes, then completed the set with the closest remaining options.'
       : `We balanced ${families.length} scent families across two core matches, two adjacent discoveries, and one controlled wildcard so the set stays relevant without feeling repetitive.`;
 
   return {
-    recommendations: selected.map((item) => ({
-      fragranceSlug: item.profile.id,
-      fragranceNumber: item.profile.number ?? item.profile.raw?.number ?? null,
-      fragranceName: item.profile.name ?? null,
-      role: item.role,
-      reason: item.reason,
-      recommendationType: item.recommendationType,
-      preferenceScore: item.preferenceScore,
-      diversityScore: item.diversityScore,
-      finalScore: item.finalScore,
-      reasons: item.reasons,
-    })),
+    recommendations: filled.map((item) =>
+      toRecommendation(item, {
+        stretch: item.stretch,
+        exclusionConflicts: item.exclusionConflicts,
+      }),
+    ),
     selectionSummary,
-    exclusionFilteredCount: profiles.length,
+    exclusionSafeCount: safeScored.length,
+    stretchCount,
   };
 }

@@ -152,7 +152,7 @@ test('strong sweetness exclusion never returns a sweet gourmand wildcard', () =>
   assert.equal(hit, false, `wildcard should not be a sweet gourmand, got ${profile.id}`);
 });
 
-test('heavy exclusions are never bypassed even when fewer than five remain', () => {
+test('heavy exclusions still return five, padding with least-conflict stretch picks', () => {
   const exclusions = [
     'strong-smoke',
     'heavy-oud',
@@ -171,38 +171,14 @@ test('heavy exclusions are never bypassed even when fewer than five remain', () 
     exclusions,
   });
 
-  assert.ok(result.recommendations.length < 5, 'expected a shorter kit when exclusions wipe most of the library');
-  assert.ok(result.recommendations.length >= 1, 'expected at least one non-excluded survivor');
+  assert.equal(result.recommendations.length, 5);
+  assert.equal(new Set(result.recommendations.map((r) => r.fragranceSlug)).size, 5);
+  assert.ok(result.stretchCount >= 1, 'expected some stretch pads when exclusions wipe most of the library');
 
-  const exclusionSignals = {
-    'very-sweet': ['gourmand', 'vanilla', 'sweet', 'coffee'],
-    'heavy-oud': ['oud'],
-    'strong-smoke': ['smoky', 'smoke', 'incense'],
-    powdery: ['powdery'],
-    'sharp-citrus': ['citrus'],
-    'strong-florals': ['floral', 'rose'],
-    'marine-aquatic': ['marine', 'aquatic'],
-    spicy: ['spicy', 'spice', 'pepper'],
-  };
-
-  for (const rec of result.recommendations) {
-    const profile = bySlug[rec.fragranceSlug];
-    const tokens = new Set([
-      profile.primaryFamily,
-      ...profile.secondaryFamilies,
-      ...profile.dominantAccords,
-      ...profile.tags,
-    ]);
-    for (const ex of exclusions) {
-      for (const signal of exclusionSignals[ex]) {
-        assert.equal(
-          tokens.has(signal),
-          false,
-          `${rec.fragranceSlug} should not carry excluded signal "${signal}" from "${ex}"`,
-        );
-      }
-    }
-  }
+  const safe = result.recommendations.filter((r) => !r.stretch);
+  const stretch = result.recommendations.filter((r) => r.stretch);
+  assert.ok(safe.length >= 1, 'expected at least one exclusion-safe pick when any survive');
+  assert.ok(stretch.every((r) => Array.isArray(r.exclusionConflicts) && r.exclusionConflicts.length > 0));
 });
 
 test('limited candidate pool still returns five unique fragrances', () => {

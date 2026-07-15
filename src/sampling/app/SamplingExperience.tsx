@@ -292,7 +292,7 @@ export const SamplingExperience = () => {
   };
 
   const handleExclusionToggle = (value: string) => {
-    const next = toggleExclusive(answers.exclusions, value, 10, ['none', 'unsure']);
+    const next = toggleExclusive(answers.exclusions, value, 4, ['none', 'unsure']);
     updateAnswers({ exclusions: next });
   };
 
@@ -681,6 +681,9 @@ export const SamplingExperience = () => {
             Are there any scent styles or notes you definitely want to{' '}
             <strong className="font-bold">AVOID</strong>?
           </legend>
+          <p className="mb-3 type-caption text-[#725F52]">
+            Choose up to 4. Selecting none/unsure clears the others.
+          </p>
           <div className="flex flex-wrap gap-3">
             {EXCLUSION_OPTIONS.map((opt) => (
               <MultiSelectChip
@@ -802,16 +805,11 @@ export const SamplingExperience = () => {
   const renderResults = () => (
     <ScreenTransition>
       <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-        {recommendations.length === 5
-          ? 'Your five fragrance directions are ready.'
-          : recommendations.length === 1
-            ? 'Your fragrance direction is ready.'
-            : `Your ${recommendations.length} fragrance directions are ready.`}
+        Your five fragrance directions are ready.
       </h1>
       <p className="mt-3 text-base leading-relaxed text-[#725F52]">
-        {recommendations.length === 5
-          ? 'We selected a focused mix based on your brand and scent preferences. These five are designed to help you compare distinct directions without overwhelming you.'
-          : 'We selected the strongest fits that respect your exclusions. If this set feels too narrow, go back and relax one or two dislike filters for a fuller kit.'}
+        We selected a focused mix based on your brand and scent preferences. These five are
+        designed to help you compare distinct directions without overwhelming you.
       </p>
 
       <div className="results-cart mt-8">
@@ -1058,13 +1056,7 @@ export const SamplingExperience = () => {
           )}
         </section>
         <section>
-          <h2 className="mb-3 type-h3">
-            {recommendations.length === 5
-              ? 'Your five fragrance directions'
-              : recommendations.length === 1
-                ? 'Your fragrance direction'
-                : `Your ${recommendations.length} fragrance directions`}
-          </h2>
+          <h2 className="mb-3 type-h3">Your five fragrance directions</h2>
           <div className="space-y-3">
             {recommendations.map((rec) => {
               const profile = getFragranceById(rec.fragranceId);

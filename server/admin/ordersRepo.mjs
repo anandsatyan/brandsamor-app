@@ -33,6 +33,8 @@ function serializeOrder(doc) {
         : null,
       role: rec.role ?? null,
       reason: rec.reason ?? null,
+      stretch: Boolean(rec.stretch),
+      exclusionConflicts: Array.isArray(rec.exclusionConflicts) ? rec.exclusionConflicts : [],
     })),
     selectionSummary: doc.selectionSummary ?? null,
     answers: doc.answers ?? null,

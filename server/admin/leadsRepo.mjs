@@ -57,6 +57,8 @@ function serializeLead(doc) {
         : null,
       role: rec.role ?? null,
       reason: rec.reason ?? null,
+      stretch: Boolean(rec.stretch),
+      exclusionConflicts: Array.isArray(rec.exclusionConflicts) ? rec.exclusionConflicts : [],
       preferenceScore: rec.preferenceScore ?? null,
       finalScore: rec.finalScore ?? null,
     })),
