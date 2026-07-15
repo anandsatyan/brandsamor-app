@@ -34,19 +34,35 @@ const normalizeLead = (lead) => ({
   consent: Boolean(lead?.consent),
 });
 
-/** Open (non-paid) sessions are reusable lead records; paid sessions stay as order history. */
+/** Sessions that must never be edited as open leads or deleted by dedupe. */
+function isFrozenOrderSession(doc) {
+  if (!doc) return false;
+  if (doc.status === 'paid') return true;
+  if (doc.order?.sampleOrderNumber != null) return true;
+  if (doc.payment?.paidAt) return true;
+  if (doc.payment?.status === 'succeeded') return true;
+  return false;
+}
+
+const OPEN_SESSION_FILTER = {
+  status: { $nin: ['paid'] },
+  'order.sampleOrderNumber': { $exists: false },
+  'payment.paidAt': { $exists: false },
+};
+
+/** Open (non-paid) sessions are reusable lead records; paid/order sessions stay as history. */
 async function findOpenSessionByEmail(db, email) {
   const normalized = String(email ?? '').trim().toLowerCase();
   if (!normalized) return null;
   return db.collection('samplingSessions').findOne(
-    { 'lead.email': normalized, status: { $ne: 'paid' } },
+    { 'lead.email': normalized, ...OPEN_SESSION_FILTER },
     { sort: { updatedAt: -1, createdAt: -1 } },
   );
 }
 
 /**
  * Keep a single open session per email. Deletes older open duplicates.
- * Paid sessions are never removed.
+ * Paid / order-bearing sessions are never removed.
  */
 async function removeOpenDuplicateSessions(db, email, keepSessionId) {
   const normalized = String(email ?? '').trim().toLowerCase();
@@ -54,13 +70,14 @@ async function removeOpenDuplicateSessions(db, email, keepSessionId) {
 
   await db.collection('samplingSessions').deleteMany({
     'lead.email': normalized,
-    status: { $ne: 'paid' },
     sessionId: { $ne: keepSessionId },
+    ...OPEN_SESSION_FILTER,
   });
 }
 
 /**
- * One-time-per-process cleanup of existing open duplicates (e.g. ovakuma@gmail.com).
+ * One-time-per-process cleanup of existing open duplicates.
+ * Also repairs sessions that still have order/payment data but lost status "paid".
  */
 let openDuplicatesConsolidated = false;
 export async function consolidateOpenEmailDuplicates(db = null) {
@@ -69,12 +86,31 @@ export async function consolidateOpenEmailDuplicates(db = null) {
   openDuplicatesConsolidated = true;
 
   try {
+    const repair = await mongo.collection('samplingSessions').updateMany(
+      {
+        status: { $ne: 'paid' },
+        $or: [
+          { 'order.sampleOrderNumber': { $exists: true, $ne: null } },
+          { 'payment.paidAt': { $exists: true } },
+          { 'payment.status': 'succeeded' },
+        ],
+      },
+      {
+        $set: { status: 'paid', lastCompletedStep: 'paid' },
+      },
+    );
+    if (repair.modifiedCount > 0) {
+      console.log(
+        `[sampling] Restored paid status on ${repair.modifiedCount} order session(s)`,
+      );
+    }
+
     const groups = await mongo
       .collection('samplingSessions')
       .aggregate([
         {
           $match: {
-            status: { $ne: 'paid' },
+            ...OPEN_SESSION_FILTER,
             'lead.email': { $type: 'string', $ne: '' },
           },
         },
@@ -112,15 +148,15 @@ export async function consolidateOpenEmailDuplicates(db = null) {
  */
 async function resolveSessionIdForLead(db, { sessionId, email }) {
   const openByEmail = await findOpenSessionByEmail(db, email);
-  if (openByEmail?.sessionId) {
+  if (openByEmail?.sessionId && !isFrozenOrderSession(openByEmail)) {
     return openByEmail.sessionId;
   }
 
   if (sessionId) {
     const byId = await db.collection('samplingSessions').findOne({ sessionId: String(sessionId) });
     if (byId?.sessionId) {
-      // Paid sessions are frozen order records — start a new open lead instead.
-      if (byId.status === 'paid') return null;
+      // Paid / order sessions are frozen — start a new open lead instead.
+      if (isFrozenOrderSession(byId)) return null;
       return byId.sessionId;
     }
   }
@@ -142,8 +178,9 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
   });
 
   if (targetSessionId) {
-    await db.collection('samplingSessions').updateOne(
-      { sessionId: targetSessionId },
+    // Never downgrade a paid/order session (guards races with markPaid / webhooks).
+    const updateResult = await db.collection('samplingSessions').updateOne(
+      { sessionId: targetSessionId, ...OPEN_SESSION_FILTER },
       {
         $set: {
           lead: normalizedLead,
@@ -156,6 +193,27 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
         $push: { stepHistory: stepEntry },
       },
     );
+
+    if (updateResult.matchedCount === 0) {
+      // Target became a frozen order session — open a fresh lead instead.
+      const newSessionId = randomUUID();
+      await db.collection('samplingSessions').insertOne({
+        sessionId: newSessionId,
+        lead: normalizedLead,
+        answers: answers ?? {},
+        currentStep: currentStep ?? 1,
+        lastCompletedStep: step,
+        stepHistory: [stepEntry],
+        status: 'in_progress',
+        recommendations: [],
+        selectionSummary: null,
+        createdAt: now,
+        updatedAt: now,
+      });
+      await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
+      return newSessionId;
+    }
+
     await removeOpenDuplicateSessions(db, normalizedLead.email, targetSessionId);
     return targetSessionId;
   }
@@ -202,8 +260,8 @@ export async function finalizeCuration({ sessionId, lead, answers, recommendatio
     });
   }
 
-  await db.collection('samplingSessions').updateOne(
-    { sessionId: targetSessionId },
+  const curationResult = await db.collection('samplingSessions').updateOne(
+    { sessionId: targetSessionId, ...OPEN_SESSION_FILTER },
     {
       $set: {
         lead: normalizedLead,
@@ -218,6 +276,32 @@ export async function finalizeCuration({ sessionId, lead, answers, recommendatio
       $push: { stepHistory: { step: 'curation', completedAt: now } },
     },
   );
+
+  if (curationResult.matchedCount === 0) {
+    const newSessionId = await upsertSamplingSession({
+      sessionId: null,
+      step: 'contact',
+      lead: normalizedLead,
+      answers,
+      currentStep: 8,
+    });
+    await db.collection('samplingSessions').updateOne(
+      { sessionId: newSessionId, ...OPEN_SESSION_FILTER },
+      {
+        $set: {
+          recommendations,
+          selectionSummary: selectionSummary ?? null,
+          status: 'curated',
+          lastCompletedStep: 'curation',
+          currentStep: 8,
+          updatedAt: now,
+        },
+        $push: { stepHistory: { step: 'curation', completedAt: now } },
+      },
+    );
+    await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
+    return newSessionId;
+  }
 
   await removeOpenDuplicateSessions(db, normalizedLead.email, targetSessionId);
   return targetSessionId;
