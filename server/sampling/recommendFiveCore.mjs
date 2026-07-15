@@ -135,13 +135,18 @@ export function recommendFiveFromRows(rows, answers, options = {}) {
   const defaultIndex = new Map(defaults.map((slug, idx) => [slug, idx]));
   const resolvedFamilies = resolveFamilies(answers);
 
-  let profiles = rows.map(({ fragrance, notePyramid }) =>
-    buildSelectionProfileFromMongo(fragrance, notePyramid),
-  );
+  const profiles = rows
+    .map(({ fragrance, notePyramid }) => buildSelectionProfileFromMongo(fragrance, notePyramid))
+    // Hard exclusions are never bypassed — better a smaller kit than disliked notes.
+    .filter((profile) => !isHardExcluded(profile, answers));
 
-  const hardFiltered = profiles.filter((profile) => !isHardExcluded(profile, answers));
-  if (hardFiltered.length >= 5) {
-    profiles = hardFiltered;
+  if (profiles.length === 0) {
+    return {
+      recommendations: [],
+      selectionSummary:
+        'No fragrances in the current library fully avoid your exclusions. Relax one or two dislike filters to unlock a curated set.',
+      exclusionFilteredCount: 0,
+    };
   }
 
   const scoredRaw = profiles.map((profile) => {
@@ -159,6 +164,12 @@ export function recommendFiveFromRows(rows, answers, options = {}) {
   );
 
   const families = [...new Set(selected.map((item) => item.profile.primaryFamily))];
+  const count = selected.length;
+  const selectionSummary =
+    count < 5
+      ? `We found ${count} fragrance${count === 1 ? '' : 's'} that fit your brief while respecting your exclusions. A narrower dislike set can yield a fuller five-sample kit.`
+      : `We balanced ${families.length} scent families across two core matches, two adjacent discoveries, and one controlled wildcard so the set stays relevant without feeling repetitive.`;
+
   return {
     recommendations: selected.map((item) => ({
       fragranceSlug: item.profile.id,
@@ -172,6 +183,7 @@ export function recommendFiveFromRows(rows, answers, options = {}) {
       finalScore: item.finalScore,
       reasons: item.reasons,
     })),
-    selectionSummary: `We balanced ${families.length} scent families across two core matches, two adjacent discoveries, and one controlled wildcard so the set stays relevant without feeling repetitive.`,
+    selectionSummary,
+    exclusionFilteredCount: profiles.length,
   };
 }

@@ -802,11 +802,16 @@ export const SamplingExperience = () => {
   const renderResults = () => (
     <ScreenTransition>
       <h1 ref={headingRef} tabIndex={-1} className="type-h1">
-        Your five fragrance directions are ready.
+        {recommendations.length === 5
+          ? 'Your five fragrance directions are ready.'
+          : recommendations.length === 1
+            ? 'Your fragrance direction is ready.'
+            : `Your ${recommendations.length} fragrance directions are ready.`}
       </h1>
       <p className="mt-3 text-base leading-relaxed text-[#725F52]">
-        We selected a focused mix based on your brand and scent preferences. These five are
-        designed to help you compare distinct directions without overwhelming you.
+        {recommendations.length === 5
+          ? 'We selected a focused mix based on your brand and scent preferences. These five are designed to help you compare distinct directions without overwhelming you.'
+          : 'We selected the strongest fits that respect your exclusions. If this set feels too narrow, go back and relax one or two dislike filters for a fuller kit.'}
       </p>
 
       <div className="results-cart mt-8">
@@ -1053,7 +1058,13 @@ export const SamplingExperience = () => {
           )}
         </section>
         <section>
-          <h2 className="mb-3 type-h3">Your five fragrance directions</h2>
+          <h2 className="mb-3 type-h3">
+            {recommendations.length === 5
+              ? 'Your five fragrance directions'
+              : recommendations.length === 1
+                ? 'Your fragrance direction'
+                : `Your ${recommendations.length} fragrance directions`}
+          </h2>
           <div className="space-y-3">
             {recommendations.map((rec) => {
               const profile = getFragranceById(rec.fragranceId);

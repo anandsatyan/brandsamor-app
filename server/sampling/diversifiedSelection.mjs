@@ -469,7 +469,7 @@ export function selectDiversifiedRecommendations(scored, answers = {}, options =
     },
   );
 
-  // Fallback fill — never return fewer than five unique IDs.
+  // Fallback fill — take up to five unique IDs from the remaining (already filtered) pool.
   let relaxLevel = 0;
   while (selected.length < 5 && available().length) {
     const filled = trySelect(

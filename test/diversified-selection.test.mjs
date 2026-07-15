@@ -152,6 +152,59 @@ test('strong sweetness exclusion never returns a sweet gourmand wildcard', () =>
   assert.equal(hit, false, `wildcard should not be a sweet gourmand, got ${profile.id}`);
 });
 
+test('heavy exclusions are never bypassed even when fewer than five remain', () => {
+  const exclusions = [
+    'strong-smoke',
+    'heavy-oud',
+    'very-sweet',
+    'powdery',
+    'sharp-citrus',
+    'strong-florals',
+    'spicy',
+    'marine-aquatic',
+  ];
+  const result = recommendFiveFromRows(core16Rows, {
+    brandPersonalities: ['fresh-clean', 'minimal-understated', 'soft-elegant'],
+    scentFamilies: ['gourmand', 'floral', 'aquatic-aromatic'],
+    scentExpression: 'gender-neutral',
+    businessType: 'unsure',
+    exclusions,
+  });
+
+  assert.ok(result.recommendations.length < 5, 'expected a shorter kit when exclusions wipe most of the library');
+  assert.ok(result.recommendations.length >= 1, 'expected at least one non-excluded survivor');
+
+  const exclusionSignals = {
+    'very-sweet': ['gourmand', 'vanilla', 'sweet', 'coffee'],
+    'heavy-oud': ['oud'],
+    'strong-smoke': ['smoky', 'smoke', 'incense'],
+    powdery: ['powdery'],
+    'sharp-citrus': ['citrus'],
+    'strong-florals': ['floral', 'rose'],
+    'marine-aquatic': ['marine', 'aquatic'],
+    spicy: ['spicy', 'spice', 'pepper'],
+  };
+
+  for (const rec of result.recommendations) {
+    const profile = bySlug[rec.fragranceSlug];
+    const tokens = new Set([
+      profile.primaryFamily,
+      ...profile.secondaryFamilies,
+      ...profile.dominantAccords,
+      ...profile.tags,
+    ]);
+    for (const ex of exclusions) {
+      for (const signal of exclusionSignals[ex]) {
+        assert.equal(
+          tokens.has(signal),
+          false,
+          `${rec.fragranceSlug} should not carry excluded signal "${signal}" from "${ex}"`,
+        );
+      }
+    }
+  }
+});
+
 test('limited candidate pool still returns five unique fragrances', () => {
   const limitedRows = core16Rows.filter((row) =>
     ['bright-citrus', 'green-horizon', 'modern-blue', 'salted-air', 'aromatic-reserve', 'sparkling-citrus-woods'].includes(

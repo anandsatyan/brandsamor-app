@@ -135,15 +135,15 @@ export const runRecommendationEngine = (answers: SamplingAnswers): CurationResul
   const defaults = BUSINESS_DEFAULTS[businessType] ?? BUSINESS_DEFAULTS.unsure;
   const resolvedFamilies = resolveFamilies(answers);
 
-  let candidates = FRAGRANCE_LIBRARY.filter((p) => !isExcluded(p, answers.exclusions));
-  if (candidates.length < 5) {
-    candidates = FRAGRANCE_LIBRARY.filter((p) => {
-      const hardExclusions = answers.exclusions.filter((e) => e !== 'none' && e !== 'unsure');
-      return !hardExclusions.some((ex) => {
-        const tag = EXCLUSION_MAP[ex];
-        return tag && p.exclusions.includes(tag);
-      });
-    });
+  // Hard exclusions are never bypassed — better a smaller kit than disliked notes.
+  const candidates = FRAGRANCE_LIBRARY.filter((p) => !isExcluded(p, answers.exclusions));
+
+  if (candidates.length === 0) {
+    return {
+      recommendations: [],
+      selectionSummary:
+        'No fragrances in the current library fully avoid your exclusions. Relax one or two dislike filters to unlock a curated set.',
+    };
   }
 
   const scoredRaw = candidates.map((profile) => {
@@ -174,7 +174,11 @@ export const runRecommendationEngine = (answers: SamplingAnswers): CurationResul
   }));
 
   const families = [...new Set(selected.map((item: { profile: { primaryFamily: string } }) => item.profile.primaryFamily))];
-  const selectionSummary = `We balanced ${families.length} scent families across two core matches, two adjacent discoveries, and one controlled wildcard so the set stays relevant without feeling repetitive.`;
+  const count = recommendations.length;
+  const selectionSummary =
+    count < 5
+      ? `We found ${count} fragrance${count === 1 ? '' : 's'} that fit your brief while respecting your exclusions. A narrower dislike set can yield a fuller five-sample kit.`
+      : `We balanced ${families.length} scent families across two core matches, two adjacent discoveries, and one controlled wildcard so the set stays relevant without feeling repetitive.`;
 
   return { recommendations, selectionSummary };
 };
