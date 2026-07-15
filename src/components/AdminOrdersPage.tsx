@@ -33,6 +33,7 @@ type AdminOrder = {
     fragranceSlug?: string;
     fragranceNumber?: string | number | null;
     fragranceName?: string | null;
+    inspiredBy?: { brand?: string | null; fragrance?: string | null } | null;
     role?: string;
     reason?: string;
   }>;
@@ -285,6 +286,16 @@ export const AdminOrdersPage = () => {
                       <p className="mt-1 font-medium text-heading">
                         {rec.fragranceName || formatFragranceRecommendation(rec)}
                       </p>
+                      {(rec.inspiredBy?.brand || rec.inspiredBy?.fragrance) && (
+                        <p className="mt-1 text-sm">
+                          Inspired by{' '}
+                          <span className="text-heading">
+                            {[rec.inspiredBy.brand, rec.inspiredBy.fragrance]
+                              .filter(Boolean)
+                              .join(' — ')}
+                          </span>
+                        </p>
+                      )}
                       <p className="mt-1">{rec.reason}</p>
                     </li>
                   ))}

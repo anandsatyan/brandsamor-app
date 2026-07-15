@@ -43,6 +43,7 @@ type AdminLead = {
     fragranceSlug?: string | null;
     fragranceNumber?: string | number | null;
     fragranceName?: string | null;
+    inspiredBy?: { brand?: string | null; fragrance?: string | null } | null;
     role?: string | null;
     reason?: string | null;
   }>;
@@ -401,6 +402,14 @@ function LeadDetail({ lead }: { lead: AdminLead }) {
                 <p className="mt-1 font-medium text-heading">
                   {rec.fragranceName || formatFragranceRecommendation(rec)}
                 </p>
+                {(rec.inspiredBy?.brand || rec.inspiredBy?.fragrance) && (
+                  <p className="mt-1 text-sm text-body">
+                    Inspired by{' '}
+                    <span className="text-heading">
+                      {[rec.inspiredBy.brand, rec.inspiredBy.fragrance].filter(Boolean).join(' — ')}
+                    </span>
+                  </p>
+                )}
                 {rec.reason && <p className="mt-1 text-body">{rec.reason}</p>}
               </li>
             ))}

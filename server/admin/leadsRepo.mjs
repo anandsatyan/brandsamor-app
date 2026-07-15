@@ -49,6 +49,12 @@ function serializeLead(doc) {
       fragranceSlug: rec.fragranceSlug ?? rec.fragranceId ?? null,
       fragranceNumber: rec.fragranceNumber ?? rec.number ?? null,
       fragranceName: rec.fragranceName ?? rec.customerFacingName ?? null,
+      inspiredBy: rec.inspiredBy
+        ? {
+            brand: rec.inspiredBy.brand ?? null,
+            fragrance: rec.inspiredBy.fragrance ?? null,
+          }
+        : null,
       role: rec.role ?? null,
       reason: rec.reason ?? null,
       preferenceScore: rec.preferenceScore ?? null,

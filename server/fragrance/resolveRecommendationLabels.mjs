@@ -18,13 +18,35 @@ export async function loadFragranceDocsBySlugs(slugs = []) {
       .collection('fragrances')
       .find(
         { slug: { $in: unique } },
-        { projection: { slug: 1, number: 1, customerFacingName: 1, shortDescription: 1, notes: 1, primaryFamily: 1 } },
+        {
+          projection: {
+            slug: 1,
+            number: 1,
+            customerFacingName: 1,
+            shortDescription: 1,
+            notes: 1,
+            primaryFamily: 1,
+            inspiredBy: 1,
+          },
+        },
       )
       .toArray();
     return new Map(docs.map((doc) => [doc.slug, doc]));
   } catch {
     return new Map();
   }
+}
+
+function resolveInspiredBy(rec, doc = null) {
+  const fromRec = rec?.inspiredBy;
+  const fromDoc = doc?.inspiredBy;
+  const brand = fromRec?.brand ?? fromDoc?.brand ?? null;
+  const fragrance = fromRec?.fragrance ?? fromDoc?.fragrance ?? null;
+  if (!brand && !fragrance) return null;
+  return {
+    brand: brand ? String(brand) : null,
+    fragrance: fragrance ? String(fragrance) : null,
+  };
 }
 
 /**
@@ -45,6 +67,7 @@ export function resolveRecommendationLabel(rec, doc = null) {
     fragranceSlug: slug || null,
     fragranceNumber: number != null && number !== '' ? number : null,
     fragranceName: name,
+    inspiredBy: resolveInspiredBy(rec, doc),
     role: rec?.role ?? null,
     reason: rec?.reason ?? null,
     preferenceScore: rec?.preferenceScore ?? null,

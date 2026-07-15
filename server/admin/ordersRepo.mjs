@@ -25,6 +25,12 @@ function serializeOrder(doc) {
       fragranceNumber: rec.fragranceNumber ?? rec.number ?? null,
       fragranceName: rec.fragranceName ?? rec.customerFacingName ?? null,
       fragranceId: rec.fragranceId ?? null,
+      inspiredBy: rec.inspiredBy
+        ? {
+            brand: rec.inspiredBy.brand ?? null,
+            fragrance: rec.inspiredBy.fragrance ?? null,
+          }
+        : null,
       role: rec.role ?? null,
       reason: rec.reason ?? null,
     })),
