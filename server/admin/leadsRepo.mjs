@@ -104,6 +104,7 @@ function serializeLead(doc) {
 
 export async function listLeads({ limit = 200, status, q } = {}) {
   const db = await getMongoDb();
+  await consolidateOpenEmailDuplicates(db);
   const filter = {};
 
   if (status && status !== 'all') {
@@ -146,6 +147,7 @@ export async function getLeadBySessionId(sessionId) {
 
 export async function getAdminDashboardStats() {
   const db = await getMongoDb();
+  await consolidateOpenEmailDuplicates(db);
   const collection = db.collection('samplingSessions');
 
   const [leadsCount, ordersCount, statusCounts] = await Promise.all([
