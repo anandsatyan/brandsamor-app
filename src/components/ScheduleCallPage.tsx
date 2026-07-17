@@ -37,7 +37,7 @@ export const ScheduleCallPage = () => {
       <SiteHeader />
 
       <main className="flex flex-1 flex-col">
-        <div className="border-b border-border/50 px-4 py-6 text-center sm:px-8 sm:py-8">
+        <div className="px-4 py-6 text-center sm:px-8 sm:py-8">
           <p className="type-eyebrow">Partnership call</p>
           <h1 className="mt-2 type-h3">{meta.h1}</h1>
           <p className="mx-auto mt-2 max-w-xl type-body-sm text-body">{meta.description}</p>
