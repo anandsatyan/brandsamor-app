@@ -215,6 +215,18 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     includeServiceSchema: false,
     includeHomeGraph: false,
   },
+  '/schedule-a-call': {
+    path: '/schedule-a-call',
+    pageName: 'Schedule a Call',
+    title: 'Schedule a Partnership Call | Brandsamor',
+    description:
+      'Book a call with the Brandsamor team to discuss curated sampling, private label perfume production, and your brand launch.',
+    canonical: canonical('/schedule-a-call'),
+    h1: 'Schedule a call with Brandsamor',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: false,
+    includeHomeGraph: false,
+  },
   '/get-started': {
     path: '/get-started',
     pageName: 'Get Started',

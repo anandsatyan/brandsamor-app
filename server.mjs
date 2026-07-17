@@ -48,6 +48,7 @@ const PUBLIC_ROUTES = new Set([
   '/custom-perfume-manufacturer',
   '/about',
   '/contact',
+  '/schedule-a-call',
   '/get-started',
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
@@ -97,6 +98,7 @@ const PUBLIC_ROUTES = new Set([
 const SPA_ONLY_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
+  '/schedule-a-call',
   '/admin',
   '/admin/leads',
   '/admin/orders',

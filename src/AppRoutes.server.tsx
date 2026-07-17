@@ -3,6 +3,7 @@ import { AboutPage } from './components/AboutPage';
 import { BrandsamorLandingPage } from './components/BrandsamorLandingPage';
 import { ContactPage } from './components/ContactPage';
 import { LeadFormPage } from './components/LeadFormPage';
+import { ScheduleCallPage } from './components/ScheduleCallPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
 import { CustomPerfumeManufacturerPage } from './components/CustomPerfumeManufacturerPage';
@@ -52,6 +53,7 @@ export const AppRoutesServer = () => (
       })}
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/schedule-a-call" element={<ScheduleCallPage />} />
       <Route path="/get-started" element={<LeadFormPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
