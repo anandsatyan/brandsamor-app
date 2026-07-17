@@ -231,7 +231,8 @@ export async function maybeSendExploratoryCallInviteOnce({ sessionId, lead }) {
       );
     }
 
-    console.log(`[exploratory-call-invite] ${result.mode} to ${email}`);
+    const masked = email.replace(/(.{2}).+(@.+)/, '$1***$2');
+    console.log(`[exploratory-call-invite] ${result.mode} to ${masked}`);
     return { ok: true, mode: result.mode };
   } catch (error) {
     // Release claim so a later upsert can retry.
