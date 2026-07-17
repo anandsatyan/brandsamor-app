@@ -7,6 +7,7 @@ import {
 } from './orderNumbers.mjs';
 import { notifySampleOrderPaid } from './orderNotificationEmail.mjs';
 import { sendCustomerOrderConfirmation } from './customerOrderConfirmationEmail.mjs';
+import { maybeSendExploratoryCallInviteOnce } from './exploratoryCallInviteEmail.mjs';
 
 let indexesEnsured = false;
 
@@ -164,6 +165,12 @@ async function resolveSessionIdForLead(db, { sessionId, email }) {
   return null;
 }
 
+async function finishLeadUpsert({ sessionId, lead }) {
+  // Fire-and-forget: one exploratory-call invite per email for life of that address.
+  void maybeSendExploratoryCallInviteOnce({ sessionId, lead });
+  return sessionId;
+}
+
 export async function upsertSamplingSession({ sessionId, step, lead, answers, currentStep }) {
   await ensureSamplingIndexes();
   const db = await getMongoDb();
@@ -211,11 +218,11 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
         updatedAt: now,
       });
       await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
-      return newSessionId;
+      return finishLeadUpsert({ sessionId: newSessionId, lead: normalizedLead });
     }
 
     await removeOpenDuplicateSessions(db, normalizedLead.email, targetSessionId);
-    return targetSessionId;
+    return finishLeadUpsert({ sessionId: targetSessionId, lead: normalizedLead });
   }
 
   // Always mint a fresh id when opening a new lead (never reuse a paid sessionId).
@@ -234,7 +241,7 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
     updatedAt: now,
   });
   await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
-  return newSessionId;
+  return finishLeadUpsert({ sessionId: newSessionId, lead: normalizedLead });
 }
 
 export async function finalizeCuration({ sessionId, lead, answers, recommendations, selectionSummary }) {
