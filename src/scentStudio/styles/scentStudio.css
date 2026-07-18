@@ -17,3 +17,32 @@
   background: color-mix(in srgb, var(--sampling-cream) 92%, white);
   backdrop-filter: blur(8px);
 }
+
+.scent-assistant-body {
+  color: var(--sampling-heading);
+}
+
+.scent-term {
+  display: inline;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.scent-term-note {
+  color: var(--sampling-orange);
+  padding: 0.05em 0.28em;
+  margin: 0 0.08em;
+  border-radius: 2px;
+  background: var(--sampling-orange-tint);
+  white-space: nowrap;
+}
+
+.scent-term-structure {
+  color: #8a4b16;
+  padding: 0 0.05em;
+}
+
+.scent-term-descriptor {
+  color: #0f6b4c;
+  padding: 0 0.05em;
+}

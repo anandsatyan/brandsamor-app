@@ -229,9 +229,9 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
   // Ambiguous reference confirmation
   if (searched.length > 1 && refsInText.length === 0 && !hasScentCardContent(state)) {
     const options = searched.slice(0, 3);
-    assistantMessage = `I found a few fragrances that might match. Which one did you mean — ${options
-      .map((r) => `${r.brand} ${r.name}`)
-      .join(', ')}? Or describe the idea in your own words.`;
+    assistantMessage = `I found a few fragrances that might match.\n\nWhich one did you mean — ${options
+      .map((r) => `**${r.brand} ${r.name}**`)
+      .join(', ')}?\n\nOr describe the idea in your own words.`;
     quickReplies = options.map((r) => `${r.brand} ${r.name}`);
     return {
       assistantMessage,
@@ -281,10 +281,16 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
     });
     shouldUpdateScentCard = true;
     changedFields.push('references', 'scentDirection');
-    assistantMessage =
-      safe.matchStatus === 'verified'
-        ? `Using ${safe.brand} ${safe.name} as an olfactory starting point — not a copy of its proprietary formula. I have sketched an opening direction on the scent card. What do you like most about it, and what should feel different?`
-        : `I can use ${safe.brand} ${safe.name} as a loose starting point, but I do not have a verified note profile for it on file. Tell me what you like about it — opening, dry-down, mood — and I will build from your description.`;
+    {
+      const highlightNotes = [...pyramid.topNotes, ...pyramid.heartNotes, ...pyramid.baseNotes]
+        .slice(0, 4)
+        .map((n) => `**${n}**`)
+        .join(', ');
+      assistantMessage =
+        safe.matchStatus === 'verified'
+          ? `Using **${safe.brand} ${safe.name}** as an olfactory starting point — not a copy of its proprietary formula.\n\nI have sketched an opening direction on the scent card, leaning on ${highlightNotes}.\n\nWhat do you like most about it, and what should feel different?`
+          : `I can use **${safe.brand} ${safe.name}** as a loose starting point, but I do not have a verified note profile for it on file.\n\nTell me what you like about the opening, the dry-down, or the mood — and I will build from your description.`;
+    }
     quickReplies = ['Less soapy, more woody', 'Keep the opening, soften the dry-down', 'Make it warmer'];
     return {
       assistantMessage,
@@ -339,7 +345,7 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
 
   if (useInspiration && !hasScentCardContent(state)) {
     assistantMessage =
-      'Great — name a perfume you like (brand + fragrance if you know it), and tell me what should stay and what should change.';
+      'Great — name a perfume you like (brand + fragrance if you know it).\n\nThen tell me what should stay, and what should change.';
     quickReplies = ['Imagination, less soapy', 'Santal 33, less dry', 'Something like Wood Sage & Sea Salt'];
     return {
       assistantMessage,
@@ -411,7 +417,7 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
       readyForFormula = true;
       shouldUpdateScentCard = true;
       assistantMessage =
-        'This direction is clear enough to prepare for sampling. I will hold the scent card as the brief for the Brandsamor team. Would you like me to collect your contact details next, or keep refining first?';
+        'This direction is clear enough to prepare for sampling.\n\nI will hold the scent card as the brief for the Brandsamor team.\n\nWould you like me to collect your contact details next, or keep refining first?';
       quickReplies = ['Keep refining', 'Prepare for sampling'];
       return {
         assistantMessage,
@@ -427,36 +433,33 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
     }
 
     shouldUpdateScentCard = changedFields.length > 0 || Boolean(removeNote || addNote);
-    const changedSummary = [
-      removeNote ? `reduced ${removeNote}` : null,
-      addNote ? `brought in ${addNote}` : null,
-      includesAny(lower, ['more woody', 'woodier']) ? 'shifted the base drier and woodier' : null,
-      includesAny(lower, ['warmer']) ? 'warmed the dry-down' : null,
-      includesAny(lower, ['less sweet']) ? 'pulled back sweetness' : null,
-    ]
-      .filter(Boolean)
-      .join(', ');
+    const changeLines = [
+      removeNote ? `- Reduced **${titleCase(removeNote)}**` : null,
+      addNote ? `- Brought in **${titleCase(addNote)}**` : null,
+      includesAny(lower, ['more woody', 'woodier'])
+        ? '- Shifted the base drier and more **woody**'
+        : null,
+      includesAny(lower, ['warmer']) ? '- Warmed the dry-down with softer amber woods' : null,
+      includesAny(lower, ['less sweet']) ? '- Pulled back dessert-like sweetness' : null,
+    ].filter(Boolean);
 
     const confidence = Number(state.confidence?.overall || 0.45);
     const nextConfidence = Math.min(0.9, confidence + 0.08);
     set['confidence.overall'] = nextConfidence;
     set['confidence.scentDirection'] = Math.min(0.9, Number(state.confidence?.scentDirection || 0.5) + 0.08);
 
+    const changeBlock = changeLines.length
+      ? `Here is what I changed:\n\n${changeLines.join('\n')}`
+      : 'I have updated the direction on the scent card.';
+    const preserveLine = `I kept **${(d.primaryFamily || 'the core character').replace(/-/g, ' ')}** and anything you did not ask to change.`;
+
     if (nextConfidence >= 0.72 && state.stage !== 'ready_for_formula') {
-      assistantMessage = `${
-        changedSummary
-          ? `I have ${changedSummary}, and kept the rest of your settled direction.`
-          : 'I have updated the direction on the scent card.'
-      } This is clear enough to prepare for sampling. Would you like to keep refining, or prepare it for the Brandsamor team?`;
+      assistantMessage = `${changeBlock}\n\n${preserveLine}\n\nThis is clear enough to prepare for sampling. Would you like to keep refining, or prepare it for the Brandsamor team?`;
       quickReplies = ['Keep refining', 'Prepare for sampling'];
       set.stage = 'ready_for_formula';
       readyForFormula = true;
     } else {
-      assistantMessage = `${
-        changedSummary
-          ? `I have ${changedSummary}, and preserved ${d.primaryFamily || 'the core character'} and anything you did not ask to change.`
-          : 'Noted — I am holding your current direction steady.'
-      } ${pickFollowUp(state, lower)}`;
+      assistantMessage = `${changeBlock}\n\n${preserveLine}\n\n${pickFollowUp(state, lower)}`;
       quickReplies = ['Make it warmer', 'Less sweet', 'Prepare for sampling'];
     }
 
@@ -476,7 +479,7 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
 
   // Default opening
   assistantMessage =
-    'Tell me about the fragrance you want to create. You can name a perfume you would like to use as inspiration, or describe an idea from scratch.';
+    'Tell me about the fragrance you want to create.\n\nYou can name a perfume you would like to use as inspiration, or describe an idea from scratch.';
   quickReplies = ['Use a fragrance as inspiration', 'Start from scratch'];
   return {
     assistantMessage,
@@ -492,10 +495,14 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
 }
 
 function tropicalFollowUp(lower, pyramid) {
+  const notes = [...pyramid.topNotes, ...pyramid.heartNotes, ...pyramid.baseNotes]
+    .slice(0, 4)
+    .map((n) => `**${n}**`)
+    .join(', ');
   if (includesAny(lower, ['tropical', 'beach', 'resort'])) {
-    return `I have sketched a first direction — ${pyramid.oneSentenceConcept} Should the tropical feeling come more from juicy fruits and flowers, or from salty air, green leaves and sun-warmed woods?`;
+    return `I have sketched a first direction.\n\n${pyramid.oneSentenceConcept}\n\nEarly accents include ${notes}.\n\nShould the tropical feeling come more from juicy fruits and flowers, or from salty air, green leaves and sun-warmed woods?`;
   }
-  return `I have put a first direction on the scent card: ${pyramid.oneSentenceConcept} What should we strengthen next — the opening, the heart, or the dry-down?`;
+  return `I have put a first direction on the scent card.\n\n${pyramid.oneSentenceConcept}\n\nEarly accents include ${notes}.\n\nWhat should we strengthen next — the opening, the heart, or the dry-down?`;
 }
 
 function tropicalQuickReplies(lower) {
@@ -513,7 +520,7 @@ function pickFollowUp(state, lower) {
     return 'Where do you imagine this being worn most — everyday, evening, or a hospitality / retail setting?';
   }
   if (includesAny(lower, ['fresh']) && !includesAny(lower, ['citrus', 'aquatic', 'green', 'musk'])) {
-    return 'When you say fresh, do you mean citrus-bright, watery-aquatic, or clean musk?';
+    return 'When you say **fresh**, do you mean citrus-bright, watery-aquatic, or clean **musk**?';
   }
   return 'What would you like to adjust next?';
 }

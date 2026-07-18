@@ -19,7 +19,7 @@ export async function createConsultation() {
     id: randomUUID(),
     role: 'assistant',
     content:
-      'Tell me about the fragrance you want to create. You can name a perfume you would like to use as inspiration, or describe an idea from scratch.',
+      'Tell me about the fragrance you want to create.\n\nYou can name a perfume you would like to use as inspiration, or describe an idea from scratch.',
     quickReplies: ['Use a fragrance as inspiration', 'Start from scratch'],
     createdAt: now,
   };

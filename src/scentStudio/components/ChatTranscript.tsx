@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { ScentMessage } from '../types';
+import { AssistantMessageBody } from './AssistantMessageBody';
 
 export function ChatTranscript({
   messages,
@@ -28,11 +29,15 @@ export function ChatTranscript({
           <div key={message.id || `${message.role}-${index}`} className="space-y-2">
             <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
               <div
-                className={`max-w-[92%] px-4 py-3 text-sm leading-relaxed sm:max-w-[85%] ${
+                className={`max-w-[92%] px-4 py-3.5 text-sm leading-relaxed sm:max-w-[85%] ${
                   isUser ? 'scent-bubble-user' : 'scent-bubble-assistant'
                 }`}
               >
-                <p className="whitespace-pre-wrap">{message.content}</p>
+                {isUser ? (
+                  <p className="whitespace-pre-wrap">{message.content}</p>
+                ) : (
+                  <AssistantMessageBody content={message.content} />
+                )}
               </div>
             </div>
             {isLastAssistant && message.quickReplies && message.quickReplies.length > 0 && (
