@@ -277,77 +277,81 @@ export function ScentStudioExperience() {
         </header>
 
         {loading && !consultation ? (
-          <main className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto px-5">
+          <main className="scent-studio-scroll flex min-h-0 flex-1 items-center justify-center overflow-y-auto overscroll-contain">
             <p className="text-sm text-[var(--sampling-muted)]">Loading…</p>
           </main>
         ) : !consultation ? (
-          <main className="mx-auto flex min-h-0 w-full max-w-lg flex-1 flex-col overflow-y-auto overscroll-contain px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
-            <p className="type-eyebrow">AI Scent Studio</p>
-            <h1 className="mt-4 font-serif text-phi-2xl leading-tight text-[var(--sampling-heading)] sm:text-phi-3xl">
-              Create Your Fragrance Through Conversation
-            </h1>
-            <p className="mx-auto mt-4 max-w-md type-body text-[var(--sampling-muted)]">
-              Tell us what you want your fragrance to smell and feel like. Start with a perfume you
-              already know or describe something completely new. Conversations are saved on this
-              device.
-            </p>
-            {error && <p className="mt-4 text-sm text-[var(--sampling-error)]">{error}</p>}
-            <button
-              type="button"
-              onClick={() => void startCreating()}
-              disabled={sending}
-              className="btn-primary mx-auto mt-8 disabled:opacity-50"
-            >
-              {sending ? 'Starting…' : 'Start Creating'}
-            </button>
-            {conversations.length > 0 && (
+          <main className="scent-studio-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain">
+            <div className="mx-auto flex w-full max-w-lg flex-col px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
+              <p className="type-eyebrow">AI Scent Studio</p>
+              <h1 className="mt-4 font-serif text-phi-2xl leading-tight text-[var(--sampling-heading)] sm:text-phi-3xl">
+                Create Your Fragrance Through Conversation
+              </h1>
+              <p className="mx-auto mt-4 max-w-md type-body text-[var(--sampling-muted)]">
+                Tell us what you want your fragrance to smell and feel like. Start with a perfume you
+                already know or describe something completely new. Conversations are saved on this
+                device.
+              </p>
+              {error && <p className="mt-4 text-sm text-[var(--sampling-error)]">{error}</p>}
               <button
                 type="button"
-                onClick={() => setSidebarOpen(true)}
-                className="mt-4 text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)] lg:hidden"
+                onClick={() => void startCreating()}
+                disabled={sending}
+                className="btn-primary mx-auto mt-8 disabled:opacity-50"
               >
-                Open saved scents
+                {sending ? 'Starting…' : 'Start Creating'}
               </button>
-            )}
+              {conversations.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setSidebarOpen(true)}
+                  className="mt-4 text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)] lg:hidden"
+                >
+                  Open saved scents
+                </button>
+              )}
+            </div>
           </main>
         ) : (
           <>
-            <main className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-y-auto overscroll-contain px-5 pb-4 pt-5 sm:px-8">
-              <ChatTranscript
-                messages={consultation.messages}
-                pending={sending}
-                disabled={sending || submitted}
-                onQuickReply={(text) => {
-                  if (text.toLowerCase().includes('prepare for sampling')) {
-                    setShowHandoff(true);
-                  }
-                  void handleSend(text);
-                }}
-              />
+            <main className="scent-studio-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain">
+              <div className="mx-auto flex w-full max-w-2xl flex-col px-5 pb-4 pt-5 sm:px-8">
+                <ChatTranscript
+                  messages={consultation.messages}
+                  pending={sending}
+                  disabled={sending || submitted}
+                  onQuickReply={(text) => {
+                    if (text.toLowerCase().includes('prepare for sampling')) {
+                      setShowHandoff(true);
+                    }
+                    void handleSend(text);
+                  }}
+                />
 
-              {error && <p className="mt-3 text-sm text-[var(--sampling-error)]">{error}</p>}
+                {error && <p className="mt-3 text-sm text-[var(--sampling-error)]">{error}</p>}
 
-              {showHandoff && !submitted && (
-                <div className="mt-6">
-                  <SamplingHandoffCard
-                    concept={consultation.scentCard?.oneSentenceConcept}
-                    submitting={submitting}
-                    onSubmit={(contact) => void handleSubmit(contact)}
-                  />
-                </div>
-              )}
+                {showHandoff && !submitted && (
+                  <div className="mt-6">
+                    <SamplingHandoffCard
+                      concept={consultation.scentCard?.oneSentenceConcept}
+                      submitting={submitting}
+                      onSubmit={(contact) => void handleSubmit(contact)}
+                    />
+                  </div>
+                )}
 
-              {submitted && (
-                <div className="mt-6 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-5 text-center">
-                  <p className="font-serif text-phi-lg text-[var(--sampling-heading)]">
-                    Brief received
-                  </p>
-                  <p className="mt-2 text-sm text-[var(--sampling-muted)]">
-                    Your scent direction has been emailed to the Brandsamor development team for
-                    formulation and sampling review.
-                  </p>
-                </div>
-              )}
+                {submitted && (
+                  <div className="mt-6 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-5 text-center">
+                    <p className="font-serif text-phi-lg text-[var(--sampling-heading)]">
+                      Brief received
+                    </p>
+                    <p className="mt-2 text-sm text-[var(--sampling-muted)]">
+                      Your scent direction has been emailed to the Brandsamor development team for
+                      formulation and sampling review.
+                    </p>
+                  </div>
+                )}
+              </div>
             </main>
 
             {!submitted && (

@@ -31,8 +31,8 @@ export function Composer({
   }
 
   return (
-    <form onSubmit={onSubmit} className="scent-composer sticky bottom-0 -mx-5 px-5 py-3 sm:-mx-8 sm:px-8">
-      <div className="mx-auto flex max-w-2xl items-end gap-2">
+    <form onSubmit={onSubmit} className="scent-composer w-full px-5 py-3 sm:px-8">
+      <div className="mx-auto flex w-full max-w-2xl items-end gap-2">
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}

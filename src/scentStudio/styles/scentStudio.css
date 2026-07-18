@@ -6,6 +6,12 @@
   overscroll-behavior: none;
 }
 
+/* Full-width scroll region so the scrollbar sits on the right edge of the page pane */
+.scent-studio-scroll {
+  width: 100%;
+  scrollbar-gutter: stable;
+}
+
 .scent-bubble-assistant {
   background: var(--sampling-surface);
   border: 1px solid var(--sampling-border);
