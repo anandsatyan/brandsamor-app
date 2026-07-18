@@ -66,11 +66,15 @@ export async function saveConsultationTurn(consultationId, recoveryToken, mutato
   });
   if (!existing) return null;
 
-  const next = await mutator(structuredClone(existing));
+  // structuredClone turns ObjectId into a plain buffer object; never clone/replace _id.
+  const originalId = existing._id;
+  const { _id: _ignored, ...rest } = existing;
+  const next = await mutator(structuredClone(rest));
   next.updatedAt = new Date();
+  delete next._id;
 
-  await db.collection(COLLECTION).replaceOne({ _id: existing._id }, next);
-  return next;
+  await db.collection(COLLECTION).replaceOne({ _id: originalId }, next);
+  return { ...next, _id: originalId };
 }
 
 export async function appendMessagesAndState({
