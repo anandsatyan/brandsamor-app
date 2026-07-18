@@ -61,6 +61,7 @@ const PUBLIC_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
   '/create-a-scent',
+  '/create-a-scent/studio',
   '/login',
   '/admin',
   '/admin/leads',
@@ -107,7 +108,7 @@ const PUBLIC_ROUTES = new Set([
 const SPA_ONLY_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
-  '/create-a-scent',
+  '/create-a-scent/studio',
   '/schedule-a-call',
   '/admin',
   '/admin/leads',
@@ -211,7 +212,8 @@ const resolveFile = (urlPath) => {
   if (
     PUBLIC_ROUTES.has(normalized) ||
     normalized.startsWith('/admin/') ||
-    normalized.startsWith('/curated-sampling/')
+    normalized.startsWith('/curated-sampling/') ||
+    normalized.startsWith('/create-a-scent/')
   ) {
     const htmlPath =
       normalized === '/'
@@ -223,7 +225,8 @@ const resolveFile = (urlPath) => {
     if (
       SPA_ONLY_ROUTES.has(normalized) ||
       normalized.startsWith('/admin') ||
-      normalized.startsWith('/curated-sampling')
+      normalized.startsWith('/curated-sampling') ||
+      normalized.startsWith('/create-a-scent/')
     ) {
       const spaIndex = path.join(distDir, 'index.html');
       if (fs.existsSync(spaIndex)) {

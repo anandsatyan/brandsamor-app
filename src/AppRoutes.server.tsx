@@ -6,6 +6,7 @@ import { LeadFormPage } from './components/LeadFormPage';
 import { ScheduleCallPage } from './components/ScheduleCallPage';
 import { FragranceProductsPage } from './components/FragranceProductsPage';
 import { FragranceSamplingPage } from './components/FragranceSamplingPage';
+import { CreateAScentPage } from './components/CreateAScentPage';
 import { CustomPerfumeManufacturerPage } from './components/CustomPerfumeManufacturerPage';
 import { HowYourBatchIsMadePage } from './components/HowYourBatchIsMadePage';
 import { PrivateLabelPerfumeManufacturerUsaPage } from './components/PrivateLabelPerfumeManufacturerUsaPage';
@@ -39,6 +40,7 @@ export const AppRoutesServer = () => (
       <Route path="/how-it-works" element={<HowItWorksPage />} />
       <Route path="/fragrance-products" element={<FragranceProductsPage />} />
       <Route path="/fragrance-sampling" element={<FragranceSamplingPage />} />
+      <Route path="/create-a-scent" element={<CreateAScentPage />} />
       <Route path="/packaging-branding" element={<PackagingBrandingPage />} />
       <Route path="/start-a-perfume-line" element={<StartPerfumeLinePage />} />
       <Route path="/who-we-work-with" element={<WhoWeWorkWithPage />} />

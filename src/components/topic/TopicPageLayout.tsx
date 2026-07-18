@@ -39,7 +39,12 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
     <PageBreadcrumbBar items={homeBreadcrumbs(pageMeta.pageName)} />
 
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
-      <PageHero {...config.hero} trackingLocation={`topic_hero${config.seo.path}`} dualCta />
+      <PageHero
+        {...config.hero}
+        trackingLocation={`topic_hero${config.seo.path}`}
+        dualCta={config.hero.dualCta ?? true}
+        actions={config.hero.actions}
+      />
       {config.keyFacts && (
         <SpecTable
           title={config.keyFacts.title}
@@ -82,7 +87,11 @@ export const TopicPageLayout = ({ config, children }: { config: TopicPageConfig;
       )}
     </main>
 
-    <PageCtaSection {...config.cta} dualCta />
+    <PageCtaSection
+      {...config.cta}
+      dualCta={config.cta.dualCta ?? true}
+      actions={config.cta.actions}
+    />
     <SiteFooter />
     {config.showWhatsApp && (
       <>

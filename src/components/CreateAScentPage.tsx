@@ -1,4 +1,5 @@
-import { ScentStudioExperience } from '../scentStudio/app/ScentStudioExperience';
+import { TopicPageLayout } from './topic/TopicPageLayout';
+import { createAScentConfig } from '../content/createAScent';
 
-/** Conversational AI Scent Studio — not linked from main site navigation. */
-export const CreateAScentPage = () => <ScentStudioExperience />;
+/** SEO landing for conversational custom fragrance development (brands). */
+export const CreateAScentPage = () => <TopicPageLayout config={createAScentConfig} />;

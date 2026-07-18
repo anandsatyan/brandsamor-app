@@ -46,6 +46,9 @@ export type TopicPageConfig = {
     title: string;
     description: string;
     Illustration?: IllustrationComponent;
+    /** When set, replaces the default sampling / quote CTA group. */
+    actions?: ReactNode;
+    dualCta?: boolean;
   };
   keyFacts?: {
     title?: string;
@@ -73,6 +76,9 @@ export type TopicPageConfig = {
     description: string;
     Illustration?: IllustrationComponent;
     footerText?: ReactNode;
+    /** When set, replaces the default sampling / quote CTA group. */
+    actions?: ReactNode;
+    dualCta?: boolean;
   };
   structuredDataExtra?: object[];
   beforeFaq?: ReactNode;

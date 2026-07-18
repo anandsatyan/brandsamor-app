@@ -10,6 +10,7 @@ export const PageCtaSection = ({
   Illustration,
   footerText,
   dualCta = false,
+  actions,
   trackingLocation = 'topic_footer_cta',
 }: {
   eyebrow: string;
@@ -18,6 +19,7 @@ export const PageCtaSection = ({
   Illustration?: IllustrationComponent;
   footerText?: ReactNode;
   dualCta?: boolean;
+  actions?: ReactNode;
   trackingLocation?: string;
 }) => (
   <section className="bg-heading py-12 sm:py-24 text-white">
@@ -28,7 +30,9 @@ export const PageCtaSection = ({
         <h4 className="type-eyebrow mb-6">{eyebrow}</h4>
         <h2 className="type-h1 mb-6 text-white">{title}</h2>
         <p className="type-body-lg text-white/85 mb-8 sm:mb-10 max-w-md">{description}</p>
-        {dualCta ? (
+        {actions ? (
+          actions
+        ) : dualCta ? (
           <QuoteCtaGroup variant="dark" trackingLocation={trackingLocation} />
         ) : (
           <ComingSoonLabel variant="primary" trackingLocation={trackingLocation} />

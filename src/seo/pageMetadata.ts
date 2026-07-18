@@ -94,6 +94,18 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     includeServiceSchema: true,
     includeHomeGraph: false,
   },
+  '/create-a-scent': {
+    path: '/create-a-scent',
+    pageName: 'Create a Scent',
+    title: 'Custom Fragrance Development for Brands | Brandsamor',
+    description:
+      'Develop a custom brand fragrance through conversation. Refine notes, mood, and performance with Brandsamor, then submit a sampling brief for physical development.',
+    canonical: canonical('/create-a-scent'),
+    h1: 'Custom Fragrance Development for Brands Through Conversation',
+    robots: DEFAULT_ROBOTS,
+    includeServiceSchema: true,
+    includeHomeGraph: false,
+  },
   '/packaging-branding': {
     path: '/packaging-branding',
     pageName: 'Packaging & Branding',

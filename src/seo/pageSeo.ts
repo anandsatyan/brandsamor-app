@@ -78,6 +78,46 @@ export const FRAGRANCE_SAMPLING_FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+// ——— Create a Scent (custom fragrance development) ———
+
+export const CREATE_A_SCENT_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'Who is Brandsamor Create a Scent for?',
+    answer:
+      'Create a Scent is built for brands — beauty lines, boutiques, hospitality groups, creators with a product business, and companies launching private label fragrance. It is a brand development tool, not a consumer perfume quiz for personal wear.',
+  },
+  {
+    question: 'How is conversational fragrance development different from curated sampling?',
+    answer:
+      'Curated sampling matches your brand brief to five ready library fragrances for physical wear testing. Create a Scent helps you develop a custom scent direction through conversation — starting from a known reference or from scratch — then submit that direction for sampling review and experimental formulation.',
+  },
+  {
+    question: 'Can my brand start from a fragrance we already like?',
+    answer:
+      'Yes. You can name a reference perfume as an olfactory starting point, then describe what should stay, change, soften, or strengthen. Brandsamor treats references as creative direction, not as proprietary formulas to copy.',
+  },
+  {
+    question: 'What does my brand receive after the conversation?',
+    answer:
+      'You refine a clear scent direction with family, descriptors, top/heart/base notes, performance intent, and restrictions. When ready, you submit a development brief so Brandsamor can review it for physical sampling — not an instant finished formula.',
+  },
+  {
+    question: 'Is the AI generating a production-ready perfume formula?',
+    answer:
+      'No. The customer-facing result is an approved scent direction and pyramid for sampling review. Any experimental formula work is internal, versioned, and requires human review before weighing or production.',
+  },
+  {
+    question: 'How does this fit a private label perfume launch?',
+    answer:
+      'Use Create a Scent when you need a more custom olfactory direction than a library pick. Many brands still begin with curated sampling for speed; Create a Scent is the path when conversation and iteration better match your brand story. After scent direction is clear, bottle, packaging, and production follow the usual Brandsamor launch process.',
+  },
+  {
+    question: 'What information should my team prepare before starting?',
+    answer:
+      'Come with brand positioning, target customer, use occasion, notes or effects to avoid, and any reference fragrances your team already likes. Commercial details like market and quantity can be captured when you prepare the direction for sampling.',
+  },
+];
+
 // ——— Packaging & Branding ———
 
 export const PACKAGING_BRANDING_FAQ_ITEMS: FaqItem[] = [

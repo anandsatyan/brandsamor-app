@@ -4,6 +4,11 @@ export const LEAD_FORM_PATH = '/get-started';
 export const CURATED_SAMPLING_PATH = '/curated-sampling';
 export const PRIMARY_CTA_LABEL = 'Start with sampling';
 
+/** Conversational custom fragrance development studio (app). */
+export const CREATE_A_SCENT_PATH = '/create-a-scent';
+export const CREATE_A_SCENT_STUDIO_PATH = '/create-a-scent/studio';
+export const CREATE_A_SCENT_CTA_LABEL = 'Start creating your scent';
+
 export const BUSINESS_TYPES = [
   'Beauty or skincare brand',
   'Creator or influencer',

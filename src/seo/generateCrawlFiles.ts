@@ -141,6 +141,7 @@ export const buildLlmsTxt = () => {
         '/contract-perfume-manufacturing',
         '/how-it-works',
         '/fragrance-sampling',
+        '/create-a-scent',
         '/packaging-branding',
         '/quality-compliance',
         '/perfume-filling-services',
