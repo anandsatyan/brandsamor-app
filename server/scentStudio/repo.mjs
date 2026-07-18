@@ -1,5 +1,6 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import { getMongoDb } from '../db/mongo.mjs';
+import { openingForStartMode, START_MODES } from './modeOpenings.mjs';
 import { createEmptyScentState, toPublicConsultation } from './state.mjs';
 
 const COLLECTION = 'scentConsultations';
@@ -8,19 +9,20 @@ function newRecoveryToken() {
   return randomBytes(24).toString('hex');
 }
 
-export async function createConsultation() {
+export async function createConsultation(startMode = null) {
   const db = await getMongoDb();
   const consultationId = randomUUID();
   const recoveryToken = newRecoveryToken();
   const now = new Date();
-  const state = createEmptyScentState(consultationId);
+  const mode = START_MODES.includes(startMode) ? startMode : null;
+  const state = createEmptyScentState(consultationId, mode);
+  const openingCopy = openingForStartMode(mode);
 
   const opening = {
     id: randomUUID(),
     role: 'assistant',
-    content:
-      'Tell me about the fragrance you want to create.\n\nYou can name a perfume you would like to use as inspiration, or describe an idea from scratch.',
-    quickReplies: ['Use a fragrance as inspiration', 'Start from scratch'],
+    content: openingCopy.content,
+    quickReplies: openingCopy.quickReplies,
     createdAt: now,
   };
 

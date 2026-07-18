@@ -97,11 +97,11 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
   '/create-a-scent': {
     path: '/create-a-scent',
     pageName: 'Create a Scent',
-    title: 'Custom Fragrance Development for Brands | Brandsamor',
+    title: 'Create a Custom Perfume for Your Brand | Brandsamor',
     description:
-      'Develop a custom brand fragrance through conversation. Refine notes, mood, and performance with Brandsamor, then submit a sampling brief for physical development.',
+      'Describe the fragrance you want, refine its notes with the Brandsamor AI scent designer, and create a sample-ready fragrance brief for your brand.',
     canonical: canonical('/create-a-scent'),
-    h1: 'Custom Fragrance Development for Brands Through Conversation',
+    h1: 'Create a Custom Perfume for Your Brand',
     robots: DEFAULT_ROBOTS,
     includeServiceSchema: true,
     includeHomeGraph: false,

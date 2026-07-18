@@ -1,10 +1,18 @@
 import { randomUUID } from 'node:crypto';
 
-export function createEmptyScentState(consultationId) {
+export function createEmptyScentState(consultationId, startMode = null) {
+  const mode =
+    startMode === 'scratch' || startMode === 'inspiration' || startMode === 'guided'
+      ? startMode
+      : null;
+
   return {
     consultationId: consultationId || randomUUID(),
-    stage: 'discovery',
-    entryMode: 'unknown',
+    startMode: mode,
+    stage: mode ? 'direction' : 'opening',
+    currentStage: mode ? 'direction' : 'opening',
+    entryMode:
+      mode === 'inspiration' ? 'reference' : mode === 'scratch' ? 'scratch' : mode === 'guided' ? 'mixed' : 'unknown',
     customerLanguage: {
       originalRequest: undefined,
       importantQuotes: [],
@@ -17,6 +25,9 @@ export function createEmptyScentState(consultationId) {
       expectedRetailPrice: undefined,
       currency: undefined,
       destinationMarkets: [],
+      productFormat: undefined,
+      retailPositioning: undefined,
+      expectedQuantity: undefined,
     },
     references: [],
     scentDirection: {
@@ -34,8 +45,11 @@ export function createEmptyScentState(consultationId) {
       sweetness: undefined,
       warmth: undefined,
       darkness: undefined,
+      woodiness: undefined,
+      floral: undefined,
       originality: undefined,
       cleanliness: undefined,
+      distinctiveness: undefined,
     },
     performance: {
       opening: undefined,
@@ -62,6 +76,8 @@ export function createEmptyScentState(consultationId) {
     lockedElements: [],
     openQuestions: [],
     contradictions: [],
+    unresolvedTradeoffs: [],
+    recentChanges: [],
     confidence: {
       referenceUnderstanding: 0,
       scentDirection: 0,
@@ -75,7 +91,11 @@ export function createEmptyScentState(consultationId) {
       brandName: undefined,
       country: undefined,
     },
+    contactGateShown: false,
+    conceptReady: false,
+    developmentStatus: 'draft',
     currentVersion: 1,
+    versions: [],
   };
 }
 
@@ -200,6 +220,12 @@ export function toPublicScentCard(state) {
     p.concentrationDirection || null,
   ].filter(Boolean);
 
+  const scale = (value) => {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return null;
+    return Math.max(0, Math.min(10, Math.round(n)));
+  };
+
   return {
     workingName: d.workingNames?.[0] || 'Untitled scent',
     primaryFamily: d.primaryFamily || 'Emerging direction',
@@ -211,6 +237,38 @@ export function toPublicScentCard(state) {
     status,
     oneSentenceConcept: d.oneSentenceConcept || null,
     version: state.currentVersion,
+    intendedAudience: state.brandContext?.targetCustomer || null,
+    intendedUse: (state.useContext?.occasions || []).slice(0, 3),
+    productFormat: state.brandContext?.productFormat || null,
+    genderPositioning: state.brandContext?.genderPositioning || null,
+    recentChanges: Array.isArray(state.recentChanges) ? state.recentChanges.slice(0, 6) : [],
+    developmentStatus: state.developmentStatus || 'draft',
+    currentStage: state.currentStage || state.stage || 'opening',
+    attributes: {
+      freshness: scale(d.freshness),
+      sweetness: scale(d.sweetness),
+      warmth: scale(d.warmth),
+      woodiness: scale(d.woodiness),
+      floral: scale(d.floral),
+      projection: scale(
+        p.projection === 'strong' || p.projection === 'powerful'
+          ? 8
+          : p.projection === 'intimate'
+            ? 3
+            : p.projection === 'moderate'
+              ? 5
+              : d.originality,
+      ),
+      longevity: scale(p.longevityTargetHours ? Math.min(10, Number(p.longevityTargetHours)) : null),
+      distinctiveness: scale(d.distinctiveness ?? d.originality),
+    },
+    referenceSummary: Array.isArray(state.references) && state.references[0]
+      ? {
+          name: state.references[0].name,
+          brand: state.references[0].brand,
+          transformationSummary: state.references[0].requestedChanges?.join('; ') || null,
+        }
+      : null,
   };
 }
 
@@ -242,11 +300,14 @@ export function deriveConsultationTitle(state) {
 export function toPublicConsultation(doc) {
   if (!doc) return null;
   const scentCard = toPublicScentCard(doc.state);
+  const state = doc.state || {};
   return {
     consultationId: doc.consultationId,
     recoveryToken: doc.recoveryToken,
-    stage: doc.state?.stage || 'discovery',
-    title: deriveConsultationTitle(doc.state),
+    stage: state.stage || 'discovery',
+    currentStage: state.currentStage || state.stage || 'opening',
+    startMode: state.startMode || null,
+    title: deriveConsultationTitle(state),
     messages: Array.isArray(doc.messages)
       ? doc.messages.map((m) => ({
           id: m.id,
@@ -257,6 +318,9 @@ export function toPublicConsultation(doc) {
         }))
       : [],
     scentCard,
+    conceptReady: Boolean(state.conceptReady || state.developmentStatus === 'concept-ready'),
+    developmentStatus: state.developmentStatus || 'draft',
+    contactCaptured: Boolean(state.contact?.email),
     saveStatus: 'saved',
     submittedAt: doc.submittedAt || null,
     providerMode: doc.providerMode || null,
@@ -271,7 +335,7 @@ export function validateTurnOutput(raw) {
   return {
     assistantMessage,
     quickReplies: Array.isArray(raw.quickReplies)
-      ? raw.quickReplies.map((x) => String(x).trim()).filter(Boolean).slice(0, 4)
+      ? raw.quickReplies.map((x) => String(x).trim()).filter(Boolean).slice(0, 8)
       : [],
     statePatch:
       raw.statePatch && typeof raw.statePatch === 'object'
@@ -290,8 +354,11 @@ export function validateTurnOutput(raw) {
     preservedFields: Array.isArray(raw.preservedFields) ? raw.preservedFields.map(String) : [],
     inferredFields: Array.isArray(raw.inferredFields) ? raw.inferredFields : [],
     contradictions: Array.isArray(raw.contradictions) ? raw.contradictions.map(String) : [],
+    changes: Array.isArray(raw.changes) ? raw.changes.map(String).slice(0, 6) : [],
     nextQuestionPurpose: raw.nextQuestionPurpose ? String(raw.nextQuestionPurpose) : undefined,
     shouldUpdateScentCard: Boolean(raw.shouldUpdateScentCard),
     readyForFormula: Boolean(raw.readyForFormula),
+    stageComplete: Boolean(raw.stageComplete),
+    nextStage: raw.nextStage ? String(raw.nextStage) : undefined,
   };
 }

@@ -286,12 +286,19 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
         .slice(0, 4)
         .map((n) => `**${n}**`)
         .join(', ');
-      assistantMessage =
-        safe.matchStatus === 'verified'
-          ? `Using **${safe.brand} ${safe.name}** as an olfactory starting point — not a copy of its proprietary formula.\n\nI have sketched an opening direction on the scent card, leaning on ${highlightNotes}.\n\nWhat do you like most about it, and what should feel different?`
-          : `I can use **${safe.brand} ${safe.name}** as a loose starting point, but I do not have a verified note profile for it on file.\n\nTell me what you like about the opening, the dry-down, or the mood — and I will build from your description.`;
+    assistantMessage =
+      safe.matchStatus === 'verified'
+          ? `I’m taking **${safe.brand} ${safe.name}** as a reference starting point — not an exact copy.\n\nI’d explore ${highlightNotes} as the opening structure.\n\nWhat should we preserve, and what should feel different?`
+          : `I can use **${safe.brand} ${safe.name}** as a loose starting point, but I don’t have a verified profile on file.\n\nTell me what you like in the opening or dry-down, and what you want to change.`;
     }
-    quickReplies = ['Less soapy, more woody', 'Keep the opening, soften the dry-down', 'Make it warmer'];
+    quickReplies = [
+      'Less sweet',
+      'Fresher opening',
+      'More woody',
+      'More distinctive',
+      'Softer dry-down',
+      'Keep this direction',
+    ];
     return {
       assistantMessage,
       quickReplies,
@@ -300,8 +307,10 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
       preservedFields,
       inferredFields: [],
       contradictions: [],
+      changes: ['Reference direction sketched'],
       shouldUpdateScentCard,
       readyForFormula: false,
+      nextStage: 'character',
     };
   }
 
@@ -477,10 +486,55 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
     };
   }
 
+  // Mode-aware discovery when card does not exist yet
+  if (!hasScentCardContent(state)) {
+    const mode = state.startMode;
+    if (mode === 'guided' || includesAny(lower, ['guide me', 'help me decide'])) {
+      const pyramid = buildScratchPyramid(text, notes);
+      Object.assign(set, {
+        entryMode: 'mixed',
+        stage: 'refining',
+        currentStage: 'direction',
+        'scentDirection.workingNames': pyramid.workingNames,
+        'scentDirection.oneSentenceConcept': pyramid.oneSentenceConcept,
+        'scentDirection.primaryFamily': pyramid.primaryFamily,
+        'scentDirection.supportingFamilies': pyramid.supportingFamilies,
+        'scentDirection.descriptors': pyramid.descriptors,
+        'scentDirection.topNotes': pyramid.topNotes,
+        'scentDirection.heartNotes': pyramid.heartNotes,
+        'scentDirection.baseNotes': pyramid.baseNotes,
+        'scentDirection.freshness': 6,
+        'confidence.scentDirection': 0.45,
+        'confidence.overall': 0.4,
+      });
+      assistantMessage = `I’m hearing a direction around how this should feel on the brand’s customer.\n\n${pyramid.oneSentenceConcept}\n\nWhere would you imagine it being worn most?`;
+      quickReplies = [
+        'Everyday signature scent',
+        'Evening fragrance',
+        'Luxury hospitality product',
+        'Giftable fragrance',
+        'Broad commercial launch',
+      ];
+      return {
+        assistantMessage,
+        quickReplies,
+        statePatch: { set, add, remove, lock, unlock: [] },
+        changedFields: ['scentDirection'],
+        preservedFields: [],
+        inferredFields: [],
+        contradictions: [],
+        changes: ['Initial guided direction sketched'],
+        shouldUpdateScentCard: true,
+        readyForFormula: false,
+        nextStage: 'character',
+      };
+    }
+  }
+
   // Default opening
   assistantMessage =
-    'Tell me about the fragrance you want to create.\n\nYou can name a perfume you would like to use as inspiration, or describe an idea from scratch.';
-  quickReplies = ['Use a fragrance as inspiration', 'Start from scratch'];
+    'Let’s create your fragrance.\n\nStart with an idea, modify a fragrance you already know, or let me guide you.';
+  quickReplies = ['Create from scratch', 'Modify an existing fragrance', 'Guide me'];
   return {
     assistantMessage,
     quickReplies,
@@ -489,6 +543,7 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
     preservedFields: [],
     inferredFields: [],
     contradictions: [],
+    changes: [],
     shouldUpdateScentCard: false,
     readyForFormula: false,
   };
@@ -500,9 +555,12 @@ function tropicalFollowUp(lower, pyramid) {
     .map((n) => `**${n}**`)
     .join(', ');
   if (includesAny(lower, ['tropical', 'beach', 'resort'])) {
-    return `I have sketched a first direction.\n\n${pyramid.oneSentenceConcept}\n\nEarly accents include ${notes}.\n\nShould the tropical feeling come more from juicy fruits and flowers, or from salty air, green leaves and sun-warmed woods?`;
+    return `I’m interpreting this as clean and quietly luxurious — tropical without sunscreen sweetness.\n\nI’d explore ${notes}.\n\nShould the tropical feeling come more from juicy fruits and flowers, or from salty air, green leaves and sun-warmed woods?`;
   }
-  return `I have put a first direction on the scent card.\n\n${pyramid.oneSentenceConcept}\n\nEarly accents include ${notes}.\n\nWhat should we strengthen next — the opening, the heart, or the dry-down?`;
+  if (includesAny(lower, ['fresh', 'clean', 'energetic', 'understated'])) {
+    return `I’m interpreting this as clean, confident and not loud.\n\nI’d explore ${notes}.\n\nShould it feel brighter and fresher, or smoother and warmer?`;
+  }
+  return `Your direction is taking shape.\n\n${pyramid.oneSentenceConcept}\n\nI’d explore ${notes}. Should we strengthen the opening, the heart, or the dry-down next?`;
 }
 
 function tropicalQuickReplies(lower) {

@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../../components/BrandLogo';
+import { CREATE_A_SCENT_PATH } from '../../routes/leadForm';
 import { SaveStatus } from '../../sampling/components/layout/SaveStatus';
 import { ChatTranscript } from '../components/ChatTranscript';
 import { Composer } from '../components/Composer';
 import { ConversationSidebar } from '../components/ConversationSidebar';
+import { FinalConceptReview } from '../components/FinalConceptReview';
+import { LiveScentPanel } from '../components/LiveScentPanel';
+import { OpeningPaths } from '../components/OpeningPaths';
+import { ProgressIndicator } from '../components/ProgressIndicator';
+import { SampleRequestSection } from '../components/SampleRequestSection';
 import { SamplingHandoffCard } from '../components/SamplingHandoffCard';
-import { ScentCard } from '../components/ScentCard';
 import {
   createConsultation,
   loadConsultation,
   sendMessage,
   submitForSampling,
 } from '../lib/api';
+import { scentStudioAnalytics } from '../lib/analytics';
 import {
   getActiveConsultationId,
   getLocalConversation,
@@ -25,21 +31,26 @@ import { deriveConversationTitle } from '../lib/conversationTitle';
 import type { ScentConsultation } from '../types';
 import '../styles/scentStudio.css';
 
+type UiPhase = 'opening' | 'chat' | 'concept' | 'sample' | 'contact';
+
 export function ScentStudioExperience() {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState<LocalConversationEntry[]>([]);
   const [consultation, setConsultation] = useState<ScentConsultation | null>(null);
+  const [uiPhase, setUiPhase] = useState<UiPhase>('opening');
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
   const [error, setError] = useState('');
-  const [showHandoff, setShowHandoff] = useState(false);
+  const [statusLine, setStatusLine] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [contactGateShown, setContactGateShown] = useState(false);
 
   function refreshLibrary(nextConsultation?: ScentConsultation | null) {
     if (nextConsultation) {
       upsertLocalConversation(nextConsultation);
+      scentStudioAnalytics.saved();
     }
     setConversations(listLocalConversations());
   }
@@ -48,6 +59,10 @@ export function ScentStudioExperience() {
     setSavedFlash(true);
     window.setTimeout(() => setSavedFlash(false), 1600);
   }
+
+  useEffect(() => {
+    scentStudioAnalytics.viewed();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -59,7 +74,10 @@ export function ScentStudioExperience() {
 
       const activeId = getActiveConsultationId() || localList[0]?.consultationId || null;
       if (!activeId) {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setUiPhase('opening');
+          setLoading(false);
+        }
         return;
       }
 
@@ -74,14 +92,16 @@ export function ScentStudioExperience() {
         if (cancelled) return;
         setConsultation(existing);
         refreshLibrary(existing);
-        setShowHandoff(existing.stage === 'ready_for_formula' && !existing.submittedAt);
+        setContactGateShown(Boolean(existing.contactCaptured));
+        if (existing.submittedAt) setUiPhase('chat');
+        else if (existing.conceptReady) setUiPhase('concept');
+        else setUiPhase('chat');
       } catch {
-        // Fall back to locally saved snapshot if the server copy is unavailable.
         if (!cancelled && local.snapshot?.messages?.length) {
           setConsultation(local.snapshot);
-          setShowHandoff(
-            local.snapshot.stage === 'ready_for_formula' && !local.snapshot.submittedAt,
-          );
+          setUiPhase(local.snapshot.conceptReady ? 'concept' : 'chat');
+        } else if (!cancelled) {
+          setUiPhase('opening');
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -92,21 +112,26 @@ export function ScentStudioExperience() {
     };
   }, []);
 
-  async function startCreating() {
+  async function startWithMode(mode: 'scratch' | 'inspiration' | 'guided') {
     setSending(true);
     setError('');
-    setShowHandoff(false);
+    setStatusLine('Starting your project…');
+    scentStudioAnalytics.modeSelected(mode);
     try {
-      const created = await createConsultation();
+      const created = await createConsultation(mode);
       setConsultation(created);
       refreshLibrary(created);
       setActiveConsultationId(created.consultationId);
+      setUiPhase('chat');
       setSidebarOpen(false);
+      scentStudioAnalytics.started(mode);
       flashSaved();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not start consultation');
+      scentStudioAnalytics.error('start_failed');
     } finally {
       setSending(false);
+      setStatusLine('');
     }
   }
 
@@ -117,7 +142,6 @@ export function ScentStudioExperience() {
     }
     setError('');
     setLoading(true);
-    setShowHandoff(false);
     const local = getLocalConversation(consultationId);
     if (!local) {
       setLoading(false);
@@ -128,15 +152,14 @@ export function ScentStudioExperience() {
       const existing = await loadConsultation(local.consultationId, local.recoveryToken);
       setConsultation(existing);
       refreshLibrary(existing);
-      setShowHandoff(existing.stage === 'ready_for_formula' && !existing.submittedAt);
+      setUiPhase(existing.conceptReady && !existing.submittedAt ? 'concept' : 'chat');
     } catch {
       if (local.snapshot) {
         setConsultation(local.snapshot);
-        setShowHandoff(
-          local.snapshot.stage === 'ready_for_formula' && !local.snapshot.submittedAt,
-        );
+        setUiPhase(local.snapshot.conceptReady ? 'concept' : 'chat');
       } else {
         setError('Could not open that conversation');
+        scentStudioAnalytics.error('restore_failed');
       }
     } finally {
       setLoading(false);
@@ -148,6 +171,7 @@ export function ScentStudioExperience() {
     if (!consultation || sending) return;
     setSending(true);
     setError('');
+    setStatusLine('Interpreting your direction…');
 
     const optimisticUser = {
       id: `local-${Date.now()}`,
@@ -160,6 +184,7 @@ export function ScentStudioExperience() {
     );
 
     try {
+      setStatusLine('Refining the scent structure…');
       const result = await sendMessage(
         consultation.consultationId,
         consultation.recoveryToken,
@@ -172,13 +197,23 @@ export function ScentStudioExperience() {
       setConsultation(withTitle);
       refreshLibrary(withTitle);
       flashSaved();
-      const lower = text.toLowerCase();
-      if (
-        result.readyForFormula ||
-        lower.includes('prepare for sampling') ||
-        withTitle.stage === 'ready_for_formula'
+
+      const turns = withTitle.messages.filter((m) => m.role === 'user').length;
+      if (withTitle.scentCard && turns <= 2) {
+        scentStudioAnalytics.initialDirection(withTitle.startMode, turns);
+      }
+
+      if (withTitle.conceptReady || result.readyForFormula) {
+        scentStudioAnalytics.conceptCompleted(withTitle.startMode, withTitle.scentCard?.version);
+        setUiPhase('concept');
+      } else if (
+        withTitle.scentCard &&
+        turns >= 3 &&
+        !withTitle.contactCaptured &&
+        !contactGateShown
       ) {
-        setShowHandoff(true);
+        setContactGateShown(true);
+        scentStudioAnalytics.contactGate();
       }
     } catch (e) {
       setConsultation((prev) =>
@@ -189,9 +224,11 @@ export function ScentStudioExperience() {
             }
           : prev,
       );
-      setError(e instanceof Error ? e.message : 'Message failed');
+      setError(e instanceof Error ? e.message : 'Message failed — you can retry without losing work.');
+      scentStudioAnalytics.error('message_failed');
     } finally {
       setSending(false);
+      setStatusLine('');
     }
   }
 
@@ -205,6 +242,7 @@ export function ScentStudioExperience() {
     if (!consultation) return;
     setSubmitting(true);
     setError('');
+    scentStudioAnalytics.sampleRequestStarted();
     try {
       const next = await submitForSampling(
         consultation.consultationId,
@@ -213,10 +251,12 @@ export function ScentStudioExperience() {
       );
       setConsultation(next);
       refreshLibrary(next);
-      setShowHandoff(false);
+      setUiPhase('chat');
       flashSaved();
+      scentStudioAnalytics.sampleRequestCompleted();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Submit failed');
+      scentStudioAnalytics.error('submit_failed');
     } finally {
       setSubmitting(false);
     }
@@ -224,7 +264,7 @@ export function ScentStudioExperience() {
 
   function handleExit() {
     if (consultation) refreshLibrary(consultation);
-    navigate('/');
+    navigate(CREATE_A_SCENT_PATH);
   }
 
   const conversationTitle =
@@ -232,6 +272,7 @@ export function ScentStudioExperience() {
     deriveConversationTitle(consultation) ||
     'New scent conversation';
   const submitted = Boolean(consultation?.submittedAt);
+  const thinkingLabel = statusLine || (sending ? 'Preparing the next question…' : '');
 
   return (
     <div className="sampling-experience flex h-[100dvh] max-h-[100dvh] overflow-hidden">
@@ -241,7 +282,12 @@ export function ScentStudioExperience() {
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
         onSelect={(id) => void selectConversation(id)}
-        onNewScent={() => void startCreating()}
+        onNewScent={() => {
+          setConsultation(null);
+          setUiPhase('opening');
+          setActiveConsultationId(null);
+          setSidebarOpen(false);
+        }}
         creating={sending && !consultation}
       />
 
@@ -255,7 +301,7 @@ export function ScentStudioExperience() {
                 </p>
               )}
             </div>
-            <Link to="/" className="justify-self-center" aria-label="Brandsamor home">
+            <Link to={CREATE_A_SCENT_PATH} className="justify-self-center" aria-label="Create a Scent">
               <BrandLogo />
             </Link>
             <div className="flex items-center justify-end gap-3 justify-self-end">
@@ -269,97 +315,160 @@ export function ScentStudioExperience() {
               </button>
             </div>
           </div>
-          {consultation?.scentCard && (
-            <div className="mx-auto max-w-2xl px-5 pb-3 sm:px-8">
-              <ScentCard card={consultation.scentCard} />
+          {consultation && (
+            <div className="border-t border-[var(--sampling-border)]/50 px-4 py-2.5 sm:px-6 lg:px-6">
+              <ProgressIndicator currentStage={consultation.currentStage || consultation.stage} />
             </div>
           )}
         </header>
 
-        {loading && !consultation ? (
-          <main className="scent-studio-scroll flex min-h-0 flex-1 items-center justify-center overflow-y-auto overscroll-contain">
-            <p className="text-sm text-[var(--sampling-muted)]">Loading…</p>
+        {loading && !consultation && uiPhase !== 'opening' ? (
+          <main className="scent-studio-scroll flex min-h-0 flex-1 items-center justify-center overflow-y-auto">
+            <p className="text-sm text-[var(--sampling-muted)]">Restoring your session…</p>
           </main>
-        ) : !consultation ? (
+        ) : uiPhase === 'opening' || !consultation ? (
           <main className="scent-studio-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain">
-            <div className="mx-auto flex w-full max-w-lg flex-col px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
-              <p className="type-eyebrow">AI Scent Studio</p>
-              <h1 className="mt-4 font-serif text-phi-2xl leading-tight text-[var(--sampling-heading)] sm:text-phi-3xl">
-                Create Your Fragrance Through Conversation
-              </h1>
-              <p className="mx-auto mt-4 max-w-md type-body text-[var(--sampling-muted)]">
-                Tell us what you want your fragrance to smell and feel like. Start with a perfume you
-                already know or describe something completely new. Conversations are saved on this
-                device.
-              </p>
-              {error && <p className="mt-4 text-sm text-[var(--sampling-error)]">{error}</p>}
-              <button
-                type="button"
-                onClick={() => void startCreating()}
-                disabled={sending}
-                className="btn-primary mx-auto mt-8 disabled:opacity-50"
-              >
-                {sending ? 'Starting…' : 'Start Creating'}
-              </button>
-              {conversations.length > 0 && (
+            {error && (
+              <p className="px-5 pt-4 text-sm text-[var(--sampling-error)] sm:px-8">{error}</p>
+            )}
+            <OpeningPaths onSelect={(mode) => void startWithMode(mode)} busy={sending} />
+            {conversations.length > 0 && (
+              <p className="px-5 pb-10 text-center text-sm text-[var(--sampling-muted)] sm:px-8 lg:hidden">
                 <button
                   type="button"
                   onClick={() => setSidebarOpen(true)}
-                  className="mt-4 text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)] lg:hidden"
+                  className="font-semibold hover:text-[var(--sampling-heading)]"
                 >
                   Open saved scents
                 </button>
-              )}
-            </div>
+              </p>
+            )}
           </main>
         ) : (
           <>
             <main className="scent-studio-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain">
-              <div className="mx-auto flex w-full max-w-2xl flex-col px-5 pb-4 pt-5 sm:px-8">
-                <ChatTranscript
-                  messages={consultation.messages}
-                  pending={sending}
-                  disabled={sending || submitted}
-                  onQuickReply={(text) => {
-                    if (text.toLowerCase().includes('prepare for sampling')) {
-                      setShowHandoff(true);
-                    }
-                    void handleSend(text);
-                  }}
-                />
+              <div className="mx-auto grid w-full max-w-6xl gap-5 px-5 py-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8 lg:px-8">
+                <div className="min-w-0 space-y-5">
+                  {consultation.scentCard && (
+                    <div className="lg:hidden">
+                      <LiveScentPanel card={consultation.scentCard} collapsedDefault />
+                    </div>
+                  )}
 
-                {error && <p className="mt-3 text-sm text-[var(--sampling-error)]">{error}</p>}
+                  {uiPhase === 'concept' && consultation.scentCard ? (
+                    <FinalConceptReview
+                      card={consultation.scentCard}
+                      onRefine={() => setUiPhase('chat')}
+                      onRequestSamples={() => {
+                        scentStudioAnalytics.sampleCtaViewed();
+                        setUiPhase('sample');
+                      }}
+                    />
+                  ) : null}
 
-                {showHandoff && !submitted && (
-                  <div className="mt-6">
+                  {uiPhase === 'sample' ? (
+                    <SampleRequestSection
+                      onContinue={() => {
+                        scentStudioAnalytics.contactGate();
+                        setUiPhase('contact');
+                      }}
+                      onSaveLater={() => {
+                        refreshLibrary(consultation);
+                        flashSaved();
+                        navigate(CREATE_A_SCENT_PATH);
+                      }}
+                    />
+                  ) : null}
+
+                  {(uiPhase === 'chat' || uiPhase === 'contact') && (
+                    <ChatTranscript
+                      messages={consultation.messages}
+                      pending={sending}
+                      disabled={sending || submitted}
+                      onQuickReply={(text) => void handleSend(text)}
+                    />
+                  )}
+
+                  {thinkingLabel && (
+                    <p className="text-sm text-[var(--sampling-muted)]" aria-live="polite">
+                      {thinkingLabel}
+                    </p>
+                  )}
+
+                  {error && (
+                    <div className="rounded-[2px] border border-[var(--sampling-error)]/30 bg-white px-3 py-2 text-sm text-[var(--sampling-error)]">
+                      {error}{' '}
+                      <button
+                        type="button"
+                        className="font-semibold underline"
+                        onClick={() => setError('')}
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  )}
+
+                  {uiPhase === 'contact' && !submitted && (
                     <SamplingHandoffCard
                       concept={consultation.scentCard?.oneSentenceConcept}
                       submitting={submitting}
                       onSubmit={(contact) => void handleSubmit(contact)}
                     />
-                  </div>
-                )}
+                  )}
 
-                {submitted && (
-                  <div className="mt-6 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-5 text-center">
-                    <p className="font-serif text-phi-lg text-[var(--sampling-heading)]">
-                      Brief received
-                    </p>
-                    <p className="mt-2 text-sm text-[var(--sampling-muted)]">
-                      Your scent direction has been emailed to the Brandsamor development team for
-                      formulation and sampling review.
-                    </p>
+                  {contactGateShown &&
+                    uiPhase === 'chat' &&
+                    !consultation.contactCaptured &&
+                    consultation.scentCard &&
+                    !submitted && (
+                      <div className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-4">
+                        <p className="text-sm text-[var(--sampling-heading)]">
+                          Your direction is taking shape. Save it to your email when you are ready —
+                          you can keep refining first.
+                        </p>
+                        <button
+                          type="button"
+                          className="mt-3 text-sm font-semibold text-[var(--sampling-orange)] hover:underline"
+                          onClick={() => setUiPhase('contact')}
+                        >
+                          Save concept with email
+                        </button>
+                      </div>
+                    )}
+
+                  {submitted && (
+                    <div className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-5 text-center">
+                      <p className="font-serif text-phi-lg text-[var(--sampling-heading)]">
+                        Brief received
+                      </p>
+                      <p className="mt-2 text-sm text-[var(--sampling-muted)]">
+                        Your scent direction has been emailed to Brandsamor for formulation and
+                        sampling review.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <aside className="hidden min-w-0 lg:block">
+                  <div className="sticky top-4 space-y-4">
+                    {consultation.scentCard ? (
+                      <LiveScentPanel card={consultation.scentCard} />
+                    ) : (
+                      <div className="rounded-[2px] border border-dashed border-[var(--sampling-border)] px-4 py-5 text-sm text-[var(--sampling-muted)]">
+                        Your live scent concept will appear here as the direction takes shape.
+                      </div>
+                    )}
                   </div>
-                )}
+                </aside>
               </div>
             </main>
 
-            {!submitted && (
+            {uiPhase === 'chat' && !submitted && (
               <div className="shrink-0">
                 <Composer
                   disabled={sending}
                   onSend={(text) => void handleSend(text)}
-                  placeholder="Add, remove, or change anything about the scent…"
+                  placeholder="Describe the feeling, audience, notes, or changes…"
                 />
               </div>
             )}

@@ -58,3 +58,18 @@
   color: #0f6b4c;
   padding: 0 0.05em;
 }
+
+@media print {
+  .sampling-experience header,
+  .sampling-experience aside,
+  .scent-composer,
+  .conversation-sidebar,
+  .sampling-experience [aria-label='Scent development progress'] {
+    display: none !important;
+  }
+
+  .scent-brief-print {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}

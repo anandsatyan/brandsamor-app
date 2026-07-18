@@ -9,6 +9,28 @@ export type ScentCard = {
   status: string;
   oneSentenceConcept?: string | null;
   version?: number;
+  intendedAudience?: string | null;
+  intendedUse?: string[];
+  productFormat?: string | null;
+  genderPositioning?: string | null;
+  recentChanges?: string[];
+  developmentStatus?: string;
+  currentStage?: string;
+  attributes?: {
+    freshness?: number | null;
+    sweetness?: number | null;
+    warmth?: number | null;
+    woodiness?: number | null;
+    floral?: number | null;
+    projection?: number | null;
+    longevity?: number | null;
+    distinctiveness?: number | null;
+  };
+  referenceSummary?: {
+    name?: string;
+    brand?: string;
+    transformationSummary?: string | null;
+  } | null;
 };
 
 export type ScentMessage = {
@@ -23,9 +45,14 @@ export type ScentConsultation = {
   consultationId: string;
   recoveryToken: string;
   stage: string;
+  currentStage?: string;
+  startMode?: 'scratch' | 'inspiration' | 'guided' | null;
   messages: ScentMessage[];
   scentCard: ScentCard | null;
   title?: string;
+  conceptReady?: boolean;
+  developmentStatus?: string;
+  contactCaptured?: boolean;
   saveStatus?: string;
   submittedAt?: string | Date | null;
   providerMode?: string | null;

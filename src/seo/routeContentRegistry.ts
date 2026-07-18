@@ -1,6 +1,7 @@
 import type { TopicPageConfig } from '../components/topic/types';
 import { customPerfumeManufacturerConfig } from '../content/customPerfumeManufacturer';
 import { fragranceProductsConfig } from '../content/fragranceProducts';
+import { createAScentConfig } from '../content/createAScent';
 import { fragranceSamplingConfig } from '../content/fragranceSampling';
 import { howItWorksConfig } from '../content/howItWorks';
 import { packagingBrandingConfig } from '../content/packagingBranding';
@@ -17,6 +18,7 @@ export const TOPIC_ROUTE_CONFIGS: Record<string, TopicPageConfig> = {
   '/how-it-works': howItWorksConfig,
   '/fragrance-products': fragranceProductsConfig,
   '/fragrance-sampling': fragranceSamplingConfig,
+  '/create-a-scent': createAScentConfig,
   '/packaging-branding': packagingBrandingConfig,
   '/start-a-perfume-line': startPerfumeLineConfig,
   '/who-we-work-with': whoWeWorkWithConfig,

@@ -27,7 +27,9 @@ export async function handleScentStudioCreate(req, res) {
   }
 
   try {
-    const consultation = await createConsultation();
+    const payload = await readJsonBody(req).catch(() => ({}));
+    const startMode = String(payload?.startMode || '').trim() || null;
+    const consultation = await createConsultation(startMode);
     sendJson(res, 200, {
       consultation,
       providerMode: config.useLocalConsultant ? 'local' : 'model',

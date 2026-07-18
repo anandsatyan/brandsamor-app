@@ -20,6 +20,8 @@ function recentMessages(messages, limit = 8) {
 function compactStateForModel(state) {
   return {
     stage: state.stage,
+    currentStage: state.currentStage,
+    startMode: state.startMode,
     entryMode: state.entryMode,
     references: state.references,
     scentDirection: state.scentDirection,
@@ -36,12 +38,18 @@ function compactStateForModel(state) {
     lockedElements: state.lockedElements,
     openQuestions: state.openQuestions,
     contradictions: state.contradictions,
+    unresolvedTradeoffs: state.unresolvedTradeoffs,
+    recentChanges: state.recentChanges,
     confidence: state.confidence,
     brandContext: {
       brandName: state.brandContext?.brandName,
       targetCustomer: state.brandContext?.targetCustomer,
       destinationMarkets: state.brandContext?.destinationMarkets,
+      productFormat: state.brandContext?.productFormat,
+      retailPositioning: state.brandContext?.retailPositioning,
     },
+    developmentStatus: state.developmentStatus,
+    conceptReady: state.conceptReady,
     currentVersion: state.currentVersion,
   };
 }
@@ -145,10 +153,32 @@ export async function processConversationTurn({ doc, userMessage }) {
 
   let nextState = applyStatePatch(state, turn.statePatch);
 
-  if (turn.readyForFormula && nextState.stage === 'discovery') {
+  if (Array.isArray(turn.changes) && turn.changes.length) {
+    nextState.recentChanges = turn.changes;
+  }
+
+  if (turn.nextStage) {
+    nextState.currentStage = turn.nextStage;
+  }
+
+  if (turn.readyForFormula) {
     nextState.stage = 'ready_for_formula';
-  } else if (hasScentCardContent(nextState) && nextState.stage === 'discovery') {
-    nextState.stage = 'refining';
+    nextState.currentStage = 'review';
+    nextState.conceptReady = true;
+    nextState.developmentStatus = 'concept-ready';
+  } else if (hasScentCardContent(nextState)) {
+    if (nextState.stage === 'discovery' || nextState.stage === 'opening') {
+      nextState.stage = 'refining';
+    }
+    if (!nextState.currentStage || nextState.currentStage === 'opening') {
+      nextState.currentStage = 'direction';
+    }
+    if (Number(nextState.confidence?.overall || 0) >= 0.55 && nextState.currentStage === 'direction') {
+      nextState.currentStage = 'character';
+    }
+    if (Number(nextState.confidence?.overall || 0) >= 0.7) {
+      nextState.currentStage = nextState.currentStage === 'review' ? 'review' : 'notes';
+    }
   }
 
   if (Array.isArray(turn.contradictions) && turn.contradictions.length) {

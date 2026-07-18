@@ -45,7 +45,7 @@ export const createAScentConfig: TopicPageConfig = {
     badge: 'FOR BRANDS',
     title: pageMeta.h1,
     description:
-      'Build a custom brand fragrance through a guided conversation — not a consumer quiz. Start from a reference perfume your team already likes, or describe a new direction from scratch. Refine notes, mood, and performance until the brief is ready for sampling review.',
+      'Describe the fragrance you want for your brand, refine its notes with the Brandsamor AI scent designer, and create a sample-ready fragrance brief. Start from scratch, modify a fragrance you already know, or let the designer guide you — then Brandsamor reviews the direction for physical sampling before production.',
     actions: <StudioCtaActions variant="hero" />,
   },
   keyFacts: {
@@ -109,15 +109,15 @@ export const createAScentConfig: TopicPageConfig = {
         ),
       },
       {
-        id: 'two-starting-paths',
-        title: 'Start from a reference — or from scratch',
+        id: 'three-starting-paths',
+        title: 'Three clear ways to begin',
         description:
-          'Many brands begin with a perfume their customers already recognize, then change what does not fit. Others describe a place, mood, or brand personality with no single reference. Both paths are supported in the same conversation.',
+          'Open the Scent Designer and choose how you want to start. Create from scratch, modify a fragrance you already know, or answer a few guided questions — then refine the direction in conversation.',
         bullets: sectionBullets(
-          'Name a reference fragrance and say what to keep or change',
-          'Or describe mood, climate, customer, and avoided effects from a blank slate',
-          'Ambiguous matches are confirmed before the brief locks a wrong reference',
-          'Unknown references stay unverified rather than inventing a fake note pyramid',
+          'Create from scratch — describe feeling, audience, notes, or brand story',
+          'Modify an existing fragrance — preserve, reduce, or reinterpret a known starting point',
+          'Guide me — answer simple emotional and commercial questions first',
+          'Contact details are only asked after you have seen a meaningful scent direction',
         ),
       },
       {

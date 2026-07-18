@@ -8,11 +8,13 @@ async function parseJson(res: Response) {
   return data;
 }
 
-export async function createConsultation(): Promise<ScentConsultation> {
+export async function createConsultation(
+  startMode?: 'scratch' | 'inspiration' | 'guided' | null,
+): Promise<ScentConsultation> {
   const res = await fetch('/api/scent-studio/consultations', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: '{}',
+    body: JSON.stringify({ startMode: startMode || null }),
   });
   const data = await parseJson(res);
   return data.consultation as ScentConsultation;
