@@ -25,6 +25,13 @@ import {
   handleAdminSession,
   handleAdminStats,
 } from '../server/admin/handlers.mjs';
+import {
+  handleScentStudioCreate,
+  handleScentStudioGet,
+  handleScentStudioMessage,
+  handleScentStudioPrepare,
+  handleScentStudioSubmit,
+} from '../server/scentStudio/handlers.mjs';
 
 /**
  * Exposes sampling / fragrance / checkout APIs during `npm run dev`
@@ -38,6 +45,35 @@ export const samplingApiPlugin = () => ({
       const pathname = url.pathname;
 
       try {
+        if (pathname === '/api/scent-studio/consultations' && req.method === 'POST') {
+          await handleScentStudioCreate(req, res);
+          return;
+        }
+
+        if (pathname.startsWith('/api/scent-studio/consultations/')) {
+          const rest = pathname.replace('/api/scent-studio/consultations/', '');
+          const parts = rest.split('/').filter(Boolean);
+          const consultationId = parts[0] ? decodeURIComponent(parts[0]) : '';
+          const action = parts[1] || '';
+
+          if (consultationId && !action && req.method === 'GET') {
+            await handleScentStudioGet(req, res, consultationId);
+            return;
+          }
+          if (consultationId && action === 'message' && req.method === 'POST') {
+            await handleScentStudioMessage(req, res, consultationId);
+            return;
+          }
+          if (consultationId && action === 'prepare-for-sampling' && req.method === 'POST') {
+            await handleScentStudioPrepare(req, res, consultationId);
+            return;
+          }
+          if (consultationId && action === 'submit' && req.method === 'POST') {
+            await handleScentStudioSubmit(req, res, consultationId);
+            return;
+          }
+        }
+
         if (pathname === '/api/sampling/session' && req.method === 'POST') {
           const payload = await readJsonBody(req);
           const lead = payload?.lead ?? null;

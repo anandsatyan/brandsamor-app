@@ -25,6 +25,13 @@ import {
   handleAdminStats,
 } from './server/admin/handlers.mjs';
 import {
+  handleScentStudioCreate,
+  handleScentStudioGet,
+  handleScentStudioMessage,
+  handleScentStudioPrepare,
+  handleScentStudioSubmit,
+} from './server/scentStudio/handlers.mjs';
+import {
   buildVisitorCountryCookie,
   getVisitorCountryFromHeaders,
   isAnalyticsExcludedCountry,
@@ -53,6 +60,7 @@ const PUBLIC_ROUTES = new Set([
   '/get-started',
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
+  '/create-a-scent',
   '/login',
   '/admin',
   '/admin/leads',
@@ -99,6 +107,7 @@ const PUBLIC_ROUTES = new Set([
 const SPA_ONLY_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
+  '/create-a-scent',
   '/schedule-a-call',
   '/admin',
   '/admin/leads',
@@ -245,6 +254,35 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === '/api/lead') {
     await handleLeadRequest(req, res);
     return;
+  }
+
+  if (url.pathname === '/api/scent-studio/consultations' && req.method === 'POST') {
+    await handleScentStudioCreate(req, res);
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/scent-studio/consultations/')) {
+    const rest = url.pathname.replace('/api/scent-studio/consultations/', '');
+    const parts = rest.split('/').filter(Boolean);
+    const consultationId = parts[0] ? decodeURIComponent(parts[0]) : '';
+    const action = parts[1] || '';
+
+    if (consultationId && !action && req.method === 'GET') {
+      await handleScentStudioGet(req, res, consultationId);
+      return;
+    }
+    if (consultationId && action === 'message' && req.method === 'POST') {
+      await handleScentStudioMessage(req, res, consultationId);
+      return;
+    }
+    if (consultationId && action === 'prepare-for-sampling' && req.method === 'POST') {
+      await handleScentStudioPrepare(req, res, consultationId);
+      return;
+    }
+    if (consultationId && action === 'submit' && req.method === 'POST') {
+      await handleScentStudioSubmit(req, res, consultationId);
+      return;
+    }
   }
 
   if (url.pathname === '/api/sampling/session' && req.method === 'POST') {

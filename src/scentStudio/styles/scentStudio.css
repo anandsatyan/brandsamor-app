@@ -1,0 +1,19 @@
+@import '../../sampling/styles/sampling.css';
+
+.scent-bubble-assistant {
+  background: var(--sampling-surface);
+  border: 1px solid var(--sampling-border);
+  border-radius: 2px 14px 14px 14px;
+}
+
+.scent-bubble-user {
+  background: var(--sampling-heading);
+  color: #fffdfc;
+  border-radius: 14px 2px 14px 14px;
+}
+
+.scent-composer {
+  border-top: 1px solid var(--sampling-border);
+  background: color-mix(in srgb, var(--sampling-cream) 92%, white);
+  backdrop-filter: blur(8px);
+}
