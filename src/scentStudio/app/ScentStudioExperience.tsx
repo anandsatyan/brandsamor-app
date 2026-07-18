@@ -234,7 +234,7 @@ export function ScentStudioExperience() {
   const submitted = Boolean(consultation?.submittedAt);
 
   return (
-    <div className="sampling-experience flex min-h-[100dvh]">
+    <div className="sampling-experience flex h-[100dvh] max-h-[100dvh] overflow-hidden">
       <ConversationSidebar
         conversations={conversations}
         activeId={consultation?.consultationId}
@@ -245,8 +245,8 @@ export function ScentStudioExperience() {
         creating={sending && !consultation}
       />
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 border-b border-[var(--sampling-border)]/70 bg-[var(--sampling-cream)]">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        <header className="z-30 shrink-0 border-b border-[var(--sampling-border)]/70 bg-[var(--sampling-cream)]">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center px-4 py-3 pl-20 sm:px-6 sm:py-4 lg:pl-6">
             <div className="min-w-0">
               {consultation && (
@@ -277,11 +277,11 @@ export function ScentStudioExperience() {
         </header>
 
         {loading && !consultation ? (
-          <main className="flex flex-1 items-center justify-center px-5">
+          <main className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto px-5">
             <p className="text-sm text-[var(--sampling-muted)]">Loading…</p>
           </main>
         ) : !consultation ? (
-          <main className="mx-auto flex w-full max-w-lg flex-1 flex-col px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
+          <main className="mx-auto flex min-h-0 w-full max-w-lg flex-1 flex-col overflow-y-auto overscroll-contain px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
             <p className="type-eyebrow">AI Scent Studio</p>
             <h1 className="mt-4 font-serif text-phi-2xl leading-tight text-[var(--sampling-heading)] sm:text-phi-3xl">
               Create Your Fragrance Through Conversation
@@ -312,7 +312,7 @@ export function ScentStudioExperience() {
           </main>
         ) : (
           <>
-            <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-4 pt-5 sm:px-8">
+            <main className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-y-auto overscroll-contain px-5 pb-4 pt-5 sm:px-8">
               <ChatTranscript
                 messages={consultation.messages}
                 pending={sending}
@@ -351,11 +351,13 @@ export function ScentStudioExperience() {
             </main>
 
             {!submitted && (
-              <Composer
-                disabled={sending}
-                onSend={(text) => void handleSend(text)}
-                placeholder="Add, remove, or change anything about the scent…"
-              />
+              <div className="shrink-0">
+                <Composer
+                  disabled={sending}
+                  onSend={(text) => void handleSend(text)}
+                  placeholder="Add, remove, or change anything about the scent…"
+                />
+              </div>
             )}
           </>
         )}

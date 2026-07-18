@@ -55,11 +55,11 @@ export function ConversationSidebar({
       <aside
         id="scent-conversation-nav"
         className={[
-          'fixed inset-y-0 left-0 z-50 flex w-[min(18.5rem,88vw)] flex-col border-r border-[var(--sampling-border)] bg-[var(--sampling-cream)] transition-transform lg:static lg:z-0 lg:w-72 lg:translate-x-0 lg:shrink-0',
+          'fixed inset-y-0 left-0 z-50 flex h-[100dvh] w-[min(18.5rem,88vw)] flex-col overflow-hidden border-r border-[var(--sampling-border)] bg-[var(--sampling-cream)] transition-transform lg:relative lg:z-0 lg:h-full lg:w-72 lg:shrink-0 lg:translate-x-0',
           open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
         ].join(' ')}
       >
-        <div className="border-b border-[var(--sampling-border)] px-4 py-4">
+        <div className="shrink-0 border-b border-[var(--sampling-border)] px-4 py-4">
           <p className="type-eyebrow">Scent Studio</p>
           <p className="mt-1 text-sm text-[var(--sampling-muted)]">Saved on this device</p>
           <button
@@ -73,7 +73,10 @@ export function ConversationSidebar({
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-2 py-2" aria-label="Saved scent conversations">
+        <nav
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-2"
+          aria-label="Saved scent conversations"
+        >
           {conversations.length === 0 ? (
             <p className="px-3 py-6 text-sm text-[var(--sampling-muted)]">
               No saved conversations yet. Start a new scent to begin.

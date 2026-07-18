@@ -1,5 +1,11 @@
 @import '../../sampling/styles/sampling.css';
 
+/* Keep studio panes viewport-locked so sidebar/main scroll independently */
+.sampling-experience:has(.scent-composer),
+.sampling-experience:has(#scent-conversation-nav) {
+  overscroll-behavior: none;
+}
+
 .scent-bubble-assistant {
   background: var(--sampling-surface);
   border: 1px solid var(--sampling-border);
