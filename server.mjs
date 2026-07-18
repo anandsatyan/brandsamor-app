@@ -14,6 +14,7 @@ import {
   createSampleKitPaymentIntent,
 } from './server/stripe/sampleKitPayment.mjs';
 import {
+  handleAdminLeadAddComment,
   handleAdminLeadDetail,
   handleAdminLeadsList,
   handleAdminLogin,
@@ -351,6 +352,14 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === '/api/admin/leads' && req.method === 'GET') {
     await handleAdminLeadsList(req, res);
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/admin/leads/') && url.pathname.endsWith('/comments') && req.method === 'POST') {
+    const sessionId = decodeURIComponent(
+      url.pathname.replace(/^\/api\/admin\/leads\//, '').replace(/\/comments$/, ''),
+    );
+    await handleAdminLeadAddComment(req, res, sessionId);
     return;
   }
 

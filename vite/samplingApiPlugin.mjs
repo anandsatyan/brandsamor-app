@@ -15,6 +15,7 @@ import {
   createSampleKitPaymentIntent,
 } from '../server/stripe/sampleKitPayment.mjs';
 import {
+  handleAdminLeadAddComment,
   handleAdminLeadDetail,
   handleAdminLeadsList,
   handleAdminLogin,
@@ -174,6 +175,14 @@ export const samplingApiPlugin = () => ({
 
         if (pathname === '/api/admin/leads' && req.method === 'GET') {
           await handleAdminLeadsList(req, res);
+          return;
+        }
+
+        if (pathname.startsWith('/api/admin/leads/') && pathname.endsWith('/comments') && req.method === 'POST') {
+          const sessionId = decodeURIComponent(
+            pathname.replace(/^\/api\/admin\/leads\//, '').replace(/\/comments$/, ''),
+          );
+          await handleAdminLeadAddComment(req, res, sessionId);
           return;
         }
 

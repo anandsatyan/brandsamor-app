@@ -77,6 +77,12 @@ type AdminLead = {
     status?: string | null;
     lastPaymentError?: string | null;
   } | null;
+  comments?: Array<{
+    id?: string | null;
+    body: string;
+    author?: string | null;
+    createdAt?: string | null;
+  }>;
   createdAt?: string | null;
   updatedAt?: string | null;
 };
@@ -301,7 +307,15 @@ export const AdminLeadsPage = () => {
               </p>
             </div>
           ) : (
-            <LeadDetail lead={detail} />
+            <LeadDetail
+              lead={detail}
+              onLeadUpdated={(next) => {
+                setSelected(next);
+                setLeads((prev) =>
+                  prev.map((item) => (item.sessionId === next.sessionId ? { ...item, ...next } : item)),
+                );
+              }}
+            />
           )}
         </section>
       </div>
@@ -309,9 +323,51 @@ export const AdminLeadsPage = () => {
   );
 };
 
-function LeadDetail({ lead }: { lead: AdminLead }) {
+function LeadDetail({
+  lead,
+  onLeadUpdated,
+}: {
+  lead: AdminLead;
+  onLeadUpdated: (lead: AdminLead) => void;
+}) {
   const meta = statusMeta(lead.status);
   const shipping = lead.checkout?.shipping;
+  const [detailTab, setDetailTab] = useState<'overview' | 'history'>('overview');
+  const [commentDraft, setCommentDraft] = useState('');
+  const [commentError, setCommentError] = useState('');
+  const [savingComment, setSavingComment] = useState(false);
+  const comments = lead.comments ?? [];
+
+  useEffect(() => {
+    setDetailTab('overview');
+    setCommentDraft('');
+    setCommentError('');
+  }, [lead.sessionId]);
+
+  async function submitComment() {
+    const body = commentDraft.trim();
+    if (!body || savingComment) return;
+    setSavingComment(true);
+    setCommentError('');
+    try {
+      const res = await fetch(`/api/admin/leads/${encodeURIComponent(lead.sessionId)}/comments`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.error ?? 'Failed to save comment');
+      }
+      if (data.lead) onLeadUpdated(data.lead as AdminLead);
+      setCommentDraft('');
+    } catch (e) {
+      setCommentError(e instanceof Error ? e.message : 'Failed to save comment');
+    } finally {
+      setSavingComment(false);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -329,6 +385,54 @@ function LeadDetail({ lead }: { lead: AdminLead }) {
         </span>
       </div>
 
+      <nav className="flex gap-1 border-b border-border/60" aria-label="Lead detail sections">
+        {(
+          [
+            { id: 'overview' as const, label: 'Overview' },
+            {
+              id: 'history' as const,
+              label: `Step history${lead.stepHistory.length ? ` (${lead.stepHistory.length})` : ''}`,
+            },
+          ] as const
+        ).map((tab) => {
+          const active = detailTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setDetailTab(tab.id)}
+              className={`-mb-px border-b-2 px-3 py-2 text-sm font-semibold transition-colors ${
+                active
+                  ? 'border-heading text-heading'
+                  : 'border-transparent text-body hover:text-heading'
+              }`}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
+      </nav>
+
+      {detailTab === 'history' ? (
+        <Section title="Step history">
+          {lead.stepHistory.length === 0 ? (
+            <p className="text-sm text-body">No step history recorded yet.</p>
+          ) : (
+            <ol className="space-y-2 border-l border-border/70 pl-4">
+              {[...lead.stepHistory]
+                .slice()
+                .reverse()
+                .map((entry, index) => (
+                  <li key={`${entry.step}-${entry.completedAt}-${index}`} className="text-sm">
+                    <p className="font-medium text-heading">{stepLabel(entry.step)}</p>
+                    <p className="type-caption text-body">{formatDateTime(entry.completedAt)}</p>
+                  </li>
+                ))}
+            </ol>
+          )}
+        </Section>
+      ) : (
+        <>
       <dl className="grid gap-3 rounded-[2px] bg-surface p-4 text-sm sm:grid-cols-2">
         <Detail term="Phone" value={lead.lead?.phone} />
         <Detail term="Brand" value={lead.lead?.brandName} />
@@ -346,6 +450,51 @@ function LeadDetail({ lead }: { lead: AdminLead }) {
         <Detail term="Updated" value={formatDateTime(lead.updatedAt)} />
         <Detail term="Session" value={lead.sessionId} mono />
       </dl>
+
+      <Section title="Comments">
+        <div className="space-y-3">
+          <textarea
+            value={commentDraft}
+            onChange={(e) => setCommentDraft(e.target.value)}
+            rows={3}
+            placeholder="Add a note from your conversation…"
+            className="w-full rounded-[2px] border border-border bg-white px-3 py-2 text-sm text-heading placeholder:text-body/50 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25"
+          />
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => void submitComment()}
+              disabled={!commentDraft.trim() || savingComment}
+              className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {savingComment ? 'Saving…' : 'Add comment'}
+            </button>
+            {commentError && <p className="text-sm text-[#B42318]">{commentError}</p>}
+          </div>
+          {comments.length === 0 ? (
+            <p className="text-sm text-body">No comments yet.</p>
+          ) : (
+            <ul className="space-y-3">
+              {comments.map((comment, index) => (
+                <li
+                  key={comment.id ?? `${comment.createdAt}-${index}`}
+                  className="rounded-[2px] border border-border/50 bg-surface px-3 py-2.5"
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <p className="text-xs font-semibold text-heading">
+                      {comment.author || 'Admin'}
+                    </p>
+                    <p className="type-caption text-body">
+                      {formatDateTime(comment.createdAt)}
+                    </p>
+                  </div>
+                  <p className="mt-1.5 whitespace-pre-wrap text-sm text-heading">{comment.body}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </Section>
 
       <Section title="Brand & business">
         <dl className="grid gap-3 text-sm sm:grid-cols-2">
@@ -488,21 +637,7 @@ function LeadDetail({ lead }: { lead: AdminLead }) {
           )}
         </Section>
       )}
-
-      {lead.stepHistory.length > 0 && (
-        <Section title="Step history">
-          <ol className="space-y-2 border-l border-border/70 pl-4">
-            {[...lead.stepHistory]
-              .slice()
-              .reverse()
-              .map((entry, index) => (
-                <li key={`${entry.step}-${entry.completedAt}-${index}`} className="text-sm">
-                  <p className="font-medium text-heading">{stepLabel(entry.step)}</p>
-                  <p className="type-caption text-body">{formatDateTime(entry.completedAt)}</p>
-                </li>
-              ))}
-          </ol>
-        </Section>
+        </>
       )}
     </div>
   );

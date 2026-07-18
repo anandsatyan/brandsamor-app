@@ -8,7 +8,12 @@ import {
   isAdminConfigured,
 } from './auth.mjs';
 import { getPaidOrderByNumber, listPaidOrders } from './ordersRepo.mjs';
-import { getAdminDashboardStats, getLeadBySessionId, listLeads } from './leadsRepo.mjs';
+import {
+  addLeadComment,
+  getAdminDashboardStats,
+  getLeadBySessionId,
+  listLeads,
+} from './leadsRepo.mjs';
 
 export async function handleAdminLogin(req, res) {
   if (req.method !== 'POST') {
@@ -98,6 +103,32 @@ export async function handleAdminLeadDetail(req, res, sessionId) {
   }
 
   const lead = await getLeadBySessionId(sessionId);
+  if (!lead) {
+    sendJson(res, 404, { error: 'Lead not found' });
+    return;
+  }
+  sendJson(res, 200, { lead });
+}
+
+export async function handleAdminLeadAddComment(req, res, sessionId) {
+  if (req.method !== 'POST') {
+    sendJson(res, 405, { error: 'Method not allowed' });
+    return;
+  }
+  if (!isAdminAuthenticated(req)) {
+    sendJson(res, 401, { error: 'Unauthorized' });
+    return;
+  }
+
+  const payload = await readJsonBody(req);
+  const body = String(payload?.body ?? '').trim();
+  if (!body) {
+    sendJson(res, 400, { error: 'Comment body is required' });
+    return;
+  }
+
+  const author = getAdminCredentials().email || 'Admin';
+  const lead = await addLeadComment(sessionId, { body, author });
   if (!lead) {
     sendJson(res, 404, { error: 'Lead not found' });
     return;

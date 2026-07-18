@@ -1,6 +1,24 @@
+import { randomUUID } from 'node:crypto';
 import { getMongoDb } from '../db/mongo.mjs';
 import { enrichDocumentsRecommendations } from '../fragrance/resolveRecommendationLabels.mjs';
 import { consolidateOpenEmailDuplicates } from '../sampling/repo.mjs';
+
+function serializeComments(comments) {
+  if (!Array.isArray(comments)) return [];
+  return comments
+    .map((entry) => ({
+      id: entry?.id ?? null,
+      body: String(entry?.body ?? '').trim(),
+      author: entry?.author ?? 'Admin',
+      createdAt: entry?.createdAt ?? null,
+    }))
+    .filter((entry) => entry.body)
+    .sort((a, b) => {
+      const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return bt - at;
+    });
+}
 
 function serializeLead(doc) {
   if (!doc) return null;
@@ -20,6 +38,7 @@ function serializeLead(doc) {
           sampleOrderNumber: entry?.sampleOrderNumber ?? null,
         }))
       : [],
+    comments: serializeComments(doc.opsComments),
     lead: doc.lead
       ? {
           fullName: doc.lead.fullName ?? '',
@@ -148,6 +167,41 @@ export async function getLeadBySessionId(sessionId) {
   const db = await getMongoDb();
   const doc = await db.collection('samplingSessions').findOne({ sessionId: String(sessionId) });
   const serialized = serializeLead(doc);
+  if (!serialized) return null;
+  const [enriched] = await enrichDocumentsRecommendations([serialized]);
+  return enriched;
+}
+
+export async function addLeadComment(sessionId, { body, author } = {}) {
+  const text = String(body ?? '').trim();
+  if (!sessionId || !text) return null;
+
+  const db = await getMongoDb();
+  const comment = {
+    id: randomUUID(),
+    body: text.slice(0, 5000),
+    author: String(author ?? 'Admin').trim() || 'Admin',
+    createdAt: new Date(),
+  };
+
+  const result = await db.collection('samplingSessions').findOneAndUpdate(
+    { sessionId: String(sessionId) },
+    {
+      $push: { opsComments: comment },
+      $set: { updatedAt: new Date() },
+    },
+    { returnDocument: 'after' },
+  );
+
+  const doc = result?.value ?? result;
+  if (!doc) {
+    // Older mongodb driver shapes / missing doc
+    const existing = await db.collection('samplingSessions').findOne({ sessionId: String(sessionId) });
+    if (!existing) return null;
+  }
+
+  const latest = await db.collection('samplingSessions').findOne({ sessionId: String(sessionId) });
+  const serialized = serializeLead(latest);
   if (!serialized) return null;
   const [enriched] = await enrichDocumentsRecommendations([serialized]);
   return enriched;
