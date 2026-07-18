@@ -4,6 +4,7 @@ import { BrandLogo } from '../../components/BrandLogo';
 import { SaveStatus } from '../../sampling/components/layout/SaveStatus';
 import { ChatTranscript } from '../components/ChatTranscript';
 import { Composer } from '../components/Composer';
+import { ConversationSidebar } from '../components/ConversationSidebar';
 import { SamplingHandoffCard } from '../components/SamplingHandoffCard';
 import { ScentCard } from '../components/ScentCard';
 import {
@@ -12,37 +13,21 @@ import {
   sendMessage,
   submitForSampling,
 } from '../lib/api';
-import { SCENT_STUDIO_STORAGE_KEY, type ScentConsultation } from '../types';
+import {
+  getActiveConsultationId,
+  getLocalConversation,
+  listLocalConversations,
+  setActiveConsultationId,
+  upsertLocalConversation,
+  type LocalConversationEntry,
+} from '../lib/conversationLibrary';
+import { deriveConversationTitle } from '../lib/conversationTitle';
+import type { ScentConsultation } from '../types';
 import '../styles/scentStudio.css';
-
-type StoredIds = {
-  consultationId: string;
-  recoveryToken: string;
-};
-
-function readStoredIds(): StoredIds | null {
-  try {
-    const raw = localStorage.getItem(SCENT_STUDIO_STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as StoredIds;
-    if (!parsed?.consultationId || !parsed?.recoveryToken) return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-}
-
-function writeStoredIds(ids: StoredIds | null) {
-  if (!ids) {
-    localStorage.removeItem(SCENT_STUDIO_STORAGE_KEY);
-    return;
-  }
-  localStorage.setItem(SCENT_STUDIO_STORAGE_KEY, JSON.stringify(ids));
-}
 
 export function ScentStudioExperience() {
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<'welcome' | 'chat'>('welcome');
+  const [conversations, setConversations] = useState<LocalConversationEntry[]>([]);
   const [consultation, setConsultation] = useState<ScentConsultation | null>(null);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
@@ -50,27 +35,54 @@ export function ScentStudioExperience() {
   const [savedFlash, setSavedFlash] = useState(false);
   const [error, setError] = useState('');
   const [showHandoff, setShowHandoff] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  function refreshLibrary(nextConsultation?: ScentConsultation | null) {
+    if (nextConsultation) {
+      upsertLocalConversation(nextConsultation);
+    }
+    setConversations(listLocalConversations());
+  }
+
+  function flashSaved() {
+    setSavedFlash(true);
+    window.setTimeout(() => setSavedFlash(false), 1600);
+  }
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       setLoading(true);
       setError('');
+      const localList = listLocalConversations();
+      if (!cancelled) setConversations(localList);
+
+      const activeId = getActiveConsultationId() || localList[0]?.consultationId || null;
+      if (!activeId) {
+        if (!cancelled) setLoading(false);
+        return;
+      }
+
+      const local = getLocalConversation(activeId);
+      if (!local) {
+        if (!cancelled) setLoading(false);
+        return;
+      }
+
       try {
-        const stored = readStoredIds();
-        if (!stored) {
-          if (!cancelled) setLoading(false);
-          return;
-        }
-        const existing = await loadConsultation(stored.consultationId, stored.recoveryToken);
+        const existing = await loadConsultation(local.consultationId, local.recoveryToken);
         if (cancelled) return;
         setConsultation(existing);
-        setPhase('chat');
-        if (existing.stage === 'ready_for_formula' && !existing.submittedAt) {
-          setShowHandoff(true);
-        }
+        refreshLibrary(existing);
+        setShowHandoff(existing.stage === 'ready_for_formula' && !existing.submittedAt);
       } catch {
-        writeStoredIds(null);
+        // Fall back to locally saved snapshot if the server copy is unavailable.
+        if (!cancelled && local.snapshot?.messages?.length) {
+          setConsultation(local.snapshot);
+          setShowHandoff(
+            local.snapshot.stage === 'ready_for_formula' && !local.snapshot.submittedAt,
+          );
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -80,27 +92,55 @@ export function ScentStudioExperience() {
     };
   }, []);
 
-  function flashSaved() {
-    setSavedFlash(true);
-    window.setTimeout(() => setSavedFlash(false), 1600);
-  }
-
   async function startCreating() {
     setSending(true);
     setError('');
+    setShowHandoff(false);
     try {
       const created = await createConsultation();
-      writeStoredIds({
-        consultationId: created.consultationId,
-        recoveryToken: created.recoveryToken,
-      });
       setConsultation(created);
-      setPhase('chat');
+      refreshLibrary(created);
+      setActiveConsultationId(created.consultationId);
+      setSidebarOpen(false);
       flashSaved();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not start consultation');
     } finally {
       setSending(false);
+    }
+  }
+
+  async function selectConversation(consultationId: string) {
+    if (consultationId === consultation?.consultationId) {
+      setSidebarOpen(false);
+      return;
+    }
+    setError('');
+    setLoading(true);
+    setShowHandoff(false);
+    const local = getLocalConversation(consultationId);
+    if (!local) {
+      setLoading(false);
+      return;
+    }
+    setActiveConsultationId(consultationId);
+    try {
+      const existing = await loadConsultation(local.consultationId, local.recoveryToken);
+      setConsultation(existing);
+      refreshLibrary(existing);
+      setShowHandoff(existing.stage === 'ready_for_formula' && !existing.submittedAt);
+    } catch {
+      if (local.snapshot) {
+        setConsultation(local.snapshot);
+        setShowHandoff(
+          local.snapshot.stage === 'ready_for_formula' && !local.snapshot.submittedAt,
+        );
+      } else {
+        setError('Could not open that conversation');
+      }
+    } finally {
+      setLoading(false);
+      setSidebarOpen(false);
     }
   }
 
@@ -125,13 +165,18 @@ export function ScentStudioExperience() {
         consultation.recoveryToken,
         text,
       );
-      setConsultation(result.consultation);
+      const withTitle = {
+        ...result.consultation,
+        title: result.consultation.title || deriveConversationTitle(result.consultation),
+      };
+      setConsultation(withTitle);
+      refreshLibrary(withTitle);
       flashSaved();
       const lower = text.toLowerCase();
       if (
         result.readyForFormula ||
         lower.includes('prepare for sampling') ||
-        result.consultation.stage === 'ready_for_formula'
+        withTitle.stage === 'ready_for_formula'
       ) {
         setShowHandoff(true);
       }
@@ -167,6 +212,7 @@ export function ScentStudioExperience() {
         contact,
       );
       setConsultation(next);
+      refreshLibrary(next);
       setShowHandoff(false);
       flashSaved();
     } catch (e) {
@@ -177,131 +223,143 @@ export function ScentStudioExperience() {
   }
 
   function handleExit() {
+    if (consultation) refreshLibrary(consultation);
     navigate('/');
   }
 
-  if (loading) {
-    return (
-      <div className="sampling-experience flex min-h-screen items-center justify-center">
-        <p className="text-sm text-[var(--sampling-muted)]">Loading…</p>
-      </div>
-    );
-  }
-
-  if (phase === 'welcome' || !consultation) {
-    return (
-      <div className="sampling-experience">
-        <header className="grid grid-cols-[1fr_auto_1fr] items-center px-4 py-4 sm:px-6 sm:py-5">
-          <div aria-hidden />
-          <Link to="/" className="justify-self-center" aria-label="Brandsamor home">
-            <BrandLogo />
-          </Link>
-          <div className="justify-self-end">
-            <button
-              type="button"
-              onClick={handleExit}
-              className="text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)]"
-            >
-              Exit
-            </button>
-          </div>
-        </header>
-
-        <main className="mx-auto flex w-full max-w-lg flex-1 flex-col px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
-          <p className="type-eyebrow">AI Scent Studio</p>
-          <h1 className="mt-4 font-serif text-phi-2xl leading-tight text-[var(--sampling-heading)] sm:text-phi-3xl">
-            Create Your Fragrance Through Conversation
-          </h1>
-          <p className="mx-auto mt-4 max-w-md type-body text-[var(--sampling-muted)]">
-            Tell us what you want your fragrance to smell and feel like. Start with a perfume you
-            already know or describe something completely new. We will help you refine the direction
-            until it is ready for sampling.
-          </p>
-          {error && <p className="mt-4 text-sm text-[var(--sampling-error)]">{error}</p>}
-          <button
-            type="button"
-            onClick={() => void startCreating()}
-            disabled={sending}
-            className="btn-primary mx-auto mt-8 disabled:opacity-50"
-          >
-            {sending ? 'Starting…' : 'Start Creating'}
-          </button>
-        </main>
-      </div>
-    );
-  }
-
-  const submitted = Boolean(consultation.submittedAt);
+  const conversationTitle =
+    consultation?.title ||
+    deriveConversationTitle(consultation) ||
+    'New scent conversation';
+  const submitted = Boolean(consultation?.submittedAt);
 
   return (
-    <div className="sampling-experience flex min-h-[100dvh] flex-col">
-      <header className="sticky top-0 z-40 border-b border-[var(--sampling-border)]/70 bg-[var(--sampling-cream)]">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center px-4 py-3 sm:px-6 sm:py-4">
-          <div aria-hidden />
-          <Link to="/" className="justify-self-center" aria-label="Brandsamor home">
-            <BrandLogo />
-          </Link>
-          <div className="flex items-center justify-end gap-3 justify-self-end">
-            <SaveStatus visible={savedFlash} />
+    <div className="sampling-experience flex min-h-[100dvh]">
+      <ConversationSidebar
+        conversations={conversations}
+        activeId={consultation?.consultationId}
+        open={sidebarOpen}
+        onToggle={() => setSidebarOpen((v) => !v)}
+        onSelect={(id) => void selectConversation(id)}
+        onNewScent={() => void startCreating()}
+        creating={sending && !consultation}
+      />
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="sticky top-0 z-30 border-b border-[var(--sampling-border)]/70 bg-[var(--sampling-cream)]">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center px-4 py-3 pl-20 sm:px-6 sm:py-4 lg:pl-6">
+            <div className="min-w-0">
+              {consultation && (
+                <p className="truncate text-sm font-semibold text-[var(--sampling-heading)] lg:max-w-[14rem]">
+                  {conversationTitle}
+                </p>
+              )}
+            </div>
+            <Link to="/" className="justify-self-center" aria-label="Brandsamor home">
+              <BrandLogo />
+            </Link>
+            <div className="flex items-center justify-end gap-3 justify-self-end">
+              <SaveStatus visible={savedFlash} />
+              <button
+                type="button"
+                onClick={handleExit}
+                className="text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)]"
+              >
+                {consultation ? 'Save + exit' : 'Exit'}
+              </button>
+            </div>
+          </div>
+          {consultation?.scentCard && (
+            <div className="mx-auto max-w-2xl px-5 pb-3 sm:px-8">
+              <ScentCard card={consultation.scentCard} />
+            </div>
+          )}
+        </header>
+
+        {loading && !consultation ? (
+          <main className="flex flex-1 items-center justify-center px-5">
+            <p className="text-sm text-[var(--sampling-muted)]">Loading…</p>
+          </main>
+        ) : !consultation ? (
+          <main className="mx-auto flex w-full max-w-lg flex-1 flex-col px-5 pb-16 pt-10 text-center sm:px-8 sm:pt-16">
+            <p className="type-eyebrow">AI Scent Studio</p>
+            <h1 className="mt-4 font-serif text-phi-2xl leading-tight text-[var(--sampling-heading)] sm:text-phi-3xl">
+              Create Your Fragrance Through Conversation
+            </h1>
+            <p className="mx-auto mt-4 max-w-md type-body text-[var(--sampling-muted)]">
+              Tell us what you want your fragrance to smell and feel like. Start with a perfume you
+              already know or describe something completely new. Conversations are saved on this
+              device.
+            </p>
+            {error && <p className="mt-4 text-sm text-[var(--sampling-error)]">{error}</p>}
             <button
               type="button"
-              onClick={handleExit}
-              className="text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)]"
+              onClick={() => void startCreating()}
+              disabled={sending}
+              className="btn-primary mx-auto mt-8 disabled:opacity-50"
             >
-              Save + exit
+              {sending ? 'Starting…' : 'Start Creating'}
             </button>
-          </div>
-        </div>
-        {consultation.scentCard && (
-          <div className="mx-auto max-w-2xl px-5 pb-3 sm:px-8">
-            <ScentCard card={consultation.scentCard} />
-          </div>
+            {conversations.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(true)}
+                className="mt-4 text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)] lg:hidden"
+              >
+                Open saved scents
+              </button>
+            )}
+          </main>
+        ) : (
+          <>
+            <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-4 pt-5 sm:px-8">
+              <ChatTranscript
+                messages={consultation.messages}
+                pending={sending}
+                disabled={sending || submitted}
+                onQuickReply={(text) => {
+                  if (text.toLowerCase().includes('prepare for sampling')) {
+                    setShowHandoff(true);
+                  }
+                  void handleSend(text);
+                }}
+              />
+
+              {error && <p className="mt-3 text-sm text-[var(--sampling-error)]">{error}</p>}
+
+              {showHandoff && !submitted && (
+                <div className="mt-6">
+                  <SamplingHandoffCard
+                    concept={consultation.scentCard?.oneSentenceConcept}
+                    submitting={submitting}
+                    onSubmit={(contact) => void handleSubmit(contact)}
+                  />
+                </div>
+              )}
+
+              {submitted && (
+                <div className="mt-6 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-5 text-center">
+                  <p className="font-serif text-phi-lg text-[var(--sampling-heading)]">
+                    Brief received
+                  </p>
+                  <p className="mt-2 text-sm text-[var(--sampling-muted)]">
+                    Your scent direction has been emailed to the Brandsamor development team for
+                    formulation and sampling review.
+                  </p>
+                </div>
+              )}
+            </main>
+
+            {!submitted && (
+              <Composer
+                disabled={sending}
+                onSend={(text) => void handleSend(text)}
+                placeholder="Add, remove, or change anything about the scent…"
+              />
+            )}
+          </>
         )}
-      </header>
-
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-4 pt-5 sm:px-8">
-        <ChatTranscript
-          messages={consultation.messages}
-          pending={sending}
-          disabled={sending || submitted}
-          onQuickReply={(text) => {
-            if (text.toLowerCase().includes('prepare for sampling')) {
-              setShowHandoff(true);
-            }
-            void handleSend(text);
-          }}
-        />
-
-        {error && <p className="mt-3 text-sm text-[var(--sampling-error)]">{error}</p>}
-
-        {showHandoff && !submitted && (
-          <div className="mt-6">
-            <SamplingHandoffCard
-              concept={consultation.scentCard?.oneSentenceConcept}
-              submitting={submitting}
-              onSubmit={(contact) => void handleSubmit(contact)}
-            />
-          </div>
-        )}
-
-        {submitted && (
-          <div className="mt-6 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-5 text-center">
-            <p className="font-serif text-phi-lg text-[var(--sampling-heading)]">Brief received</p>
-            <p className="mt-2 text-sm text-[var(--sampling-muted)]">
-              Your scent direction has been sent to the Brandsamor development team for formulation
-              and sampling review.
-            </p>
-          </div>
-        )}
-      </main>
-
-      {!submitted && (
-        <Composer
-          disabled={sending}
-          onSend={(text) => void handleSend(text)}
-          placeholder="Add, remove, or change anything about the scent…"
-        />
-      )}
+      </div>
     </div>
   );
 }

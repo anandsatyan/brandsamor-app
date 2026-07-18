@@ -7,6 +7,7 @@ import {
   markSubmitted,
   appendMessagesAndState,
 } from './repo.mjs';
+import { sendSamplingBriefEmail } from './samplingBriefEmail.mjs';
 import { toPublicConsultation, toPublicScentCard } from './state.mjs';
 
 function publicFromDoc(doc) {
@@ -233,7 +234,30 @@ export async function handleScentStudioSubmit(req, res, consultationId) {
         'I approve this as the starting direction for physical fragrance development. I understand that the fragrance may evolve after formulation, evaluation and sample feedback.',
     });
 
-    sendJson(res, 200, { consultation: publicFromDoc(saved) });
+    let emailResult = null;
+    try {
+      emailResult = await sendSamplingBriefEmail(saved);
+      console.info('[scent-studio] sampling brief emailed', {
+        consultationId,
+        recipient: emailResult.recipient,
+        mode: emailResult.mode,
+      });
+    } catch (mailError) {
+      console.error('[scent-studio] sampling brief email failed', mailError);
+      // Consultation is already saved; surface a soft warning to the client.
+      sendJson(res, 200, {
+        consultation: publicFromDoc(saved),
+        emailSent: false,
+        warning: 'Brief saved, but the notification email could not be sent.',
+      });
+      return;
+    }
+
+    sendJson(res, 200, {
+      consultation: publicFromDoc(saved),
+      emailSent: true,
+      emailMode: emailResult?.mode || null,
+    });
   } catch (error) {
     console.error('[scent-studio] submit', error);
     sendJson(res, 500, { error: 'Failed to submit scent direction' });

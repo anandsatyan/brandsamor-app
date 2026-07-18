@@ -25,9 +25,13 @@ export type ScentConsultation = {
   stage: string;
   messages: ScentMessage[];
   scentCard: ScentCard | null;
+  title?: string;
   saveStatus?: string;
   submittedAt?: string | Date | null;
   providerMode?: string | null;
 };
 
+/** @deprecated use library + active keys */
 export const SCENT_STUDIO_STORAGE_KEY = 'brandsamor_scent_studio_v1';
+export const SCENT_STUDIO_LIBRARY_KEY = 'brandsamor_scent_studio_library_v1';
+export const SCENT_STUDIO_ACTIVE_KEY = 'brandsamor_scent_studio_active_v1';

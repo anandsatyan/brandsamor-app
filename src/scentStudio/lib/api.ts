@@ -71,5 +71,8 @@ export async function submitForSampling(
     },
   );
   const data = await parseJson(res);
+  if (data?.warning) {
+    console.warn('[scent-studio]', data.warning);
+  }
   return data.consultation as ScentConsultation;
 }

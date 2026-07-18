@@ -214,12 +214,39 @@ export function toPublicScentCard(state) {
   };
 }
 
+export function deriveConsultationTitle(state) {
+  const card = toPublicScentCard(state);
+  const working = card?.workingName;
+  if (working && !/^(untitled(\s+scent)?|new scent|studio draft)$/i.test(working)) {
+    return working;
+  }
+  const notes = [
+    ...(state?.scentDirection?.topNotes || []),
+    ...(state?.scentDirection?.heartNotes || []),
+    ...(state?.scentDirection?.baseNotes || []),
+  ]
+    .map((n) => String(n).trim())
+    .filter(Boolean);
+  if (notes.length >= 2) return `${notes[0]} · ${notes[1]}${notes[2] ? ` · ${notes[2]}` : ''}`;
+  if (notes.length === 1) return `${notes[0]} direction`;
+  const descriptors = (state?.scentDirection?.descriptors || []).filter(Boolean);
+  if (descriptors.length) {
+    return descriptors
+      .slice(0, 2)
+      .map((d) => String(d).charAt(0).toUpperCase() + String(d).slice(1))
+      .join(' & ');
+  }
+  return 'New scent conversation';
+}
+
 export function toPublicConsultation(doc) {
   if (!doc) return null;
+  const scentCard = toPublicScentCard(doc.state);
   return {
     consultationId: doc.consultationId,
     recoveryToken: doc.recoveryToken,
     stage: doc.state?.stage || 'discovery',
+    title: deriveConsultationTitle(doc.state),
     messages: Array.isArray(doc.messages)
       ? doc.messages.map((m) => ({
           id: m.id,
@@ -229,7 +256,7 @@ export function toPublicConsultation(doc) {
           createdAt: m.createdAt,
         }))
       : [],
-    scentCard: toPublicScentCard(doc.state),
+    scentCard,
     saveStatus: 'saved',
     submittedAt: doc.submittedAt || null,
     providerMode: doc.providerMode || null,
