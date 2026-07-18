@@ -25,49 +25,15 @@ function stageIndex(current?: string | null) {
 
 export function ProgressIndicator({ currentStage }: { currentStage?: string | null }) {
   const active = stageIndex(currentStage);
-  const currentLabel = STAGES[active]?.label ?? STAGES[0].label;
 
   return (
-    <nav aria-label="Scent development progress" className="w-full">
-      {/* Mobile: one clear step, no crammed uppercase strip */}
-      <div className="flex items-center justify-between gap-3 sm:hidden">
-        <p
-          className="type-caption font-semibold uppercase tracking-[0.1em] text-[var(--sampling-heading)]"
-          aria-current="step"
-        >
-          {currentLabel}
-        </p>
-        <p className="type-caption text-[var(--sampling-muted)]">
-          Step {active + 1} of {STAGES.length}
-        </p>
-      </div>
-      <ol className="mt-2 flex items-center gap-1.5 sm:hidden" aria-hidden>
+    <nav aria-label="Scent development progress" className="w-full min-w-0">
+      <ol className="flex flex-nowrap items-center gap-x-1 overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-x-2 [&::-webkit-scrollbar]:hidden">
         {STAGES.map((stage, index) => {
           const done = index < active;
           const current = index === active;
           return (
-            <li
-              key={stage.id}
-              className={[
-                'h-1 flex-1 rounded-[2px]',
-                current
-                  ? 'bg-[var(--sampling-heading)]'
-                  : done
-                    ? 'bg-[var(--sampling-success)]'
-                    : 'bg-[var(--sampling-border)]',
-              ].join(' ')}
-            />
-          );
-        })}
-      </ol>
-
-      {/* sm+: full stage labels */}
-      <ol className="hidden flex-wrap items-center gap-x-2 gap-y-1 sm:flex">
-        {STAGES.map((stage, index) => {
-          const done = index < active;
-          const current = index === active;
-          return (
-            <li key={stage.id} className="flex items-center gap-2">
+            <li key={stage.id} className="flex shrink-0 items-center gap-1 sm:gap-2">
               {index > 0 && (
                 <span className="text-[var(--sampling-border)]" aria-hidden>
                   →
@@ -75,7 +41,7 @@ export function ProgressIndicator({ currentStage }: { currentStage?: string | nu
               )}
               <span
                 className={[
-                  'type-caption font-semibold uppercase tracking-[0.1em]',
+                  'type-caption whitespace-nowrap font-semibold uppercase tracking-[0.05em] sm:tracking-[0.1em]',
                   current
                     ? 'text-[var(--sampling-heading)]'
                     : done
@@ -85,7 +51,10 @@ export function ProgressIndicator({ currentStage }: { currentStage?: string | nu
                 aria-current={current ? 'step' : undefined}
               >
                 {done ? '✓ ' : ''}
-                {stage.label}
+                <span className="sm:hidden">
+                  {stage.id === 'review' ? 'Concept' : stage.label}
+                </span>
+                <span className="hidden sm:inline">{stage.label}</span>
               </span>
             </li>
           );

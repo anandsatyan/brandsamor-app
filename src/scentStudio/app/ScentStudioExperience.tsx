@@ -312,21 +312,16 @@ export function ScentStudioExperience() {
             >
               <BrandLogo />
             </Link>
-            <div className="relative flex items-center justify-end gap-2 justify-self-end sm:gap-3">
-              <SaveStatus visible={savedFlash} />
+            <div className="relative flex items-center justify-end justify-self-end">
+              <span className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 sm:block">
+                <SaveStatus visible={savedFlash} />
+              </span>
               <button
                 type="button"
                 onClick={handleExit}
                 className="whitespace-nowrap text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)]"
               >
-                {consultation ? (
-                  <>
-                    <span className="sm:hidden">Save</span>
-                    <span className="hidden sm:inline">Save + exit</span>
-                  </>
-                ) : (
-                  'Exit'
-                )}
+                Exit
               </button>
             </div>
           </div>
@@ -486,7 +481,7 @@ export function ScentStudioExperience() {
                 <Composer
                   disabled={sending}
                   onSend={(text) => void handleSend(text)}
-                  placeholder="Describe the feeling, audience, notes, or changes…"
+                  placeholder="Describe your scent…"
                 />
               </div>
             )}

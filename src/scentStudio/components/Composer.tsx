@@ -43,7 +43,7 @@ export function Composer({
           rows={1}
           disabled={disabled}
           placeholder={placeholder}
-          className="max-h-36 min-h-[44px] w-full resize-none rounded-[2px] border border-[var(--sampling-border)] bg-white px-3 py-2.5 text-sm text-[var(--sampling-heading)] placeholder:text-[var(--sampling-muted)]/60 focus:border-[var(--sampling-orange)] focus:outline-none sm:min-h-[48px] sm:py-3"
+          className="max-h-36 min-h-[44px] w-full resize-none rounded-[2px] border border-[var(--sampling-border)] bg-white px-3 py-2.5 text-sm text-[var(--sampling-heading)] placeholder:truncate placeholder:text-[var(--sampling-muted)]/60 focus:border-[var(--sampling-orange)] focus:outline-none sm:min-h-[48px] sm:py-3"
         />
         <button
           type="submit"
