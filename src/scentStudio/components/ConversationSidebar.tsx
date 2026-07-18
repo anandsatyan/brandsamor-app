@@ -13,6 +13,27 @@ function formatWhen(value?: string) {
   }
 }
 
+export function ScentsMenuToggle({
+  open,
+  onToggle,
+}: {
+  open: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="inline-flex items-center gap-2 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--sampling-heading)] lg:hidden"
+      aria-expanded={open}
+      aria-controls="scent-conversation-nav"
+    >
+      {open ? <X className="h-3.5 w-3.5" /> : <Menu className="h-3.5 w-3.5" />}
+      Scents
+    </button>
+  );
+}
+
 export function ConversationSidebar({
   conversations,
   activeId,
@@ -32,17 +53,6 @@ export function ConversationSidebar({
 }) {
   return (
     <>
-      <button
-        type="button"
-        onClick={onToggle}
-        className="fixed left-3 top-3.5 z-50 inline-flex items-center gap-2 rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--sampling-heading)] lg:hidden"
-        aria-expanded={open}
-        aria-controls="scent-conversation-nav"
-      >
-        {open ? <X className="h-3.5 w-3.5" /> : <Menu className="h-3.5 w-3.5" />}
-        Scents
-      </button>
-
       {open && (
         <button
           type="button"

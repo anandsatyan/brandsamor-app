@@ -18,7 +18,7 @@ export const WizardChrome = ({ onSaveExit, saved = false, exitOnly = false }: Wi
     >
       <BrandLogo />
     </Link>
-    <div className="flex min-w-0 items-center justify-end gap-3 justify-self-end">
+    <div className="relative flex min-w-0 items-center justify-end gap-3 justify-self-end">
       {!exitOnly && <SaveStatus visible={saved} />}
       <button
         type="button"

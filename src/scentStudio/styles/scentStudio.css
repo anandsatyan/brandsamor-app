@@ -10,6 +10,7 @@
 .scent-studio-scroll {
   width: 100%;
   scrollbar-gutter: stable;
+  scroll-padding-bottom: 1.5rem;
 }
 
 .scent-bubble-assistant {
@@ -25,9 +26,12 @@
 }
 
 .scent-composer {
+  position: relative;
+  z-index: 20;
   border-top: 1px solid var(--sampling-border);
-  background: color-mix(in srgb, var(--sampling-cream) 92%, white);
+  background: color-mix(in srgb, var(--sampling-cream) 96%, white);
   backdrop-filter: blur(8px);
+  box-shadow: 0 -1px 0 color-mix(in srgb, var(--sampling-border) 80%, transparent);
 }
 
 .scent-assistant-body {
