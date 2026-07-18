@@ -5,7 +5,10 @@ import { CREATE_A_SCENT_PATH } from '../../routes/leadForm';
 import { SaveStatus } from '../../sampling/components/layout/SaveStatus';
 import { ChatTranscript } from '../components/ChatTranscript';
 import { Composer } from '../components/Composer';
-import { ConversationSidebar } from '../components/ConversationSidebar';
+import {
+  ConversationSidebar,
+  ScentsMenuToggle,
+} from '../components/ConversationSidebar';
 import { FinalConceptReview } from '../components/FinalConceptReview';
 import { LiveScentPanel } from '../components/LiveScentPanel';
 import { OpeningPaths } from '../components/OpeningPaths';
@@ -293,30 +296,40 @@ export function ScentStudioExperience() {
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
         <header className="z-30 shrink-0 border-b border-[var(--sampling-border)]/70 bg-[var(--sampling-cream)]">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center px-4 py-3 pl-20 sm:px-6 sm:py-4 lg:pl-6">
-            <div className="min-w-0">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 px-4 py-3 sm:px-6 sm:py-4 lg:gap-3">
+            <div className="min-w-0 justify-self-start">
+              <ScentsMenuToggle open={sidebarOpen} onToggle={() => setSidebarOpen((v) => !v)} />
               {consultation && (
-                <p className="truncate text-sm font-semibold text-[var(--sampling-heading)] lg:max-w-[14rem]">
+                <p className="hidden truncate text-sm font-semibold text-[var(--sampling-heading)] lg:block lg:max-w-[14rem]">
                   {conversationTitle}
                 </p>
               )}
             </div>
-            <Link to={CREATE_A_SCENT_PATH} className="justify-self-center" aria-label="Create a Scent">
+            <Link
+              to={CREATE_A_SCENT_PATH}
+              className="justify-self-center"
+              aria-label="Create a Scent"
+            >
               <BrandLogo />
             </Link>
-            <div className="flex items-center justify-end gap-3 justify-self-end">
-              <SaveStatus visible={savedFlash} />
+            <div className="relative flex items-center justify-end justify-self-end">
+              <span className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 sm:block">
+                <SaveStatus visible={savedFlash} />
+              </span>
               <button
                 type="button"
                 onClick={handleExit}
-                className="text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)]"
+                className="whitespace-nowrap text-sm font-semibold text-[var(--sampling-muted)] hover:text-[var(--sampling-heading)]"
               >
-                {consultation ? 'Save + exit' : 'Exit'}
+                Exit
               </button>
             </div>
           </div>
           {consultation && (
-            <div className="border-t border-[var(--sampling-border)]/50 px-4 py-2.5 sm:px-6 lg:px-6">
+            <div className="border-t border-[var(--sampling-border)]/50 px-4 py-2 sm:px-6 sm:py-2.5">
+              <p className="mb-1.5 truncate text-xs font-medium text-[var(--sampling-muted)] lg:hidden">
+                {conversationTitle}
+              </p>
               <ProgressIndicator currentStage={consultation.currentStage || consultation.stage} />
             </div>
           )}
@@ -347,8 +360,8 @@ export function ScentStudioExperience() {
         ) : (
           <>
             <main className="scent-studio-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain">
-              <div className="mx-auto grid w-full max-w-6xl gap-5 px-5 py-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8 lg:px-8">
-                <div className="min-w-0 space-y-5">
+              <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-4 pb-phi-5 sm:px-5 sm:py-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8 lg:px-8">
+                <div className="min-w-0 space-y-4 sm:space-y-5">
                   {consultation.scentCard && (
                     <div className="lg:hidden">
                       <LiveScentPanel card={consultation.scentCard} collapsedDefault />
@@ -468,7 +481,7 @@ export function ScentStudioExperience() {
                 <Composer
                   disabled={sending}
                   onSend={(text) => void handleSend(text)}
-                  placeholder="Describe the feeling, audience, notes, or changes…"
+                  placeholder="Describe your scent…"
                 />
               </div>
             )}

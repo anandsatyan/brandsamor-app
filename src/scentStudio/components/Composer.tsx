@@ -31,7 +31,10 @@ export function Composer({
   }
 
   return (
-    <form onSubmit={onSubmit} className="scent-composer w-full px-5 py-3 sm:px-8">
+    <form
+      onSubmit={onSubmit}
+      className="scent-composer w-full px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-8"
+    >
       <div className="mx-auto flex w-full max-w-2xl items-end gap-2">
         <textarea
           value={value}
@@ -40,7 +43,7 @@ export function Composer({
           rows={1}
           disabled={disabled}
           placeholder={placeholder}
-          className="max-h-36 min-h-[48px] w-full resize-none rounded-[2px] border border-[var(--sampling-border)] bg-white px-3 py-3 text-sm text-[var(--sampling-heading)] placeholder:text-[var(--sampling-muted)]/60 focus:border-[var(--sampling-orange)] focus:outline-none"
+          className="max-h-36 min-h-[44px] w-full resize-none rounded-[2px] border border-[var(--sampling-border)] bg-white px-3 py-2.5 text-sm text-[var(--sampling-heading)] placeholder:truncate placeholder:text-[var(--sampling-muted)]/60 focus:border-[var(--sampling-orange)] focus:outline-none sm:min-h-[48px] sm:py-3"
         />
         <button
           type="submit"

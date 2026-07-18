@@ -41,14 +41,14 @@ export function ChatTranscript({
               </div>
             </div>
             {isLastAssistant && message.quickReplies && message.quickReplies.length > 0 && (
-              <div className="flex flex-wrap gap-2 pl-1">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {message.quickReplies.map((reply) => (
                   <button
                     key={reply}
                     type="button"
                     disabled={disabled}
                     onClick={() => onQuickReply(reply)}
-                    className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--sampling-heading)] transition-colors hover:border-[var(--sampling-heading)] disabled:opacity-50"
+                    className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-3 py-3 text-left text-sm font-semibold text-[var(--sampling-heading)] transition-colors hover:border-[var(--sampling-heading)] disabled:opacity-50 sm:py-2.5 sm:text-xs"
                   >
                     {reply}
                   </button>
@@ -66,7 +66,8 @@ export function ChatTranscript({
           </div>
         </div>
       )}
-      <div ref={endRef} />
+      {/* Spacer so the last quick-reply row clears the composer after auto-scroll */}
+      <div ref={endRef} className="h-phi-3 shrink-0" aria-hidden />
     </div>
   );
 }
