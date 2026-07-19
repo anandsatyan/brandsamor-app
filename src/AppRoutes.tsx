@@ -31,6 +31,7 @@ const HowYourBatchIsMadePage = lazyNamed(
 );
 const AboutPage = lazyNamed(() => import('./components/AboutPage'), 'AboutPage');
 const LoginPage = lazyNamed(() => import('./components/LoginPage'), 'LoginPage');
+const AccountPage = lazyNamed(() => import('./components/AccountPage'), 'AccountPage');
 const KnowledgeBaseHubPage = lazyNamed(
   () => import('./components/knowledgeBase/KnowledgeBaseHubPage'),
   'KnowledgeBaseHubPage',
@@ -106,6 +107,7 @@ export const AppRoutes = () => (
         <Route path="/create-a-scent" element={<CreateAScentPage />} />
         <Route path="/create-a-scent/studio" element={<CreateAScentStudioPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/admin" element={<AdminLeadsPage />} />
         <Route path="/admin/leads" element={<AdminLeadsPage />} />
         <Route path="/admin/leads/:sessionId" element={<AdminLeadsPage />} />

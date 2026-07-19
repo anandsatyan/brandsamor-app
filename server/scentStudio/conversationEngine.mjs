@@ -134,11 +134,12 @@ export async function processConversationTurn({ doc, userMessage }) {
   let providerMode;
 
   if (config.useLocalConsultant) {
-    turn = runLocalConsultantTurn({
+    const localTurn = runLocalConsultantTurn({
       state,
       userMessage: text,
       matchedReferences: matchedRefs,
     });
+    turn = validateTurnOutput(localTurn) || localTurn;
     providerMode = 'local';
   } else {
     const modelResult = await runModelTurn({

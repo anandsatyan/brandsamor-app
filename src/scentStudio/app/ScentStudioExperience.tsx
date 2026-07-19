@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../account/AuthContext';
+import { SignInPanel } from '../../account/SignInPanel';
 import { BrandLogo } from '../../components/BrandLogo';
 import { CREATE_A_SCENT_PATH } from '../../routes/leadForm';
 import { SaveStatus } from '../../sampling/components/layout/SaveStatus';
@@ -38,6 +40,8 @@ type UiPhase = 'opening' | 'chat' | 'concept' | 'sample' | 'contact';
 
 export function ScentStudioExperience() {
   const navigate = useNavigate();
+  const { authenticated, customer, consultations: accountConsultations, syncLocalToAccount } =
+    useAuth();
   const [conversations, setConversations] = useState<LocalConversationEntry[]>([]);
   const [consultation, setConsultation] = useState<ScentConsultation | null>(null);
   const [uiPhase, setUiPhase] = useState<UiPhase>('opening');
@@ -56,7 +60,21 @@ export function ScentStudioExperience() {
       scentStudioAnalytics.saved();
     }
     setConversations(listLocalConversations());
+    if (authenticated) {
+      void syncLocalToAccount();
+    }
   }
+
+  // Merge cloud library into local cache when account consultations arrive
+  useEffect(() => {
+    if (!accountConsultations?.length) return;
+    for (const entry of accountConsultations) {
+      if (entry.snapshot) {
+        upsertLocalConversation(entry.snapshot);
+      }
+    }
+    setConversations(listLocalConversations());
+  }, [accountConsultations]);
 
   function flashSaved() {
     setSavedFlash(true);
@@ -292,6 +310,7 @@ export function ScentStudioExperience() {
           setSidebarOpen(false);
         }}
         creating={sending && !consultation}
+        accountEmail={customer?.email}
       />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
@@ -345,6 +364,13 @@ export function ScentStudioExperience() {
               <p className="px-5 pt-4 text-sm text-[var(--sampling-error)] sm:px-8">{error}</p>
             )}
             <OpeningPaths onSelect={(mode) => void startWithMode(mode)} busy={sending} />
+            <div className="mx-auto max-w-xl px-5 pb-6 sm:px-8">
+              <SignInPanel
+                nextPath="/create-a-scent/studio"
+                compact
+                title={authenticated ? 'Account synced' : 'Sync across devices'}
+              />
+            </div>
             {conversations.length > 0 && (
               <p className="px-5 pb-10 text-center text-sm text-[var(--sampling-muted)] sm:px-8 lg:hidden">
                 <button
@@ -434,18 +460,27 @@ export function ScentStudioExperience() {
                     !consultation.contactCaptured &&
                     consultation.scentCard &&
                     !submitted && (
-                      <div className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-4">
-                        <p className="text-sm text-[var(--sampling-heading)]">
-                          Your direction is taking shape. Save it to your email when you are ready —
-                          you can keep refining first.
-                        </p>
-                        <button
-                          type="button"
-                          className="mt-3 text-sm font-semibold text-[var(--sampling-orange)] hover:underline"
-                          onClick={() => setUiPhase('contact')}
-                        >
-                          Save concept with email
-                        </button>
+                      <div className="space-y-3">
+                        {!authenticated ? (
+                          <SignInPanel
+                            nextPath="/create-a-scent/studio"
+                            compact
+                            title="Sign in to save across devices"
+                          />
+                        ) : null}
+                        <div className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-4">
+                          <p className="text-sm text-[var(--sampling-heading)]">
+                            Your direction is taking shape. Save contact details when you are ready
+                            for sampling — you can keep refining first.
+                          </p>
+                          <button
+                            type="button"
+                            className="mt-3 text-sm font-semibold text-[var(--sampling-orange)] hover:underline"
+                            onClick={() => setUiPhase('contact')}
+                          >
+                            Continue to sampling details
+                          </button>
+                        </div>
                       </div>
                     )}
 

@@ -32,6 +32,15 @@ import {
   handleScentStudioSubmit,
 } from './server/scentStudio/handlers.mjs';
 import {
+  handleAccountClaim,
+  handleAccountLogout,
+  handleAccountRequestLink,
+  handleAccountSession,
+  handleAccountVerify,
+  handleAccountWorkspace,
+} from './server/account/handlers.mjs';
+import { getCustomerFromRequest } from './server/account/auth.mjs';
+import {
   buildVisitorCountryCookie,
   getVisitorCountryFromHeaders,
   isAnalyticsExcludedCountry,
@@ -62,6 +71,7 @@ const PUBLIC_ROUTES = new Set([
   '/curated-sampling/thank-you-preview',
   '/create-a-scent',
   '/create-a-scent/studio',
+  '/account',
   '/login',
   '/admin',
   '/admin/leads',
@@ -109,6 +119,7 @@ const SPA_ONLY_ROUTES = new Set([
   '/curated-sampling',
   '/curated-sampling/thank-you-preview',
   '/create-a-scent/studio',
+  '/account',
   '/schedule-a-call',
   '/admin',
   '/admin/leads',
@@ -259,6 +270,31 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (url.pathname === '/api/account/request-link' && req.method === 'POST') {
+    await handleAccountRequestLink(req, res);
+    return;
+  }
+  if (url.pathname === '/api/account/verify' && req.method === 'GET') {
+    await handleAccountVerify(req, res);
+    return;
+  }
+  if (url.pathname === '/api/account/session' && req.method === 'GET') {
+    await handleAccountSession(req, res);
+    return;
+  }
+  if (url.pathname === '/api/account/logout' && req.method === 'POST') {
+    await handleAccountLogout(req, res);
+    return;
+  }
+  if (url.pathname === '/api/account/workspace' && req.method === 'GET') {
+    await handleAccountWorkspace(req, res);
+    return;
+  }
+  if (url.pathname === '/api/account/claim' && req.method === 'POST') {
+    await handleAccountClaim(req, res);
+    return;
+  }
+
   if (url.pathname === '/api/scent-studio/consultations' && req.method === 'POST') {
     await handleScentStudioCreate(req, res);
     return;
@@ -316,12 +352,14 @@ const server = http.createServer(async (req, res) => {
         }
       }
 
+      const customer = await getCustomerFromRequest(req).catch(() => null);
       const savedSessionId = await upsertSamplingSession({
         sessionId,
         step,
         lead,
         answers: answers ?? {},
         currentStep,
+        userId: customer?.userId || null,
       });
 
       sendJson(res, 200, { sessionId: savedSessionId, ok: true });

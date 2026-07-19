@@ -6,6 +6,8 @@ import '@fontsource/manrope/600.css';
 import '@fontsource/manrope/700.css';
 import '../styles/sampling.css';
 
+import { useAuth } from '../../account/AuthContext';
+import { SignInPanel } from '../../account/SignInPanel';
 import { OptionCard } from '../components/form/OptionCard';
 import { MultiSelectChip } from '../components/form/MultiSelectChip';
 import { FieldInput } from '../components/form/FieldInput';
@@ -56,9 +58,45 @@ import {
   STEP_WELCOME,
   STEP_CHECKOUT,
   STEP_DONE,
+  SAMPLING_STATE_VERSION,
+  createEmptyLead,
+  createEmptyAnswers,
+  type SamplingState,
 } from '../types/sampling';
+import type { AccountSamplingSession } from '../../account/api';
 
 const RECOMMEND = 'recommend';
+
+function samplingSessionToState(session: AccountSamplingSession): SamplingState {
+  return {
+    version: SAMPLING_STATE_VERSION,
+    currentStep: session.currentStep || STEP_CONTACT,
+    lead: session.lead
+      ? {
+          fullName: session.lead.fullName || '',
+          email: session.lead.email || '',
+          phone: session.lead.phone || '',
+          brandName: session.lead.brandName || '',
+          country: session.lead.country || 'US',
+          consent: Boolean(session.lead.consent),
+        }
+      : createEmptyLead(),
+    answers: {
+      ...createEmptyAnswers(),
+      ...(session.answers || {}),
+    },
+    recommendations: session.recommendations || [],
+    selectionSummary: session.selectionSummary || undefined,
+    sessionId: session.sessionId,
+    completed: Boolean(session.completed),
+    updatedAt:
+      typeof session.updatedAt === 'string'
+        ? session.updatedAt
+        : session.updatedAt
+          ? new Date(session.updatedAt).toISOString()
+          : new Date().toISOString(),
+  };
+}
 
 const toggleExclusive = (current: string[], value: string, max: number, exclusiveValues: string[]) => {
   if (exclusiveValues.includes(value)) {
@@ -86,8 +124,31 @@ export const SamplingExperience = () => {
     startNew,
     persist,
   } = useSamplingState();
+  const { authenticated, openSampling, syncLocalToAccount } = useAuth();
 
   const { currentStep, lead, answers, recommendations, selectionSummary, sessionId } = state;
+
+  // Hydrate local draft from the signed-in cloud session when local is empty/stale.
+  useEffect(() => {
+    if (!authenticated || !openSampling?.sessionId) return;
+    const cloudUpdated = openSampling.updatedAt
+      ? new Date(openSampling.updatedAt).getTime()
+      : 0;
+    const localUpdated = state.updatedAt ? new Date(state.updatedAt).getTime() : 0;
+    const localIsEmpty = !state.sessionId && state.currentStep <= STEP_WELCOME;
+    const cloudIsNewer =
+      openSampling.sessionId !== state.sessionId && cloudUpdated > localUpdated + 1000;
+    if (localIsEmpty || cloudIsNewer) {
+      persist(samplingSessionToState(openSampling));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authenticated, openSampling?.sessionId]);
+
+  useEffect(() => {
+    if (authenticated && sessionId) {
+      void syncLocalToAccount();
+    }
+  }, [authenticated, sessionId, syncLocalToAccount]);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [contactErrors, setContactErrors] = useState<Record<string, string>>({});
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -369,11 +430,33 @@ export const SamplingExperience = () => {
             >
               Create my sample brief
             </PrimaryButton>
-            {hasSavedBrief && (
-              <TextLinkButton onClick={resumeBrief}>Resume saved brief</TextLinkButton>
+            {(hasSavedBrief || (authenticated && openSampling)) && (
+              <TextLinkButton
+                onClick={() => {
+                  if (authenticated && openSampling && !hasSavedBrief) {
+                    persist(samplingSessionToState(openSampling));
+                    goToStep(
+                      openSampling.currentStep > STEP_WELCOME
+                        ? openSampling.currentStep
+                        : STEP_CONTACT,
+                    );
+                    return;
+                  }
+                  resumeBrief();
+                }}
+              >
+                Resume saved brief
+              </TextLinkButton>
             )}
           </>
         )}
+      </div>
+      <div className="mx-auto mt-8 w-full max-w-md text-left">
+        <SignInPanel
+          nextPath="/curated-sampling"
+          compact
+          title={authenticated ? 'Brief synced to your account' : 'Sign in to resume on any device'}
+        />
       </div>
       <div className="mt-10 flex justify-center">
         <FiveBottleSampleSet size="sm" />

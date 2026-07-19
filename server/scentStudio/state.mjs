@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { composeAssistantMessage, normalizeSnackFields, toPublicMessageVisual } from './turnFormat.mjs';
 
 export function createEmptyScentState(consultationId, startMode = null) {
   const mode =
@@ -304,18 +305,24 @@ export function toPublicConsultation(doc) {
   return {
     consultationId: doc.consultationId,
     recoveryToken: doc.recoveryToken,
+    userId: doc.userId || null,
     stage: state.stage || 'discovery',
     currentStage: state.currentStage || state.stage || 'opening',
     startMode: state.startMode || null,
     title: deriveConsultationTitle(state),
     messages: Array.isArray(doc.messages)
-      ? doc.messages.map((m) => ({
-          id: m.id,
-          role: m.role,
-          content: m.content,
-          quickReplies: m.quickReplies || [],
-          createdAt: m.createdAt,
-        }))
+      ? doc.messages.map((m) => {
+          if (m.role === 'assistant') {
+            return toPublicMessageVisual(m);
+          }
+          return {
+            id: m.id,
+            role: m.role,
+            content: m.content,
+            quickReplies: m.quickReplies || [],
+            createdAt: m.createdAt,
+          };
+        })
       : [],
     scentCard,
     conceptReady: Boolean(state.conceptReady || state.developmentStatus === 'concept-ready'),
@@ -329,11 +336,25 @@ export function toPublicConsultation(doc) {
 
 export function validateTurnOutput(raw) {
   if (!raw || typeof raw !== 'object') return null;
-  const assistantMessage = String(raw.assistantMessage ?? '').trim();
+
+  const snack = normalizeSnackFields(raw);
+  const assistantMessage =
+    snack.assistantMessage ||
+    composeAssistantMessage({
+      headline: snack.headline,
+      insight: snack.insight,
+      question: snack.question,
+      noteChips: snack.noteChips,
+      changes: snack.changes,
+    });
   if (!assistantMessage) return null;
 
   return {
     assistantMessage,
+    headline: snack.headline,
+    insight: snack.insight,
+    question: snack.question,
+    noteChips: snack.noteChips,
     quickReplies: Array.isArray(raw.quickReplies)
       ? raw.quickReplies.map((x) => String(x).trim()).filter(Boolean).slice(0, 8)
       : [],
@@ -354,7 +375,11 @@ export function validateTurnOutput(raw) {
     preservedFields: Array.isArray(raw.preservedFields) ? raw.preservedFields.map(String) : [],
     inferredFields: Array.isArray(raw.inferredFields) ? raw.inferredFields : [],
     contradictions: Array.isArray(raw.contradictions) ? raw.contradictions.map(String) : [],
-    changes: Array.isArray(raw.changes) ? raw.changes.map(String).slice(0, 6) : [],
+    changes: snack.changes.length
+      ? snack.changes
+      : Array.isArray(raw.changes)
+        ? raw.changes.map(String).slice(0, 4)
+        : [],
     nextQuestionPurpose: raw.nextQuestionPurpose ? String(raw.nextQuestionPurpose) : undefined,
     shouldUpdateScentCard: Boolean(raw.shouldUpdateScentCard),
     readyForFormula: Boolean(raw.readyForFormula),

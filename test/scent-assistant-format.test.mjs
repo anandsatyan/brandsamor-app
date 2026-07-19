@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { runLocalConsultantTurn } from '../server/scentStudio/localConsultant.mjs';
 import { createEmptyScentState, applyStatePatch } from '../server/scentStudio/state.mjs';
 
-test('local consultant replies use paragraph breaks and note emphasis', () => {
+test('local consultant replies stay snackable with note emphasis', () => {
   const state = createEmptyScentState('fmt-1');
   const turn = runLocalConsultantTurn({
     state,
@@ -12,10 +12,12 @@ test('local consultant replies use paragraph breaks and note emphasis', () => {
   });
 
   assert.ok(turn.assistantMessage.includes('\n\n'));
-  assert.ok(/\*\*[^*]+\*\*/.test(turn.assistantMessage));
+  assert.ok(turn.insight || turn.question);
+  assert.ok(Array.isArray(turn.noteChips));
+  assert.ok(turn.assistantMessage.split(/\s+/).length < 80);
 });
 
-test('refinement replies list note changes with emphasis', () => {
+test('refinement replies surface change chips and stay short', () => {
   let state = createEmptyScentState('fmt-2');
   const first = runLocalConsultantTurn({
     state,
@@ -29,6 +31,9 @@ test('refinement replies list note changes with emphasis', () => {
   });
 
   assert.ok(second.assistantMessage.includes('\n\n'));
-  assert.ok(second.assistantMessage.includes('**'));
-  assert.match(second.assistantMessage, /Cedar|cedar|Ginger|ginger/);
+  assert.ok(second.question || second.insight);
+  assert.ok(
+    (second.changes && second.changes.some((c) => /cedar|ginger/i.test(c))) ||
+      /Cedar|cedar|Ginger|ginger/.test(second.assistantMessage),
+  );
 });

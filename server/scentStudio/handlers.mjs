@@ -1,4 +1,5 @@
 import { sendJson, readJsonBody } from '../leadHandler.mjs';
+import { getCustomerFromRequest } from '../account/auth.mjs';
 import { getScentStudioConfig } from './config.mjs';
 import { processConversationTurn } from './conversationEngine.mjs';
 import {
@@ -29,7 +30,10 @@ export async function handleScentStudioCreate(req, res) {
   try {
     const payload = await readJsonBody(req).catch(() => ({}));
     const startMode = String(payload?.startMode || '').trim() || null;
-    const consultation = await createConsultation(startMode);
+    const customer = await getCustomerFromRequest(req);
+    const consultation = await createConsultation(startMode, {
+      userId: customer?.userId || null,
+    });
     sendJson(res, 200, {
       consultation,
       providerMode: config.useLocalConsultant ? 'local' : 'model',
@@ -112,6 +116,11 @@ export async function handleScentStudioMessage(req, res, consultationId) {
       quickReplies: turn.quickReplies,
       nextState,
       providerMode,
+      headline: turn.headline,
+      insight: turn.insight,
+      question: turn.question,
+      noteChips: turn.noteChips,
+      changes: turn.changes,
       turnMeta: {
         changedFields: turn.changedFields,
         preservedFields: turn.preservedFields,
@@ -129,6 +138,11 @@ export async function handleScentStudioMessage(req, res, consultationId) {
       scentCard: toPublicScentCard(saved.state),
       assistantMessage: turn.assistantMessage,
       quickReplies: turn.quickReplies,
+      headline: turn.headline,
+      insight: turn.insight,
+      question: turn.question,
+      noteChips: turn.noteChips,
+      changes: turn.changes,
       readyForFormula: turn.readyForFormula,
       providerMode,
     });
@@ -235,6 +249,25 @@ export async function handleScentStudioSubmit(req, res, consultationId) {
       approvalText:
         'I approve this as the starting direction for physical fragrance development. I understand that the fragrance may evolve after formulation, evaluation and sample feedback.',
     });
+
+    // Link to customer account when signed in or when email matches an account.
+    try {
+      const customer = await getCustomerFromRequest(req);
+      const {
+        attachUserIdToConsultation,
+        claimResourcesForCustomer,
+        getCustomerByEmail,
+      } = await import('../account/repo.mjs');
+      if (customer?.userId && saved) {
+        await attachUserIdToConsultation(consultationId, recoveryToken, customer.userId);
+        await claimResourcesForCustomer(customer);
+      } else if (email && saved) {
+        const existing = await getCustomerByEmail(email);
+        if (existing) await claimResourcesForCustomer(existing);
+      }
+    } catch (linkError) {
+      console.warn('[scent-studio] account link skipped', linkError);
+    }
 
     let emailResult = null;
     try {

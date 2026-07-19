@@ -1,4 +1,5 @@
 import { Menu, Plus, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import type { LocalConversationEntry } from '../lib/conversationLibrary';
 
 function formatWhen(value?: string) {
@@ -42,6 +43,7 @@ export function ConversationSidebar({
   onSelect,
   onNewScent,
   creating,
+  accountEmail,
 }: {
   conversations: LocalConversationEntry[];
   activeId?: string | null;
@@ -50,6 +52,7 @@ export function ConversationSidebar({
   onSelect: (consultationId: string) => void;
   onNewScent: () => void;
   creating?: boolean;
+  accountEmail?: string | null;
 }) {
   return (
     <>
@@ -71,7 +74,17 @@ export function ConversationSidebar({
       >
         <div className="shrink-0 border-b border-[var(--sampling-border)] px-4 py-4">
           <p className="type-eyebrow">Scent Studio</p>
-          <p className="mt-1 text-sm text-[var(--sampling-muted)]">Saved on this device</p>
+          <p className="mt-1 text-sm text-[var(--sampling-muted)]">
+            {accountEmail ? `Synced · ${accountEmail}` : 'Sign in to sync across devices'}
+          </p>
+          {!accountEmail ? (
+            <Link
+              to="/account?next=/create-a-scent/studio"
+              className="mt-2 inline-block text-sm font-semibold text-[var(--sampling-orange)] hover:underline"
+            >
+              Sign in
+            </Link>
+          ) : null}
           <button
             type="button"
             onClick={onNewScent}

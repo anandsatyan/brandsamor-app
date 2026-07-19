@@ -11,6 +11,15 @@ type Segment =
   | { type: 'text'; value: string }
   | { type: 'term'; value: string; kind: TermKind };
 
+export type AssistantVisualProps = {
+  content: string;
+  headline?: string;
+  insight?: string;
+  question?: string;
+  noteChips?: string[];
+  changes?: string[];
+};
+
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -52,7 +61,6 @@ function highlightTerms(text: string, terms: string[], kind: TermKind): Segment[
 }
 
 function enrichPlainSegment(text: string): Segment[] {
-  // Notes first, then structure words, then descriptors — skip already-matched ranges via sequential pass
   let segments: Segment[] = [{ type: 'text', value: text }];
 
   const apply = (kind: TermKind, terms: string[]) => {
@@ -115,24 +123,81 @@ function splitParagraphs(content: string): string[] {
     .filter(Boolean);
 }
 
-export function AssistantMessageBody({ content }: { content: string }) {
-  const paragraphs = splitParagraphs(content);
+function hasSnackStructure(props: AssistantVisualProps) {
+  return Boolean(
+    props.headline ||
+      props.insight ||
+      props.question ||
+      (props.noteChips && props.noteChips.length) ||
+      (props.changes && props.changes.length),
+  );
+}
 
+function SnackableBody({
+  headline,
+  insight,
+  question,
+  noteChips,
+  changes,
+}: AssistantVisualProps) {
+  return (
+    <div className="scent-assistant-body scent-assistant-snack space-y-3">
+      {headline ? (
+        <p className="type-eyebrow tracking-[0.14em] text-[var(--sampling-muted)]">{headline}</p>
+      ) : null}
+
+      {insight ? (
+        <p className="text-sm leading-snug text-[var(--sampling-heading)] sm:text-[0.95rem]">
+          {renderInline(insight)}
+        </p>
+      ) : null}
+
+      {noteChips && noteChips.length > 0 ? (
+        <div className="flex flex-wrap gap-1.5" aria-label="Notes in play">
+          {noteChips.map((note) => (
+            <span key={note} className="scent-note-chip">
+              {note}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      {changes && changes.length > 0 ? (
+        <div className="scent-change-strip" aria-label="What changed">
+          {changes.map((change) => (
+            <span key={change} className="scent-change-chip">
+              {change}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      {question ? (
+        <p className="scent-question-line text-sm font-semibold leading-snug text-[var(--sampling-heading)]">
+          {renderInline(question)}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function ProseBody({ content }: { content: string }) {
+  const paragraphs = splitParagraphs(content);
   if (!paragraphs.length) return null;
 
   return (
-    <div className="scent-assistant-body space-y-3">
+    <div className="scent-assistant-body space-y-2.5">
       {paragraphs.map((paragraph, pIndex) => {
         const lines = paragraph.split('\n').map((l) => l.trimEnd());
         const isList = lines.every((l) => !l || /^[-•*]/.test(l.trim()));
 
         if (isList && lines.some((l) => l.trim())) {
           return (
-            <ul key={pIndex} className="space-y-2 pl-0">
+            <ul key={pIndex} className="space-y-1.5 pl-0">
               {lines
                 .filter((l) => l.trim())
                 .map((line, i) => (
-                  <li key={i} className="flex gap-2 text-sm leading-relaxed">
+                  <li key={i} className="flex gap-2 text-sm leading-snug">
                     <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-[var(--sampling-orange)]" />
                     <span>{renderInline(line.replace(/^[-•*]\s*/, ''))}</span>
                   </li>
@@ -142,7 +207,7 @@ export function AssistantMessageBody({ content }: { content: string }) {
         }
 
         return (
-          <p key={pIndex} className="text-sm leading-[1.7]">
+          <p key={pIndex} className="text-sm leading-snug">
             {lines.map((line, i) => (
               <Fragment key={i}>
                 {i > 0 && <br />}
@@ -154,4 +219,11 @@ export function AssistantMessageBody({ content }: { content: string }) {
       })}
     </div>
   );
+}
+
+export function AssistantMessageBody(props: AssistantVisualProps) {
+  if (hasSnackStructure(props)) {
+    return <SnackableBody {...props} />;
+  }
+  return <ProseBody content={props.content} />;
 }
