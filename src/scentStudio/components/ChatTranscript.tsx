@@ -29,26 +29,33 @@ export function ChatTranscript({
           <div key={message.id || `${message.role}-${index}`} className="space-y-2">
             <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
               <div
-                className={`max-w-[92%] px-4 py-3.5 text-sm leading-relaxed sm:max-w-[85%] ${
+                className={`max-w-[92%] px-4 py-3.5 text-sm leading-snug sm:max-w-[85%] ${
                   isUser ? 'scent-bubble-user' : 'scent-bubble-assistant'
                 }`}
               >
                 {isUser ? (
                   <p className="whitespace-pre-wrap">{message.content}</p>
                 ) : (
-                  <AssistantMessageBody content={message.content} />
+                  <AssistantMessageBody
+                    content={message.content}
+                    headline={message.headline}
+                    insight={message.insight}
+                    question={message.question}
+                    noteChips={message.noteChips}
+                    changes={message.changes}
+                  />
                 )}
               </div>
             </div>
             {isLastAssistant && message.quickReplies && message.quickReplies.length > 0 && (
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2" role="group" aria-label="Quick replies">
                 {message.quickReplies.map((reply) => (
                   <button
                     key={reply}
                     type="button"
                     disabled={disabled}
                     onClick={() => onQuickReply(reply)}
-                    className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-3 py-3 text-left text-sm font-semibold text-[var(--sampling-heading)] transition-colors hover:border-[var(--sampling-heading)] disabled:opacity-50 sm:py-2.5 sm:text-xs"
+                    className="scent-quick-reply"
                   >
                     {reply}
                   </button>
@@ -62,7 +69,12 @@ export function ChatTranscript({
       {pending && (
         <div className="flex justify-start">
           <div className="scent-bubble-assistant px-4 py-3 text-sm text-[var(--sampling-muted)]">
-            Thinking…
+            <span className="scent-thinking-dots" aria-hidden>
+              <span />
+              <span />
+              <span />
+            </span>
+            <span className="sr-only">Thinking</span>
           </div>
         </div>
       )}

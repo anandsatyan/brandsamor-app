@@ -39,6 +39,12 @@ export type ScentMessage = {
   content: string;
   quickReplies?: string[];
   createdAt?: string | Date | null;
+  /** Snackable visual fields (assistant turns) */
+  headline?: string;
+  insight?: string;
+  question?: string;
+  noteChips?: string[];
+  changes?: string[];
 };
 
 export type ScentConsultation = {

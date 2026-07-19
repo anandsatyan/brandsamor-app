@@ -9,7 +9,7 @@ function newRecoveryToken() {
   return randomBytes(24).toString('hex');
 }
 
-export async function createConsultation(startMode = null) {
+export async function createConsultation(startMode = null, { userId = null } = {}) {
   const db = await getMongoDb();
   const consultationId = randomUUID();
   const recoveryToken = newRecoveryToken();
@@ -23,12 +23,24 @@ export async function createConsultation(startMode = null) {
     role: 'assistant',
     content: openingCopy.content,
     quickReplies: openingCopy.quickReplies,
+    headline: openingCopy.headline || null,
+    insight: openingCopy.insight || null,
+    question: openingCopy.question || null,
+    noteChips: openingCopy.noteChips || [],
+    changes: [],
     createdAt: now,
+    meta: {
+      headline: openingCopy.headline || null,
+      insight: openingCopy.insight || null,
+      question: openingCopy.question || null,
+      noteChips: openingCopy.noteChips || [],
+    },
   };
 
   const doc = {
     consultationId,
     recoveryToken,
+    userId: userId || null,
     state,
     messages: [opening],
     briefVersions: [{ version: 1, state, createdAt: now, reason: 'created' }],
@@ -88,6 +100,11 @@ export async function appendMessagesAndState({
   nextState,
   providerMode,
   turnMeta,
+  headline,
+  insight,
+  question,
+  noteChips,
+  changes,
 }) {
   return saveConsultationTurn(consultationId, recoveryToken, async (doc) => {
     const now = new Date();
@@ -103,8 +120,20 @@ export async function appendMessagesAndState({
       role: 'assistant',
       content: assistantMessage,
       quickReplies: quickReplies || [],
+      headline: headline || null,
+      insight: insight || null,
+      question: question || null,
+      noteChips: noteChips || [],
+      changes: changes || [],
       createdAt: new Date(),
-      meta: turnMeta || null,
+      meta: {
+        ...(turnMeta || {}),
+        headline: headline || null,
+        insight: insight || null,
+        question: question || null,
+        noteChips: noteChips || [],
+        changes: changes || [],
+      },
     });
     doc.state = nextState;
     doc.providerMode = providerMode || doc.providerMode;

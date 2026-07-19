@@ -171,7 +171,14 @@ async function finishLeadUpsert({ sessionId, lead }) {
   return sessionId;
 }
 
-export async function upsertSamplingSession({ sessionId, step, lead, answers, currentStep }) {
+export async function upsertSamplingSession({
+  sessionId,
+  step,
+  lead,
+  answers,
+  currentStep,
+  userId = null,
+}) {
   await ensureSamplingIndexes();
   const db = await getMongoDb();
   await consolidateOpenEmailDuplicates(db);
@@ -183,6 +190,7 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
     sessionId,
     email: normalizedLead.email,
   });
+  const userPatch = userId ? { userId: String(userId) } : {};
 
   if (targetSessionId) {
     // Never downgrade a paid/order session (guards races with markPaid / webhooks).
@@ -196,6 +204,7 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
           lastCompletedStep: step,
           status: 'in_progress',
           updatedAt: now,
+          ...userPatch,
         },
         $push: { stepHistory: stepEntry },
       },
@@ -216,6 +225,7 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
         selectionSummary: null,
         createdAt: now,
         updatedAt: now,
+        ...userPatch,
       });
       await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
       return finishLeadUpsert({ sessionId: newSessionId, lead: normalizedLead });
@@ -239,6 +249,7 @@ export async function upsertSamplingSession({ sessionId, step, lead, answers, cu
     selectionSummary: null,
     createdAt: now,
     updatedAt: now,
+    ...userPatch,
   });
   await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
   return finishLeadUpsert({ sessionId: newSessionId, lead: normalizedLead });
