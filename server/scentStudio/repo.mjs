@@ -155,6 +155,27 @@ export async function appendMessagesAndState({
   });
 }
 
+/**
+ * Customer left the concept review to keep chatting — stay in chat until they
+ * explicitly finish again (do not bounce back on every turn).
+ */
+export async function resumeRefining({ consultationId, recoveryToken }) {
+  return saveConsultationTurn(consultationId, recoveryToken, async (doc) => {
+    doc.state = {
+      ...doc.state,
+      conceptReady: false,
+      reviewDismissed: true,
+      developmentStatus: 'draft',
+      stage: 'refining',
+      currentStage:
+        doc.state?.currentStage === 'review' || doc.state?.currentStage === 'complete'
+          ? 'notes'
+          : doc.state?.currentStage || 'notes',
+    };
+    return doc;
+  });
+}
+
 export async function markSubmitted({ consultationId, recoveryToken, contact, approvalText }) {
   return saveConsultationTurn(consultationId, recoveryToken, async (doc) => {
     doc.state = {

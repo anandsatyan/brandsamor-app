@@ -53,6 +53,22 @@ export async function sendMessage(
   return parseJson(res);
 }
 
+export async function resumeRefining(
+  consultationId: string,
+  recoveryToken: string,
+): Promise<ScentConsultation> {
+  const res = await fetch(
+    `/api/scent-studio/consultations/${encodeURIComponent(consultationId)}/resume-refining`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recoveryToken }),
+    },
+  );
+  const data = await parseJson(res);
+  return data.consultation as ScentConsultation;
+}
+
 export async function submitForSampling(
   consultationId: string,
   recoveryToken: string,

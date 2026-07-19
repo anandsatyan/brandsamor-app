@@ -492,7 +492,13 @@ export function runLocalConsultantTurn({ state, userMessage, matchedReferences =
       ...(d.topNotes || []).slice(0, 2),
     ].slice(0, 4);
 
-    if (nextConfidence >= 0.72 && state.stage !== 'ready_for_formula') {
+    // After the customer left concept review to refine, stay in chat — don't
+    // auto-reopen the review on every high-confidence turn.
+    if (
+      nextConfidence >= 0.72 &&
+      state.stage !== 'ready_for_formula' &&
+      !state.reviewDismissed
+    ) {
       const question = 'Keep refining, or prepare for sampling?';
       assistantMessage = `${insight}\n\n${question}`;
       quickReplies = ['Keep refining', 'Prepare for sampling'];

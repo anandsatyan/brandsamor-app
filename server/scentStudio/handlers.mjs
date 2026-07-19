@@ -7,6 +7,7 @@ import {
   getConsultationById,
   markSubmitted,
   appendMessagesAndState,
+  resumeRefining,
 } from './repo.mjs';
 import { sendSamplingBriefEmail } from './samplingBriefEmail.mjs';
 import { toPublicConsultation, toPublicScentCard } from './state.mjs';
@@ -151,6 +152,33 @@ export async function handleScentStudioMessage(req, res, consultationId) {
     sendJson(res, 500, {
       error: error instanceof Error ? error.message : 'Failed to process message',
     });
+  }
+}
+
+export async function handleScentStudioResumeRefining(req, res, consultationId) {
+  if (req.method !== 'POST') {
+    sendJson(res, 405, { error: 'Method not allowed' });
+    return;
+  }
+
+  try {
+    const payload = await readJsonBody(req);
+    const recoveryToken = String(payload?.recoveryToken || '').trim();
+    if (!recoveryToken) {
+      sendJson(res, 400, { error: 'recoveryToken is required' });
+      return;
+    }
+
+    const saved = await resumeRefining({ consultationId, recoveryToken });
+    if (!saved) {
+      sendJson(res, 404, { error: 'Consultation not found' });
+      return;
+    }
+
+    sendJson(res, 200, { consultation: publicFromDoc(saved) });
+  } catch (error) {
+    console.error('[scent-studio] resume-refining', error);
+    sendJson(res, 500, { error: 'Failed to resume refining' });
   }
 }
 
