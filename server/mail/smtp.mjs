@@ -41,14 +41,20 @@ export async function sendBrandsamorMail({ to, subject, text, html, replyTo, fro
     return { ok: true, mode: 'logged' };
   }
 
-  await transport.sendMail({
+  // Omit html when unset so the message is true text/plain (better deliverability
+  // than multipart alternative with a marketing HTML part).
+  const mail = {
     from: resolvedFrom,
     to,
     replyTo,
     subject,
     text,
-    html,
-  });
+  };
+  if (html) {
+    mail.html = html;
+  }
+
+  await transport.sendMail(mail);
 
   return { ok: true, mode: 'email' };
 }
