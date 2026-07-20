@@ -357,27 +357,31 @@ export async function recordPaymentIntent(sessionId, paymentIntent) {
 export async function markPaid(sessionId, payment) {
   const db = await getMongoDb();
   const now = new Date();
-  const existing = await db.collection('samplingSessions').findOne({ sessionId });
+  await ensureSamplingIndexes();
 
-  if (
-    existing?.status === 'paid' &&
-    existing?.payment?.paymentIntentId &&
-    existing.payment.paymentIntentId === payment.paymentIntentId
-  ) {
+  const existing = await db.collection('samplingSessions').findOne({ sessionId });
+  if (!existing) {
+    const err = new Error('Sampling session not found');
+    err.statusCode = 404;
+    throw err;
+  }
+
+  // Idempotent fast path: already finalized (client confirm + webhook often race).
+  if (existing.status === 'paid' && existing.order?.sampleOrderNumber != null) {
     return {
       ok: true,
       alreadyPaid: true,
       payment: existing.payment,
-      order: existing.order ?? null,
+      order: existing.order,
     };
   }
 
-  const orderNumber = existing?.order?.sampleOrderNumber
+  const orderNumber = existing.order?.sampleOrderNumber
     ? existing.order.sampleOrderNumber
     : await allocateSampleOrderNumber();
 
   const transactionId =
-    existing?.order?.transactionId ||
+    existing.order?.transactionId ||
     buildTransactionId(payment.paymentIntentId, orderNumber);
 
   const order = {
@@ -399,8 +403,10 @@ export async function markPaid(sessionId, payment) {
     recordedAt: now,
   };
 
-  await db.collection('samplingSessions').updateOne(
-    { sessionId },
+  // Atomic claim: only one concurrent caller (client confirm vs Stripe webhook)
+  // may transition the session to paid and send notifications.
+  const claim = await db.collection('samplingSessions').updateOne(
+    { sessionId, status: { $ne: 'paid' } },
     {
       $set: {
         order,
@@ -421,24 +427,38 @@ export async function markPaid(sessionId, payment) {
     },
   );
 
+  if (claim.matchedCount === 0) {
+    const current = await db.collection('samplingSessions').findOne({ sessionId });
+    return {
+      ok: true,
+      alreadyPaid: true,
+      payment: current?.payment ?? existing.payment,
+      order: current?.order ?? existing.order ?? null,
+    };
+  }
+
   const paidSession = {
-    ...(existing ?? {}),
+    ...existing,
     sessionId,
     order,
     payment: paymentRecord,
     status: 'paid',
   };
+
   // Fire-and-forget: do not block payment confirmation on email delivery.
-  void notifySampleOrderPaid({
-    session: paidSession,
-    order,
-    payment: paymentRecord,
-  });
-  void sendCustomerOrderConfirmation({
-    session: paidSession,
-    order,
-    payment: paymentRecord,
-  });
+  // Tests can set SAMPLING_MARK_PAID_SILENT=1 to assert claim behavior without SMTP.
+  if (process.env.SAMPLING_MARK_PAID_SILENT !== '1') {
+    void notifySampleOrderPaid({
+      session: paidSession,
+      order,
+      payment: paymentRecord,
+    });
+    void sendCustomerOrderConfirmation({
+      session: paidSession,
+      order,
+      payment: paymentRecord,
+    });
+  }
 
   return { ok: true, alreadyPaid: false, payment: paymentRecord, order };
 }
