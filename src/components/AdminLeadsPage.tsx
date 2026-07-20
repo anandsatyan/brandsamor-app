@@ -274,6 +274,7 @@ export const AdminLeadsPage = () => {
                           Last step: {stepLabel(lead.lastCompletedStep, lead.currentStep)}
                           {' · '}
                           {formatDateTime(lead.updatedAt)}
+                          {lead.lead?.country ? ` · ${formatCountry(lead.lead.country)}` : ''}
                         </p>
                       </div>
                       <span

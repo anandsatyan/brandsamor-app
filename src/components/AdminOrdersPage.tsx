@@ -159,6 +159,7 @@ export const AdminOrdersPage = () => {
                         </p>
                         <p className="mt-1 type-caption text-body/80">
                           {formatDateTime(order.order?.paidAt || order.paidAt)}
+                          {order.lead?.country ? ` · ${formatCountry(order.lead.country)}` : ''}
                         </p>
                       </div>
                       <div className="shrink-0 text-right">
