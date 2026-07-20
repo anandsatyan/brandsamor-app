@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AdminShell, type AdminStats } from './admin/AdminShell';
 import {
+  formatCountry,
   formatDateTime,
   formatFragranceRecommendation,
   formatMoney,
@@ -239,7 +240,7 @@ export const AdminOrdersPage = () => {
                   <p>{selected.lead?.email}</p>
                   <p>{selected.lead?.phone}</p>
                   <p>{selected.lead?.brandName}</p>
-                  <p>{selected.lead?.country}</p>
+                  <p>{formatCountry(selected.lead?.country)}</p>
                 </div>
                 {selected.sessionId && (
                   <Link

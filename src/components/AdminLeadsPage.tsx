@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AdminShell, type AdminStats } from './admin/AdminShell';
 import {
+  formatCountry,
   formatDateTime,
   formatFragranceRecommendation,
   formatList,
@@ -436,7 +437,7 @@ function LeadDetail({
       <dl className="grid gap-3 rounded-[2px] bg-surface p-4 text-sm sm:grid-cols-2">
         <Detail term="Phone" value={lead.lead?.phone} />
         <Detail term="Brand" value={lead.lead?.brandName} />
-        <Detail term="Country" value={lead.lead?.country} />
+        <Detail term="Country" value={formatCountry(lead.lead?.country)} />
         <Detail term="Consent" value={lead.lead?.consent ? 'Yes' : 'No'} />
         <Detail
           term="Current step"
@@ -594,7 +595,7 @@ function LeadDetail({
                     shipping.line1,
                     shipping.line2,
                     [shipping.city, shipping.state, shipping.postalCode].filter(Boolean).join(', '),
-                    shipping.country,
+                    formatCountry(shipping.country),
                   ]
                     .filter(Boolean)
                     .join(' · ')}

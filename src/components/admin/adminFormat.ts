@@ -1,3 +1,5 @@
+import { COUNTRIES } from '../../sampling/data/questions';
+
 export type AdminStatus = 'in_progress' | 'curated' | 'checkout_started' | 'paid' | string;
 
 export const STATUS_META: Record<
@@ -95,6 +97,16 @@ export function formatMoney(amount?: number | null, currency = 'usd') {
 export function formatList(values?: string[] | null) {
   if (!values?.length) return '—';
   return values.join(', ');
+}
+
+/** Format ISO country code as "US · United States" when the name is known. */
+export function formatCountry(code?: string | null) {
+  const raw = String(code ?? '').trim();
+  if (!raw) return '—';
+  const normalized = raw.toUpperCase();
+  const name = COUNTRIES.find((c) => c.code === normalized)?.name;
+  if (!name) return raw;
+  return `${normalized} · ${name}`;
 }
 
 export function formatFragranceRecommendation(rec?: {
