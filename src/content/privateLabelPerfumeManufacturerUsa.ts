@@ -20,7 +20,7 @@ export const privateLabelPerfumeManufacturerUsaConfig: TopicPageConfig = {
     badge: 'UNITED STATES',
     title: pageMeta.h1,
     description:
-      'Looking for a perfume manufacturer USA founders can work with clearly? Brandsamor is operated by Packamor LLC in Delaware and coordinates sampling, packaging, production and documentation for US and worldwide launches through a specialist partner network.',
+      'Looking for a perfume manufacturer USA founders can work with clearly? Brandsamor’s parent entity is Packamor LLC in Delaware. Brandsamor coordinates sampling, packaging, production and documentation for US and worldwide launches through a specialist partner network.',
     Illustration: ProcessTimelineIllustration,
   },
   sections: withSteps(
@@ -40,11 +40,11 @@ export const privateLabelPerfumeManufacturerUsaConfig: TopicPageConfig = {
       },
       {
         id: 'delaware-entity',
-        title: 'Packamor LLC and US operations',
+        title: 'Packamor LLC — parent entity and US operations',
         description:
-          `Brandsamor is a service brand operated by ${ORGANIZATION.legalName}, registered in Delaware. Customer agreements, billing and project communication are handled through the US entity at ${ORGANIZATION.address.streetAddress}, ${ORGANIZATION.address.addressLocality}, ${ORGANIZATION.address.addressRegion} ${ORGANIZATION.address.postalCode}, USA.`,
+          `Brandsamor is a service brand of ${ORGANIZATION.legalName}, its parent entity registered in Delaware. Customer agreements, billing and project communication are handled through the US entity at ${ORGANIZATION.address.streetAddress}, ${ORGANIZATION.address.addressLocality}, ${ORGANIZATION.address.addressRegion} ${ORGANIZATION.address.postalCode}, USA.`,
         bullets: sectionBullets(
-          'US-based legal entity for customer agreements',
+          'US-based parent entity for customer agreements',
           'Team presence across the US, India, China and the UAE',
           'Coordinated production through specialist partners',
           'No claim that every production step occurs in one US facility',

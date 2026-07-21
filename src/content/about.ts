@@ -7,7 +7,7 @@ export const aboutSections: InfoSection[] = [
     id: 'about-brandsamor',
     title: 'About Brandsamor',
     paragraphs: [
-      'Brandsamor is a private label fragrance company operated by Packamor LLC that helps businesses launch ready-to-sell fragrance products under their own brand. Instead of building a factory, brands work with Brandsamor to sample scents, choose product formats, customize packaging, and receive finished fragrance products with quality checks handled for them.',
+      'Brandsamor is a private label fragrance company of Packamor LLC — the parent entity of Brandsamor — that helps businesses launch ready-to-sell fragrance products under their own brand. Instead of building a factory, brands work with Brandsamor to sample scents, choose product formats, customize packaging, and receive finished fragrance products with quality checks handled for them.',
       'The service is designed for beauty brands, creators, boutiques, hotels, salons, home fragrance labels, gifting companies, and other businesses that want a premium branded fragrance without managing production in-house.',
     ],
   },
@@ -23,7 +23,7 @@ export const aboutSections: InfoSection[] = [
     id: 'experience',
     title: 'Experience You Can Build On',
     paragraphs: [
-      `Brandsamor is operated by ${ORGANIZATION.legalName}, the company behind [Packamor](https://www.packamor.com/) — a fragrance-packaging business founded to help independent perfumers and emerging fragrance brands access quality packaging without the very large minimums traditionally demanded by suppliers.`,
+      `Brandsamor’s parent entity is ${ORGANIZATION.legalName}, the company behind [Packamor](https://www.packamor.com/) — a fragrance-packaging business founded to help independent perfumers and emerging fragrance brands access quality packaging without the very large minimums traditionally demanded by suppliers.`,
       `Brandsamor has served more than ${BUSINESS_FACTS.brandsServed} brands, earned a ${BUSINESS_FACTS.customerRating} customer rating, shipped fragrance products to more than ${BUSINESS_FACTS.countriesShipped} countries, and built on more than ${BUSINESS_FACTS.yearsOperating} years of fragrance industry experience.`,
     ],
   },
@@ -69,7 +69,7 @@ export const aboutSections: InfoSection[] = [
   },
   {
     id: 'packamor-llc',
-    title: 'Packamor LLC',
+    title: 'Packamor LLC — Parent Entity',
     paragraphs: [
       COMMERCIAL_COPY.legalEntity,
     ],

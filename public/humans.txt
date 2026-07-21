@@ -1,6 +1,6 @@
 /* TEAM */
 Company: Brandsamor
-Legal entity: Packamor LLC
+Parent entity: Packamor LLC
 Site: https://www.brandsamor.com/
 Contact: info@brandsamor.com
 Phone: +1-848-220-1353

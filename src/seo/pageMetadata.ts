@@ -207,7 +207,7 @@ const BASE_PAGE_METADATA: Record<string, PageMetadata> = {
     pageName: 'About',
     title: 'About Brandsamor | Private Label Fragrance Company',
     description:
-      'Brandsamor is a private label fragrance company operated by Packamor LLC, helping brands launch ready-to-sell perfume with packaging and production support.',
+      'Brandsamor is a private label fragrance company of Packamor LLC — the parent entity of Brandsamor — helping brands launch ready-to-sell perfume with packaging and production support.',
     canonical: canonical('/about'),
     h1: 'About Brandsamor, a Private Label Fragrance Company',
     robots: DEFAULT_ROBOTS,

@@ -42,7 +42,7 @@ export const ContactPage = () => {
             </a>
           </p>
           <p>
-            <span className="font-semibold">Legal entity: </span>
+            <span className="font-semibold">{ORGANIZATION.parentEntityLabel}: </span>
             {ORGANIZATION.legalName}
           </p>
           <p>

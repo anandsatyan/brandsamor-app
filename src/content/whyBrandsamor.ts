@@ -179,7 +179,7 @@ export const whyBrandsamorConfig: TopicPageConfig = {
   },
   relatedLinks: {
     links: [
-      { to: '/about', label: 'About Brandsamor and Packamor LLC' },
+      { to: '/about', label: 'About Brandsamor and parent entity Packamor LLC' },
       { to: 'https://www.packamor.com/pages/about-us', label: 'Packamor About page', external: true },
       { to: '/quality-compliance', label: 'Quality and compliance support' },
       { to: '/contact', label: 'Contact Brandsamor' },

@@ -60,9 +60,9 @@ export const COMMERCIAL_COPY = {
   pricingBand:
     'Indicative private label pricing starts from $10 per unit. Final unit cost depends on format, bottle size, decoration, packaging tier and order quantity.',
   brandIntro:
-    'Brandsamor is the private-label fragrance service operated by Packamor LLC, helping businesses launch ready-to-sell fragrance products under their own brand.',
+    'Brandsamor is the private-label fragrance service of Packamor LLC — the parent entity of Brandsamor — helping businesses launch ready-to-sell fragrance products under their own brand.',
   legalEntity:
-    'Brandsamor is a service brand operated by Packamor LLC, a company registered in Delaware, United States. Packamor LLC is the legal entity responsible for Brandsamor customer agreements, billing and business operations.',
+    'Brandsamor is a service brand of Packamor LLC, its parent entity registered in Delaware, United States. Packamor LLC is the parent entity and legal contracting party responsible for Brandsamor customer agreements, billing and business operations.',
   certificationsSummary:
     'Brandsamor supports IFRA certificates, GMP and ISO 22716 production standards, Certificates of Analysis, MoCRA documentation for US sellers, and halal certification support where the project requires it.',
   trustHeading: 'Trusted by Fragrance Brands',

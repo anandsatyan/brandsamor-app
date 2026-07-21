@@ -6,7 +6,7 @@ import {
 } from './buildCommercialPage';
 import type { TopicPageConfig } from '../../components/topic/types';
 
-const packamorAddress = 'Packamor LLC, 1111B S Governors Ave, Dover, DE 19904, USA';
+const packamorAddress = 'Packamor LLC (parent entity of Brandsamor), 1111B S Governors Ave, Dover, DE 19904, USA';
 const gccWhatsAppNumber = '+971521543617';
 
 export const geoPageConfigs: Record<string, TopicPageConfig> = {

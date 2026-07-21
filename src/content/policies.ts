@@ -127,7 +127,7 @@ export const termsSections: InfoSection[] = [
   {
     id: 'contact',
     title: 'Contact',
-    paragraphs: [`Legal and service questions: ${ORGANIZATION.email}. Legal entity: ${legalEntity}.`],
+    paragraphs: [`Legal and service questions: ${ORGANIZATION.email}. ${ORGANIZATION.parentEntityLabel}: ${legalEntity}.`],
   },
 ];
 

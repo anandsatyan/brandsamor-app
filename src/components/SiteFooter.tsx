@@ -105,7 +105,10 @@ export const SiteFooter = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 sm:mt-16 pt-8 border-t border-border type-caption flex flex-col sm:flex-row gap-4 justify-between items-center text-body text-center sm:text-left">
-        <p>© {new Date().getFullYear()}, {ORGANIZATION.legalName}</p>
+        <p>
+          © {new Date().getFullYear()}, {ORGANIZATION.legalName}
+          <span className="text-body/80"> — {ORGANIZATION.parentEntityLabel.toLowerCase()} of Brandsamor</span>
+        </p>
         <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center sm:justify-end">
           <Link to="/about" className="hover:text-accent">
             About

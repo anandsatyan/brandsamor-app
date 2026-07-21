@@ -467,7 +467,7 @@ export const SamplingExperience = () => {
         <li>Exactly five focused options</li>
       </ul>
       <p className="mt-10 type-caption text-[#725F52]">
-        © {new Date().getFullYear()}, {ORGANIZATION.legalName}
+        © {new Date().getFullYear()}, {ORGANIZATION.legalName} — {ORGANIZATION.parentEntityLabel.toLowerCase()} of Brandsamor
       </p>
       </div>
     </ScreenTransition>
