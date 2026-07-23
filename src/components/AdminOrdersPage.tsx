@@ -19,6 +19,15 @@ type AdminOrder = {
     amount?: number;
     currency?: string;
     paidAt?: string;
+    canceledAt?: string | null;
+    cancelReason?: string | null;
+    refund?: {
+      amount?: number | null;
+      currency?: string | null;
+      refundedAt?: string | null;
+      note?: string | null;
+      recordedBy?: string | null;
+    } | null;
   } | null;
   payment: Record<string, unknown> | null;
   lead: {
@@ -52,6 +61,9 @@ export const AdminOrdersPage = () => {
   const [selected, setSelected] = useState<AdminOrder | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [canceling, setCanceling] = useState(false);
+  const [cancelNote, setCancelNote] = useState('');
+  const [showCancelForm, setShowCancelForm] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -87,6 +99,8 @@ export const AdminOrdersPage = () => {
   useEffect(() => {
     if (!orderNumber) {
       setSelected(null);
+      setShowCancelForm(false);
+      setCancelNote('');
       return;
     }
     let cancelled = false;
@@ -104,7 +118,11 @@ export const AdminOrdersPage = () => {
           throw new Error(data?.error ?? 'Order not found');
         }
         const data = await res.json();
-        if (!cancelled) setSelected(data.order ?? null);
+        if (!cancelled) {
+          setSelected(data.order ?? null);
+          setShowCancelForm(false);
+          setCancelNote('');
+        }
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : 'Failed to load order');
       }
@@ -113,6 +131,57 @@ export const AdminOrdersPage = () => {
       cancelled = true;
     };
   }, [orderNumber, navigate]);
+
+  async function handleCancelOrder() {
+    if (!selected?.order?.sampleOrderNumber || canceling) return;
+    const number = selected.order.sampleOrderNumber;
+    const amountLabel = formatMoney(
+      typeof selected.payment?.amount === 'number'
+        ? (selected.payment.amount as number)
+        : selected.order?.amount,
+      String(selected.payment?.currency ?? selected.order?.currency ?? 'usd'),
+    );
+
+    const confirmed = window.confirm(
+      `Cancel SO-${number} and record a ${amountLabel} refund?\n\nLead data will be kept. Status will change from Paid to Canceled.`,
+    );
+    if (!confirmed) return;
+
+    setCanceling(true);
+    setError('');
+    try {
+      const res = await fetch(`/api/admin/orders/${encodeURIComponent(String(number))}/cancel`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          reason: 'Unable to service — refunded to customer',
+          note:
+            cancelNote.trim() ||
+            `Full refund of ${amountLabel} recorded after refund to customer`,
+        }),
+      });
+      if (res.status === 401) {
+        navigate('/login?next=/admin/orders', { replace: true });
+        return;
+      }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.error ?? 'Failed to cancel order');
+      }
+      const updated = data.order as AdminOrder;
+      setSelected(updated);
+      setOrders((prev) =>
+        prev.map((o) => (o.sessionId === updated.sessionId ? { ...o, ...updated } : o)),
+      );
+      setShowCancelForm(false);
+      setCancelNote('');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to cancel order');
+    } finally {
+      setCanceling(false);
+    }
+  }
 
   return (
     <AdminShell
@@ -128,7 +197,7 @@ export const AdminOrdersPage = () => {
           <div className="flex items-start justify-between gap-3 border-b border-border/50 px-4 py-4">
             <div>
               <h2 className="type-h4">Sample kit orders</h2>
-              <p className="mt-1 type-caption text-body">{orders.length} paid orders</p>
+              <p className="mt-1 type-caption text-body">{orders.length} orders</p>
             </div>
             <Link to="/admin" className="shrink-0 text-sm font-semibold text-accent hover:underline">
               ← Leads
@@ -139,7 +208,7 @@ export const AdminOrdersPage = () => {
             {orders.map((order) => {
               const number = order.order?.sampleOrderNumber;
               const active = String(number) === String(orderNumber);
-              const meta = statusMeta('paid');
+              const meta = statusMeta(order.status);
               return (
                 <li key={order.sessionId}>
                   <button
@@ -175,7 +244,7 @@ export const AdminOrdersPage = () => {
                           className={`mt-1 inline-flex items-center gap-1 rounded-[2px] border px-2 py-0.5 text-[11px] font-semibold ${meta.className}`}
                         >
                           <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClassName}`} />
-                          Paid
+                          {meta.label}
                         </span>
                       </div>
                     </div>
@@ -184,7 +253,7 @@ export const AdminOrdersPage = () => {
               );
             })}
             {!loading && orders.length === 0 && (
-              <li className="px-4 py-8 text-sm text-body">No paid sample kit orders yet.</li>
+              <li className="px-4 py-8 text-sm text-body">No sample kit orders yet.</li>
             )}
           </ul>
         </section>
@@ -194,13 +263,99 @@ export const AdminOrdersPage = () => {
             <p className="type-body text-body">Select an order to view full details.</p>
           ) : (
             <div className="space-y-6">
-              <div>
-                <p className="type-eyebrow">Order detail</p>
-                <h2 className="mt-2 type-h3">
-                  {selected.order?.sampleOrderLabel ??
-                    `SO-${selected.order?.sampleOrderNumber ?? '—'}`}
-                </h2>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="type-eyebrow">Order detail</p>
+                  <h2 className="mt-2 type-h3">
+                    {selected.order?.sampleOrderLabel ??
+                      `SO-${selected.order?.sampleOrderNumber ?? '—'}`}
+                  </h2>
+                  <span
+                    className={`mt-2 inline-flex items-center gap-1 rounded-[2px] border px-2 py-0.5 text-[11px] font-semibold ${statusMeta(selected.status).className}`}
+                  >
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${statusMeta(selected.status).dotClassName}`}
+                    />
+                    {statusMeta(selected.status).label}
+                  </span>
+                </div>
+                {selected.status === 'paid' && (
+                  <button
+                    type="button"
+                    className="btn-primary shrink-0 bg-stone-800 px-3 py-2 text-sm"
+                    onClick={() => setShowCancelForm((v) => !v)}
+                  >
+                    {showCancelForm ? 'Close cancel' : 'Cancel order'}
+                  </button>
+                )}
               </div>
+
+              {showCancelForm && selected.status === 'paid' && (
+                <div className="rounded-[2px] border border-stone-300 bg-stone-50 p-4">
+                  <h3 className="type-h5">Cancel & record refund</h3>
+                  <p className="mt-1 text-sm text-body">
+                    Keeps all lead and kit data. Marks the order canceled and records a full refund of{' '}
+                    {formatMoney(
+                      typeof selected.payment?.amount === 'number'
+                        ? (selected.payment.amount as number)
+                        : selected.order?.amount,
+                      String(selected.payment?.currency ?? selected.order?.currency ?? 'usd'),
+                    )}
+                    . Refund the customer in Stripe (or your payment method) before confirming.
+                  </p>
+                  <label className="mt-3 block text-sm text-body">
+                    Refund note (optional)
+                    <textarea
+                      className="mt-1 w-full rounded-[2px] border border-border bg-white px-3 py-2 text-sm text-heading"
+                      rows={3}
+                      value={cancelNote}
+                      onChange={(e) => setCancelNote(e.target.value)}
+                      placeholder="e.g. Unable to service — $100 refunded via Stripe"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="btn-primary mt-3 bg-stone-800 px-3 py-2 text-sm disabled:opacity-60"
+                    disabled={canceling}
+                    onClick={() => void handleCancelOrder()}
+                  >
+                    {canceling ? 'Canceling…' : 'Confirm cancel & refund'}
+                  </button>
+                </div>
+              )}
+
+              {selected.status === 'canceled' && selected.order?.refund && (
+                <div className="rounded-[2px] border border-stone-300 bg-stone-50 p-4">
+                  <h3 className="type-h5">Refund recorded</h3>
+                  <dl className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+                    <div>
+                      <dt className="text-body">Refund amount</dt>
+                      <dd className="mt-1 font-medium text-heading">
+                        {formatMoney(
+                          selected.order.refund.amount ?? undefined,
+                          String(selected.order.refund.currency ?? 'usd'),
+                        )}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-body">Refunded at</dt>
+                      <dd className="mt-1 text-heading">
+                        {formatDateTime(selected.order.refund.refundedAt)}
+                      </dd>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <dt className="text-body">Reason</dt>
+                      <dd className="mt-1 text-heading">
+                        {selected.order.cancelReason || '—'}
+                      </dd>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <dt className="text-body">Note</dt>
+                      <dd className="mt-1 text-heading">{selected.order.refund.note || '—'}</dd>
+                    </div>
+                  </dl>
+                </div>
+              )}
 
               <dl className="grid gap-3 text-sm sm:grid-cols-2">
                 <div>

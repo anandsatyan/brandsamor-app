@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AdminShell, type AdminStats } from './admin/AdminShell';
 import {
@@ -7,9 +8,23 @@ import {
   formatFragranceRecommendation,
   formatList,
   formatMoney,
+  heatMeta,
   statusMeta,
   stepLabel,
 } from './admin/adminFormat';
+
+type LeadScore = {
+  score: number;
+  tier: 'hot' | 'warm' | 'cold';
+  label: string;
+  summary: string;
+  signals: Array<{ key: string; label: string; points: number; detail: string }>;
+  hasExistingBrandSignal: boolean;
+  ageDays?: number | null;
+  ageDecay?: string | null;
+  baseScore?: number;
+  baseTier?: 'hot' | 'warm' | 'cold';
+};
 
 type AdminLead = {
   sessionId: string;
@@ -84,6 +99,18 @@ type AdminLead = {
     author?: string | null;
     createdAt?: string | null;
   }>;
+  leadScore?: LeadScore | null;
+  priorOrders?: Array<{
+    sessionId?: string;
+    status?: string;
+    sampleOrderNumber?: number | null;
+    sampleOrderLabel?: string | null;
+    amount?: number | null;
+    currency?: string | null;
+    paidAt?: string | null;
+    canceledAt?: string | null;
+  }>;
+  priorOrderCount?: number;
   createdAt?: string | null;
   updatedAt?: string | null;
 };
@@ -93,7 +120,18 @@ const STATUS_FILTERS = [
   { value: 'in_progress', label: 'In progress' },
   { value: 'curated', label: 'Curated' },
   { value: 'checkout_started', label: 'Checkout' },
-  { value: 'paid', label: 'Paid' },
+] as const;
+
+const HEAT_FILTERS = [
+  { value: 'all', label: 'All' },
+  { value: 'hot', label: 'Hot' },
+  { value: 'warm', label: 'Warm' },
+  { value: 'cold', label: 'Cold' },
+] as const;
+
+const SORT_OPTIONS = [
+  { value: 'newest', label: 'Newest first' },
+  { value: 'heat', label: 'Hottest first' },
 ] as const;
 
 export const AdminLeadsPage = () => {
@@ -103,6 +141,8 @@ export const AdminLeadsPage = () => {
   const [leads, setLeads] = useState<AdminLead[]>([]);
   const [selected, setSelected] = useState<AdminLead | null>(null);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [heatFilter, setHeatFilter] = useState('all');
+  const [sortMode, setSortMode] = useState<'heat' | 'newest'>('newest');
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [error, setError] = useState('');
@@ -121,6 +161,8 @@ export const AdminLeadsPage = () => {
       try {
         const params = new URLSearchParams();
         if (statusFilter !== 'all') params.set('status', statusFilter);
+        if (heatFilter !== 'all') params.set('heat', heatFilter);
+        if (sortMode) params.set('sort', sortMode);
         if (debouncedQuery) params.set('q', debouncedQuery);
 
         const [statsRes, listRes] = await Promise.all([
@@ -148,7 +190,7 @@ export const AdminLeadsPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [debouncedQuery, navigate, statusFilter]);
+  }, [debouncedQuery, heatFilter, navigate, sortMode, statusFilter]);
 
   useEffect(() => {
     if (!sessionId) {
@@ -198,48 +240,120 @@ export const AdminLeadsPage = () => {
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
         <section className="rounded-[2px] border border-border/60 bg-secondary/40">
-          <div className="space-y-3 border-b border-border/50 px-4 py-4">
-            <div className="flex items-start justify-between gap-3">
-              <div>
+          <div className="space-y-2 border-b border-border/50 px-3 py-3 sm:px-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-baseline gap-2.5">
                 <h2 className="type-h4">Leads</h2>
-                <p className="mt-1 type-caption text-body">
-                  {leads.length} shown
-                  {statusFilter !== 'all' ? ` · ${statusFilter.replace(/_/g, ' ')}` : ''}
+                <p className="text-base font-semibold tabular-nums text-heading">
+                  {leads.length}
+                  <span className="ml-1 text-sm font-medium text-body">
+                    shown
+                    {typeof stats?.leadsCount === 'number' ? ` of ${stats.leadsCount}` : ''}
+                  </span>
                 </p>
               </div>
               <Link
                 to="/admin/orders"
                 className="shrink-0 text-sm font-semibold text-accent hover:underline"
               >
-                View orders →
+                Orders →
               </Link>
             </div>
 
-            <div className="flex flex-col gap-2 sm:flex-row">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search name, email, brand, phone…"
-                className="w-full rounded-[2px] border border-border bg-white px-3 py-2 text-sm text-heading placeholder:text-body/50 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25"
+                className="w-full rounded-[2px] border border-border bg-white px-3 py-1.5 text-sm text-heading placeholder:text-body/50 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25"
               />
+              <div
+                className="flex shrink-0 overflow-hidden rounded-[2px] border border-border/70 bg-white"
+                role="group"
+                aria-label="Sort leads"
+              >
+                {SORT_OPTIONS.map((option) => {
+                  const active = sortMode === option.value;
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setSortMode(option.value)}
+                      className={`px-2.5 py-1.5 text-xs font-semibold transition-colors ${
+                        active
+                          ? 'bg-heading text-white'
+                          : 'text-body hover:bg-secondary/60 hover:text-heading'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
-              {STATUS_FILTERS.map((filter) => {
-                const active = statusFilter === filter.value;
+            <div className="flex flex-wrap gap-1" role="group" aria-label="Filter by heat">
+              {HEAT_FILTERS.map((filter) => {
+                const active = heatFilter === filter.value;
+                const count =
+                  filter.value === 'all'
+                    ? stats?.leadsCount
+                    : stats?.byHeat?.[filter.value];
                 return (
                   <button
                     key={filter.value}
                     type="button"
-                    onClick={() => setStatusFilter(filter.value)}
-                    className={`rounded-[2px] border px-2.5 py-1 text-xs font-semibold transition-colors ${
+                    onClick={() => setHeatFilter(filter.value)}
+                    className={`inline-flex items-center gap-1.5 rounded-[2px] border px-2 py-1 text-xs font-semibold transition-colors ${
                       active
                         ? 'border-heading bg-heading text-white'
                         : 'border-border/70 bg-white text-body hover:text-heading'
                     }`}
                   >
                     {filter.label}
+                    {typeof count === 'number' && (
+                      <span
+                        className={`rounded-[2px] px-1.5 py-0.5 text-[11px] font-bold tabular-nums ${
+                          active ? 'bg-white/20 text-white' : 'bg-secondary text-heading'
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap gap-1" role="group" aria-label="Filter by status">
+              {STATUS_FILTERS.map((filter) => {
+                const active = statusFilter === filter.value;
+                const count =
+                  filter.value === 'all'
+                    ? stats?.leadsCount
+                    : stats?.byStatus?.[filter.value];
+                return (
+                  <button
+                    key={filter.value}
+                    type="button"
+                    onClick={() => setStatusFilter(filter.value)}
+                    className={`inline-flex items-center gap-1.5 rounded-[2px] border px-2 py-1 text-xs font-semibold transition-colors ${
+                      active
+                        ? 'border-heading bg-heading text-white'
+                        : 'border-border/70 bg-white text-body hover:text-heading'
+                    }`}
+                  >
+                    {filter.label}
+                    {typeof count === 'number' && (
+                      <span
+                        className={`rounded-[2px] px-1.5 py-0.5 text-[11px] font-bold tabular-nums ${
+                          active ? 'bg-white/20 text-white' : 'bg-secondary text-heading'
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -252,6 +366,8 @@ export const AdminLeadsPage = () => {
             {leads.map((lead) => {
               const active = lead.sessionId === sessionId;
               const meta = statusMeta(lead.status);
+              const heat = heatMeta(lead.leadScore?.tier);
+              const score = lead.leadScore?.score ?? 0;
               return (
                 <li key={lead.sessionId}>
                   <button
@@ -262,19 +378,44 @@ export const AdminLeadsPage = () => {
                     onClick={() => navigate(`/admin/leads/${lead.sessionId}`)}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="truncate font-semibold text-heading">
-                          {lead.lead?.fullName || 'Unknown contact'}
-                        </p>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`inline-flex h-2.5 w-2.5 shrink-0 rounded-full ${heat.glowClassName}`}
+                            aria-hidden
+                          />
+                          <p className="truncate font-semibold text-heading">
+                            {lead.lead?.fullName || 'Unknown contact'}
+                          </p>
+                        </div>
                         <p className="mt-0.5 truncate text-sm text-body">
                           {lead.lead?.email || 'No email'}
                           {lead.lead?.brandName ? ` · ${lead.lead.brandName}` : ''}
                         </p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <div
+                            className="h-1.5 w-16 overflow-hidden rounded-[2px] bg-border/70"
+                            aria-hidden
+                          >
+                            <div
+                              className={`h-full rounded-[2px] ${heat.barClassName}`}
+                              style={{ width: `${Math.max(8, score)}%` }}
+                            />
+                          </div>
+                          <span
+                            className={`rounded-[2px] border px-1.5 py-0.5 text-[11px] font-semibold ${heat.className}`}
+                          >
+                            {lead.leadScore?.label ?? 'Cold'} · {score}
+                          </span>
+                        </div>
                         <p className="mt-1 type-caption text-body/80">
                           Last step: {stepLabel(lead.lastCompletedStep, lead.currentStep)}
                           {' · '}
                           {formatDateTime(lead.updatedAt)}
                           {lead.lead?.country ? ` · ${formatCountry(lead.lead.country)}` : ''}
+                          {(lead.priorOrderCount ?? 0) > 0
+                            ? ` · ${lead.priorOrderCount} prior order${lead.priorOrderCount === 1 ? '' : 's'}`
+                            : ''}
                         </p>
                       </div>
                       <span
@@ -333,8 +474,10 @@ function LeadDetail({
   onLeadUpdated: (lead: AdminLead) => void;
 }) {
   const meta = statusMeta(lead.status);
+  const heat = heatMeta(lead.leadScore?.tier);
   const shipping = lead.checkout?.shipping;
   const [detailTab, setDetailTab] = useState<'overview' | 'history'>('overview');
+  const [heatOpen, setHeatOpen] = useState(false);
   const [commentDraft, setCommentDraft] = useState('');
   const [commentError, setCommentError] = useState('');
   const [savingComment, setSavingComment] = useState(false);
@@ -342,6 +485,7 @@ function LeadDetail({
 
   useEffect(() => {
     setDetailTab('overview');
+    setHeatOpen(false);
     setCommentDraft('');
     setCommentError('');
   }, [lead.sessionId]);
@@ -379,12 +523,22 @@ function LeadDetail({
           <h2 className="mt-2 type-h3">{lead.lead?.fullName || 'Unknown contact'}</h2>
           <p className="mt-1 text-sm text-body">{lead.lead?.email}</p>
         </div>
-        <span
-          className={`inline-flex items-center gap-1.5 rounded-[2px] border px-2.5 py-1 text-xs font-semibold ${meta.className}`}
-        >
-          <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClassName}`} />
-          {meta.label}
-        </span>
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          {lead.leadScore && (
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-[2px] border px-2.5 py-1 text-xs font-semibold ${heat.className}`}
+            >
+              <span className={`h-1.5 w-1.5 rounded-full ${heat.glowClassName}`} />
+              {lead.leadScore.label} · {lead.leadScore.score}
+            </span>
+          )}
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-[2px] border px-2.5 py-1 text-xs font-semibold ${meta.className}`}
+          >
+            <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClassName}`} />
+            {meta.label}
+          </span>
+        </div>
       </div>
 
       <nav className="flex gap-1 border-b border-border/60" aria-label="Lead detail sections">
@@ -435,6 +589,73 @@ function LeadDetail({
         </Section>
       ) : (
         <>
+      {lead.leadScore && (
+        <section className="rounded-[2px] border border-border/60 bg-surface">
+          <button
+            type="button"
+            className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+            onClick={() => setHeatOpen((open) => !open)}
+            aria-expanded={heatOpen}
+          >
+            <div className="min-w-0">
+              <p className="type-eyebrow">Lead heat</p>
+              <p className="mt-1 font-semibold text-heading">
+                {lead.leadScore.label} · {lead.leadScore.score}/100
+                {lead.leadScore.ageDays != null ? ` · ${lead.leadScore.ageDays}d old` : ''}
+              </p>
+              <p className="mt-0.5 truncate text-sm text-body">{lead.leadScore.summary}</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <div className="hidden w-20 sm:block" aria-hidden>
+                <div className="h-1.5 overflow-hidden rounded-[2px] bg-border/70">
+                  <div
+                    className={`h-full rounded-[2px] ${heat.barClassName}`}
+                    style={{ width: `${Math.max(6, lead.leadScore.score)}%` }}
+                  />
+                </div>
+              </div>
+              {heatOpen ? (
+                <ChevronUp className="h-4 w-4 text-body" aria-hidden />
+              ) : (
+                <ChevronDown className="h-4 w-4 text-body" aria-hidden />
+              )}
+            </div>
+          </button>
+
+          {heatOpen && (
+            <div className="space-y-3 border-t border-border/50 px-4 py-3">
+              {lead.leadScore.hasExistingBrandSignal && (
+                <p className="text-xs font-semibold text-heading">
+                  Existing / formalized brand signals detected
+                </p>
+              )}
+              {lead.leadScore.signals.length > 0 && (
+                <ul className="space-y-2">
+                  {lead.leadScore.signals.map((signal) => (
+                    <li
+                      key={signal.key}
+                      className="flex items-start justify-between gap-3 text-sm"
+                    >
+                      <div className="min-w-0">
+                        <p className="font-medium text-heading">{signal.label}</p>
+                        <p className="text-body">{signal.detail}</p>
+                      </div>
+                      <span className="shrink-0 font-semibold text-heading">
+                        {signal.points > 0 ? `+${signal.points}` : signal.points}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <p className="type-caption text-body/80">
+                Score uses sampling brief and funnel signals, then cools with age: hot→warm after 1
+                week, anything→cold after 2 weeks. No live web lookup yet.
+              </p>
+            </div>
+          )}
+        </section>
+      )}
+
       <dl className="grid gap-3 rounded-[2px] bg-surface p-4 text-sm sm:grid-cols-2">
         <Detail term="Phone" value={lead.lead?.phone} />
         <Detail term="Brand" value={lead.lead?.brandName} />
@@ -616,7 +837,7 @@ function LeadDetail({
       )}
 
       {lead.order && (
-        <Section title="Paid order">
+        <Section title={lead.status === 'canceled' ? 'Canceled order' : 'Paid order'}>
           <dl className="grid gap-3 text-sm sm:grid-cols-2">
             <Detail term="Order" value={lead.order.sampleOrderLabel} />
             <Detail
@@ -628,6 +849,9 @@ function LeadDetail({
             />
             <Detail term="Transaction" value={lead.order.transactionId} mono />
             <Detail term="Paid at" value={formatDateTime(lead.order.paidAt ?? lead.payment?.paidAt)} />
+            {lead.status === 'canceled' && (
+              <Detail term="Status" value="Canceled — refund recorded" />
+            )}
           </dl>
           {lead.order.sampleOrderNumber != null && (
             <Link
@@ -637,6 +861,43 @@ function LeadDetail({
               Open in Orders →
             </Link>
           )}
+        </Section>
+      )}
+
+      {(lead.priorOrders?.length ?? 0) > 0 && (
+        <Section title="Prior orders">
+          <p className="mb-3 text-sm text-body">
+            This contact ordered before and started a new sampling journey.
+          </p>
+          <ul className="space-y-2">
+            {lead.priorOrders!.map((order) => (
+              <li
+                key={`${order.sessionId}-${order.sampleOrderNumber}`}
+                className="flex flex-wrap items-center justify-between gap-2 rounded-[2px] bg-surface px-3 py-2 text-sm"
+              >
+                <div>
+                  <p className="font-medium text-heading">
+                    {order.sampleOrderLabel ?? `SO-${order.sampleOrderNumber ?? '—'}`}
+                  </p>
+                  <p className="type-caption text-body/80">
+                    {statusMeta(order.status).label}
+                    {order.paidAt ? ` · ${formatDateTime(order.paidAt)}` : ''}
+                    {order.amount != null
+                      ? ` · ${formatMoney(order.amount, String(order.currency ?? 'usd'))}`
+                      : ''}
+                  </p>
+                </div>
+                {order.sampleOrderNumber != null && (
+                  <Link
+                    to={`/admin/orders/${order.sampleOrderNumber}`}
+                    className="text-sm font-semibold text-accent hover:underline"
+                  >
+                    Open →
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
         </Section>
       )}
         </>

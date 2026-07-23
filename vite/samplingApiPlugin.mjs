@@ -20,6 +20,7 @@ import {
   handleAdminLeadsList,
   handleAdminLogin,
   handleAdminLogout,
+  handleAdminOrderCancel,
   handleAdminOrderDetail,
   handleAdminOrdersList,
   handleAdminSession,
@@ -266,6 +267,18 @@ export const samplingApiPlugin = () => ({
 
         if (pathname === '/api/admin/orders' && req.method === 'GET') {
           await handleAdminOrdersList(req, res);
+          return;
+        }
+
+        if (
+          pathname.startsWith('/api/admin/orders/') &&
+          pathname.endsWith('/cancel') &&
+          req.method === 'POST'
+        ) {
+          const sampleOrderNumber = decodeURIComponent(
+            pathname.replace('/api/admin/orders/', '').replace(/\/cancel$/, ''),
+          );
+          await handleAdminOrderCancel(req, res, sampleOrderNumber);
           return;
         }
 

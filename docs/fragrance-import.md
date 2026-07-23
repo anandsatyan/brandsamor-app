@@ -32,15 +32,11 @@ This reads `public/brandsamor_fragrance_library_16_import.json` and performs ide
 - **Never overwrites** an existing `supplierProductCode` with `null` from the import.
 - Never deletes supplier variants, documents, or research sources that were added outside the import.
 
-## Verify the import
+## Import Batch 8 (additional candidates)
 
 ```bash
-npm run fragrance:verify
+npm run fragrance:import:batch8
+npm run fragrance:verify:batch8
 ```
 
-This checks:
-- exactly 16 fragrances in DB
-- uniqueness of `masterId`, `number`, `slug`
-- presence and correctness of the original-reference note pyramid
-- presence of both supplier variants per fragrance and compliance placeholders
-
+Reads `public/brandsamor_fragrance_library_batch8_import.json` (renumbered to Core 16 family-band convention). Records are imported as `inactive` until supplier evaluation.

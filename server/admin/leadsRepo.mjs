@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { getMongoDb } from '../db/mongo.mjs';
 import { enrichDocumentsRecommendations } from '../fragrance/resolveRecommendationLabels.mjs';
 import { consolidateOpenEmailDuplicates } from '../sampling/repo.mjs';
+import { heatSortRank, scoreSamplingLead } from './leadScore.mjs';
 
 function serializeComments(comments) {
   if (!Array.isArray(comments)) return [];
@@ -126,16 +127,118 @@ function serializeLead(doc) {
       : null,
     createdAt: doc.createdAt ?? null,
     updatedAt: doc.updatedAt ?? null,
+    leadScore: scoreSamplingLead(doc),
   };
 }
 
-export async function listLeads({ limit = 200, status, q } = {}) {
+function leadEmailKey(docOrLead) {
+  const raw =
+    docOrLead?.lead?.email ??
+    docOrLead?.email ??
+    docOrLead?.checkout?.email ??
+    '';
+  return String(raw).trim().toLowerCase();
+}
+
+/** Safety net: one open lead row per email (newest already sorted first). */
+function dedupeOpenLeadsByEmail(leads) {
+  const seen = new Set();
+  const out = [];
+  for (const lead of leads) {
+    const email = leadEmailKey(lead);
+    if (email) {
+      if (seen.has(email)) continue;
+      seen.add(email);
+    }
+    out.push(lead);
+  }
+  return out;
+}
+
+async function attachPriorOrders(leads) {
+  if (!Array.isArray(leads) || leads.length === 0) return leads;
+
+  const emails = [
+    ...new Set(leads.map((lead) => leadEmailKey(lead)).filter(Boolean)),
+  ];
+  if (emails.length === 0) {
+    return leads.map((lead) => ({ ...lead, priorOrders: [], priorOrderCount: 0 }));
+  }
+
+  const db = await getMongoDb();
+  const orderDocs = await db
+    .collection('samplingSessions')
+    .find(
+      {
+        status: { $in: ['paid', 'canceled'] },
+        'lead.email': { $in: emails },
+        'order.sampleOrderNumber': { $exists: true, $ne: null },
+      },
+      {
+        projection: {
+          sessionId: 1,
+          status: 1,
+          'lead.email': 1,
+          'order.sampleOrderNumber': 1,
+          'order.sampleOrderLabel': 1,
+          'order.amount': 1,
+          'order.currency': 1,
+          'order.paidAt': 1,
+          'order.canceledAt': 1,
+          'payment.paidAt': 1,
+        },
+      },
+    )
+    .sort({ 'order.sampleOrderNumber': -1 })
+    .toArray();
+
+  const byEmail = new Map();
+  for (const doc of orderDocs) {
+    const email = leadEmailKey(doc);
+    if (!email) continue;
+    const entry = {
+      sessionId: doc.sessionId,
+      status: doc.status,
+      sampleOrderNumber: doc.order?.sampleOrderNumber ?? null,
+      sampleOrderLabel: doc.order?.sampleOrderLabel ?? null,
+      amount: doc.order?.amount ?? null,
+      currency: doc.order?.currency ?? null,
+      paidAt: doc.order?.paidAt ?? doc.payment?.paidAt ?? null,
+      canceledAt: doc.order?.canceledAt ?? null,
+    };
+    if (!byEmail.has(email)) byEmail.set(email, []);
+    byEmail.get(email).push(entry);
+  }
+
+  return leads.map((lead) => {
+    const email = leadEmailKey(lead);
+    const priorOrders = (byEmail.get(email) || []).filter(
+      (order) => order.sessionId !== lead.sessionId,
+    );
+    return {
+      ...lead,
+      priorOrders,
+      priorOrderCount: priorOrders.length,
+    };
+  });
+}
+
+export async function listLeads({ limit = 200, status, q, sort = 'newest', heat } = {}) {
   const db = await getMongoDb();
   await consolidateOpenEmailDuplicates(db);
-  const filter = {};
 
-  if (status && status !== 'all') {
-    filter.status = String(status);
+  const requestedStatus = String(status ?? 'all');
+  // Completed orders live under Orders. Returning buyers can still open a new lead journey.
+  if (requestedStatus === 'paid' || requestedStatus === 'canceled') {
+    return [];
+  }
+
+  const filter = {
+    status: { $nin: ['paid', 'canceled'] },
+  };
+
+  if (requestedStatus && requestedStatus !== 'all') {
+    filter.status = String(requestedStatus);
   }
 
   const query = String(q ?? '').trim();
@@ -152,14 +255,49 @@ export async function listLeads({ limit = 200, status, q } = {}) {
     ];
   }
 
+  const mode = String(sort ?? 'newest').toLowerCase();
+  const fetchLimit = Math.min(Math.max(Number(limit) || 200, 1), 500);
+
+  // Over-fetch so email dedupe still fills the requested page size.
   const docs = await db
     .collection('samplingSessions')
     .find(filter)
-    .sort({ updatedAt: -1, createdAt: -1 })
-    .limit(Math.min(Math.max(Number(limit) || 200, 1), 500))
+    .sort({ createdAt: -1, updatedAt: -1 })
+    .limit(Math.min(fetchLimit * 3, 1500))
     .toArray();
 
-  return enrichDocumentsRecommendations(docs.map(serializeLead));
+  let leads = await enrichDocumentsRecommendations(docs.map(serializeLead));
+  leads = dedupeOpenLeadsByEmail(leads);
+
+  const heatFilter = String(heat ?? 'all').toLowerCase();
+  if (heatFilter === 'hot' || heatFilter === 'warm' || heatFilter === 'cold') {
+    leads = leads.filter((lead) => lead.leadScore?.tier === heatFilter);
+  }
+
+  if (mode === 'heat' || mode === 'score') {
+    leads = [...leads].sort((a, b) => {
+      const scoreDelta = (b.leadScore?.score ?? 0) - (a.leadScore?.score ?? 0);
+      if (scoreDelta !== 0) return scoreDelta;
+      const tierDelta = heatSortRank(a.leadScore?.tier) - heatSortRank(b.leadScore?.tier);
+      if (tierDelta !== 0) return tierDelta;
+      const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return bTime - aTime;
+    });
+  } else {
+    // newest / recent — chronological by createdAt, newest first
+    leads = [...leads].sort((a, b) => {
+      const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      if (aTime !== bTime) return bTime - aTime;
+      const aUpdated = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+      const bUpdated = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+      return bUpdated - aUpdated;
+    });
+  }
+
+  leads = leads.slice(0, fetchLimit);
+  return attachPriorOrders(leads);
 }
 
 export async function getLeadBySessionId(sessionId) {
@@ -169,7 +307,8 @@ export async function getLeadBySessionId(sessionId) {
   const serialized = serializeLead(doc);
   if (!serialized) return null;
   const [enriched] = await enrichDocumentsRecommendations([serialized]);
-  return enriched;
+  const [withPrior] = await attachPriorOrders([enriched]);
+  return withPrior;
 }
 
 export async function addLeadComment(sessionId, { body, author } = {}) {
@@ -204,7 +343,8 @@ export async function addLeadComment(sessionId, { body, author } = {}) {
   const serialized = serializeLead(latest);
   if (!serialized) return null;
   const [enriched] = await enrichDocumentsRecommendations([serialized]);
-  return enriched;
+  const [withPrior] = await attachPriorOrders([enriched]);
+  return withPrior;
 }
 
 export async function getAdminDashboardStats() {
@@ -212,11 +352,34 @@ export async function getAdminDashboardStats() {
   await consolidateOpenEmailDuplicates(db);
   const collection = db.collection('samplingSessions');
 
-  const [leadsCount, ordersCount, statusCounts] = await Promise.all([
-    collection.countDocuments({}),
-    collection.countDocuments({ status: 'paid' }),
+  const [leadsCount, ordersCount, statusCounts, scoreDocs] = await Promise.all([
+    collection.countDocuments({ status: { $nin: ['paid', 'canceled'] } }),
+    collection.countDocuments({
+      $or: [
+        { status: { $in: ['paid', 'canceled'] } },
+        { 'order.sampleOrderNumber': { $exists: true, $ne: null } },
+      ],
+    }),
     collection
-      .aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }])
+      .aggregate([
+        { $match: { status: { $nin: ['paid', 'canceled'] } } },
+        { $group: { _id: '$status', count: { $sum: 1 } } },
+      ])
+      .toArray(),
+    collection
+      .find(
+        { status: { $nin: ['paid', 'canceled'] } },
+        {
+          projection: {
+            lead: 1,
+            answers: 1,
+            checkout: 1,
+            status: 1,
+            createdAt: 1,
+          },
+        },
+      )
+      .limit(2000)
       .toArray(),
   ]);
 
@@ -224,13 +387,18 @@ export async function getAdminDashboardStats() {
     in_progress: 0,
     curated: 0,
     checkout_started: 0,
-    paid: 0,
   };
   for (const row of statusCounts) {
-    if (row?._id && Object.prototype.hasOwnProperty.call(byStatus, row._id)) {
+    if (row?._id) {
       byStatus[row._id] = row.count;
-    } else if (row?._id) {
-      byStatus[row._id] = row.count;
+    }
+  }
+
+  const byHeat = { hot: 0, warm: 0, cold: 0 };
+  for (const doc of scoreDocs) {
+    const tier = scoreSamplingLead(doc).tier;
+    if (tier === 'hot' || tier === 'warm' || tier === 'cold') {
+      byHeat[tier] += 1;
     }
   }
 
@@ -238,5 +406,6 @@ export async function getAdminDashboardStats() {
     leadsCount,
     ordersCount,
     byStatus,
+    byHeat,
   };
 }

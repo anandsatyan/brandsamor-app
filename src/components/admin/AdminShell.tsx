@@ -8,6 +8,7 @@ export type AdminStats = {
   leadsCount: number;
   ordersCount: number;
   byStatus?: Record<string, number>;
+  byHeat?: Record<string, number>;
 };
 
 type AdminShellProps = {
@@ -125,7 +126,8 @@ export const AdminShell = ({
             <p className="type-eyebrow">Brandsamor admin</p>
             <h1 className="mt-1 type-h3">Sampling CRM</h1>
             <p className="mt-1 max-w-2xl type-body-sm text-body">
-              Track curated sampling leads through every wizard step and paid sample kit orders.
+              Track open sampling journeys in Leads and completed kits in Orders. Returning buyers can
+              appear in both.
             </p>
           </div>
         </div>
@@ -144,9 +146,9 @@ export const AdminShell = ({
             accent="border-l-heading"
           />
           <MetricCard
-            label="Paid"
+            label="Orders"
             value={localStats?.ordersCount ?? '—'}
-            hint="Paid curated sample kits"
+            hint="Paid and canceled sample kits"
             accent="border-l-emerald-500"
             to="/admin/orders"
           />
@@ -164,9 +166,9 @@ export const AdminShell = ({
           />
         </div>
 
-        {(byStatus.curated || byStatus.checkout_started || byStatus.paid || byStatus.in_progress) && (
+        {(byStatus.curated || byStatus.checkout_started || byStatus.in_progress) && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {(['in_progress', 'curated', 'checkout_started', 'paid'] as const).map((key) => {
+            {(['in_progress', 'curated', 'checkout_started'] as const).map((key) => {
               const meta = statusMeta(key);
               return (
                 <span

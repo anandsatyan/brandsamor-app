@@ -38,7 +38,7 @@ const normalizeLead = (lead) => ({
 /** Sessions that must never be edited as open leads or deleted by dedupe. */
 function isFrozenOrderSession(doc) {
   if (!doc) return false;
-  if (doc.status === 'paid') return true;
+  if (doc.status === 'paid' || doc.status === 'canceled') return true;
   if (doc.order?.sampleOrderNumber != null) return true;
   if (doc.payment?.paidAt) return true;
   if (doc.payment?.status === 'succeeded') return true;
@@ -46,17 +46,18 @@ function isFrozenOrderSession(doc) {
 }
 
 const OPEN_SESSION_FILTER = {
-  status: { $nin: ['paid'] },
+  status: { $nin: ['paid', 'canceled'] },
   'order.sampleOrderNumber': { $exists: false },
   'payment.paidAt': { $exists: false },
 };
 
-/** Open (non-paid) sessions are reusable lead records; paid/order sessions stay as history. */
+/** Open (non-order) sessions are reusable lead records; paid/canceled sessions stay as history. */
 async function findOpenSessionByEmail(db, email) {
   const normalized = String(email ?? '').trim().toLowerCase();
   if (!normalized) return null;
+  const escaped = normalized.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return db.collection('samplingSessions').findOne(
-    { 'lead.email': normalized, ...OPEN_SESSION_FILTER },
+    { 'lead.email': new RegExp(`^${escaped}$`, 'i'), ...OPEN_SESSION_FILTER },
     { sort: { updatedAt: -1, createdAt: -1 } },
   );
 }
@@ -68,9 +69,10 @@ async function findOpenSessionByEmail(db, email) {
 async function removeOpenDuplicateSessions(db, email, keepSessionId) {
   const normalized = String(email ?? '').trim().toLowerCase();
   if (!normalized || !keepSessionId) return;
+  const escaped = normalized.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
   await db.collection('samplingSessions').deleteMany({
-    'lead.email': normalized,
+    'lead.email': new RegExp(`^${escaped}$`, 'i'),
     sessionId: { $ne: keepSessionId },
     ...OPEN_SESSION_FILTER,
   });
@@ -78,7 +80,8 @@ async function removeOpenDuplicateSessions(db, email, keepSessionId) {
 
 /**
  * One-time-per-process cleanup of existing open duplicates.
- * Also repairs sessions that still have order/payment data but lost status "paid".
+ * Also repairs sessions that still have order/payment data but lost status "paid"
+ * (never overwrites canceled orders).
  */
 let openDuplicatesConsolidated = false;
 export async function consolidateOpenEmailDuplicates(db = null) {
@@ -89,7 +92,7 @@ export async function consolidateOpenEmailDuplicates(db = null) {
   try {
     const repair = await mongo.collection('samplingSessions').updateMany(
       {
-        status: { $ne: 'paid' },
+        status: { $nin: ['paid', 'canceled'] },
         $or: [
           { 'order.sampleOrderNumber': { $exists: true, $ne: null } },
           { 'payment.paidAt': { $exists: true } },
@@ -115,10 +118,20 @@ export async function consolidateOpenEmailDuplicates(db = null) {
             'lead.email': { $type: 'string', $ne: '' },
           },
         },
+        {
+          $addFields: {
+            emailKey: {
+              $toLower: {
+                $trim: { input: { $ifNull: ['$lead.email', ''] } },
+              },
+            },
+          },
+        },
+        { $match: { emailKey: { $ne: '' } } },
         { $sort: { updatedAt: -1, createdAt: -1 } },
         {
           $group: {
-            _id: '$lead.email',
+            _id: '$emailKey',
             count: { $sum: 1 },
             keepSessionId: { $first: '$sessionId' },
           },

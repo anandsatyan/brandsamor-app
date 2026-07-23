@@ -19,6 +19,7 @@ import {
   handleAdminLeadsList,
   handleAdminLogin,
   handleAdminLogout,
+  handleAdminOrderCancel,
   handleAdminOrderDetail,
   handleAdminOrdersList,
   handleAdminSession,
@@ -450,6 +451,14 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname === '/api/admin/orders' && req.method === 'GET') {
     await handleAdminOrdersList(req, res);
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/admin/orders/') && url.pathname.endsWith('/cancel') && req.method === 'POST') {
+    const sampleOrderNumber = decodeURIComponent(
+      url.pathname.replace('/api/admin/orders/', '').replace(/\/cancel$/, ''),
+    );
+    await handleAdminOrderCancel(req, res, sampleOrderNumber);
     return;
   }
 

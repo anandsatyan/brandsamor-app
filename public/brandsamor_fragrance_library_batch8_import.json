@@ -1,0 +1,886 @@
+{
+  "schemaVersion": "1.0.0",
+  "library": "Brandsamor Batch 8",
+  "generatedAt": "2026-07-21",
+  "recordCount": 8,
+  "sourceFile": "brandsamor_new_8_fragrance_records.json",
+  "numberingNote": "Renumbered to Core 16 family bands: woods-spice-oud continue in 300s after 362; floral-fruity-gourmand use denser 200s after 254 (261–291). masterId = F{number}. Status inactive until supplier evaluation.",
+  "noteDataBasis": "Original/reference fragrance notes. Full pyramids use official brand disclosures where available and established reference pyramids where brands publish only key notes. Supplier oils must be reconciled before customer publication.",
+  "supplierPolicy": {
+    "selectedSupplierDefault": null,
+    "candidateSuppliers": [
+      {
+        "code": "PP",
+        "name": "Parfum Plus"
+      },
+      {
+        "code": "PX",
+        "name": "Parfex"
+      }
+    ],
+    "rule": "Set selectedSupplier and activeSupplierVariantId only after testing and documentation review."
+  },
+  "numberMap": [
+    {
+      "slug": "soft-skin-amber",
+      "name": "Soft Skin Amber",
+      "proposedNumber": 428,
+      "previousAssignedNumber": 374,
+      "assignedNumber": 374,
+      "primaryFamily": "woods-spice-oud",
+      "inspiredBy": "Narciso Rodriguez — For Her Eau de Toilette"
+    },
+    {
+      "slug": "rose-amber-night",
+      "name": "Rose Amber Night",
+      "proposedNumber": 467,
+      "previousAssignedNumber": 386,
+      "assignedNumber": 386,
+      "primaryFamily": "woods-spice-oud",
+      "inspiredBy": "Dior — Ambre Nuit Eau de Parfum"
+    },
+    {
+      "slug": "white-floral-bloom",
+      "name": "White Floral Bloom",
+      "proposedNumber": 411,
+      "previousAssignedNumber": 406,
+      "assignedNumber": 261,
+      "primaryFamily": "floral-fruity-gourmand",
+      "inspiredBy": "Gucci — Gucci Bloom Eau de Parfum"
+    },
+    {
+      "slug": "golden-floral-bouquet",
+      "name": "Golden Floral Bouquet",
+      "proposedNumber": 452,
+      "previousAssignedNumber": 418,
+      "assignedNumber": 267,
+      "primaryFamily": "floral-fruity-gourmand",
+      "inspiredBy": "Dior — J'adore Eau de Parfum"
+    },
+    {
+      "slug": "radiant-tuberose",
+      "name": "Radiant Tuberose",
+      "proposedNumber": 479,
+      "previousAssignedNumber": 431,
+      "assignedNumber": 273,
+      "primaryFamily": "floral-fruity-gourmand",
+      "inspiredBy": "Giorgio Armani — My Way Eau de Parfum"
+    },
+    {
+      "slug": "solar-jasmine-amber",
+      "name": "Solar Jasmine Amber",
+      "proposedNumber": 446,
+      "previousAssignedNumber": 444,
+      "assignedNumber": 279,
+      "primaryFamily": "floral-fruity-gourmand",
+      "inspiredBy": "Mugler — Alien Eau de Parfum"
+    },
+    {
+      "slug": "modern-neroli-amber",
+      "name": "Modern Neroli Amber",
+      "proposedNumber": 486,
+      "previousAssignedNumber": 457,
+      "assignedNumber": 285,
+      "primaryFamily": "floral-fruity-gourmand",
+      "inspiredBy": "Prada — Prada Paradoxe Eau de Parfum"
+    },
+    {
+      "slug": "velvet-vanilla-musk",
+      "name": "Velvet Vanilla Musk",
+      "proposedNumber": 439,
+      "previousAssignedNumber": 469,
+      "assignedNumber": 291,
+      "primaryFamily": "floral-fruity-gourmand",
+      "inspiredBy": "Maison Francis Kurkdjian — Gentle Fluidity Gold Edition Eau de Parfum"
+    }
+  ],
+  "fragrances": [
+    {
+      "id": "F261",
+      "number": 261,
+      "slug": "white-floral-bloom",
+      "customerFacingName": "White Floral Bloom",
+      "internalProfile": "rich-white-floral",
+      "status": "inactive",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "tuberose",
+        "jasmine",
+        "rangoon-creeper",
+        "white-floral"
+      ],
+      "shortDescription": "A lush garden of jasmine, natural tuberose and softly powdery Rangoon creeper.",
+      "tags": [
+        "white-floral",
+        "lush",
+        "natural",
+        "feminine"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "boutique",
+        "bridal",
+        "salon",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Jasmine bud extract"
+        ],
+        "heart": [
+          "Natural tuberose absolute"
+        ],
+        "base": [
+          "Rangoon creeper"
+        ],
+        "hero": [
+          "Jasmine",
+          "Tuberose",
+          "Rangoon creeper"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Gucci",
+        "fragrance": "Gucci Bloom Eau de Parfum",
+        "supplierListedName": "Gucci Bloom",
+        "referenceStatus": "supplier-label-confirmed"
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F261-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F261-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "high",
+        "sources": [
+          "https://www.gucci.com/us/en/pr/beauty/fragrances/fragrances-for-women/gucci-bloom-100ml-eau-de-parfum-p-488830999990099",
+          "https://www.gucci.com/us/en/st/stories/article/pre-fall-2017-bloom-fragrance-qa-alberto-morillas"
+        ]
+      }
+    },
+    {
+      "id": "F267",
+      "number": 267,
+      "slug": "golden-floral-bouquet",
+      "customerFacingName": "Golden Floral Bouquet",
+      "internalProfile": "classic-floral-bouquet",
+      "status": "inactive",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "fruity",
+        "ylang-ylang",
+        "rose",
+        "jasmine",
+        "musky"
+      ],
+      "shortDescription": "A luminous fruit-and-flower bouquet of pear, ylang-ylang, rose and jasmine over a soft musky base.",
+      "tags": [
+        "floral",
+        "luxurious",
+        "timeless",
+        "giftable"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "boutique",
+        "bridal",
+        "gifting",
+        "salon"
+      ],
+      "notes": {
+        "top": [
+          "Pear",
+          "Melon",
+          "Magnolia",
+          "Peach",
+          "Mandarin orange",
+          "Bergamot"
+        ],
+        "heart": [
+          "Solar ylang-ylang accord",
+          "Damascus rose",
+          "Jasmine grandiflorum",
+          "Jasmine sambac",
+          "Tuberose",
+          "Freesia"
+        ],
+        "base": [
+          "Musk",
+          "Vanilla",
+          "Blackberry",
+          "Cedarwood"
+        ],
+        "hero": [
+          "Ylang-ylang",
+          "Damascus rose",
+          "Jasmine",
+          "Pear"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Dior",
+        "fragrance": "J'adore Eau de Parfum",
+        "supplierListedName": "Jadore",
+        "referenceStatus": "needs-concentration-confirmation",
+        "referenceNote": "Supplier label does not specify concentration. This record assumes the standard J'adore Eau de Parfum reference."
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F267-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F267-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "medium-high",
+        "sources": [
+          "https://www.dior.com/en_us/beauty/products/j%E2%80%99adore-eau-de-parfum-Y0998031.html"
+        ]
+      }
+    },
+    {
+      "id": "F273",
+      "number": 273,
+      "slug": "radiant-tuberose",
+      "customerFacingName": "Radiant Tuberose",
+      "internalProfile": "bright-modern-white-floral",
+      "status": "inactive",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "citrus",
+        "orange-blossom",
+        "tuberose",
+        "jasmine",
+        "vanilla"
+      ],
+      "shortDescription": "Sparkling bergamot and orange blossom lead to creamy tuberose, jasmine and a smooth vanilla-musk base.",
+      "tags": [
+        "white-floral",
+        "bright",
+        "modern",
+        "commercial"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "boutique",
+        "bridal",
+        "gifting",
+        "salon"
+      ],
+      "notes": {
+        "top": [
+          "Calabrian bergamot",
+          "Egyptian orange blossom"
+        ],
+        "heart": [
+          "Indian tuberose",
+          "Indian jasmine"
+        ],
+        "base": [
+          "Madagascar vanilla",
+          "White musk",
+          "Virginia cedarwood"
+        ],
+        "hero": [
+          "Tuberose",
+          "Orange blossom",
+          "Vanilla",
+          "Bergamot"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Giorgio Armani",
+        "fragrance": "My Way Eau de Parfum",
+        "supplierListedName": "My Way",
+        "referenceStatus": "supplier-label-confirmed"
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F273-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F273-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "high",
+        "sources": [
+          "https://www.giorgioarmanibeauty-usa.com/fragrances/womens-perfume/my-way/my-way-eau-de-parfum/A2259.html"
+        ]
+      }
+    },
+    {
+      "id": "F279",
+      "number": 279,
+      "slug": "solar-jasmine-amber",
+      "customerFacingName": "Solar Jasmine Amber",
+      "internalProfile": "bold-white-floral-amber",
+      "status": "inactive",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "jasmine",
+        "white-floral",
+        "cashmeran",
+        "amber",
+        "woody"
+      ],
+      "shortDescription": "Radiant jasmine sambac wrapped in warm cashmeran and a creamy white-amber trail.",
+      "tags": [
+        "white-floral",
+        "bold",
+        "radiant",
+        "evening"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "creator",
+        "boutique",
+        "fashion",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Jasmine sambac"
+        ],
+        "heart": [
+          "Cashmeran"
+        ],
+        "base": [
+          "White amber"
+        ],
+        "hero": [
+          "Jasmine sambac",
+          "Cashmeran",
+          "White amber"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Mugler",
+        "fragrance": "Alien Eau de Parfum",
+        "supplierListedName": "Alien Mugler",
+        "referenceStatus": "supplier-label-confirmed"
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F279-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F279-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "high",
+        "sources": [
+          "https://www.mugler.com/fragrance/womens-fragrances/alien/alien-eau-de-parfum/M010401002.html"
+        ]
+      }
+    },
+    {
+      "id": "F285",
+      "number": 285,
+      "slug": "modern-neroli-amber",
+      "customerFacingName": "Modern Neroli Amber",
+      "internalProfile": "modern-floral-amber",
+      "status": "inactive",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "pear",
+        "neroli",
+        "orange-blossom",
+        "amber",
+        "musk"
+      ],
+      "shortDescription": "Juicy pear and crisp neroli flow into orange blossom, warm amber and diffusive white musk.",
+      "tags": [
+        "modern",
+        "floral-amber",
+        "musky",
+        "commercial"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "creator",
+        "boutique",
+        "fashion",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Pear",
+          "Tangerine",
+          "Calabrian bergamot"
+        ],
+        "heart": [
+          "Orange blossom",
+          "Neroli bud essence",
+          "Neroli essence",
+          "Jasmine sambac"
+        ],
+        "base": [
+          "Bourbon vanilla",
+          "Ambrofix amber",
+          "White musk",
+          "Benzoin"
+        ],
+        "hero": [
+          "Neroli",
+          "Amber",
+          "White musk",
+          "Pear"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Prada",
+        "fragrance": "Prada Paradoxe Eau de Parfum",
+        "supplierListedName": "Prada Paradoxe",
+        "referenceStatus": "supplier-label-confirmed"
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F285-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F285-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "high",
+        "sources": [
+          "https://www.prada-beauty.com/fragrance/paradoxe/paradoxe-eau-de-parfum/3614273760164.html",
+          "https://www.fragrantica.com/perfume/Prada/Prada-Paradoxe-75668.html"
+        ]
+      }
+    },
+    {
+      "id": "F291",
+      "number": 291,
+      "slug": "velvet-vanilla-musk",
+      "customerFacingName": "Velvet Vanilla Musk",
+      "internalProfile": "musky-vanilla-amber",
+      "status": "inactive",
+      "primaryFamily": "floral-fruity-gourmand",
+      "secondaryFamilies": [
+        "vanilla",
+        "musk",
+        "amber",
+        "spicy",
+        "woody"
+      ],
+      "shortDescription": "Smooth vanilla and clean musks warmed by coriander, nutmeg and luminous amber woods.",
+      "tags": [
+        "vanilla",
+        "musky",
+        "comforting",
+        "premium"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "beauty",
+        "wellness",
+        "boutique",
+        "creator",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "Juniper berries",
+          "Nutmeg"
+        ],
+        "heart": [
+          "Coriander seeds"
+        ],
+        "base": [
+          "Vanilla accord",
+          "Musks",
+          "Amber wood"
+        ],
+        "hero": [
+          "Vanilla",
+          "Musks",
+          "Coriander",
+          "Amber wood"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Maison Francis Kurkdjian",
+        "fragrance": "Gentle Fluidity Gold Edition Eau de Parfum",
+        "supplierListedName": "Gentle Fluidity Gold",
+        "referenceStatus": "supplier-label-confirmed"
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F291-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F291-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "high",
+        "sources": [
+          "https://www.franciskurkdjian.com/us-en/p/gentle-fluidity-gold-edition---eau-de-parfum-RA122811.html",
+          "https://www.fragrantica.com/perfume/Maison-Francis-Kurkdjian/Gentle-Fluidity-Gold-53401.html"
+        ]
+      }
+    },
+    {
+      "id": "F374",
+      "number": 374,
+      "slug": "soft-skin-amber",
+      "customerFacingName": "Soft Skin Amber",
+      "internalProfile": "soft-chypre-musk",
+      "status": "inactive",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "orange-blossom",
+        "osmanthus",
+        "musk",
+        "amber",
+        "patchouli"
+      ],
+      "shortDescription": "Delicate osmanthus and orange blossom melt into intimate musk, soft amber and warm woods.",
+      "tags": [
+        "skin-musk",
+        "soft",
+        "sensual",
+        "elegant"
+      ],
+      "scentExpression": "feminine-leaning",
+      "bestForBusinessTypes": [
+        "beauty",
+        "wellness",
+        "boutique",
+        "fashion",
+        "gifting"
+      ],
+      "notes": {
+        "top": [
+          "African orange blossom",
+          "Osmanthus",
+          "Bergamot"
+        ],
+        "heart": [
+          "Musk",
+          "Soft amber"
+        ],
+        "base": [
+          "Vetiver",
+          "Patchouli",
+          "Vanilla",
+          "Warm woods"
+        ],
+        "hero": [
+          "Musk",
+          "Osmanthus",
+          "Amber",
+          "Patchouli"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Narciso Rodriguez",
+        "fragrance": "For Her Eau de Toilette",
+        "supplierListedName": "Narciso Rodriguez For Her",
+        "referenceStatus": "needs-supplier-confirmation",
+        "referenceNote": "Supplier label does not specify Eau de Toilette or Eau de Parfum. This record provisionally uses the original black-bottle Eau de Toilette profile."
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F374-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F374-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "medium-high",
+        "sources": [
+          "https://www.narcisorodriguezparfums.com/en/narciso-rodriguez-for-her/for-her-edt.html",
+          "https://www.fragrantica.com/perfume/Narciso-Rodriguez/Narciso-Rodriguez-For-Her-209.html"
+        ]
+      }
+    },
+    {
+      "id": "F386",
+      "number": 386,
+      "slug": "rose-amber-night",
+      "customerFacingName": "Rose Amber Night",
+      "internalProfile": "rose-amber-evening",
+      "status": "inactive",
+      "primaryFamily": "woods-spice-oud",
+      "secondaryFamilies": [
+        "citrus",
+        "rose",
+        "pink-pepper",
+        "amber",
+        "woody"
+      ],
+      "shortDescription": "Bright citrus and pink pepper open into velvety rose, ambergris and polished woods.",
+      "tags": [
+        "rose",
+        "amber",
+        "refined",
+        "evening"
+      ],
+      "scentExpression": "gender-neutral",
+      "bestForBusinessTypes": [
+        "luxury-retail",
+        "boutique",
+        "fashion",
+        "gifting",
+        "middle-eastern-retail"
+      ],
+      "notes": {
+        "top": [
+          "Bergamot",
+          "Grapefruit"
+        ],
+        "heart": [
+          "Damask rose",
+          "Pink pepper"
+        ],
+        "base": [
+          "Ambergris",
+          "Guaiac wood",
+          "Cedarwood",
+          "Patchouli"
+        ],
+        "hero": [
+          "Damask rose",
+          "Ambergris",
+          "Pink pepper",
+          "Guaiac wood"
+        ],
+        "basis": "original-reference"
+      },
+      "inspiredBy": {
+        "brand": "Dior",
+        "fragrance": "Ambre Nuit Eau de Parfum",
+        "supplierListedName": "Ambre Nuit",
+        "referenceStatus": "supplier-label-confirmed"
+      },
+      "sourcing": {
+        "selectedSupplier": null,
+        "activeSupplierVariantId": null,
+        "candidateVariants": [
+          {
+            "variantId": "F386-PP-01",
+            "supplierCode": "PP",
+            "supplierName": "Parfum Plus",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          },
+          {
+            "variantId": "F386-PX-01",
+            "supplierCode": "PX",
+            "supplierName": "Parfex",
+            "supplierProductCode": null,
+            "status": "not-evaluated"
+          }
+        ]
+      },
+      "compliance": {
+        "ifraDocument": null,
+        "allergenDocument": null,
+        "coaDocument": null,
+        "recommendedDosagePercent": null,
+        "testedDosagePercent": null
+      },
+      "customerDisplay": {
+        "showInspiredBy": false,
+        "referenceDisclaimer": "Internal scent-direction reference only. Brandsamor is not affiliated with or endorsed by the referenced brand."
+      },
+      "research": {
+        "accessed": "2026-07-21",
+        "confidence": "high",
+        "sources": [
+          "https://www.dior.com/en_us/beauty/products/ambre-nuit-E000000204.html",
+          "https://www.fragrantica.com/perfume/Dior/Ambre-Nuit-7092.html"
+        ]
+      }
+    }
+  ]
+}

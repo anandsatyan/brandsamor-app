@@ -26,6 +26,11 @@ export const STATUS_META: Record<
     className: 'border-emerald-200 bg-emerald-50 text-emerald-900',
     dotClassName: 'bg-emerald-500',
   },
+  canceled: {
+    label: 'Canceled',
+    className: 'border-stone-300 bg-stone-100 text-stone-800',
+    dotClassName: 'bg-stone-500',
+  },
 };
 
 export const STEP_KEY_LABELS: Record<string, string> = {
@@ -37,6 +42,7 @@ export const STEP_KEY_LABELS: Record<string, string> = {
   save_exit: 'Saved & exited',
   curation: 'Kit curated',
   paid: 'Paid',
+  canceled: 'Canceled',
 };
 
 export const STEP_INDEX_LABELS: Record<number, string> = {
@@ -120,4 +126,35 @@ export function formatFragranceRecommendation(rec?: {
     return `No. ${rec.fragranceNumber} — ${name}`;
   }
   return name;
+}
+
+export type LeadHeatTier = 'hot' | 'warm' | 'cold';
+
+export const HEAT_META: Record<
+  LeadHeatTier,
+  { label: string; className: string; barClassName: string; glowClassName: string }
+> = {
+  hot: {
+    label: 'Hot',
+    className: 'border-orange-300 bg-orange-50 text-orange-950',
+    barClassName: 'bg-orange-500',
+    glowClassName: 'bg-orange-500',
+  },
+  warm: {
+    label: 'Warm',
+    className: 'border-amber-300 bg-amber-50 text-amber-950',
+    barClassName: 'bg-amber-400',
+    glowClassName: 'bg-amber-400',
+  },
+  cold: {
+    label: 'Cold',
+    className: 'border-sky-200 bg-sky-50 text-sky-950',
+    barClassName: 'bg-sky-400',
+    glowClassName: 'bg-sky-400',
+  },
+};
+
+export function heatMeta(tier?: string | null) {
+  const key = (tier ?? 'cold') as LeadHeatTier;
+  return HEAT_META[key] ?? HEAT_META.cold;
 }

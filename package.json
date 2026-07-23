@@ -13,7 +13,9 @@
     "start": "node server.mjs",
     "fragrance:indexes": "node scripts/fragrance/init-indexes.mjs",
     "fragrance:import:core16": "node scripts/fragrance/import-core16.mjs",
+    "fragrance:import:batch8": "node scripts/fragrance/import-batch8.mjs",
     "fragrance:verify": "node scripts/fragrance/verify-import.mjs",
+    "fragrance:verify:batch8": "node scripts/fragrance/verify-batch8.mjs",
     "test": "node --test"
   },
   "dependencies": {

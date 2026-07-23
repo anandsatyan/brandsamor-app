@@ -7,7 +7,7 @@ import {
   isAdminAuthenticated,
   isAdminConfigured,
 } from './auth.mjs';
-import { getPaidOrderByNumber, listPaidOrders } from './ordersRepo.mjs';
+import { cancelPaidOrder, getPaidOrderByNumber, listPaidOrders } from './ordersRepo.mjs';
 import {
   addLeadComment,
   getAdminDashboardStats,
@@ -88,7 +88,9 @@ export async function handleAdminLeadsList(req, res) {
   const limit = Number(url.searchParams.get('limit') || 200);
   const status = url.searchParams.get('status') || 'all';
   const q = url.searchParams.get('q') || '';
-  const leads = await listLeads({ limit, status, q });
+  const sort = url.searchParams.get('sort') || 'newest';
+  const heat = url.searchParams.get('heat') || 'all';
+  const leads = await listLeads({ limit, status, q, sort, heat });
   sendJson(res, 200, { leads });
 }
 
@@ -168,4 +170,28 @@ export async function handleAdminOrderDetail(req, res, sampleOrderNumber) {
     return;
   }
   sendJson(res, 200, { order });
+}
+
+export async function handleAdminOrderCancel(req, res, sampleOrderNumber) {
+  if (req.method !== 'POST') {
+    sendJson(res, 405, { error: 'Method not allowed' });
+    return;
+  }
+  if (!isAdminAuthenticated(req)) {
+    sendJson(res, 401, { error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    const payload = await readJsonBody(req);
+    const order = await cancelPaidOrder(sampleOrderNumber, {
+      reason: payload?.reason,
+      note: payload?.note,
+      recordedBy: getAdminCredentials().email || 'Admin',
+    });
+    sendJson(res, 200, { order });
+  } catch (err) {
+    const statusCode = err?.statusCode || 500;
+    sendJson(res, statusCode, { error: err?.message || 'Failed to cancel order' });
+  }
 }
