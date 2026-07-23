@@ -1,6 +1,10 @@
 import Stripe from 'stripe';
 import { markPaid, recordPaymentIntent, attachCheckoutDetails } from '../sampling/repo.mjs';
-import { getSampleKitPrice } from '../../shared/sampleKitPricing.mjs';
+import {
+  assertOrderCountryAllowed,
+  getSampleKitPrice,
+} from '../../shared/sampleKitPricing.mjs';
+import { getMongoDb } from '../db/mongo.mjs';
 
 function getStripe() {
   const secret = process.env.STRIPE_SECRET_KEY;
@@ -44,6 +48,21 @@ function resolveKitPriceFromCheckout(checkout) {
   return getSampleKitPrice(country);
 }
 
+async function assertCheckoutCountriesAllowed(sessionId, checkout) {
+  const db = await getMongoDb();
+  const session = await db.collection('samplingSessions').findOne(
+    { sessionId: String(sessionId) },
+    { projection: { 'lead.country': 1 } },
+  );
+
+  assertOrderCountryAllowed(
+    checkout?.shipping?.country,
+    checkout?.billing?.country,
+    checkout?.country,
+    session?.lead?.country,
+  );
+}
+
 /**
  * Create a PaymentIntent for the curated sample kit and persist intent metadata.
  * Amount/currency follow the customer's country (fallback USD $100).
@@ -53,6 +72,7 @@ export async function createSampleKitPaymentIntent(
   sessionId,
   { reusePaymentIntentId, checkout = null } = {},
 ) {
+  await assertCheckoutCountriesAllowed(sessionId, checkout);
   const { amount, currency } = resolveKitPriceFromCheckout(checkout);
   const stripe = getStripe();
 
@@ -130,6 +150,8 @@ export async function confirmSampleKitPayment({ sessionId, paymentIntentId, chec
     err.statusCode = 400;
     throw err;
   }
+
+  await assertCheckoutCountriesAllowed(sessionId, checkout);
 
   if (checkout) {
     await attachCheckoutDetails(sessionId, checkout);

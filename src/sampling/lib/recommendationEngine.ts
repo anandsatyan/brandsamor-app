@@ -112,9 +112,38 @@ const scoreProfile = (profile: FragranceProfile, answers: SamplingAnswers): numb
   const intensityTarget = targetIntensity(answers);
   score += 4 - Math.abs(profile.intensity - intensityTarget);
 
-  score += profile.commerciality * 0.5;
+  score += commercialTierBoost(profile.commerciality, profile.adventure, answers.commercialTier);
 
   return score;
+};
+
+/** Map commercial tier intent onto oil commerciality (1–5) and adventure (1–5). */
+const commercialTierBoost = (
+  commerciality: number,
+  adventure: number,
+  tier: string | undefined,
+): number => {
+  const c = Number.isFinite(commerciality) ? commerciality : 3;
+  const a = Number.isFinite(adventure) ? adventure : 3;
+
+  switch (tier) {
+    case 'affordable_everyday':
+      // Safer, broad-appeal oils: high commerciality, lower adventure.
+      return c * 1.6 + (6 - a) * 0.9;
+    case 'accessible_premium':
+      // Commercial mid-tier.
+      return c * 1.1 + (4 - Math.abs(a - 3)) * 0.6;
+    case 'premium_brand_extension':
+      // More elevated / distinctive.
+      return a * 1.3 + c * 0.7;
+    case 'luxury_limited_edition':
+      // Richer, niche-style oils: higher adventure, lower mass commerciality.
+      return a * 1.8 + (6 - c) * 0.7;
+    case 'unsure_recommend':
+    default:
+      // Balanced set (legacy behavior when unanswered).
+      return c * 0.5;
+  }
 };
 
 const activeExclusions = (exclusions: string[]) =>

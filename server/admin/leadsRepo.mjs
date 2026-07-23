@@ -59,6 +59,7 @@ function serializeLead(doc) {
       scentFamilies: Array.isArray(answers.scentFamilies) ? answers.scentFamilies : [],
       intensity: answers.intensity ?? null,
       useCase: answers.useCase ?? null,
+      commercialTier: answers.commercialTier ?? null,
       exclusions: Array.isArray(answers.exclusions) ? answers.exclusions : [],
       likedFragrances: answers.likedFragrances ?? null,
       additionalNotes: answers.additionalNotes ?? null,

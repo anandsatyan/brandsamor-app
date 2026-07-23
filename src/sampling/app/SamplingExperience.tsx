@@ -33,6 +33,7 @@ import {
   BRAND_PERSONALITY_OPTIONS,
   BRAND_STAGE_OPTIONS,
   BUSINESS_TYPE_OPTIONS,
+  COMMERCIAL_TIER_OPTIONS,
   COUNTRIES,
   EXCLUSION_OPTIONS,
   getLabel,
@@ -798,6 +799,25 @@ export const SamplingExperience = () => {
       <div className="mt-8 space-y-8">
         <fieldset>
           <legend className="mb-4 type-h5">
+            What kind of fragrance product do you want to create?
+          </legend>
+          <p className="mb-4 type-body-sm text-[#725F52]">
+            This helps us recommend the right scent quality, packaging direction, and production route
+            without needing exact pricing yet.
+          </p>
+          <div className="space-y-3">
+            {COMMERCIAL_TIER_OPTIONS.map((opt) => (
+              <OptionCard
+                key={opt.value}
+                label={opt.label}
+                selected={answers.commercialTier === opt.value}
+                onClick={() => updateAnswers({ commercialTier: opt.value })}
+              />
+            ))}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend className="mb-4 type-h5">
             Are there any scent styles or notes you definitely want to{' '}
             <strong className="font-bold">AVOID</strong>?
           </legend>
@@ -839,7 +859,7 @@ export const SamplingExperience = () => {
       </div>
       <WizardFooter onBack={() => goToStep(STEP_EXPERIENCE)}>
         <PrimaryButton
-          disabled={answers.exclusions.length === 0}
+          disabled={answers.exclusions.length === 0 || !answers.commercialTier}
           onClick={() => completeStep('preferences', STEP_REVIEW)}
         >
           Continue
@@ -903,6 +923,9 @@ export const SamplingExperience = () => {
           title="Preferences"
           onEdit={() => goToStep(STEP_PREFERENCES)}
           items={[
+            ...(answers.commercialTier
+              ? [{ label: 'Product type', value: getLabel(answers.commercialTier) }]
+              : []),
             {
               label: 'Avoid',
               value: answers.exclusions.map((e) => getLabel(e)).join(', '),

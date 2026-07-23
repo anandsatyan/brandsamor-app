@@ -17,6 +17,7 @@ export interface SamplingAnswers {
   intensity?: string;
   useCase?: string;
   exclusions: string[];
+  commercialTier?: string;
   likedFragrances?: string;
   additionalNotes?: string;
   packagingDirection?: string;

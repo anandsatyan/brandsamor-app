@@ -115,6 +115,39 @@ test('any lead becomes cold after two weeks', () => {
   assert.equal(result.ageDecay, 'cooled_to_cold');
 });
 
+test('missing commercialTier leaves older lead scores unchanged', () => {
+  const now = Date.now();
+  const without = scoreSamplingLead(
+    { ...hotLead, createdAt: new Date(now - 2 * DAY).toISOString() },
+    { now },
+  );
+  const withLuxury = scoreSamplingLead(
+    {
+      ...hotLead,
+      createdAt: new Date(now - 2 * DAY).toISOString(),
+      answers: { ...hotLead.answers, commercialTier: 'luxury_limited_edition' },
+    },
+    { now },
+  );
+
+  assert.equal(without.signals.some((s) => s.key === 'commercialTier'), false);
+  assert.ok(withLuxury.baseScore > without.baseScore);
+  assert.ok(withLuxury.signals.some((s) => s.key === 'commercialTier' && s.points === 14));
+});
+
+test('premium commercial tiers adds points only when present', () => {
+  const now = Date.now();
+  const premium = scoreSamplingLead(
+    {
+      ...hotLead,
+      createdAt: new Date(now - 2 * DAY).toISOString(),
+      answers: { ...hotLead.answers, commercialTier: 'premium_brand_extension' },
+    },
+    { now },
+  );
+  assert.ok(premium.signals.some((s) => s.key === 'commercialTier' && s.points === 10));
+});
+
 test('applyLeadAgeDecay steps tiers without raising them', () => {
   assert.equal(applyLeadAgeDecay('hot', new Date(Date.now() - 3 * DAY)).tier, 'hot');
   assert.equal(applyLeadAgeDecay('hot', new Date(Date.now() - 10 * DAY)).tier, 'warm');

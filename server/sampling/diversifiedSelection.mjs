@@ -584,6 +584,8 @@ export function buildSelectionProfileFromMongo(fragrance, notePyramid = null) {
     darkness: scale(scores.darkness, has('oud', 'smoky', 'incense', 'leather', 'dark') ? 8 : 3),
     floralIntensity: scale(scores.floralIntensity, has('floral', 'rose', 'violet', 'iris') ? 7 : 3),
     woodiness: scale(scores.woodiness, has('woody', 'cedar', 'sandalwood', 'vetiver', 'cypress') ? 7 : 4),
+    commerciality: Number.isFinite(Number(scores.commerciality)) ? Number(scores.commerciality) : 3,
+    adventure: Number.isFinite(Number(scores.adventure)) ? Number(scores.adventure) : 3,
     genderExpression: normalize(fragrance.scentExpression) || undefined,
     exclusions: uniqueNormalized(fragrance.exclusions),
     raw: fragrance,
@@ -624,6 +626,8 @@ export function buildSelectionProfileFromClient(profile) {
       primaryFamily.includes('floral') ? 7 : 3,
     ),
     woodiness: scale5to10(profile.woodiness, primaryFamily.includes('wood') ? 7 : 4),
+    commerciality: Number.isFinite(Number(profile.commerciality)) ? Number(profile.commerciality) : 3,
+    adventure: Number.isFinite(Number(profile.adventure)) ? Number(profile.adventure) : 3,
     genderExpression: Array.isArray(profile.scentExpression)
       ? normalize(profile.scentExpression[0])
       : normalize(profile.scentExpression),

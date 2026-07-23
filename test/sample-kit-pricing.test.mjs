@@ -4,6 +4,7 @@ import {
   currencyForCountry,
   formatSampleKitMoney,
   getSampleKitPrice,
+  isOrderBlockedCountry,
   sampleKitPriceLabel,
 } from '../shared/sampleKitPricing.mjs';
 
@@ -30,4 +31,18 @@ test('JP uses zero-decimal yen', () => {
   assert.equal(price.currency, 'jpy');
   assert.equal(price.amount, 15000);
   assert.match(formatSampleKitMoney(price.amount, price.currency, 'ja-JP'), /15,?000|￥|¥/);
+});
+
+test('primary Gulf and East Asia markets use local currencies', () => {
+  assert.deepEqual(getSampleKitPrice('BH'), { amount: 38000, currency: 'bhd' });
+  assert.deepEqual(getSampleKitPrice('OM'), { amount: 39000, currency: 'omr' });
+  assert.deepEqual(getSampleKitPrice('TW'), { amount: 320000, currency: 'twd' });
+  assert.deepEqual(getSampleKitPrice('KW'), { amount: 31000, currency: 'kwd' });
+});
+
+test('blocked markets have no localized kit pricing and are flagged', () => {
+  for (const code of ['PK', 'BD', 'EG', 'MA', 'DZ', 'NG', 'KE', 'GH']) {
+    assert.equal(isOrderBlockedCountry(code), true);
+    assert.deepEqual(getSampleKitPrice(code), { amount: 10000, currency: 'usd' });
+  }
 });

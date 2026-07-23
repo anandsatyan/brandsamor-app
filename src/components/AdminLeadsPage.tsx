@@ -12,6 +12,7 @@ import {
   statusMeta,
   stepLabel,
 } from './admin/adminFormat';
+import { getLabel } from '../sampling/data/questions';
 
 type LeadScore = {
   score: number;
@@ -49,6 +50,7 @@ type AdminLead = {
     scentFamilies?: string[];
     intensity?: string | null;
     useCase?: string | null;
+    commercialTier?: string | null;
     exclusions?: string[];
     likedFragrances?: string | null;
     additionalNotes?: string | null;
@@ -733,6 +735,7 @@ function LeadDetail({
           <Detail term="Scent expression" value={lead.answers.scentExpression} />
           <Detail term="Intensity" value={lead.answers.intensity} />
           <Detail term="Use case" value={lead.answers.useCase} />
+          <Detail term="Product type" value={getLabel(lead.answers.commercialTier ?? undefined)} />
           <Detail term="Packaging" value={lead.answers.packagingDirection} />
           <Detail term="Bottle size" value={lead.answers.bottleSize} />
         </dl>

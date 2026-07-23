@@ -87,20 +87,29 @@ export const COUNTRY_TO_CURRENCY = {
   PE: 'pen',
   TR: 'try',
   IL: 'ils',
-  EG: 'egp',
-  NG: 'ngn',
-  KE: 'kes',
-  GH: 'ghs',
   TW: 'twd',
   VN: 'vnd',
-  PK: 'pkr',
-  BD: 'bdt',
   LK: 'lkr',
   NP: 'npr',
   RU: 'rub',
   UA: 'uah',
   IS: 'isk',
 };
+
+/**
+ * Countries we do not sell sample kits to.
+ * Kept out of country pickers and rejected at payment time.
+ */
+export const ORDER_BLOCKED_COUNTRIES = new Set([
+  'PK', // Pakistan
+  'BD', // Bangladesh
+  'EG', // Egypt
+  'MA', // Morocco
+  'DZ', // Algeria
+  'NG', // Nigeria
+  'KE', // Kenya
+  'GH', // Ghana
+]);
 
 /**
  * Kit price in Stripe minor units (cents / zero-decimal whole units).
@@ -146,14 +155,8 @@ export const SAMPLE_KIT_PRICES = {
   pen: 38000,
   try: 340000,
   ils: 37000,
-  egp: 485000,
-  ngn: 16000000,
-  kes: 1300000,
-  ghs: 155000,
   twd: 320000,
   vnd: 2500000,
-  pkr: 2800000,
-  bdt: 1200000,
   lkr: 3000000,
   npr: 1350000,
   rub: 950000,
@@ -172,9 +175,27 @@ export function normalizeCountryCode(country) {
   return '';
 }
 
+export function isOrderBlockedCountry(country) {
+  const code = normalizeCountryCode(country);
+  return Boolean(code && ORDER_BLOCKED_COUNTRIES.has(code));
+}
+
+export function assertOrderCountryAllowed(...countries) {
+  for (const country of countries) {
+    if (!isOrderBlockedCountry(country)) continue;
+    const code = normalizeCountryCode(country);
+    const err = new Error(
+      `We don't currently ship sample kits to ${code}. Please choose another country.`,
+    );
+    err.statusCode = 403;
+    err.code = 'ORDER_COUNTRY_BLOCKED';
+    throw err;
+  }
+}
+
 export function currencyForCountry(country) {
   const code = normalizeCountryCode(country);
-  if (!code) return 'usd';
+  if (!code || isOrderBlockedCountry(code)) return 'usd';
   return COUNTRY_TO_CURRENCY[code] || 'usd';
 }
 

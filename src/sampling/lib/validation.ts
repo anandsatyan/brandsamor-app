@@ -1,4 +1,5 @@
 import type { LeadDetails } from '../types/sampling';
+import { isOrderBlockedCountry } from './sampleKitPricing';
 
 export interface ContactErrors {
   fullName?: string;
@@ -25,6 +26,9 @@ export const validateContact = (lead: LeadDetails): ContactErrors => {
   if (!lead.phone.trim()) errors.phone = 'Please enter a phone or WhatsApp number.';
   else if (!validatePhone(lead.phone)) errors.phone = 'Please enter a valid phone number.';
   if (!lead.country.trim()) errors.country = 'Please select your country.';
+  else if (isOrderBlockedCountry(lead.country)) {
+    errors.country = "We don't currently ship sample kits to this country.";
+  }
   if (!lead.consent) errors.consent = 'Please agree to be contacted about your sample brief.';
   return errors;
 };
@@ -46,6 +50,8 @@ export const isStepComplete = (
     case 4:
       return Boolean(answers.intensity && answers.useCase);
     case 5:
+      // commercialTier is required for new briefs, but optional for legacy sessions
+      // that already progressed past preferences without it.
       return answers.exclusions.length > 0;
     case 6:
       return true;

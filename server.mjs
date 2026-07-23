@@ -501,8 +501,9 @@ const server = http.createServer(async (req, res) => {
       sendJson(res, 200, result);
       return;
     } catch (error) {
+      const statusCode = typeof error?.statusCode === 'number' ? error.statusCode : 500;
       const message = error instanceof Error ? error.message : 'Server error';
-      sendJson(res, 500, { error: message });
+      sendJson(res, statusCode, { error: message });
       return;
     }
   }

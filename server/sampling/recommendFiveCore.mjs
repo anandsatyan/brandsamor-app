@@ -138,8 +138,34 @@ const scorePreference = (profile, answers) => {
     s += 3;
   }
 
+  s += commercialTierBoost(
+    profile.commerciality ?? fragrance.scores?.commerciality,
+    profile.adventure ?? fragrance.scores?.adventure,
+    answers?.commercialTier,
+  );
+
   return Math.max(0, s);
 };
+
+/** Map commercial tier intent onto oil commerciality (1–5) and adventure (1–5). */
+function commercialTierBoost(commerciality, adventure, tier) {
+  const c = Number.isFinite(Number(commerciality)) ? Number(commerciality) : 3;
+  const a = Number.isFinite(Number(adventure)) ? Number(adventure) : 3;
+
+  switch (String(tier ?? '').trim()) {
+    case 'affordable_everyday':
+      return c * 1.6 + (6 - a) * 0.9;
+    case 'accessible_premium':
+      return c * 1.1 + (4 - Math.abs(a - 3)) * 0.6;
+    case 'premium_brand_extension':
+      return a * 1.3 + c * 0.7;
+    case 'luxury_limited_edition':
+      return a * 1.8 + (6 - c) * 0.7;
+    case 'unsure_recommend':
+    default:
+      return c * 0.5;
+  }
+}
 
 const toRecommendation = (item, { stretch = false, exclusionConflicts = [] } = {}) => ({
   fragranceSlug: item.profile.id,

@@ -39,6 +39,15 @@ const STATUS_POINTS = {
   in_progress: 2,
 };
 
+/** Bonus only when answered — missing on older leads does not change their score. */
+const COMMERCIAL_TIER_POINTS = {
+  luxury_limited_edition: 14,
+  premium_brand_extension: 10,
+  accessible_premium: 4,
+  affordable_everyday: 2,
+  unsure_recommend: 0,
+};
+
 const TIER_SCORE_CAP = {
   hot: 100,
   warm: 69,
@@ -252,6 +261,27 @@ export function scoreSamplingLead(doc, options = {}) {
               ? 'Completed curation'
               : 'Still in progress',
     });
+  }
+
+  const commercialTier = String(answers.commercialTier ?? '').trim();
+  if (commercialTier && Object.prototype.hasOwnProperty.call(COMMERCIAL_TIER_POINTS, commercialTier)) {
+    const tierPoints = COMMERCIAL_TIER_POINTS[commercialTier];
+    if (tierPoints > 0) {
+      score += tierPoints;
+      signals.push({
+        key: 'commercialTier',
+        label: 'Product positioning',
+        points: tierPoints,
+        detail:
+          commercialTier === 'luxury_limited_edition'
+            ? 'Luxury / limited-edition product intent'
+            : commercialTier === 'premium_brand_extension'
+              ? 'Premium brand-extension intent'
+              : commercialTier === 'accessible_premium'
+                ? 'Accessible premium product intent'
+                : 'Affordable everyday product intent',
+      });
+    }
   }
 
   let detailPoints = 0;

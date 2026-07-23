@@ -84,6 +84,11 @@ const OPTION_LABELS = {
   'marine-aquatic': 'Marine or aquatic scents',
   spicy: 'Spicy scents',
   none: 'None of these',
+  affordable_everyday: 'Affordable everyday product',
+  accessible_premium: 'Accessible premium product',
+  premium_brand_extension: 'Premium brand extension',
+  luxury_limited_edition: 'Luxury / limited-edition product',
+  unsure_recommend: "I'm not sure — recommend the best route for my brand",
   yes: 'Yes',
   no: 'No',
   US: 'United States',
@@ -126,6 +131,9 @@ const OPTION_LABELS = {
   EG: 'Egypt',
   NG: 'Nigeria',
   KE: 'Kenya',
+  BH: 'Bahrain',
+  OM: 'Oman',
+  TW: 'Taiwan',
   OTHER: 'Other',
 };
 
@@ -254,6 +262,20 @@ const QUESTIONS = [
     test: (d) => text(d.answers?.useCase),
     getValues: single((d) => d.answers?.useCase),
     knownOptions: ['everyday', 'work', 'evening', 'gifting', 'hospitality', 'mixed', 'recommend'],
+  },
+  {
+    key: 'preferences.commercialTier',
+    step: 'preferences',
+    label: 'Product type',
+    test: (d) => text(d.answers?.commercialTier).length > 0,
+    getValues: single((d) => d.answers?.commercialTier),
+    knownOptions: [
+      'affordable_everyday',
+      'accessible_premium',
+      'premium_brand_extension',
+      'luxury_limited_edition',
+      'unsure_recommend',
+    ],
   },
   {
     key: 'preferences.exclusions',
