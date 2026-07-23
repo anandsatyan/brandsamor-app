@@ -14,6 +14,7 @@ import {
   getLeadBySessionId,
   listLeads,
 } from './leadsRepo.mjs';
+import { getFunnelDropoffStats } from './funnelStats.mjs';
 
 export async function handleAdminLogin(req, res) {
   if (req.method !== 'POST') {
@@ -72,6 +73,22 @@ export async function handleAdminStats(req, res) {
 
   const stats = await getAdminDashboardStats();
   sendJson(res, 200, { stats });
+}
+
+export async function handleAdminFunnel(req, res) {
+  if (req.method !== 'GET') {
+    sendJson(res, 405, { error: 'Method not allowed' });
+    return;
+  }
+  if (!isAdminAuthenticated(req)) {
+    sendJson(res, 401, { error: 'Unauthorized' });
+    return;
+  }
+
+  const url = new URL(req.url || '/', 'http://localhost');
+  const limit = Number(url.searchParams.get('limit') || 2000);
+  const funnel = await getFunnelDropoffStats({ limit });
+  sendJson(res, 200, { funnel });
 }
 
 export async function handleAdminLeadsList(req, res) {

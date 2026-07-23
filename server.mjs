@@ -24,7 +24,9 @@ import {
   handleAdminOrdersList,
   handleAdminSession,
   handleAdminStats,
+  handleAdminFunnel,
 } from './server/admin/handlers.mjs';
+import { processDueResumeBriefEmails } from './server/sampling/resumeBriefEmail.mjs';
 import {
   handleScentStudioCreate,
   handleScentStudioGet,
@@ -430,6 +432,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (url.pathname === '/api/admin/funnel' && req.method === 'GET') {
+    await handleAdminFunnel(req, res);
+    return;
+  }
+
   if (url.pathname === '/api/admin/leads' && req.method === 'GET') {
     await handleAdminLeadsList(req, res);
     return;
@@ -596,4 +603,14 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(port, '0.0.0.0', () => {
   console.log(`Brandsamor server listening on http://0.0.0.0:${port}`);
+
+  // Process due Save+exit resume emails when sending is enabled (no backfill of old leads).
+  const tickResumeEmails = () => {
+    void processDueResumeBriefEmails({ limit: 25 }).catch((error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn('[resume-brief] processor error:', message);
+    });
+  };
+  tickResumeEmails();
+  setInterval(tickResumeEmails, 5 * 60 * 1000).unref?.();
 });

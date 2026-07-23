@@ -376,6 +376,7 @@ export const SamplingExperience = () => {
         currentStep,
       });
       persist(state);
+      trackSamplingEvent('save_exit', { step: currentStep });
     }
 
     goToStep(STEP_WELCOME);
@@ -891,8 +892,7 @@ export const SamplingExperience = () => {
         Your five fragrance directions are ready.
       </h1>
       <p className="mt-3 text-base leading-relaxed text-[#725F52]">
-        We selected a focused mix based on your brand and scent preferences. These five are
-        designed to help you compare distinct directions without overwhelming you.
+        Kit curated from your brief — complete checkout to lock these five.
       </p>
 
       <div className="results-cart mt-8">
@@ -946,23 +946,56 @@ export const SamplingExperience = () => {
         </div>
       </div>
 
+      <section className="mt-6 rounded-[2px] border border-[#EADFD3] bg-[#FFFDFC] p-5">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-[#2B1809]">
+          What&apos;s included
+        </h2>
+        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-[#725F52]">
+          <li>Five fragrance samples matched to your brief</li>
+          <li>Tester strips and a short evaluation guide</li>
+          <li>Standard shipping included</li>
+          <li>Your $100 kit fee is credited toward your first production order</li>
+        </ul>
+      </section>
+
+      <section className="mt-4 rounded-[2px] border border-[#EADFD3] bg-[#faf7f2] p-5">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-[#2B1809]">
+          What happens after the kit
+        </h2>
+        <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-[#725F52]">
+          <li>We ship your five directions so you can compare them on skin.</li>
+          <li>You tell us which direction wins (or what to tweak).</li>
+          <li>We move into packaging and production when you&apos;re ready.</li>
+        </ol>
+        <p className="mt-3 text-sm leading-relaxed text-[#725F52]">
+          Founders use this kit to validate scent before committing to a batch — not as a
+          catalogue browse.
+        </p>
+      </section>
+
+      <div className="mt-8">
+        <StickyActionBar>
+          <PrimaryButton onClick={() => goToStep(STEP_CHECKOUT)}>
+            Lock in these five — continue to checkout
+          </PrimaryButton>
+        </StickyActionBar>
+        <p className="mt-3 text-center text-xs text-[#725F52]">
+          Shipping included · $100 credited toward production
+        </p>
+      </div>
+
       <button
         type="button"
         onClick={() => setShowLogic(!showLogic)}
-        className="mt-6 text-sm font-semibold text-[#FF600A]"
+        className="mt-6 text-sm text-[#725F52] underline-offset-2 hover:text-[#2B1809] hover:underline"
       >
         {showLogic ? 'Hide selection logic' : 'View selection logic'}
       </button>
       {showLogic && selectionSummary && (
-        <p className="mt-2 rounded-xl bg-[#f3efe3] p-4 text-sm leading-relaxed text-[#725F52]">
+        <p className="mt-2 rounded-[2px] bg-[#f3efe3] p-4 text-sm leading-relaxed text-[#725F52]">
           {selectionSummary}
         </p>
       )}
-      <div className="mt-8">
-        <StickyActionBar>
-          <PrimaryButton onClick={() => goToStep(STEP_CHECKOUT)}>Continue to checkout</PrimaryButton>
-        </StickyActionBar>
-      </div>
     </ScreenTransition>
   );
 

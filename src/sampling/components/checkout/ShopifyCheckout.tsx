@@ -100,6 +100,10 @@ const OrderSummary = ({
 }) => (
   <aside className="checkout-summary">
     <div className="checkout-summary-inner space-y-5">
+      <p className="rounded-[5px] border border-[#e8e0d8] bg-[#faf7f2] px-3 py-2 text-xs leading-relaxed text-[#725f52]">
+        Kit curated from your brief — complete checkout to lock these five.
+      </p>
+
       <div className="flex gap-4">
         <div className="flex h-16 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#e8e0d8] bg-white p-1">
           <img
@@ -128,6 +132,20 @@ const OrderSummary = ({
           ))}
         </ul>
       )}
+
+      <div className="space-y-2 border-t border-[#e8e0d8] pt-4 text-xs leading-relaxed text-[#725f52]">
+        <p className="font-semibold text-[#2b1809]">What&apos;s included</p>
+        <ul className="list-disc space-y-1 pl-4">
+          <li>Five curated fragrance samples</li>
+          <li>Tester strips + evaluation guide</li>
+          <li>Standard shipping</li>
+          <li>$100 credited toward your first production order</li>
+        </ul>
+        <p className="pt-1">
+          After the kit: compare on skin → choose a direction → we move into packaging and
+          production when you&apos;re ready.
+        </p>
+      </div>
 
       {onRestart && (
         <p className="border-t border-[#e8e0d8] pt-3 text-xs leading-relaxed text-[#725f52]">
@@ -266,7 +284,7 @@ const CheckoutPaymentForm = ({
       )}
 
       <button type="submit" disabled={!stripe || !elements || submitting} className="checkout-pay-btn">
-        {submitting ? 'Processing secure payment…' : 'Pay $100.00 now'}
+        {submitting ? 'Processing secure payment…' : 'Lock in these five — pay $100.00'}
       </button>
     </form>
   );

@@ -25,6 +25,7 @@ import {
   handleAdminOrdersList,
   handleAdminSession,
   handleAdminStats,
+  handleAdminFunnel,
 } from '../server/admin/handlers.mjs';
 import {
   handleScentStudioCreate,
@@ -243,6 +244,11 @@ export const samplingApiPlugin = () => ({
 
         if (pathname === '/api/admin/stats' && req.method === 'GET') {
           await handleAdminStats(req, res);
+          return;
+        }
+
+        if (pathname === '/api/admin/funnel' && req.method === 'GET') {
+          await handleAdminFunnel(req, res);
           return;
         }
 

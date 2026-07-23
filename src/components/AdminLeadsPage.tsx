@@ -134,10 +134,41 @@ const SORT_OPTIONS = [
   { value: 'heat', label: 'Hottest first' },
 ] as const;
 
+type FunnelStats = {
+  totalSessions: number;
+  steps: Array<{
+    key: string;
+    label: string;
+    reached: number;
+    completed: number;
+    dropped: number;
+    dropOffRate: number;
+    conversionFromPrev: number;
+  }>;
+  questions: Array<{
+    key: string;
+    step: string;
+    label: string;
+    optional?: boolean;
+    reachedStep: number;
+    answered: number;
+    missing: number;
+    missingRate: number;
+  }>;
+  saveExitByStep: Record<string, number>;
+  insights?: {
+    worstStep?: { label: string; dropOffRate: number; dropped: number } | null;
+    worstQuestion?: { label: string; step: string; missingRate: number } | null;
+    suggestion?: string;
+  };
+};
+
 export const AdminLeadsPage = () => {
   const navigate = useNavigate();
   const { sessionId } = useParams();
   const [stats, setStats] = useState<AdminStats | null>(null);
+  const [funnel, setFunnel] = useState<FunnelStats | null>(null);
+  const [funnelOpen, setFunnelOpen] = useState(false);
   const [leads, setLeads] = useState<AdminLead[]>([]);
   const [selected, setSelected] = useState<AdminLead | null>(null);
   const [statusFilter, setStatusFilter] = useState('all');
@@ -165,21 +196,24 @@ export const AdminLeadsPage = () => {
         if (sortMode) params.set('sort', sortMode);
         if (debouncedQuery) params.set('q', debouncedQuery);
 
-        const [statsRes, listRes] = await Promise.all([
+        const [statsRes, listRes, funnelRes] = await Promise.all([
           fetch('/api/admin/stats', { credentials: 'include' }),
           fetch(`/api/admin/leads?${params.toString()}`, { credentials: 'include' }),
+          fetch('/api/admin/funnel', { credentials: 'include' }),
         ]);
 
-        if (statsRes.status === 401 || listRes.status === 401) {
+        if (statsRes.status === 401 || listRes.status === 401 || funnelRes.status === 401) {
           navigate('/login?next=/admin', { replace: true });
           return;
         }
 
         const statsData = await statsRes.json();
         const listData = await listRes.json();
+        const funnelData = await funnelRes.json().catch(() => ({}));
         if (!cancelled) {
           setStats(statsData.stats ?? null);
           setLeads(listData.leads ?? []);
+          setFunnel(funnelData.funnel ?? null);
         }
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : 'Failed to load leads');
@@ -361,6 +395,96 @@ export const AdminLeadsPage = () => {
           </div>
 
           {error && <p className="px-4 py-3 text-sm text-[#B42318]">{error}</p>}
+
+          {funnel && (
+            <div className="border-b border-border/50 px-3 py-3 sm:px-4">
+              <button
+                type="button"
+                onClick={() => setFunnelOpen((v) => !v)}
+                className="flex w-full items-center justify-between gap-3 text-left"
+              >
+                <div>
+                  <p className="text-sm font-semibold text-heading">Funnel drop-off</p>
+                  <p className="mt-0.5 type-caption text-body">
+                    {funnel.insights?.suggestion ||
+                      `Based on ${funnel.totalSessions} sampling sessions`}
+                  </p>
+                </div>
+                {funnelOpen ? (
+                  <ChevronUp className="h-4 w-4 shrink-0 text-body" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 shrink-0 text-body" />
+                )}
+              </button>
+              {funnelOpen && (
+                <div className="mt-3 space-y-4">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[28rem] text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-border/60 text-body">
+                          <th className="py-1.5 pr-2 font-semibold">Step</th>
+                          <th className="py-1.5 pr-2 font-semibold">Reached</th>
+                          <th className="py-1.5 pr-2 font-semibold">Dropped</th>
+                          <th className="py-1.5 font-semibold">Drop %</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {funnel.steps.map((step) => (
+                          <tr key={step.key} className="border-b border-border/40 text-heading">
+                            <td className="py-1.5 pr-2">{step.label}</td>
+                            <td className="py-1.5 pr-2 tabular-nums">{step.reached}</td>
+                            <td className="py-1.5 pr-2 tabular-nums">{step.dropped}</td>
+                            <td className="py-1.5 tabular-nums">
+                              {Math.round(step.dropOffRate * 100)}%
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold text-heading">Questions most often unanswered</p>
+                    <ul className="mt-2 space-y-1.5">
+                      {funnel.questions
+                        .filter((q) => !q.optional)
+                        .slice(0, 6)
+                        .map((q) => (
+                          <li
+                            key={q.key}
+                            className="flex items-baseline justify-between gap-3 text-xs text-body"
+                          >
+                            <span>
+                              <span className="font-medium text-heading">{q.label}</span>
+                              <span className="text-body/70"> · {q.step}</span>
+                            </span>
+                            <span className="shrink-0 tabular-nums text-heading">
+                              {Math.round(q.missingRate * 100)}% missing
+                            </span>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+
+                  {Object.keys(funnel.saveExitByStep || {}).length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold text-heading">Save + exit by step</p>
+                      <ul className="mt-2 flex flex-wrap gap-2">
+                        {Object.entries(funnel.saveExitByStep).map(([step, count]) => (
+                          <li
+                            key={step}
+                            className="rounded-[2px] border border-border/70 bg-white px-2 py-1 text-[11px] text-heading"
+                          >
+                            {step}: {count}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           <ul className="max-h-[70vh] divide-y divide-border/50 overflow-y-auto">
             {leads.map((lead) => {

@@ -1,0 +1,262 @@
+/**
+ * Sampling funnel drop-off stats from session stepHistory + answers.
+ * Steps mirror the curated sampling wizard; questions are fields within those steps.
+ */
+
+const FUNNEL_STEPS = [
+  { key: 'contact', label: 'Contact details', stepIndex: 1 },
+  { key: 'brand', label: 'Brand stage', stepIndex: 2 },
+  { key: 'scent', label: 'Scent direction', stepIndex: 3 },
+  { key: 'experience', label: 'Intensity & use', stepIndex: 4 },
+  { key: 'preferences', label: 'Preferences', stepIndex: 5 },
+  { key: 'review', label: 'Review brief', stepIndex: 6 },
+  { key: 'curation', label: 'Curation', stepIndex: 7 },
+  { key: 'results', label: 'Results (kit)', stepIndex: 8 },
+  { key: 'checkout', label: 'Checkout', stepIndex: 10 },
+  { key: 'paid', label: 'Paid', stepIndex: 11 },
+];
+
+const HISTORY_ALIASES = {
+  contact: 'contact',
+  brand: 'brand',
+  scent: 'scent',
+  experience: 'experience',
+  preferences: 'preferences',
+  review: 'review',
+  curation: 'curation',
+  results: 'results',
+  checkout: 'checkout',
+  checkout_started: 'checkout',
+  paid: 'paid',
+};
+
+const QUESTIONS = [
+  { key: 'contact.fullName', step: 'contact', label: 'Full name', test: (d) => text(d.lead?.fullName) },
+  { key: 'contact.email', step: 'contact', label: 'Email', test: (d) => text(d.lead?.email)?.includes('@') },
+  { key: 'contact.phone', step: 'contact', label: 'Phone', test: (d) => text(d.lead?.phone).length >= 7 },
+  {
+    key: 'contact.brandName',
+    step: 'contact',
+    label: 'Brand name (optional)',
+    test: (d) => text(d.lead?.brandName).length > 0,
+    optional: true,
+  },
+  { key: 'contact.country', step: 'contact', label: 'Country', test: (d) => text(d.lead?.country).length > 0 },
+  { key: 'contact.consent', step: 'contact', label: 'Consent', test: (d) => Boolean(d.lead?.consent) },
+  { key: 'brand.brandStage', step: 'brand', label: 'Brand stage', test: (d) => text(d.answers?.brandStage) },
+  {
+    key: 'brand.businessType',
+    step: 'brand',
+    label: 'Business type',
+    test: (d) => text(d.answers?.businessType),
+  },
+  {
+    key: 'scent.scentExpression',
+    step: 'scent',
+    label: 'Scent expression',
+    test: (d) => text(d.answers?.scentExpression),
+  },
+  {
+    key: 'scent.brandPersonalities',
+    step: 'scent',
+    label: 'Brand personalities',
+    test: (d) => Array.isArray(d.answers?.brandPersonalities) && d.answers.brandPersonalities.length > 0,
+  },
+  {
+    key: 'scent.scentFamilies',
+    step: 'scent',
+    label: 'Scent families',
+    test: (d) => Array.isArray(d.answers?.scentFamilies) && d.answers.scentFamilies.length > 0,
+  },
+  { key: 'experience.intensity', step: 'experience', label: 'Intensity', test: (d) => text(d.answers?.intensity) },
+  { key: 'experience.useCase', step: 'experience', label: 'Use case', test: (d) => text(d.answers?.useCase) },
+  {
+    key: 'preferences.exclusions',
+    step: 'preferences',
+    label: 'Exclusions',
+    test: (d) => Array.isArray(d.answers?.exclusions) && d.answers.exclusions.length > 0,
+  },
+  {
+    key: 'preferences.likedFragrances',
+    step: 'preferences',
+    label: 'Liked fragrances (optional)',
+    test: (d) => text(d.answers?.likedFragrances).length > 0,
+    optional: true,
+  },
+  {
+    key: 'preferences.additionalNotes',
+    step: 'preferences',
+    label: 'Additional notes (optional)',
+    test: (d) => text(d.answers?.additionalNotes).length > 0,
+    optional: true,
+  },
+];
+
+function text(value) {
+  return String(value ?? '').trim();
+}
+
+function stepOrderIndex(key) {
+  return FUNNEL_STEPS.findIndex((s) => s.key === key);
+}
+
+function progressIndex(doc) {
+  let max = -1;
+
+  if (text(doc.lead?.email).includes('@')) {
+    max = Math.max(max, stepOrderIndex('contact'));
+  }
+
+  for (const entry of doc.stepHistory || []) {
+    const raw = String(entry?.step ?? '').trim();
+    const mapped = HISTORY_ALIASES[raw];
+    if (mapped) max = Math.max(max, stepOrderIndex(mapped));
+  }
+
+  if (typeof doc.currentStep === 'number') {
+    for (const meta of FUNNEL_STEPS) {
+      if (doc.currentStep >= meta.stepIndex) {
+        max = Math.max(max, stepOrderIndex(meta.key));
+      }
+    }
+  }
+
+  if (doc.status === 'curated') max = Math.max(max, stepOrderIndex('results'));
+  if (doc.status === 'checkout_started') max = Math.max(max, stepOrderIndex('checkout'));
+  if (doc.status === 'paid' || doc.status === 'canceled' || doc.order?.sampleOrderNumber != null) {
+    max = Math.max(max, stepOrderIndex('paid'));
+  }
+
+  return max;
+}
+
+function reachedStep(doc, stepKey) {
+  return progressIndex(doc) >= stepOrderIndex(stepKey);
+}
+
+function completedStep(doc, stepKey) {
+  const idx = stepOrderIndex(stepKey);
+  if (idx < 0) return false;
+  if (stepKey === 'paid') return progressIndex(doc) >= idx;
+  // Completed means they progressed past this step.
+  return progressIndex(doc) > idx;
+}
+
+function saveExitAtStep(doc) {
+  const exits = (doc.stepHistory || []).filter((e) => e?.step === 'save_exit');
+  if (exits.length === 0) return null;
+  const latest = exits[exits.length - 1];
+  if (typeof latest.atStep === 'number') {
+    const meta = FUNNEL_STEPS.find((s) => s.stepIndex === latest.atStep);
+    return meta?.key ?? `step_${latest.atStep}`;
+  }
+  return 'unknown';
+}
+
+export function computeFunnelDropoff(docs) {
+  const rows = Array.isArray(docs) ? docs : [];
+  const steps = FUNNEL_STEPS.map((meta, index) => {
+    const reached = rows.filter((d) => reachedStep(d, meta.key)).length;
+    const completed = rows.filter((d) => completedStep(d, meta.key)).length;
+    const dropped = Math.max(0, reached - completed);
+    const dropOffRate = reached > 0 ? dropped / reached : 0;
+    const prevReached =
+      index === 0 ? rows.length : rows.filter((d) => reachedStep(d, FUNNEL_STEPS[index - 1].key)).length;
+    const conversionFromPrev = prevReached > 0 ? reached / prevReached : 0;
+    return {
+      key: meta.key,
+      label: meta.label,
+      reached,
+      completed,
+      dropped,
+      dropOffRate,
+      conversionFromPrev,
+    };
+  });
+
+  const saveExitByStep = {};
+  for (const doc of rows) {
+    const key = saveExitAtStep(doc);
+    if (!key) continue;
+    saveExitByStep[key] = (saveExitByStep[key] || 0) + 1;
+  }
+
+  const questions = QUESTIONS.map((q) => {
+    const cohort = rows.filter((d) => reachedStep(d, q.step));
+    const answered = cohort.filter((d) => q.test(d)).length;
+    const missing = Math.max(0, cohort.length - answered);
+    const missingRate = cohort.length > 0 ? missing / cohort.length : 0;
+    return {
+      key: q.key,
+      step: q.step,
+      label: q.label,
+      optional: Boolean(q.optional),
+      reachedStep: cohort.length,
+      answered,
+      missing,
+      missingRate,
+    };
+  }).sort((a, b) => {
+    if (a.optional !== b.optional) return a.optional ? 1 : -1;
+    return b.missingRate - a.missingRate || b.missing - a.missing;
+  });
+
+  const worstStep =
+    [...steps]
+      .filter((s) => s.reached >= 3 && s.key !== 'paid')
+      .sort((a, b) => b.dropOffRate - a.dropOffRate || b.dropped - a.dropped)[0] || null;
+
+  const worstQuestion = questions.find((q) => !q.optional && q.reachedStep >= 3) || null;
+
+  return {
+    totalSessions: rows.length,
+    steps,
+    questions,
+    saveExitByStep,
+    insights: {
+      worstStep,
+      worstQuestion,
+      suggestion: buildSuggestion(worstStep, worstQuestion),
+    },
+  };
+}
+
+function buildSuggestion(worstStep, worstQuestion) {
+  if (worstStep && worstStep.dropOffRate >= 0.35) {
+    return `Highest step drop-off is “${worstStep.label}” (${Math.round(worstStep.dropOffRate * 100)}% of people who reached it). Shorten copy, clarify the ask, or split the step.`;
+  }
+  if (worstQuestion && worstQuestion.missingRate >= 0.25) {
+    return `Among people on “${worstQuestion.step}”, “${worstQuestion.label}” is unanswered most often (${Math.round(worstQuestion.missingRate * 100)}% missing). Soften, make optional, or remove it.`;
+  }
+  if (worstStep) {
+    return `Watch “${worstStep.label}” — largest relative drop among steps with enough traffic.`;
+  }
+  return 'Not enough traffic yet to recommend cutting a question.';
+}
+
+export async function getFunnelDropoffStats({ limit = 2000 } = {}) {
+  const { getMongoDb } = await import('../db/mongo.mjs');
+  const db = await getMongoDb();
+  const docs = await db
+    .collection('samplingSessions')
+    .find(
+      {},
+      {
+        projection: {
+          status: 1,
+          currentStep: 1,
+          lastCompletedStep: 1,
+          stepHistory: 1,
+          lead: 1,
+          answers: 1,
+          order: 1,
+          createdAt: 1,
+        },
+      },
+    )
+    .sort({ createdAt: -1 })
+    .limit(Math.min(Math.max(limit, 1), 5000))
+    .toArray();
+
+  return computeFunnelDropoff(docs);
+}

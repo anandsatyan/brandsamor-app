@@ -8,6 +8,7 @@ import {
 import { notifySampleOrderPaid } from './orderNotificationEmail.mjs';
 import { sendCustomerOrderConfirmation } from './customerOrderConfirmationEmail.mjs';
 import { maybeSendExploratoryCallInviteOnce } from './exploratoryCallInviteEmail.mjs';
+import { scheduleResumeBriefEmail } from './resumeBriefEmail.mjs';
 
 let indexesEnsured = false;
 
@@ -198,27 +199,56 @@ export async function upsertSamplingSession({
 
   const now = new Date();
   const normalizedLead = normalizeLead(lead);
-  const stepEntry = { step, completedAt: now };
+  const isSaveExit = step === 'save_exit';
+  const stepEntry = isSaveExit
+    ? {
+        step,
+        completedAt: now,
+        atStep: typeof currentStep === 'number' ? currentStep : null,
+      }
+    : { step, completedAt: now };
   const targetSessionId = await resolveSessionIdForLead(db, {
     sessionId,
     email: normalizedLead.email,
   });
   const userPatch = userId ? { userId: String(userId) } : {};
 
+  const openLeadSet = isSaveExit
+    ? {
+        lead: normalizedLead,
+        answers: answers ?? {},
+        currentStep: currentStep ?? 1,
+        updatedAt: now,
+        ...userPatch,
+      }
+    : {
+        lead: normalizedLead,
+        answers: answers ?? {},
+        currentStep: currentStep ?? 1,
+        lastCompletedStep: step,
+        status: 'in_progress',
+        updatedAt: now,
+        ...userPatch,
+      };
+
+  async function afterUpsert(resolvedSessionId) {
+    if (isSaveExit) {
+      // Future save+exits only — never backfills older leads.
+      void scheduleResumeBriefEmail({
+        sessionId: resolvedSessionId,
+        lead: normalizedLead,
+        atStep: currentStep,
+      });
+    }
+    return finishLeadUpsert({ sessionId: resolvedSessionId, lead: normalizedLead });
+  }
+
   if (targetSessionId) {
     // Never downgrade a paid/order session (guards races with markPaid / webhooks).
     const updateResult = await db.collection('samplingSessions').updateOne(
       { sessionId: targetSessionId, ...OPEN_SESSION_FILTER },
       {
-        $set: {
-          lead: normalizedLead,
-          answers: answers ?? {},
-          currentStep: currentStep ?? 1,
-          lastCompletedStep: step,
-          status: 'in_progress',
-          updatedAt: now,
-          ...userPatch,
-        },
+        $set: openLeadSet,
         $push: { stepHistory: stepEntry },
       },
     );
@@ -231,7 +261,7 @@ export async function upsertSamplingSession({
         lead: normalizedLead,
         answers: answers ?? {},
         currentStep: currentStep ?? 1,
-        lastCompletedStep: step,
+        lastCompletedStep: isSaveExit ? null : step,
         stepHistory: [stepEntry],
         status: 'in_progress',
         recommendations: [],
@@ -241,11 +271,11 @@ export async function upsertSamplingSession({
         ...userPatch,
       });
       await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
-      return finishLeadUpsert({ sessionId: newSessionId, lead: normalizedLead });
+      return afterUpsert(newSessionId);
     }
 
     await removeOpenDuplicateSessions(db, normalizedLead.email, targetSessionId);
-    return finishLeadUpsert({ sessionId: targetSessionId, lead: normalizedLead });
+    return afterUpsert(targetSessionId);
   }
 
   // Always mint a fresh id when opening a new lead (never reuse a paid sessionId).
@@ -255,7 +285,7 @@ export async function upsertSamplingSession({
     lead: normalizedLead,
     answers: answers ?? {},
     currentStep: currentStep ?? 1,
-    lastCompletedStep: step,
+    lastCompletedStep: isSaveExit ? null : step,
     stepHistory: [stepEntry],
     status: 'in_progress',
     recommendations: [],
@@ -265,7 +295,7 @@ export async function upsertSamplingSession({
     ...userPatch,
   });
   await removeOpenDuplicateSessions(db, normalizedLead.email, newSessionId);
-  return finishLeadUpsert({ sessionId: newSessionId, lead: normalizedLead });
+  return afterUpsert(newSessionId);
 }
 
 export async function finalizeCuration({ sessionId, lead, answers, recommendations, selectionSummary }) {
