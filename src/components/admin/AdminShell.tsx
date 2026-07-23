@@ -15,7 +15,7 @@ type AdminShellProps = {
   title: string;
   description: string;
   canonicalUrl: string;
-  activeTab: 'leads' | 'orders';
+  activeTab: 'leads' | 'orders' | 'funnel';
   children: ReactNode;
   loading?: boolean;
   stats?: AdminStats | null;
@@ -50,7 +50,12 @@ export const AdminShell = ({
           if (!cancelled) {
             setAuthenticated(false);
             setAuthChecked(true);
-            const next = activeTab === 'orders' ? '/admin/orders' : '/admin';
+            const next =
+              activeTab === 'orders'
+                ? '/admin/orders'
+                : activeTab === 'funnel'
+                  ? '/admin/funnel'
+                  : '/admin';
             navigate(`/login?next=${encodeURIComponent(next)}`, { replace: true });
           }
           return;
@@ -126,8 +131,8 @@ export const AdminShell = ({
             <p className="type-eyebrow">Brandsamor admin</p>
             <h1 className="mt-1 type-h3">Sampling CRM</h1>
             <p className="mt-1 max-w-2xl type-body-sm text-body">
-              Track open sampling journeys in Leads and completed kits in Orders. Returning buyers can
-              appear in both.
+              Track open sampling journeys in Leads, completed kits in Orders, and drop-off in
+              Funnel.
             </p>
           </div>
         </div>
@@ -189,6 +194,9 @@ export const AdminShell = ({
           </TabLink>
           <TabLink to="/admin/orders" active={activeTab === 'orders'}>
             Orders
+          </TabLink>
+          <TabLink to="/admin/funnel" active={activeTab === 'funnel'}>
+            Funnel
           </TabLink>
         </nav>
 

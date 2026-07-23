@@ -64,6 +64,7 @@ const ThankYouPreviewPage = lazyNamed(
 );
 const AdminOrdersPage = lazyNamed(() => import('./components/AdminOrdersPage'), 'AdminOrdersPage');
 const AdminLeadsPage = lazyNamed(() => import('./components/AdminLeadsPage'), 'AdminLeadsPage');
+const AdminFunnelPage = lazyNamed(() => import('./components/AdminFunnelPage'), 'AdminFunnelPage');
 const ScheduleCallPage = lazyNamed(() => import('./components/ScheduleCallPage'), 'ScheduleCallPage');
 
 const commercialPageElements = Object.fromEntries(
@@ -113,6 +114,7 @@ export const AppRoutes = () => (
         <Route path="/admin/leads/:sessionId" element={<AdminLeadsPage />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route path="/admin/orders/:orderNumber" element={<AdminOrdersPage />} />
+        <Route path="/admin/funnel" element={<AdminFunnelPage />} />
         <Route path="/knowledge-base" element={<KnowledgeBaseHubPage />} />
         <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticlePage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
