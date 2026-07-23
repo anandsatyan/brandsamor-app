@@ -74,4 +74,16 @@ test('funnel dropoff highlights stuck checkout vs contact', () => {
   assert.equal(checkout.reached, 2);
   assert.equal(checkout.completed, 1);
   assert.ok(funnel.questions.some((q) => q.key === 'brand.brandStage'));
+
+  const brandStage = funnel.questions.find((q) => q.key === 'brand.brandStage');
+  assert.ok(brandStage?.topOption);
+  assert.equal(brandStage.topOption.value, 'first-launch');
+  assert.equal(brandStage.topOption.count, 1);
+  assert.equal(brandStage.options.find((o) => o.value === 'reworking')?.count, 1);
+  assert.equal(brandStage.options.find((o) => o.value === 'exploring')?.count, 0);
+
+  const families = funnel.questions.find((q) => q.key === 'scent.scentFamilies');
+  assert.ok(families?.topOption);
+  assert.equal(families.options.find((o) => o.value === 'woody')?.count, 1);
+  assert.equal(families.options.find((o) => o.value === 'floral')?.count, 1);
 });

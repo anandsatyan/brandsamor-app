@@ -22,6 +22,17 @@ type FunnelStats = {
     answered: number;
     missing: number;
     missingRate: number;
+    options?: Array<{
+      value: string;
+      label: string;
+      count: number;
+    }>;
+    topOption?: {
+      value: string;
+      label: string;
+      count: number;
+    } | null;
+    totalSelections?: number;
   }>;
   saveExitByStep: Record<string, number>;
   insights?: {
@@ -89,6 +100,9 @@ export const AdminFunnelPage = () => {
 
   const requiredQuestions = (funnel?.questions ?? []).filter((q) => !q.optional);
   const optionalQuestions = (funnel?.questions ?? []).filter((q) => q.optional);
+  const choiceQuestions = (funnel?.questions ?? []).filter(
+    (q) => Array.isArray(q.options) && q.options.length > 0,
+  );
   const saveExitEntries = Object.entries(funnel?.saveExitByStep ?? {}).sort(
     (a, b) => b[1] - a[1],
   );
@@ -222,6 +236,78 @@ export const AdminFunnelPage = () => {
                       </li>
                     ))}
                   </ul>
+                </div>
+              )}
+            </section>
+
+            <section className="rounded-[2px] border border-border/60 bg-white p-5 sm:p-6 lg:col-span-2">
+              <h3 className="type-h5">Most popular answers</h3>
+              <p className="mt-1 type-caption text-body">
+                For each choice question, how often each option was selected among people who
+                reached that step. Multi-select questions count each option once per session.
+              </p>
+              {choiceQuestions.length === 0 ? (
+                <p className="mt-4 text-sm text-body">No choice answers recorded yet.</p>
+              ) : (
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  {choiceQuestions.map((q) => {
+                    const maxCount = Math.max(...(q.options ?? []).map((o) => o.count), 0);
+                    return (
+                      <div
+                        key={q.key}
+                        className="rounded-[2px] border border-border/50 bg-surface px-4 py-3"
+                      >
+                        <div className="flex flex-wrap items-baseline justify-between gap-2">
+                          <div>
+                            <p className="font-medium text-heading">{q.label}</p>
+                            <p className="type-caption text-body">
+                              {q.step} · {q.answered}/{q.reachedStep} answered
+                            </p>
+                          </div>
+                          {q.topOption && (
+                            <p className="text-sm text-heading">
+                              <span className="text-body">Top: </span>
+                              <span className="font-semibold">{q.topOption.label}</span>
+                              <span className="ml-1 tabular-nums text-body">
+                                ({q.topOption.count})
+                              </span>
+                            </p>
+                          )}
+                        </div>
+                        <ul className="mt-3 space-y-1.5">
+                          {(q.options ?? [])
+                            .filter((o) => o.count > 0 || (q.options?.length ?? 0) <= 12)
+                            .map((option) => {
+                              const width =
+                                maxCount > 0 ? Math.round((option.count / maxCount) * 100) : 0;
+                              const isTop = q.topOption?.value === option.value && option.count > 0;
+                              return (
+                                <li key={option.value} className="text-sm">
+                                  <div className="flex items-baseline justify-between gap-3">
+                                    <span
+                                      className={
+                                        isTop ? 'font-semibold text-heading' : 'text-heading'
+                                      }
+                                    >
+                                      {option.label}
+                                    </span>
+                                    <span className="shrink-0 tabular-nums text-body">
+                                      {option.count}
+                                    </span>
+                                  </div>
+                                  <div className="mt-1 h-1 overflow-hidden rounded-[1px] bg-border/40">
+                                    <div
+                                      className={`h-full ${isTop ? 'bg-heading' : 'bg-heading/40'}`}
+                                      style={{ width: `${width}%` }}
+                                    />
+                                  </div>
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </section>
