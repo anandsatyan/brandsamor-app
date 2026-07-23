@@ -157,6 +157,7 @@ export const SamplingExperience = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [contactErrors, setContactErrors] = useState<Record<string, string>>({});
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showWelcomeSignIn, setShowWelcomeSignIn] = useState(false);
   const [showLogic, setShowLogic] = useState(false);
   const [experienceSubStep, setExperienceSubStep] = useState(0);
   const [recommendedFragrances, setRecommendedFragrances] = useState<PublicFragrance[]>([]);
@@ -430,12 +431,30 @@ export const SamplingExperience = () => {
         Tell us about your brand and the kind of fragrance experience you want to create.
         Brandsamor will use your brief to curate exactly five fragrance samples for you.
       </p>
-      <div className="mt-10 flex flex-col items-center gap-4">
+      <div className="mt-10 flex w-full max-w-md flex-col items-center gap-4">
         {hasCheckoutReady ? (
           <>
             <PrimaryButton onClick={resumeBrief}>Continue to checkout</PrimaryButton>
             <TextLinkButton onClick={() => setShowResetConfirm(true)}>
               Start a new curated sampling
+            </TextLinkButton>
+          </>
+        ) : showWelcomeSignIn ? (
+          <>
+            <div className="w-full text-left">
+              <SignInPanel
+                nextPath="/curated-sampling"
+                compact
+                title={authenticated ? 'Brief synced to your account' : 'Sign in to resume on any device'}
+              />
+            </div>
+            <TextLinkButton
+              onClick={() => {
+                setShowWelcomeSignIn(false);
+                startNew();
+              }}
+            >
+              Start afresh
             </TextLinkButton>
           </>
         ) : (
@@ -465,15 +484,16 @@ export const SamplingExperience = () => {
                 Resume saved brief
               </TextLinkButton>
             )}
+            <button
+              type="button"
+              onClick={() => setShowWelcomeSignIn(true)}
+              className="max-w-md text-balance text-sm font-medium leading-relaxed text-[#725F52] underline-offset-2 hover:text-[#2B1809] hover:underline"
+            >
+              Sign in if you&apos;ve already started this process, or if you want to resume a previous
+              curated sampling process.
+            </button>
           </>
         )}
-      </div>
-      <div className="mx-auto mt-8 w-full max-w-md text-left">
-        <SignInPanel
-          nextPath="/curated-sampling"
-          compact
-          title={authenticated ? 'Brief synced to your account' : 'Sign in to resume on any device'}
-        />
       </div>
       <div className="mt-10 flex justify-center">
         <FiveBottleSampleSet size="sm" />
