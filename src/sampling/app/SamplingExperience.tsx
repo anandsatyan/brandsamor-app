@@ -935,8 +935,16 @@ export const SamplingExperience = () => {
             }
             return (
               <div key={rec.fragranceId} className="flex gap-4 p-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-[#e8e0d8] bg-[#faf7f2] text-xs font-semibold text-[#2b1809]">
-                  No. {fragrance.number}
+                <div
+                  className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-[2px] border border-[#e8e0d8] bg-[#faf7f2] text-[#2b1809]"
+                  aria-label={`Fragrance number ${fragrance.number}`}
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#725F52]">
+                    No.
+                  </span>
+                  <span className="font-serif text-phi-xl leading-none tabular-nums font-semibold">
+                    {fragrance.number}
+                  </span>
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold text-[#2b1809]">{fragrance.name}</p>
