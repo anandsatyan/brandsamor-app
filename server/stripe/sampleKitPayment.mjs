@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import { markPaid, recordPaymentIntent, attachCheckoutDetails } from '../sampling/repo.mjs';
+import { getSampleKitPrice } from '../../shared/sampleKitPricing.mjs';
 
 function getStripe() {
   const secret = process.env.STRIPE_SECRET_KEY;
@@ -34,13 +35,25 @@ function buildPaymentRecord(intent, source, extras = {}) {
   };
 }
 
+function resolveKitPriceFromCheckout(checkout) {
+  const country =
+    checkout?.shipping?.country ||
+    checkout?.billing?.country ||
+    checkout?.country ||
+    '';
+  return getSampleKitPrice(country);
+}
+
 /**
  * Create a PaymentIntent for the curated sample kit and persist intent metadata.
- * If reusePaymentIntentId is provided, only refresh checkout attachment metadata.
+ * Amount/currency follow the customer's country (fallback USD $100).
+ * If reusePaymentIntentId is provided, refresh only when currency+amount still match.
  */
-export async function createSampleKitPaymentIntent(sessionId, { reusePaymentIntentId } = {}) {
-  const amount = Number(process.env.STRIPE_SAMPLE_KIT_AMOUNT_CENTS || 10000);
-  const currency = process.env.STRIPE_CURRENCY || 'usd';
+export async function createSampleKitPaymentIntent(
+  sessionId,
+  { reusePaymentIntentId, checkout = null } = {},
+) {
+  const { amount, currency } = resolveKitPriceFromCheckout(checkout);
   const stripe = getStripe();
 
   if (reusePaymentIntentId) {
@@ -50,20 +63,44 @@ export async function createSampleKitPaymentIntent(sessionId, { reusePaymentInte
       err.statusCode = 403;
       throw err;
     }
-    return {
-      clientSecret: existing.client_secret,
-      paymentIntentId: existing.id,
-      amount: existing.amount,
-      currency: existing.currency,
-      reused: true,
-    };
+
+    const samePrice =
+      String(existing.currency || '').toLowerCase() === currency &&
+      Number(existing.amount) === amount;
+
+    if (samePrice && ['requires_payment_method', 'requires_confirmation', 'requires_action'].includes(existing.status)) {
+      return {
+        clientSecret: existing.client_secret,
+        paymentIntentId: existing.id,
+        amount: existing.amount,
+        currency: existing.currency,
+        reused: true,
+      };
+    }
+
+    // Country/currency changed (or intent no longer reusable) — create a fresh intent.
+    if (['requires_payment_method', 'requires_confirmation', 'requires_action'].includes(existing.status)) {
+      try {
+        await stripe.paymentIntents.cancel(reusePaymentIntentId);
+      } catch {
+        // Best-effort cancel; continue creating a new intent.
+      }
+    }
   }
 
   const intent = await stripe.paymentIntents.create({
     amount,
     currency,
     automatic_payment_methods: { enabled: true },
-    metadata: { samplingSessionId: sessionId, product: 'curated-sample-kit' },
+    metadata: {
+      samplingSessionId: sessionId,
+      product: 'curated-sample-kit',
+      pricingCountry: String(
+        checkout?.shipping?.country || checkout?.billing?.country || '',
+      )
+        .trim()
+        .toUpperCase(),
+    },
   });
 
   await recordPaymentIntent(sessionId, {

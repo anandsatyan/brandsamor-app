@@ -44,6 +44,8 @@ interface ShopifyCheckoutProps {
   sessionId: string;
   clientSecret: string | null;
   paymentIntentId: string | null;
+  kitPrice: { amount: number; currency: string };
+  priceLabel: string;
   initializingPayment: boolean;
   onEnsurePaymentIntent: (checkout: CheckoutFormData) => Promise<void>;
   onPaid: (result: PaidCheckoutResult) => void;
@@ -94,9 +96,13 @@ const appearance = {
 const OrderSummary = ({
   fragrances,
   onRestart,
+  priceLabel,
+  currencyCode,
 }: {
   fragrances: PublicFragrance[];
   onRestart?: () => void;
+  priceLabel: string;
+  currencyCode: string;
 }) => (
   <aside className="checkout-summary">
     <div className="checkout-summary-inner space-y-5">
@@ -117,7 +123,7 @@ const OrderSummary = ({
             <p className="text-sm font-medium text-[#2b1809]">Brandsamor Curated Sample Kit</p>
             <p className="mt-1 text-xs text-[#725f52]">Five fragrance samples selected for your brand</p>
           </div>
-          <p className="text-sm font-medium text-[#2b1809]">$100.00</p>
+          <p className="text-sm font-medium text-[#2b1809]">{priceLabel}</p>
         </div>
       </div>
 
@@ -139,11 +145,14 @@ const OrderSummary = ({
           <li>Five curated fragrance samples</li>
           <li>Tester strips + evaluation guide</li>
           <li>Standard shipping</li>
-          <li>$100 credited toward your first production order</li>
+          <li>
+            {priceLabel} redeemable toward your first bulk / production order
+          </li>
         </ul>
         <p className="pt-1">
           After the kit: compare on skin → choose a direction → we move into packaging and
-          production when you&apos;re ready.
+          production when you&apos;re ready. Your sample-kit payment can be redeemed when you place
+          that bulk order.
         </p>
       </div>
 
@@ -163,7 +172,7 @@ const OrderSummary = ({
       <div className="space-y-2 border-t border-[#e8e0d8] pt-4 text-sm">
         <div className="flex justify-between text-[#725f52]">
           <span>Subtotal</span>
-          <span>$100.00</span>
+          <span>{priceLabel}</span>
         </div>
         <div className="flex justify-between text-[#725f52]">
           <span>Shipping</span>
@@ -172,8 +181,8 @@ const OrderSummary = ({
         <div className="flex items-baseline justify-between border-t border-[#e8e0d8] pt-3">
           <span className="text-base font-medium text-[#2b1809]">Total</span>
           <div className="text-right">
-            <span className="mr-2 text-xs text-[#725f52]">USD</span>
-            <span className="text-xl font-semibold text-[#2b1809]">$100.00</span>
+            <span className="mr-2 text-xs text-[#725f52]">{currencyCode.toUpperCase()}</span>
+            <span className="text-xl font-semibold text-[#2b1809]">{priceLabel}</span>
           </div>
         </div>
       </div>
@@ -190,12 +199,14 @@ const CheckoutPaymentForm = ({
   checkout,
   sessionId,
   paymentIntentId,
+  priceLabel,
   onPaid,
   externalError,
 }: {
   checkout: CheckoutFormData;
   sessionId: string;
   paymentIntentId: string;
+  priceLabel: string;
   onPaid: (result: PaidCheckoutResult) => void;
   externalError: string | null;
 }) => {
@@ -284,7 +295,7 @@ const CheckoutPaymentForm = ({
       )}
 
       <button type="submit" disabled={!stripe || !elements || submitting} className="checkout-pay-btn">
-        {submitting ? 'Processing secure payment…' : 'Lock in these five — pay $100.00'}
+        {submitting ? 'Processing secure payment…' : `Lock in these five — pay ${priceLabel}`}
       </button>
     </form>
   );
@@ -296,6 +307,8 @@ export const ShopifyCheckout = ({
   sessionId,
   clientSecret,
   paymentIntentId,
+  kitPrice,
+  priceLabel,
   initializingPayment,
   onEnsurePaymentIntent,
   onPaid,
@@ -303,6 +316,7 @@ export const ShopifyCheckout = ({
   error,
 }: ShopifyCheckoutProps) => {
   const [checkout, setCheckout] = useState<CheckoutFormData>(() => buildInitialCheckout(lead));
+  const shippingCountry = checkout.shipping.country;
 
   useEffect(() => {
     setCheckout(buildInitialCheckout(lead));
@@ -310,9 +324,9 @@ export const ShopifyCheckout = ({
 
   useEffect(() => {
     void onEnsurePaymentIntent(checkout);
-    // Initialize PaymentIntent once when checkout mounts.
+    // Initialize / refresh PaymentIntent when country (currency) may change.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [shippingCountry]);
 
   const updateShipping = (patch: Partial<CheckoutFormData['shipping']>) => {
     setCheckout((prev) => {
@@ -581,11 +595,16 @@ export const ShopifyCheckout = ({
               )}
 
               {clientSecret && paymentIntentId ? (
-                <Elements stripe={getStripePromise()} options={{ clientSecret, appearance }}>
+                <Elements
+                  key={clientSecret}
+                  stripe={getStripePromise()}
+                  options={{ clientSecret, appearance }}
+                >
                   <CheckoutPaymentForm
                     checkout={checkout}
                     sessionId={sessionId}
                     paymentIntentId={paymentIntentId}
+                    priceLabel={priceLabel}
                     onPaid={onPaid}
                     externalError={error}
                   />
@@ -622,7 +641,12 @@ export const ShopifyCheckout = ({
           </p>
         </div>
 
-        <OrderSummary fragrances={fragrances} onRestart={onRestart} />
+        <OrderSummary
+          fragrances={fragrances}
+          onRestart={onRestart}
+          priceLabel={priceLabel}
+          currencyCode={kitPrice.currency}
+        />
       </div>
     </div>
   );

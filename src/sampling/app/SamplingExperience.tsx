@@ -22,6 +22,11 @@ import { OrderThankYou } from '../components/checkout/OrderThankYou';
 import { ReviewSection } from '../components/feedback/ReviewSection';
 import { ConfirmDialog } from '../components/feedback/ConfirmDialog';
 import { getStripePublishableKey } from '../lib/stripeClient';
+import {
+  formatSampleKitMoney,
+  getSampleKitPrice,
+  sampleKitPriceLabel,
+} from '../lib/sampleKitPricing';
 
 import {
   BOTTLE_SIZE_OPTIONS,
@@ -159,6 +164,8 @@ export const SamplingExperience = () => {
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const paymentIntentIdRef = useRef<string | null>(null);
+  const [kitCharge, setKitCharge] = useState(() => getSampleKitPrice('US'));
   const [paymentRecord, setPaymentRecord] = useState<Record<string, unknown> | null>(null);
   const [orderRecord, setOrderRecord] = useState<Record<string, unknown> | null>(null);
   const [initializingPayment, setInitializingPayment] = useState(false);
@@ -167,6 +174,14 @@ export const SamplingExperience = () => {
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
   }, [currentStep]);
+
+  useEffect(() => {
+    paymentIntentIdRef.current = paymentIntentId;
+  }, [paymentIntentId]);
+
+  useEffect(() => {
+    setKitCharge(getSampleKitPrice(lead.country));
+  }, [lead.country]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -396,6 +411,7 @@ export const SamplingExperience = () => {
   const printBrief = () => window.print();
 
   const countryName = COUNTRIES.find((c) => c.code === lead.country)?.name ?? lead.country;
+  const resultsPriceLabel = sampleKitPriceLabel(lead.country);
 
   const renderWelcome = () => (
     <ScreenTransition>
@@ -898,7 +914,7 @@ export const SamplingExperience = () => {
       <div className="results-cart mt-8">
         <div className="results-cart-header">
           <span>Your curated sample kit</span>
-          <span className="results-cart-total">$100.00</span>
+          <span className="results-cart-total">{resultsPriceLabel}</span>
         </div>
         <div className="divide-y divide-[#e8e0d8]">
           {loadingFragrances && recommendations.length > 0 && (
@@ -954,7 +970,10 @@ export const SamplingExperience = () => {
           <li>Five fragrance samples matched to your brief</li>
           <li>Tester strips and a short evaluation guide</li>
           <li>Standard shipping included</li>
-          <li>Your $100 kit fee is credited toward your first production order</li>
+          <li>
+            Your {resultsPriceLabel} sample-kit payment can be redeemed toward your first bulk /
+            production order with Brandsamor
+          </li>
         </ul>
       </section>
 
@@ -980,7 +999,7 @@ export const SamplingExperience = () => {
           </PrimaryButton>
         </StickyActionBar>
         <p className="mt-3 text-center text-xs text-[#725F52]">
-          Shipping included · $100 credited toward production
+          Shipping included · {resultsPriceLabel} redeemable on your first bulk order
         </p>
       </div>
 
@@ -1009,14 +1028,17 @@ export const SamplingExperience = () => {
       setCheckoutError('Stripe publishable key is not configured (VITE_STRIPE_PUBLISHABLE_KEY).');
       return;
     }
-    if (paymentClientSecret && paymentIntentId) return;
 
     setInitializingPayment(true);
     try {
       const res = await fetch('/api/checkout/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId, checkout }),
+        body: JSON.stringify({
+          sessionId,
+          checkout,
+          reusePaymentIntentId: paymentIntentIdRef.current || undefined,
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? 'Could not initialize payment');
@@ -1025,6 +1047,14 @@ export const SamplingExperience = () => {
       }
       setPaymentClientSecret(data.clientSecret);
       setPaymentIntentId(data.paymentIntentId);
+      if (typeof data.amount === 'number' && data.currency) {
+        setKitCharge({
+          amount: data.amount,
+          currency: String(data.currency).toLowerCase(),
+        });
+      } else {
+        setKitCharge(getSampleKitPrice(checkout.shipping?.country || lead.country));
+      }
     } catch (e) {
       setCheckoutError(e instanceof Error ? e.message : 'Could not initialize payment');
     } finally {
@@ -1060,6 +1090,8 @@ export const SamplingExperience = () => {
           sessionId={sessionId}
           clientSecret={paymentClientSecret}
           paymentIntentId={paymentIntentId}
+          kitPrice={kitCharge}
+          priceLabel={formatSampleKitMoney(kitCharge.amount, kitCharge.currency)}
           initializingPayment={initializingPayment}
           onEnsurePaymentIntent={ensurePaymentIntent}
           onPaid={handlePaymentPaid}

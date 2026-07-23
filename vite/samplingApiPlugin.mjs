@@ -195,6 +195,7 @@ export const samplingApiPlugin = () => ({
 
           await attachCheckoutDetails(sessionId, checkout);
           const result = await createSampleKitPaymentIntent(sessionId, {
+            checkout,
             reusePaymentIntentId: payload?.reusePaymentIntentId
               ? String(payload.reusePaymentIntentId)
               : undefined,

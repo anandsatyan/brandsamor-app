@@ -493,6 +493,7 @@ const server = http.createServer(async (req, res) => {
 
       await attachCheckoutDetails(sessionId, checkout);
       const result = await createSampleKitPaymentIntent(sessionId, {
+        checkout,
         reusePaymentIntentId: payload?.reusePaymentIntentId
           ? String(payload.reusePaymentIntentId)
           : undefined,

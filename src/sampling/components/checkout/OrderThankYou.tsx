@@ -2,6 +2,7 @@ import { CheckCircle2, Copy } from 'lucide-react';
 import { useState } from 'react';
 import { PrimaryButton, StickyActionBar } from '../layout/StickyActionBar';
 import { PaymentTrustSignals } from './PaymentTrustSignals';
+import { formatSampleKitMoney } from '../../lib/sampleKitPricing';
 
 type OrderThankYouProps = {
   order: Record<string, unknown> | null;
@@ -26,12 +27,14 @@ export const OrderThankYou = ({ order, payment, onDone }: OrderThankYouProps) =>
       (order?.sampleOrderNumber ? `SO-${order.sampleOrderNumber}` : 'Pending'),
   );
   const transactionId = String(order?.transactionId ?? payment?.transactionId ?? 'Pending');
-  const amount =
+  const currency = String(payment?.currency ?? order?.currency ?? 'usd');
+  const amountCents =
     typeof payment?.amount === 'number'
-      ? `$${(Number(payment.amount) / 100).toFixed(2)}`
+      ? Number(payment.amount)
       : typeof order?.amount === 'number'
-        ? `$${(Number(order.amount) / 100).toFixed(2)}`
-        : '$100.00';
+        ? Number(order.amount)
+        : 10000;
+  const amount = formatSampleKitMoney(amountCents, currency);
 
   const handleCopy = async (label: string, value: string) => {
     const ok = await copyText(value);
