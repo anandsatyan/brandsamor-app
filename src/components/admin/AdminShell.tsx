@@ -140,29 +140,18 @@ export const AdminShell = ({
           </p>
         )}
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <MetricCard
-            label="Leads"
-            value={localStats?.leadsCount ?? '—'}
-            hint="Open sampling journeys"
-            accent="border-l-heading"
-            to="/admin"
-          />
-          <MetricCard
-            label="Orders"
-            value={localStats?.ordersCount ?? '—'}
-            hint="Paid and canceled sample kits"
-            accent="border-l-emerald-500"
-            to="/admin/orders"
-          />
-        </div>
-
         <nav className="mt-6 flex gap-1 border-b border-border/60" aria-label="Admin sections">
           <TabLink to="/admin" active={activeTab === 'leads'}>
             Leads
+            {typeof localStats?.leadsCount === 'number' && (
+              <span className="tabular-nums text-body/80">{localStats.leadsCount}</span>
+            )}
           </TabLink>
           <TabLink to="/admin/orders" active={activeTab === 'orders'}>
             Orders
+            {typeof localStats?.ordersCount === 'number' && (
+              <span className="tabular-nums text-body/80">{localStats.ordersCount}</span>
+            )}
           </TabLink>
           <TabLink to="/admin/funnel" active={activeTab === 'funnel'}>
             Funnel
@@ -175,47 +164,11 @@ export const AdminShell = ({
   );
 };
 
-function MetricCard({
-  label,
-  value,
-  hint,
-  accent,
-  to,
-}: {
-  label: string;
-  value: number | string;
-  hint: string;
-  accent: string;
-  to?: string;
-}) {
-  const content = (
-    <>
-      <p className="type-caption text-body">{label}</p>
-      <p className="mt-1 font-serif text-3xl tracking-tight text-heading">{value}</p>
-      <p className="mt-1 type-caption text-body/80">{hint}</p>
-    </>
-  );
-
-  const className = `rounded-[2px] border border-border/60 border-l-4 bg-white px-4 py-4 ${accent} ${
-    to ? 'transition-colors hover:bg-secondary/40' : ''
-  }`;
-
-  if (to) {
-    return (
-      <Link to={to} className={className}>
-        {content}
-      </Link>
-    );
-  }
-
-  return <div className={className}>{content}</div>;
-}
-
 function TabLink({ to, active, children }: { to: string; active: boolean; children: ReactNode }) {
   return (
     <Link
       to={to}
-      className={`-mb-px border-b-2 px-4 py-2.5 text-sm font-semibold transition-colors ${
+      className={`-mb-px inline-flex items-center gap-2 border-b-2 px-4 py-2.5 text-sm font-semibold transition-colors ${
         active
           ? 'border-heading text-heading'
           : 'border-transparent text-body hover:text-heading'
