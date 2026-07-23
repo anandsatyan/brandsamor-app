@@ -4,6 +4,9 @@ const SITE_URL = (process.env.VITE_SITE_URL || 'https://www.brandsamor.com').rep
 const SCHEDULE_URL = `${SITE_URL}/schedule-a-call`;
 const EMAIL_TYPE = 'exploratory_call_invite';
 
+/** Delay after lead capture so customers can finish the wizard first. */
+export const EXPLORATORY_CALL_INVITE_DELAY_MS = 10 * 60 * 1000;
+
 let dispatchIndexEnsured = false;
 
 async function getMongoDb() {
@@ -71,16 +74,16 @@ export function buildExploratoryCallInviteEmail({ fullName, email }) {
 }
 
 /**
- * Send the exploratory-call invite at most once per email address.
- * Safe to call on every lead upsert — duplicate key claim prevents resends.
- * Never throws.
+ * Schedule the exploratory-call invite ~10 minutes after lead capture.
+ * At most once per email address for life of that address.
+ * Safe to call on every lead upsert — never throws.
  */
 export async function maybeSendExploratoryCallInviteOnce({ sessionId, lead }) {
   const email = String(lead?.email ?? '')
     .trim()
     .toLowerCase();
-  if (!email || !email.includes('@')) {
-    return { ok: false, skipped: true, reason: 'missing_email' };
+  if (!email || !email.includes('@') || !sessionId) {
+    return { ok: false, skipped: true, reason: 'missing_email_or_session' };
   }
 
   const db = await getMongoDb();
@@ -91,73 +94,184 @@ export async function maybeSendExploratoryCallInviteOnce({ sessionId, lead }) {
     console.error('[exploratory-call-invite] Failed to ensure indexes:', message);
   }
 
-  try {
-    await db.collection('emailDispatch').insertOne({
-      type: EMAIL_TYPE,
-      email,
-      sessionId: sessionId || null,
-      status: 'sending',
-      claimedAt: new Date(),
-    });
-  } catch (error) {
-    if (error?.code === 11000) {
-      return { ok: true, skipped: true, reason: 'already_sent' };
-    }
-    const message = error instanceof Error ? error.message : String(error);
-    console.error('[exploratory-call-invite] Failed to claim send slot:', message);
-    return { ok: false, error: message };
+  // Already claimed / sent for this email — never schedule again.
+  const existingDispatch = await db.collection('emailDispatch').findOne({
+    type: EMAIL_TYPE,
+    email,
+  });
+  if (existingDispatch) {
+    return { ok: true, skipped: true, reason: 'already_claimed_or_sent' };
   }
 
-  try {
-    const content = buildExploratoryCallInviteEmail({
-      fullName: lead?.fullName,
-      email,
-    });
-    const result = await sendBrandsamorMail({
-      to: email,
-      subject: content.subject,
-      text: content.text,
-      // Intentionally omit html — multipart HTML invites look more like marketing spam.
-      replyTo: 'info@brandsamor.com',
-      from: content.from,
-    });
+  // Another session may already be waiting to send for this email.
+  const existingSchedule = await db.collection('samplingSessions').findOne({
+    'emails.exploratoryCallInvite.email': email,
+    'emails.exploratoryCallInvite.status': { $in: ['scheduled', 'sending', 'sent'] },
+  });
+  if (existingSchedule) {
+    return { ok: true, skipped: true, reason: 'already_scheduled_or_sent' };
+  }
 
-    const sentAt = new Date();
-    await db.collection('emailDispatch').updateOne(
-      { type: EMAIL_TYPE, email },
-      {
-        $set: {
-          status: 'sent',
-          sentAt,
-          mode: result.mode,
-          sessionId: sessionId || null,
+  const now = new Date();
+  const sendAt = new Date(now.getTime() + EXPLORATORY_CALL_INVITE_DELAY_MS);
+
+  await db.collection('samplingSessions').updateOne(
+    {
+      sessionId,
+      $or: [
+        { 'emails.exploratoryCallInvite': { $exists: false } },
+        {
+          'emails.exploratoryCallInvite.status': {
+            $in: ['failed', 'skipped_no_email'],
+          },
         },
+      ],
+    },
+    {
+      $set: {
+        'emails.exploratoryCallInvite': {
+          status: 'scheduled',
+          email,
+          scheduledAt: now,
+          sendAt,
+          fullName: String(lead?.fullName ?? '').trim() || null,
+        },
+        updatedAt: now,
       },
-    );
+    },
+  );
 
-    if (sessionId) {
+  return { ok: true, sendAt };
+}
+
+/**
+ * Send due exploratory-call invites scheduled after lead capture.
+ */
+export async function processDueExploratoryCallInvites({ limit = 25 } = {}) {
+  const db = await getMongoDb();
+  try {
+    await ensureEmailDispatchIndexes();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn('[exploratory-call-invite] index ensure failed:', message);
+  }
+
+  const now = new Date();
+  const due = await db
+    .collection('samplingSessions')
+    .find({
+      'emails.exploratoryCallInvite.status': 'scheduled',
+      'emails.exploratoryCallInvite.sendAt': { $lte: now },
+    })
+    .sort({ 'emails.exploratoryCallInvite.sendAt': 1 })
+    .limit(Math.min(Math.max(limit, 1), 100))
+    .toArray();
+
+  let sent = 0;
+  let failed = 0;
+  let skipped = 0;
+
+  for (const doc of due) {
+    const email = String(doc.emails?.exploratoryCallInvite?.email || doc.lead?.email || '')
+      .trim()
+      .toLowerCase();
+    if (!email || !email.includes('@')) {
       await db.collection('samplingSessions').updateOne(
-        { sessionId },
+        { sessionId: doc.sessionId },
         {
           $set: {
-            'emails.exploratoryCallInvite': {
-              sentAt,
-              mode: result.mode,
-              to: email,
-            },
+            'emails.exploratoryCallInvite.status': 'skipped_no_email',
+            updatedAt: new Date(),
           },
         },
       );
+      skipped += 1;
+      continue;
     }
 
-    const masked = email.replace(/(.{2}).+(@.+)/, '$1***$2');
-    console.log(`[exploratory-call-invite] ${result.mode} to ${masked}`);
-    return { ok: true, mode: result.mode };
-  } catch (error) {
-    // Release claim so a later upsert can retry.
-    await db.collection('emailDispatch').deleteOne({ type: EMAIL_TYPE, email }).catch(() => {});
-    const message = error instanceof Error ? error.message : String(error);
-    console.error('[exploratory-call-invite] Failed to send:', message);
-    return { ok: false, error: message };
+    try {
+      await db.collection('emailDispatch').insertOne({
+        type: EMAIL_TYPE,
+        email,
+        sessionId: doc.sessionId,
+        status: 'sending',
+        claimedAt: new Date(),
+      });
+    } catch (error) {
+      if (error?.code === 11000) {
+        await db.collection('samplingSessions').updateOne(
+          { sessionId: doc.sessionId },
+          {
+            $set: {
+              'emails.exploratoryCallInvite.status': 'already_sent',
+              updatedAt: new Date(),
+            },
+          },
+        );
+        skipped += 1;
+        continue;
+      }
+      failed += 1;
+      continue;
+    }
+
+    try {
+      const content = buildExploratoryCallInviteEmail({
+        fullName: doc.emails?.exploratoryCallInvite?.fullName || doc.lead?.fullName,
+        email,
+      });
+      const result = await sendBrandsamorMail({
+        to: email,
+        subject: content.subject,
+        text: content.text,
+        replyTo: 'info@brandsamor.com',
+        from: content.from,
+      });
+
+      const sentAt = new Date();
+      await db.collection('emailDispatch').updateOne(
+        { type: EMAIL_TYPE, email },
+        {
+          $set: {
+            status: 'sent',
+            sentAt,
+            mode: result.mode,
+            sessionId: doc.sessionId,
+          },
+        },
+      );
+      await db.collection('samplingSessions').updateOne(
+        { sessionId: doc.sessionId },
+        {
+          $set: {
+            'emails.exploratoryCallInvite.status': 'sent',
+            'emails.exploratoryCallInvite.sentAt': sentAt,
+            'emails.exploratoryCallInvite.mode': result.mode,
+            'emails.exploratoryCallInvite.to': email,
+            updatedAt: sentAt,
+          },
+        },
+      );
+      sent += 1;
+      const masked = email.replace(/(.{2}).+(@.+)/, '$1***$2');
+      console.log(`[exploratory-call-invite] ${result.mode} to ${masked}`);
+    } catch (error) {
+      await db.collection('emailDispatch').deleteOne({ type: EMAIL_TYPE, email }).catch(() => {});
+      const message = error instanceof Error ? error.message : String(error);
+      await db.collection('samplingSessions').updateOne(
+        { sessionId: doc.sessionId },
+        {
+          $set: {
+            'emails.exploratoryCallInvite.status': 'failed',
+            'emails.exploratoryCallInvite.lastError': message.slice(0, 500),
+            updatedAt: new Date(),
+          },
+        },
+      );
+      failed += 1;
+      console.error('[exploratory-call-invite] Failed to send:', message);
+    }
   }
+
+  return { ok: true, processed: due.length, sent, failed, skipped };
 }

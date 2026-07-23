@@ -50,9 +50,8 @@ export const isStepComplete = (
     case 4:
       return Boolean(answers.intensity && answers.useCase);
     case 5:
-      // commercialTier is required for new briefs, but optional for legacy sessions
-      // that already progressed past preferences without it.
-      return answers.exclusions.length > 0;
+      // commercialTier is required for new briefs; exclusions are optional.
+      return Boolean(answers.commercialTier);
     case 6:
       return true;
     default:

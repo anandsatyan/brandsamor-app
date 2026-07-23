@@ -2,6 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { computeFunnelDropoff } from '../server/admin/funnelStats.mjs';
 import { buildResumeBriefEmail, RESUME_EMAIL_DELAY_MS } from '../server/sampling/resumeBriefEmail.mjs';
+import {
+  buildExploratoryCallInviteEmail,
+  EXPLORATORY_CALL_INVITE_DELAY_MS,
+} from '../server/sampling/exploratoryCallInviteEmail.mjs';
 
 test('resume brief email is plain text with resume link', () => {
   const mail = buildResumeBriefEmail({
@@ -13,6 +17,16 @@ test('resume brief email is plain text with resume link', () => {
   assert.match(mail.text, /curated-sampling/);
   assert.match(mail.text, /Preferences/);
   assert.equal(RESUME_EMAIL_DELAY_MS, 2 * 60 * 60 * 1000);
+});
+
+test('exploratory call invite is delayed ten minutes after lead capture', () => {
+  assert.equal(EXPLORATORY_CALL_INVITE_DELAY_MS, 10 * 60 * 1000);
+  const mail = buildExploratoryCallInviteEmail({
+    fullName: 'Alex Founder',
+    email: 'alex@example.com',
+  });
+  assert.match(mail.subject, /Alex/);
+  assert.match(mail.text, /schedule-a-call/);
 });
 
 test('funnel dropoff highlights stuck checkout vs contact', () => {

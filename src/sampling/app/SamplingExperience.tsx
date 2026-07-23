@@ -822,7 +822,7 @@ export const SamplingExperience = () => {
             <strong className="font-bold">AVOID</strong>?
           </legend>
           <p className="mb-3 type-caption text-[#725F52]">
-            Choose up to 4. Selecting none/unsure clears the others.
+            Optional — choose up to 4. Selecting none/unsure clears the others.
           </p>
           <div className="flex flex-wrap gap-3">
             {EXCLUSION_OPTIONS.map((opt) => (
@@ -859,7 +859,7 @@ export const SamplingExperience = () => {
       </div>
       <WizardFooter onBack={() => goToStep(STEP_EXPERIENCE)}>
         <PrimaryButton
-          disabled={answers.exclusions.length === 0 || !answers.commercialTier}
+          disabled={!answers.commercialTier}
           onClick={() => completeStep('preferences', STEP_REVIEW)}
         >
           Continue
@@ -928,7 +928,10 @@ export const SamplingExperience = () => {
               : []),
             {
               label: 'Avoid',
-              value: answers.exclusions.map((e) => getLabel(e)).join(', '),
+              value:
+                answers.exclusions.length > 0
+                  ? answers.exclusions.map((e) => getLabel(e)).join(', ')
+                  : 'None selected',
             },
             ...(answers.likedFragrances
               ? [{ label: 'Likes', value: answers.likedFragrances }]

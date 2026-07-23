@@ -27,6 +27,7 @@ import {
   handleAdminFunnel,
 } from './server/admin/handlers.mjs';
 import { processDueResumeBriefEmails } from './server/sampling/resumeBriefEmail.mjs';
+import { processDueExploratoryCallInvites } from './server/sampling/exploratoryCallInviteEmail.mjs';
 import {
   handleScentStudioCreate,
   handleScentStudioGet,
@@ -606,13 +607,18 @@ const server = http.createServer(async (req, res) => {
 server.listen(port, '0.0.0.0', () => {
   console.log(`Brandsamor server listening on http://0.0.0.0:${port}`);
 
-  // Process due Save+exit resume emails when sending is enabled (no backfill of old leads).
-  const tickResumeEmails = () => {
+  // Process due delayed emails (exploratory-call invite + Save+exit resume).
+  const tickDelayedEmails = () => {
+    void processDueExploratoryCallInvites({ limit: 25 }).catch((error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn('[exploratory-call-invite] processor error:', message);
+    });
     void processDueResumeBriefEmails({ limit: 25 }).catch((error) => {
       const message = error instanceof Error ? error.message : String(error);
       console.warn('[resume-brief] processor error:', message);
     });
   };
-  tickResumeEmails();
-  setInterval(tickResumeEmails, 5 * 60 * 1000).unref?.();
+  tickDelayedEmails();
+  // Every minute so the ~10 minute exploratory-call delay stays accurate.
+  setInterval(tickDelayedEmails, 60 * 1000).unref?.();
 });

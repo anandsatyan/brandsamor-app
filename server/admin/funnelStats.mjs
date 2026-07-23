@@ -281,6 +281,7 @@ const QUESTIONS = [
     key: 'preferences.exclusions',
     step: 'preferences',
     label: 'Exclusions',
+    optional: true,
     test: (d) => Array.isArray(d.answers?.exclusions) && d.answers.exclusions.length > 0,
     getValues: multi((d) => d.answers?.exclusions),
     knownOptions: [
