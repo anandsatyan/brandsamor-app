@@ -2,6 +2,8 @@
  * Sample kit localized pricing.
  * Fixed friendly prices ≈ USD $100 purchasing power (not live FX).
  * Unknown country / unsupported currency → USD $100.
+ *
+ * Keep in sync with src/sampling/lib/sampleKitPricing.ts (used by the Vite app).
  */
 
 /** Stripe zero-decimal currencies (amount is in whole currency units). */
