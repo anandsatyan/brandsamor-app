@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { type ReactNode, useEffect, useState } from 'react';
 import { BrandLogo } from '../BrandLogo';
 import { SeoHead } from '../SeoHead';
-import { statusMeta } from './adminFormat';
 
 export type AdminStats = {
   leadsCount: number;
@@ -101,8 +100,6 @@ export const AdminShell = ({
 
   if (!authenticated) return null;
 
-  const byStatus = localStats?.byStatus ?? {};
-
   return (
     <div className="min-h-screen bg-surface text-heading">
       <SeoHead title={title} description={description} url={canonicalUrl} robots="noindex, nofollow" />
@@ -143,12 +140,13 @@ export const AdminShell = ({
           </p>
         )}
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <MetricCard
             label="Leads"
             value={localStats?.leadsCount ?? '—'}
-            hint="Sampling contacts (one open lead per email)"
+            hint="Open sampling journeys"
             accent="border-l-heading"
+            to="/admin"
           />
           <MetricCard
             label="Orders"
@@ -157,36 +155,7 @@ export const AdminShell = ({
             accent="border-l-emerald-500"
             to="/admin/orders"
           />
-          <MetricCard
-            label="In progress"
-            value={byStatus.in_progress ?? 0}
-            hint="Still in the questionnaire"
-            accent="border-l-amber-500"
-          />
-          <MetricCard
-            label="Checkout started"
-            value={byStatus.checkout_started ?? 0}
-            hint="Reached checkout, not paid yet"
-            accent="border-l-violet-500"
-          />
         </div>
-
-        {(byStatus.curated || byStatus.checkout_started || byStatus.in_progress) && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {(['in_progress', 'curated', 'checkout_started'] as const).map((key) => {
-              const meta = statusMeta(key);
-              return (
-                <span
-                  key={key}
-                  className={`inline-flex items-center gap-1.5 rounded-[2px] border px-2.5 py-1 text-xs font-medium ${meta.className}`}
-                >
-                  <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClassName}`} />
-                  {meta.label}: {byStatus[key] ?? 0}
-                </span>
-              );
-            })}
-          </div>
-        )}
 
         <nav className="mt-6 flex gap-1 border-b border-border/60" aria-label="Admin sections">
           <TabLink to="/admin" active={activeTab === 'leads'}>
