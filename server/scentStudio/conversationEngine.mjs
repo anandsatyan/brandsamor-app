@@ -9,6 +9,19 @@ import {
   validateTurnOutput,
 } from './state.mjs';
 
+function wantsFinishReview(text) {
+  const lower = String(text || '').toLowerCase();
+  return (
+    /\bprepare for sampling\b/.test(lower) ||
+    /\brequest (formulation|samples?)\b/.test(lower) ||
+    /\bi'?m done\b/.test(lower) ||
+    /\bready for (sampling|review|samples?)\b/.test(lower) ||
+    /\blooks good\b/.test(lower) ||
+    /\bfinalize\b/.test(lower) ||
+    /\breview (the )?(concept|scent|direction)\b/.test(lower)
+  );
+}
+
 function recentMessages(messages, limit = 8) {
   const list = Array.isArray(messages) ? messages : [];
   return list.slice(-limit).map((m) => ({
@@ -162,23 +175,46 @@ export async function processConversationTurn({ doc, userMessage }) {
     nextState.currentStage = turn.nextStage;
   }
 
-  if (turn.readyForFormula) {
+  const finishIntent = wantsFinishReview(text);
+  const suppressAutoReview = Boolean(state.reviewDismissed || nextState.reviewDismissed) && !finishIntent;
+
+  if (turn.readyForFormula && !suppressAutoReview) {
     nextState.stage = 'ready_for_formula';
     nextState.currentStage = 'review';
     nextState.conceptReady = true;
+    nextState.reviewDismissed = false;
     nextState.developmentStatus = 'concept-ready';
-  } else if (hasScentCardContent(nextState)) {
-    if (nextState.stage === 'discovery' || nextState.stage === 'opening') {
-      nextState.stage = 'refining';
+  } else {
+    // After "Refine this scent", keep chatting — never bounce back to review
+    // just because conceptReady was sticky from an earlier turn.
+    if (suppressAutoReview) {
+      nextState.conceptReady = false;
+      nextState.reviewDismissed = true;
+      if (nextState.stage === 'ready_for_formula') {
+        nextState.stage = 'refining';
+      }
+      if (nextState.currentStage === 'review' || nextState.currentStage === 'complete') {
+        nextState.currentStage = 'notes';
+      }
+      if (nextState.developmentStatus === 'concept-ready') {
+        nextState.developmentStatus = 'draft';
+      }
+      turn.readyForFormula = false;
     }
-    if (!nextState.currentStage || nextState.currentStage === 'opening') {
-      nextState.currentStage = 'direction';
-    }
-    if (Number(nextState.confidence?.overall || 0) >= 0.55 && nextState.currentStage === 'direction') {
-      nextState.currentStage = 'character';
-    }
-    if (Number(nextState.confidence?.overall || 0) >= 0.7) {
-      nextState.currentStage = nextState.currentStage === 'review' ? 'review' : 'notes';
+
+    if (hasScentCardContent(nextState)) {
+      if (nextState.stage === 'discovery' || nextState.stage === 'opening') {
+        nextState.stage = 'refining';
+      }
+      if (!nextState.currentStage || nextState.currentStage === 'opening') {
+        nextState.currentStage = 'direction';
+      }
+      if (Number(nextState.confidence?.overall || 0) >= 0.55 && nextState.currentStage === 'direction') {
+        nextState.currentStage = 'character';
+      }
+      if (Number(nextState.confidence?.overall || 0) >= 0.7 && nextState.currentStage !== 'review') {
+        nextState.currentStage = 'notes';
+      }
     }
   }
 

@@ -20,6 +20,7 @@ import { SamplingHandoffCard } from '../components/SamplingHandoffCard';
 import {
   createConsultation,
   loadConsultation,
+  resumeRefining,
   sendMessage,
   submitForSampling,
 } from '../lib/api';
@@ -53,6 +54,8 @@ export function ScentStudioExperience() {
   const [statusLine, setStatusLine] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [contactGateShown, setContactGateShown] = useState(false);
+  const [reviewDismissed, setReviewDismissed] = useState(false);
+  const [reviewAvailable, setReviewAvailable] = useState(false);
 
   function refreshLibrary(nextConsultation?: ScentConsultation | null) {
     if (nextConsultation) {
@@ -114,13 +117,18 @@ export function ScentStudioExperience() {
         setConsultation(existing);
         refreshLibrary(existing);
         setContactGateShown(Boolean(existing.contactCaptured));
+        setReviewDismissed(Boolean(existing.reviewDismissed));
+        setReviewAvailable(Boolean(existing.conceptReady || existing.reviewDismissed));
         if (existing.submittedAt) setUiPhase('chat');
-        else if (existing.conceptReady) setUiPhase('concept');
+        else if (existing.conceptReady && !existing.reviewDismissed) setUiPhase('concept');
         else setUiPhase('chat');
       } catch {
         if (!cancelled && local.snapshot?.messages?.length) {
           setConsultation(local.snapshot);
-          setUiPhase(local.snapshot.conceptReady ? 'concept' : 'chat');
+          setReviewDismissed(Boolean(local.snapshot.reviewDismissed));
+          setUiPhase(
+            local.snapshot.conceptReady && !local.snapshot.reviewDismissed ? 'concept' : 'chat',
+          );
         } else if (!cancelled) {
           setUiPhase('opening');
         }
@@ -143,6 +151,8 @@ export function ScentStudioExperience() {
       setConsultation(created);
       refreshLibrary(created);
       setActiveConsultationId(created.consultationId);
+      setReviewDismissed(false);
+      setReviewAvailable(false);
       setUiPhase('chat');
       setSidebarOpen(false);
       scentStudioAnalytics.started(mode);
@@ -173,11 +183,20 @@ export function ScentStudioExperience() {
       const existing = await loadConsultation(local.consultationId, local.recoveryToken);
       setConsultation(existing);
       refreshLibrary(existing);
-      setUiPhase(existing.conceptReady && !existing.submittedAt ? 'concept' : 'chat');
+      setReviewDismissed(Boolean(existing.reviewDismissed));
+      setReviewAvailable(Boolean(existing.conceptReady || existing.reviewDismissed));
+      setUiPhase(
+        existing.conceptReady && !existing.reviewDismissed && !existing.submittedAt
+          ? 'concept'
+          : 'chat',
+      );
     } catch {
       if (local.snapshot) {
         setConsultation(local.snapshot);
-        setUiPhase(local.snapshot.conceptReady ? 'concept' : 'chat');
+        setReviewDismissed(Boolean(local.snapshot.reviewDismissed));
+        setUiPhase(
+          local.snapshot.conceptReady && !local.snapshot.reviewDismissed ? 'concept' : 'chat',
+        );
       } else {
         setError('Could not open that conversation');
         scentStudioAnalytics.error('restore_failed');
@@ -224,17 +243,27 @@ export function ScentStudioExperience() {
         scentStudioAnalytics.initialDirection(withTitle.startMode, turns);
       }
 
-      if (withTitle.conceptReady || result.readyForFormula) {
+      // Only open the review UI when this turn newly marks the concept ready.
+      // Sticky conceptReady after "Refine this scent" must not bounce the user back.
+      if (result.readyForFormula && !withTitle.reviewDismissed) {
+        setReviewDismissed(false);
+        setReviewAvailable(true);
         scentStudioAnalytics.conceptCompleted(withTitle.startMode, withTitle.scentCard?.version);
         setUiPhase('concept');
-      } else if (
-        withTitle.scentCard &&
-        turns >= 3 &&
-        !withTitle.contactCaptured &&
-        !contactGateShown
-      ) {
-        setContactGateShown(true);
-        scentStudioAnalytics.contactGate();
+      } else {
+        if (withTitle.reviewDismissed) {
+          setReviewDismissed(true);
+          setReviewAvailable(true);
+        }
+        if (
+          withTitle.scentCard &&
+          turns >= 3 &&
+          !withTitle.contactCaptured &&
+          !contactGateShown
+        ) {
+          setContactGateShown(true);
+          scentStudioAnalytics.contactGate();
+        }
       }
     } catch (e) {
       setConsultation((prev) =>
@@ -307,6 +336,8 @@ export function ScentStudioExperience() {
           setConsultation(null);
           setUiPhase('opening');
           setActiveConsultationId(null);
+          setReviewDismissed(false);
+          setReviewAvailable(false);
           setSidebarOpen(false);
         }}
         creating={sending && !consultation}
@@ -397,7 +428,33 @@ export function ScentStudioExperience() {
                   {uiPhase === 'concept' && consultation.scentCard ? (
                     <FinalConceptReview
                       card={consultation.scentCard}
-                      onRefine={() => setUiPhase('chat')}
+                      onRefine={() => {
+                        void (async () => {
+                          setUiPhase('chat');
+                          setReviewDismissed(true);
+                          setReviewAvailable(true);
+                          try {
+                            const next = await resumeRefining(
+                              consultation.consultationId,
+                              consultation.recoveryToken,
+                            );
+                            setConsultation(next);
+                            refreshLibrary(next);
+                          } catch {
+                            // Stay in chat even if the server flag fails to clear;
+                            // local dismiss still prevents review bounce.
+                            setConsultation((prev) =>
+                              prev
+                                ? {
+                                    ...prev,
+                                    conceptReady: false,
+                                    reviewDismissed: true,
+                                  }
+                                : prev,
+                            );
+                          }
+                        })();
+                      }}
                       onRequestSamples={() => {
                         scentStudioAnalytics.sampleCtaViewed();
                         setUiPhase('sample');
@@ -427,6 +484,28 @@ export function ScentStudioExperience() {
                       onQuickReply={(text) => void handleSend(text)}
                     />
                   )}
+
+                  {uiPhase === 'chat' &&
+                    reviewDismissed &&
+                    reviewAvailable &&
+                    consultation.scentCard &&
+                    !submitted && (
+                      <div className="rounded-[2px] border border-[var(--sampling-border)] bg-[var(--sampling-surface)] px-4 py-3">
+                        <p className="text-sm text-[var(--sampling-heading)]">
+                          Keep refining here — your concept review stays available when you want it.
+                        </p>
+                        <button
+                          type="button"
+                          className="mt-2 text-sm font-semibold text-[var(--sampling-orange)] hover:underline"
+                          onClick={() => {
+                            setReviewDismissed(false);
+                            setUiPhase('concept');
+                          }}
+                        >
+                          Review concept
+                        </button>
+                      </div>
+                    )}
 
                   {thinkingLabel && (
                     <p className="text-sm text-[var(--sampling-muted)]" aria-live="polite">

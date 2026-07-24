@@ -57,6 +57,7 @@ export type ScentConsultation = {
   scentCard: ScentCard | null;
   title?: string;
   conceptReady?: boolean;
+  reviewDismissed?: boolean;
   developmentStatus?: string;
   contactCaptured?: boolean;
   saveStatus?: string;

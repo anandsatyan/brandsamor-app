@@ -94,6 +94,8 @@ export function createEmptyScentState(consultationId, startMode = null) {
     },
     contactGateShown: false,
     conceptReady: false,
+    /** True after customer leaves the concept review to keep refining in chat. */
+    reviewDismissed: false,
     developmentStatus: 'draft',
     currentVersion: 1,
     versions: [],
@@ -325,7 +327,11 @@ export function toPublicConsultation(doc) {
         })
       : [],
     scentCard,
-    conceptReady: Boolean(state.conceptReady || state.developmentStatus === 'concept-ready'),
+    conceptReady: Boolean(
+      !state.reviewDismissed &&
+        (state.conceptReady || state.developmentStatus === 'concept-ready'),
+    ),
+    reviewDismissed: Boolean(state.reviewDismissed),
     developmentStatus: state.developmentStatus || 'draft',
     contactCaptured: Boolean(state.contact?.email),
     saveStatus: 'saved',

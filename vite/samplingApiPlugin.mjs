@@ -32,6 +32,7 @@ import {
   handleScentStudioGet,
   handleScentStudioMessage,
   handleScentStudioPrepare,
+  handleScentStudioResumeRefining,
   handleScentStudioSubmit,
 } from '../server/scentStudio/handlers.mjs';
 import {
@@ -102,6 +103,10 @@ export const samplingApiPlugin = () => ({
           }
           if (consultationId && action === 'prepare-for-sampling' && req.method === 'POST') {
             await handleScentStudioPrepare(req, res, consultationId);
+            return;
+          }
+          if (consultationId && action === 'resume-refining' && req.method === 'POST') {
+            await handleScentStudioResumeRefining(req, res, consultationId);
             return;
           }
           if (consultationId && action === 'submit' && req.method === 'POST') {
